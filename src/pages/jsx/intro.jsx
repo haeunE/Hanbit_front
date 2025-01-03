@@ -1,8 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/intro.css';
-import { TbSun } from "react-icons/tb";
-import { IoMoonSharp } from "react-icons/io5";
+import { LuSun } from "react-icons/lu";
+import { WiMoonWaxingCrescent4 } from "react-icons/wi";
 
 function Intro() {
   const navigate = useNavigate();
@@ -19,20 +19,23 @@ function Intro() {
 
   return (
     <div className="outer-container">
-      <div className="image-container">
 
-        <div className='image-logo'>
-          <img src='/img/hanbit_night_logo.PNG' alt="Logo Image" className="image" ></img>
-        </div>
+      <div className='image-top'>
+        <img src='/img/hanbit_night_logo.PNG' alt="Logo Image" id='logo' className="image" ></img>
+        <p>Click the journey you'd like!<br />
+          원하시는 여정을 클릭하세요.</p>
+      </div>
+
+      <div className="image-container">
 
         <div className="image-wrapper" onClick={DayMode}>
           <img src="/img/introday.jpg" alt="Day Image" className="image" />
-          <div className="overlay">DAY</div>
+          <div className="overlay"><LuSun /> DAY</div>
         </div>
-        
+
         <div className="image-wrapper" onClick={NightMode}>
           <img src="/img/intronight.jpg" alt="Night Image" className="image" />
-          <div className="overlay">NIGHT</div>
+          <div className="overlay">NIGHT <WiMoonWaxingCrescent4 /></div>
         </div>
       </div>
     </div>
