@@ -22,7 +22,7 @@ function Intro() {
       <div className="image-container">
 
         <div className='image-logo'>
-          <img src=''></img>
+          <img src='/img/hanbit_night_logo.PNG' alt="Logo Image" className="image" ></img>
         </div>
 
         <div className="image-wrapper" onClick={DayMode}>

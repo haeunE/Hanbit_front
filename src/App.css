@@ -5,12 +5,6 @@
   min-height: 100vh;
 }
 
-.header {
-  color: white;
-  padding: 20px;
-  text-align: center;
-}
-
 .main {
   flex: 1;
   padding: 20px;
