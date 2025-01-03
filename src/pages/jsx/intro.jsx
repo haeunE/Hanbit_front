@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/intro.css';
+import { TbSun } from "react-icons/tb";
+import { IoMoonSharp } from "react-icons/io5";
 
 function Intro() {
   const navigate = useNavigate();
@@ -16,25 +18,25 @@ function Intro() {
   };
 
   return (
-    <div className="intro-container">
+    <div className="outer-container">
       <div className="image-container">
-        {/* 낮 이미지 */}
-        <div className="image-box day">
-          <img src="public/images/seoulday.jpg" alt="Day Seoul" className="image" />
+
+        <div className='image-logo'>
+          <img src=''></img>
         </div>
 
-        {/* 밤 이미지 */}
-        <div className="image-box night">
-          <img src="public/images/seoulnight.jpg" alt="Night Seoul" className="image" />
+        <div className="image-wrapper" onClick={DayMode}>
+          <img src="/img/introday.jpg" alt="Day Image" className="image" />
+          <div className="overlay">DAY</div>
         </div>
-      </div>
-
-      {/* 버튼 */}
-      <div className="button-container">
-        <button onClick={DayMode}>Day Seoul</button>
-        <button onClick={NightMode}>Night Seoul</button>
+        
+        <div className="image-wrapper" onClick={NightMode}>
+          <img src="/img/intronight.jpg" alt="Night Image" className="image" />
+          <div className="overlay">NIGHT</div>
+        </div>
       </div>
     </div>
+
   );
 }
 
