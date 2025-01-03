@@ -36,36 +36,36 @@ function Header() {
                 <NavDropdown title="편의시설" id="navbarScrollingDropdown">
                   <NavDropdown.Item className={`custom-dropdown-item ${isMode ? 'day' : 'night'}`} href="#action3">
                     <i className="fa-solid fa-store"></i>
-                    편의시설 
+                    &nbsp;&nbsp;&nbsp;편의시설 
                   </NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item className={`custom-dropdown-item ${isMode ? 'day' : 'night'}`} href="#action5">
                     <i className="fa-solid fa-ban"></i>
-                    위험지역 
+                    &nbsp;&nbsp;&nbsp;위험지역 
                   </NavDropdown.Item>
                 </NavDropdown>
                 <NavDropdown title="음식지도" id="navbarScrollingDropdown">
                   <NavDropdown.Item className={`custom-dropdown-item ${isMode ? 'day' : 'night'}`} href="#action3">
                     <i class="fa-solid fa-bowl-food"></i>
-                    음식지도
+                    &nbsp;&nbsp;&nbsp;음식지도
                   </NavDropdown.Item>
                   <NavDropdown.Item className={`custom-dropdown-item ${isMode ? 'day' : 'night'}`} href="#action4">
                     <i class="fa-solid fa-motorcycle"></i>
-                    배달의 나라 
+                    &nbsp;&nbsp;&nbsp;배달의 나라 
                   </NavDropdown.Item>
                 </NavDropdown>
                 <NavDropdown title="교통" id="navbarScrollingDropdown">
                   <NavDropdown.Item className={`custom-dropdown-item ${isMode ? 'day' : 'night'}`} href="#action3">
                     <i class="fa-solid fa-map-pin"></i>
-                    길찾기
+                    &nbsp;&nbsp;&nbsp;길찾기
                   </NavDropdown.Item>
                   <NavDropdown.Item className={`custom-dropdown-item ${isMode ? 'day' : 'night'}`} href="#action4">
                     <i class="fa-solid fa-bus"></i>
-                    대중교통
+                    &nbsp;&nbsp;&nbsp;대중교통
                   </NavDropdown.Item>
                   <NavDropdown.Item className={`custom-dropdown-item ${isMode ? 'day' : 'night'}`} href="#action4">
                     <i class="fa-solid fa-person-biking"></i>
-                    따릉이
+                    &nbsp;&nbsp;&nbsp;따릉이
                   </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
