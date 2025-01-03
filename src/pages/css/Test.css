@@ -1,0 +1,56 @@
+body {
+  display: flex;
+  justify-content: center;   /* 가로 중앙 정렬 */
+  align-items: center;       /* 세로 중앙 정렬 */
+  height: 100vh;             /* 화면 전체 높이를 사용 */
+  margin: 0;                 /* 기본 여백 제거 */
+  background-color: #f4f4f4; /* 배경 색상 설정 (선택사항) */
+}
+
+.outer-container {
+  width: 90%;      /* 전체 너비를 70%로 설정 */
+  height: 60%;     /* 화면 높이의 60%로 설정 */
+  margin: 0 auto;  /* 가운데 정렬 */
+  background-color: #fff; /* 배경 색상 추가 (선택사항) */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 약간의 그림자 효과 (선택사항) */
+}
+
+.image-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.image-wrapper {
+  position: relative;
+  width: 50%; /* 화면을 반으로 나눔 */
+  height: 100%;
+  cursor: pointer;
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3); /* 반투명 검은색 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.image-wrapper:hover .overlay {
+  opacity: 1; /* 마우스 오버 시 오버레이 보이기 */
+}

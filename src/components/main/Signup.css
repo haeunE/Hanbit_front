@@ -1,0 +1,63 @@
+body {
+  display: flex;
+  justify-content: center;   /* 가로 중앙 정렬 */
+  align-items: center;       /* 세로 중앙 정렬 */
+  height: 100vh;             /* 화면 전체 높이를 사용 */
+  margin: 0;                 /* 기본 여백 제거 */
+  background-color: #f4f4f4; /* 배경 색상 설정 (선택사항) */
+}
+
+.signup-container {
+  width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: rgb(223, 255, 255);
+  border-radius: 20px; /* 아이폰 스타일 모서리 둥글게 */
+}
+
+h2 {
+  color: #434343;
+}
+
+input,
+button{
+  border-radius: 10px; /* 입력 필드, 버튼, 체크박스의 모서리 둥글게 */
+  border: 1px solid #ccc;
+}
+
+.form-group {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin: 5px 0px;
+  width: 35%;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  color: #434343;
+}
+
+button {
+  padding: 10px;
+  background-color: #0cd4b0;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+button:hover {
+  background-color: #02886f;
+}
+
+
