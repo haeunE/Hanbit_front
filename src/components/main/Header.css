@@ -1,0 +1,88 @@
+/* Header 스타일 */
+.Header.day {
+  background-color: #5d9d8a;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.Header.night {
+  background-color: #2f4858;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+/* Navbar 텍스트 색상 */
+.Header.day .navbar-nav .nav-link,
+.Header.day .navbar-nav .nav-dropdown {
+  color: white !important;
+}
+
+.Header.night .navbar-nav .nav-link,
+.Header.night .navbar-nav .nav-dropdown {
+  color: #ffff9f !important;
+}
+
+
+/* 아이콘 색상 및 크기 */
+.fa-store {
+  color: navy;
+}
+
+.fa-ban {
+  color: red;
+}
+.fa-bowl-food{
+  color: wheat;
+}
+.fa-motorcycle{
+  color: gray;
+}
+
+.fa-map-pin {
+  font-size: 15px;
+  color: yellow;
+}
+.fa-bus{
+  color: blue;
+}
+
+.fa-person-biking {
+  color: green;
+}
+
+
+/* Day와 Night 모드에 따른 hover 효과 */
+.custom-dropdown-item.day:hover {
+  background-color: #00b493;
+  color: white;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.custom-dropdown-item.night:hover {
+  background-color: #f8496c;
+  color: white;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 아이콘 크기 및 여백 */
+.header-icons.day {
+  font-size: 25px;
+  gap: 5px;
+  color: #f3eada;
+  padding-right: 5px;
+}
+
+.header-icons.night {
+  font-size: 25px;
+  gap: 5px;
+  padding-right: 5px;
+  color: #f8496c;
+}
+
+.gap{
+  padding-left: 1.5rem;
+}
