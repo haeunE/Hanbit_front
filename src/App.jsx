@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import Test from './pages/jsx/Test'
 import { Route, Routes } from 'react-router-dom'
+import Header from './components/main/Header'
 
 function App() {
   const [isAuth, setIsAuth] = useState(false); // 유저 로그인 상태
-  const [userInfo, setUserInfo] = useState(); // 유저 정보
 
   useEffect(()=>{
     if (sessionStorage.getItem('jwt')) {
@@ -19,6 +17,7 @@ function App() {
 
   return (
     <div className='App'>
+      <Header />
       <Routes>
         <Route path='/hanbit/test' element={<Test/>} />
       </Routes>

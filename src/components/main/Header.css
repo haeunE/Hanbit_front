@@ -1,0 +1,68 @@
+.Header.day {
+  background-color: #5d9d8a;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.Header.night {
+  background-color: #2f4858;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.custom-navbar.day .nav-link,
+.custom-navbar.day .navbar-brand {
+  color: #ffffff !important;
+}
+
+.custom-navbar.night .nav-link,
+.custom-navbar.night .navbar-brand {
+  color: #ffff9f !important;
+}
+
+.fa-store{
+  font-size: 15px;
+  color: navy;
+}
+
+.fa-chess-king{
+  font-size: 15px;
+  color: gold;
+}
+
+.fa-ban{
+  font-size: 15px;
+  color: red;
+}
+
+.fa-map{
+  color: green;
+}
+
+.custom-dropdown-item.day:hover {
+  background-color: #00b493;
+  color: white;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.custom-dropdown-item.night:hover {
+  background-color: #f8496c;
+  color: white;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.header-icons.day{
+  font-size: 25px;
+  gap: 5px;
+  color: #f3eada;
+}
+
+.header-icons.night{
+  font-size: 25px;
+  gap: 5px;
+  color: #f3eada;
+}
