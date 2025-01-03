@@ -1,11 +1,3 @@
-body {
-  display: flex;
-  justify-content: center;   /* 가로 중앙 정렬 */
-  align-items: center;       /* 세로 중앙 정렬 */
-  height: 100vh;             /* 화면 전체 높이를 사용 */
-  margin: 0;                 /* 기본 여백 제거 */
-  background-color: #f4f4f4; /* 배경 색상 설정 (선택사항) */
-}
 
 .outer-container {
   width: 90%;      /* 전체 너비를 70%로 설정 */

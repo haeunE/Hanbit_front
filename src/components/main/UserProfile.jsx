@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './UserProfile.css'
+import './User.css'
 
 
 function UserProfile() {
@@ -57,53 +57,58 @@ function UserProfile() {
   };
 
   return (
-    <div className="signup-container">
-      <h2>회원 정보 수정</h2>
+    <div className="user-body">
+      <div className="signup-container">
+        <h2>회원 정보 수정</h2>
 
-      <div className="form-group">
-        <label htmlFor="password">새 비밀번호:</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
+        <div className="form-group">
+          <label className='user_label' htmlFor="password">새 비밀번호:</label>
+          <input
+            className='user_input'
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        
+        <div className="form-group">
+          <label className='user_label' htmlFor="confirmPassword">비밀번호<br></br>확인:</label>
+          <input
+            className='user_input'
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+
+        <div className="form-group">
+          <label className='user_label' htmlFor="tel">비상 연락처:</label>
+          <input
+            className='user_input'
+            type="tel"
+            id="tel"
+            name="tel"
+            value={formData.tel}
+            onChange={handleTelChange}
+            required
+          />
+        </div>
+        
+
+        {passwordError && <div style={{ color: 'red' }}>{passwordError}</div>}
+
+        <button className='user_button' onClick={handleUpdate}>회원 수정</button>
+        <button className='user_button' onClick={handleDelete} style={{ backgroundColor: '#ff4d4d' }}>
+          회원 탈퇴
+        </button>
       </div>
-      
-      <div className="form-group">
-        <label htmlFor="confirmPassword">비밀번호<br></br>확인:</label>
-        <input
-          type="password"
-          id="confirmPassword"
-          name="confirmPassword"
-          value={formData.confirmPassword}
-          onChange={handleChange}
-          required
-        />
-      </div>
-
-
-      <div className="form-group">
-        <label htmlFor="tel">비상 연락처:</label>
-        <input
-          type="tel"
-          id="tel"
-          name="tel"
-          value={formData.tel}
-          onChange={handleTelChange}
-          required
-        />
-      </div>
-      
-
-      {passwordError && <div style={{ color: 'red' }}>{passwordError}</div>}
-
-      <button onClick={handleUpdate}>회원 수정</button>
-      <button onClick={handleDelete} style={{ backgroundColor: '#ff4d4d' }}>
-        회원 탈퇴
-      </button>
     </div>
   );
 }
