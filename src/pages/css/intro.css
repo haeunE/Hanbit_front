@@ -1,0 +1,65 @@
+.intro-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;  /* 화면 높이를 100%로 설정 */
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* 불필요한 스크롤 방지 */
+}
+
+/* 이미지 영역 */
+.image-container {
+  display: flex;
+  flex: 1; /* 화면을 100% 채움 */
+  width: 100%;  /* 화면 너비를 꽉 차게 설정 */
+  margin: 0;
+}
+
+/* 낮 이미지 */
+.image-box.day {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 밤 이미지 */
+.image-box.night {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 이미지 스타일 */
+.image {
+  width: 100%;  /* 이미지의 너비를 100%로 설정 */
+  height: 100%;  /* 이미지의 높이를 100%로 설정 */
+  object-fit: cover;  /* 이미지를 영역에 맞게 채우기 */
+}
+
+/* 버튼 영역 */
+.button-container {
+  position: absolute;
+  bottom: 20px;  /* 화면 하단에 버튼 배치 */
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 10; /* 이미지 위에 버튼이 보이도록 설정 */
+}
+
+/* 버튼 스타일 */
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}

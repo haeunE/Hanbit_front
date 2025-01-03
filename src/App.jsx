@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Test from './pages/jsx/Test'
 import { Route, Routes } from 'react-router-dom'
+import Intro from './pages/jsx/intro'
 
 function App() {
   const [isAuth, setIsAuth] = useState(false); // 유저 로그인 상태
@@ -21,6 +22,7 @@ function App() {
     <div className='App'>
       <Routes>
         <Route path='/hanbit/test' element={<Test/>} />
+        <Route path='/intro' element={<Intro />} /> 
       </Routes>
     </div>
   )
