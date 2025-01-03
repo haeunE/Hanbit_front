@@ -1,3 +1,4 @@
+/* Header 스타일 */
 .Header.day {
   background-color: #5d9d8a;
   position: fixed;
@@ -14,35 +15,47 @@
   width: 100%;
 }
 
-.custom-navbar.day .nav-link,
-.custom-navbar.day .navbar-brand {
-  color: #ffffff !important;
+/* Navbar 텍스트 색상 */
+.Header.day .navbar-nav .nav-link,
+.Header.day .navbar-nav .nav-dropdown {
+  color: white !important;
 }
 
-.custom-navbar.night .nav-link,
-.custom-navbar.night .navbar-brand {
+.Header.night .navbar-nav .nav-link,
+.Header.night .navbar-nav .nav-dropdown {
   color: #ffff9f !important;
 }
 
-.fa-store{
-  font-size: 15px;
+
+/* 아이콘 색상 및 크기 */
+.fa-store {
   color: navy;
 }
 
-.fa-chess-king{
-  font-size: 15px;
-  color: gold;
-}
-
-.fa-ban{
-  font-size: 15px;
+.fa-ban {
   color: red;
 }
+.fa-bowl-food{
+  color: wheat;
+}
+.fa-motorcycle{
+  color: gray;
+}
 
-.fa-map{
+.fa-map-pin {
+  font-size: 15px;
+  color: yellow;
+}
+.fa-bus{
+  color: blue;
+}
+
+.fa-person-biking {
   color: green;
 }
 
+
+/* Day와 Night 모드에 따른 hover 효과 */
 .custom-dropdown-item.day:hover {
   background-color: #00b493;
   color: white;
@@ -55,14 +68,21 @@
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.header-icons.day{
+/* 아이콘 크기 및 여백 */
+.header-icons.day {
   font-size: 25px;
   gap: 5px;
   color: #f3eada;
+  padding-right: 5px;
 }
 
-.header-icons.night{
+.header-icons.night {
   font-size: 25px;
   gap: 5px;
-  color: #f3eada;
+  padding-right: 5px;
+  color: #f8496c;
+}
+
+.gap{
+  padding-left: 1.5rem;
 }
