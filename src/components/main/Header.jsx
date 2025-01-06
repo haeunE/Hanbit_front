@@ -23,8 +23,8 @@ function Header() {
   );
 
     // Intro 페이지에서 헤더 숨기기
-    if (location.pathname === '/intro') {
-      return null; // '/intro' 경로에서는 헤더를 렌더링하지 않음
+    if (location.pathname === '/') {
+      return null; // '/' 경로에서는 헤더를 렌더링하지 않음
     }
   
 

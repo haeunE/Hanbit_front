@@ -21,7 +21,7 @@ function App() {
       <Header />
       <Routes>
         <Route path='/hanbit/test' element={<Test/>} />
-        <Route path='/intro' element={<Intro />} /> 
+        <Route path='/' element={<Intro />} /> 
       </Routes>
     </div>
   )

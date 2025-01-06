@@ -18,12 +18,17 @@ function Intro() {
   };
 
   return (
-    <div className="outer-container">
+    <div className='intro'>
 
-      <div className='image-top'>
-        <img src='/img/hanbit_night_logo.PNG' alt="Logo Image" id='logo' className="image" ></img>
-        <p>Click the journey you'd like!<br />
-          원하시는 여정을 클릭하세요.</p>
+      <div className='top'>
+        <div className='logo-top'>
+          <img src='/img/logo_intro.png' alt="Logo Image" id='logo' className="image" ></img>
+        </div>
+
+        <div className='text-top'>
+          <p>Click the journey you'd like!<br />
+            원하시는 여정을 클릭하세요.</p>
+        </div>
       </div>
 
       <div className="image-container">
@@ -39,7 +44,6 @@ function Intro() {
         </div>
       </div>
     </div>
-
   );
 }
 
