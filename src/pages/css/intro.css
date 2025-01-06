@@ -10,7 +10,7 @@
 
 .top {
   display: flex; /* 플렉스 레이아웃 */
-  justify-content: center; /* 로고와 텍스트를 좌우로 정렬 */
+  justify-content: space-between; /* 로고와 텍스트를 좌우로 정렬 */
   align-items: center; /* 세로 중앙 정렬 */
   width: 80%; /* 너비 설정 */
   background: linear-gradient(to right,  #2f4858 50%,#f3eada 50%);
@@ -23,6 +23,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 50%;
+  margin-left: 12%;
 }
 
 .text-top {
@@ -38,7 +40,7 @@
   align-items: center;
 }
 
-.image-container {
+.image-overlay {
   display: flex;
   justify-content: space-between;
   width: 80%;
@@ -53,7 +55,7 @@
 }
 
 .image-wrapper img {
-  width: 100%;
+  width: 80%;
   height: 100%;
   object-fit: cover;
 }
@@ -62,7 +64,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 80%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.3); /* 반투명 검은색 */
   display: flex;

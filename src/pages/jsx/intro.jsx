@@ -3,9 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import '../css/intro.css';
 import { LuSun } from "react-icons/lu";
 import { WiMoonWaxingCrescent4 } from "react-icons/wi";
+import { useDispatch } from 'react-redux';
 
 function Intro() {
   const navigate = useNavigate();
+  const dispatch = useDispatch(); 
 
   // 낮 모드
   const DayMode = () => {
@@ -15,6 +17,7 @@ function Intro() {
   //  밤 모드
   const NightMode = () => {
     navigate('/night');
+    dispatch(SetIsMode(false));
   };
 
   return (
@@ -22,7 +25,7 @@ function Intro() {
 
       <div className='top'>
         <div className='logo-top'>
-          <img src='/img/logo_intro.png' alt="Logo Image" id='logo' className="image" ></img>
+          <img src='/img/logo_intro.png' alt="Logo Image" className="image" ></img>
         </div>
 
         <div className='text-top'>
@@ -31,7 +34,7 @@ function Intro() {
         </div>
       </div>
 
-      <div className="image-container">
+      <div className="image-overlay">
 
         <div className="image-wrapper" onClick={DayMode}>
           <img src="/img/introday.jpg" alt="Day Image" className="image" />
