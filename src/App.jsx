@@ -7,11 +7,9 @@ import Login from './components/main/Login'
 import Signup from "./components/main/Signup";
 import UserProfile from './components/main/UserProfile'
 import Test from './pages/jsx/Test'
-
-
 import {login, logout} from './redux/userState'
 import { useDispatch } from 'react-redux'
-import Subtest from './components/jsx/Subtest'
+import Intro from './pages/jsx/Intro'
 
 
 function App() {
@@ -34,11 +32,11 @@ function App() {
       
       <Header />
       <Routes>
+        <Route path='/' element={<Intro />} />
         <Route path='/test' element={<Test/>} />
         <Route path='/login' element={<Login/>} />
         <Route path='/signup' element={<Signup/>} />
         <Route path='/userprofile' element={<UserProfile/>} />
-        <Route path='/subtest' element={<Subtest/>}/>
       </Routes>
       
     </div>

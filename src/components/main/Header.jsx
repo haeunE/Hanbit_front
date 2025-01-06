@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { SetIsMode } from "../../redux/modeState";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import Subtest from "../jsx/Subtest";
+import Location from "../jsx/Location";
 
 
 function Header() {
@@ -25,11 +27,6 @@ function Header() {
       dispatch(SetIsMode(savedMode));  // 저장된 모드 상태 불러오기
     }
   }, [dispatch]);
-
-  // 모드 변경 시 라우팅
-  useEffect(() => {
-    navigate(isMode ? "/day" : "/night");
-  }, [isMode, navigate]);
   
 
   // 툴팁 렌더링 함수
@@ -124,6 +121,8 @@ function Header() {
           </Container>
         </Navbar>
       </div>
+      <Subtest />
+      <Location />
     </div>
   );
 }
