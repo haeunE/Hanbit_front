@@ -1,6 +1,6 @@
-import { configureStore } from "@reduxjs/toolkit";
-import isMode from "./modeState";
-import authSlice from "./userState";
+import { configureStore } from '@reduxjs/toolkit';
+import authSlice from './userState';
+import isMode from './modeState';
 
 export default configureStore({
   reducer:{
