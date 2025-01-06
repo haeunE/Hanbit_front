@@ -11,6 +11,7 @@ import Test from './pages/jsx/Test'
 
 import {login, logout} from './redux/userState'
 import { useDispatch } from 'react-redux'
+import Subtest from './components/jsx/Subtest'
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
         <Route path='/login' element={<Login/>} />
         <Route path='/signup' element={<Signup/>} />
         <Route path='/userprofile' element={<UserProfile/>} />
+        <Route path='/subtest' element={<Subtest/>}/>
       </Routes>
       
     </div>
