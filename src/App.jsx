@@ -20,8 +20,11 @@ function App() {
   useEffect(() => {
     const jwt = sessionStorage.getItem('jwt');
     if (jwt) {
-      // JWT가 있을 경우 로그인 처리 (JWT를 payload로 전달)
-      dispatch(login({ token: jwt, user }));
+      // JWT가 있을 경우 로그인 처리 (JWT와 사용자 정보를 payload로 전달)
+      const user = JSON.parse(sessionStorage.getItem('user')); // 사용자 정보를 sessionStorage에서 가져옴
+      if (user) {
+        dispatch(login({ token: jwt, user }));  // JWT와 user 정보로 로그인 상태 설정
+      }
     } else {
       // JWT가 없으면 로그아웃 처리
       dispatch(logout());

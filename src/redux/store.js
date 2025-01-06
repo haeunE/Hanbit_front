@@ -4,7 +4,7 @@ import isMode from './modeState';
 
 export default configureStore({
   reducer:{
-    authSlice : authSlice.reducer,
+    auth : authSlice.reducer,
     isMode : isMode.reducer,
   }
 })
