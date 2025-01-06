@@ -12,6 +12,7 @@ import Test from './pages/jsx/Test'
 
 import {login, logout} from './redux/userState'
 import { useDispatch } from 'react-redux'
+import Footer from './components/main/Footer'
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
         <Route path='/signup' element={<Signup/>} />
         <Route path='/userprofile' element={<UserProfile/>} />
       </Routes>
+      <Footer />
       
     </div>
   )

@@ -37,12 +37,12 @@ function Intro() {
       <div className="image-overlay">
 
         <div className="image-wrapper" onClick={DayMode}>
-          <img src="/img/introday.jpg" alt="Day Image" className="image" />
+          <img src="/img/intro/introday.jpg" alt="Day Image" className="image" />
           <div className="overlay"><LuSun /> DAY</div>
         </div>
 
         <div className="image-wrapper" onClick={NightMode}>
-          <img src="/img/intronight.jpg" alt="Night Image" className="image" />
+          <img src="/img/intro/intronight.jpg" alt="Night Image" className="image" />
           <div className="overlay">NIGHT <WiMoonWaxingCrescent4 /></div>
         </div>
       </div>

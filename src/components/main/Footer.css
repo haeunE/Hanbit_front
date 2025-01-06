@@ -1,0 +1,43 @@
+.Footer {
+  background-color: white;
+  bottom: 0;
+  width: 100%;
+  height: 20vh;
+  position: fixed;
+}
+
+.footer-text {
+  font-family: 'Arial', sans-serif;
+  font-size: 12px;
+  text-align: center;
+  bottom: 0;
+  height: 8vh;
+}
+
+.footer-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 10%;
+  width: 100%;
+  height: 10vh;
+  object-fit: contain;
+  overflow: hidden;
+  animation: rotateButtons 30s linear infinite;
+}
+
+.footer-logo {
+  height: 3vh;  /* 버튼 크기 줄이기 */
+  width: auto;  /* 비율에 맞춰서 크기 자동 조정 */
+  object-fit: contain;
+}
+
+@keyframes rotateButtons {
+  0% {
+    transform: translateX(0); /* 처음 위치 */
+  }
+  100% {
+    transform: translateX(-50%); /* 끝으로 이동 */
+  }
+}
