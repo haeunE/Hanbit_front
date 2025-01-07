@@ -1,0 +1,92 @@
+.home {
+  height: 100vh;
+  margin: auto;
+}
+
+.change-mode {
+  display: flex;
+  gap: 10px;
+  text-align: center;
+}
+
+.home-change-mode-day,
+.home-change-mode-night {
+  border: none;
+  border-radius: 8px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  min-width: 150px;
+  height: 60px;
+  width: 400px;
+}
+
+button:disabled {
+  color: #FFFFFF !important;            
+  cursor: not-allowed !important;        /* 클릭 불가능 상태로 표시 */
+}
+
+.change-mode.day .home-change-mode-day {
+  background-color: #5d9d8a;
+  color: #ffffff;
+}
+
+.change-mode.day .home-change-mode-night {
+  background-color: #2f4858;
+  color: #ffffff;
+}
+
+.change-mode.night .home-change-mode-day {
+  background-color: #f3eada;
+  color: #000000;
+}
+
+.change-mode.night .home-change-mode-night {
+  background-color: #f8496c;
+  color: #ffffff;
+}
+
+.home-change-mode-day:hover,
+.home-change-mode-night:hover {
+  transform: scale(1.05);
+}
+
+.change-mode.day .home-change-mode-day:hover {
+  background-color: #4a806a;
+}
+
+.change-mode.day .home-change-mode-night:hover {
+  background-color: #263e4d;
+}
+
+.change-mode.night .home-change-mode-day:hover {
+  background-color: #d1d0b3;
+}
+
+.change-mode.night .home-change-mode-night:hover {
+  background-color: #e23b5c;
+}
+
+.location-weather{
+  display: flex;
+  justify-content: flex-end; /*가로*/
+  align-items: center;  /*세로*/
+}
+
+@media (max-width: 768px) {
+  .home-change-mode-day,
+  .home-change-mode-night {
+    padding: 1rem 2rem;
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-change-mode-day,
+  .home-change-mode-night {
+    padding: 0.8rem 1.5rem;
+    font-size: 1.1rem;
+    min-width: 120px;
+  }
+}

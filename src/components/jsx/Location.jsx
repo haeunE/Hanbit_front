@@ -4,6 +4,7 @@ import { SetIsLocation } from '../../redux/locationState';
 import axiosInstance from '../../axiosInstance';
 
 function Location() {
+  const isMode = useSelector(state => state.isMode);
   const location = useSelector(state => state.location);
   const dispatch = useDispatch();
   const [error, setError] = useState(null);
@@ -72,10 +73,7 @@ function Location() {
       {loading ? (
         <p>위치 정보를 가져오는 중입니다...</p>
       ) : location.latitude && location.longitude ? (
-        <div>
-          <p>위도: {location.latitude}, 경도: {location.longitude}</p>
-          <p>주소: {location.region}</p>
-        </div>
+        <p style={{ color: isMode ? 'black' : 'white' }}>{location.region}</p>
       ) : (
         <p>{error || '위치 정보가 없습니다.'}</p>
       )}
