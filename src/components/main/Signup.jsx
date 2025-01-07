@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './User.css';
 import axiosInstance from '../../axiosInstance';
 import { Container } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const [userForm, setSignupForm] = useState({
@@ -13,6 +14,7 @@ const Signup = () => {
     foreignYN: false,
   });
 
+  const navigate = useNavigate();
   const [emailVerified, setEmailVerified] = useState(false);
   const [inputCode, setInputCode] = useState('');
   const [emailVerificationPending, setEmailVerificationPending] = useState(false);
@@ -70,6 +72,7 @@ const Signup = () => {
       const response = await axiosInstance.post('/signup', userForm);
       if (response.status === 200) {
         alert('회원가입 완료');
+        navigate("/login");
       }
     } catch (error) {
       if (error.response) {

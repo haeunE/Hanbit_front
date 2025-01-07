@@ -94,10 +94,22 @@ const Login = () => {
               />
             </div>
             <button className='user_button' type="submit">로그인</button>
-            <div className="signup-link">
-              <button onClick={handleNavigate}>회원가입</button>
-            </div>
           </form>
+          <div className="signup-link">
+          <button
+            type="button"
+            onClick={handleNavigate}
+            style={{
+              background: "none",
+              color: "blue",
+              textDecoration: "underline",
+              border: "none",
+              cursor: "pointer",
+              padding: 0,
+              fontSize: "inherit",
+            }}
+          >회원가입</button>
+          </div>
         </div>
       </div>
     </Container>
