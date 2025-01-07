@@ -2,13 +2,14 @@ import { Button, Container, Form, Nav, Navbar, NavDropdown, OverlayTrigger, Tool
 import "./Header.css";
 import { useDispatch, useSelector } from "react-redux";
 import { SetIsMode } from "../../redux/modeState";
-import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 
 function Header() {
   const isMode = useSelector(state => state.isMode);
   const dispatch = useDispatch();
+  const isPath = useLocation();
 
   // 모드 변경 및 localStorage 저장
   const changeMode = () => {
@@ -32,6 +33,12 @@ function Header() {
       {message}
     </Tooltip>
   );
+
+    // Intro 페이지에서 헤더 숨기기
+    if (isPath.pathname === '/') {
+      return null; // '/' 경로에서는 헤더를 렌더링하지 않음
+    }
+  
 
   return (
     <div className={`Header ${isMode ? 'day' : 'night'}`}>
