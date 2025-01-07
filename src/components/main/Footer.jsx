@@ -1,8 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom"; // react-router-dom을 사용하여 페이지 이동
+import { Link, useLocation } from "react-router-dom"; // react-router-dom을 사용하여 페이지 이동
 import "./Footer.css";
 
 function Footer() {
+  const removeFooter = useLocation();
+      if (removeFooter.pathname === '/') {
+        return null;
+      }
+
   const footerLinks = [
     { url: "https://knto.or.kr/index", img: "/img/footer/ftlogo_knto.jpg", alt: "한국관광공사" },
     { url: "https://www.data.go.kr/index.do", img: "/img/footer/ftlogo_opendata.png", alt: "공공데이터포털" },

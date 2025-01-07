@@ -24,9 +24,9 @@ function Intro() {
     <div className='intro'>
 
       <div className='top'>
-        <div className='logo-top'>
-          <img src='/img/logo_intro.png' alt="Logo Image" className="image" ></img>
-        </div>
+        {/* <div className='logo-top'>
+          <img src='/img/logo/logo_intro.png' alt="Logo Image" className="image" ></img>
+        </div> */}
 
         <div className='text-top'>
           <p>Click the journey you'd like!<br />
