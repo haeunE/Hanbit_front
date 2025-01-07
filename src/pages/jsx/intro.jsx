@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../css/intro.css';
+import '../css/Intro.css';
 import { LuSun } from "react-icons/lu";
 import { WiMoonWaxingCrescent4 } from "react-icons/wi";
 import { useDispatch } from 'react-redux';
@@ -26,7 +26,7 @@ function Intro() {
   
 
   return (
-    <div className='intro'>
+    <div className='Intro'>
 
       <div className='top'>
         {/* <div className='logo-top'>

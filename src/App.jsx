@@ -3,7 +3,7 @@ import { Route, Router, Routes } from 'react-router-dom'
 import './App.css'
 
 import Header from './components/main/Header'
-import Intro from './pages/jsx/intro'
+import Intro from './pages/jsx/Intro'
 import Login from './components/main/Login'
 import Signup from "./components/main/Signup";
 import UserProfile from './components/main/UserProfile'
