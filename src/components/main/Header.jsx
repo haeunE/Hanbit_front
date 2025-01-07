@@ -2,22 +2,30 @@ import { Button, Container, Form, Modal, Nav, Navbar, NavDropdown, OverlayTrigge
 import "./Header.css";
 import { useDispatch, useSelector } from "react-redux";
 import { SetIsMode } from "../../redux/modeState";
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 
-// localstorage에 Mode저장 해두기 => 사용자 컴퓨터에 저장됨
 
 function Header() {
   const isMode = useSelector(state => state.isMode);
   const dispatch = useDispatch();
-  const [showPasswordModal, setShowPasswordModal] = useState(false);
-  const [password, setPassword] = useState("");
-  const token = localStorage.getItem("token"); // 토큰 가져오기
-  const navigate = useNavigate();
+  const isPath = useLocation();
 
+  // 모드 변경 및 localStorage 저장
   const changeMode = () => {
-    dispatch(SetIsMode(!isMode));
+    const savedMode = !isMode;  // savedMode에 상태 업데이트
+    dispatch(SetIsMode(savedMode));
+    localStorage.setItem("isMode", JSON.stringify(savedMode));  // localStorage에 저장
   };
+
+  // 페이지 로드 시 localStorage에서 모드 불러오기
+  useEffect(() => {
+    const savedMode = JSON.parse(localStorage.getItem("isMode"));
+    if (savedMode !== null) {
+      dispatch(SetIsMode(savedMode));  // 저장된 모드 상태 불러오기
+    }
+  }, [dispatch]);
+  
 
   // 툴팁 렌더링 함수
   const renderTooltip = (message) => (props) => (
@@ -25,36 +33,19 @@ function Header() {
       {message}
     </Tooltip>
   );
-  const handleUserIconClick = (e) => {
-    e.stopPropagation();
 
-    if (token) {
-      // 토큰이 있을 경우 비밀번호 확인 팝업 열기
-      setShowPasswordModal(true);
-    } else {
-      // 토큰이 없으면 알림 후 로그인 페이지로 이동
-      alert("로그인이 필요합니다.");
-      window.location.href = "/login";
+    // Intro 페이지에서 헤더 숨기기
+    if (isPath.pathname === '/') {
+      return null; // '/' 경로에서는 헤더를 렌더링하지 않음
     }
-  };
-
-  const handlePasswordSubmit = () => {
-    // 비밀번호 확인 로직 (예: API 요청)
-    if (password === "examplePassword") {
-      alert("비밀번호 확인 성공!");
-      setShowPasswordModal(false);
-      navigate("/userprofile"); // 사용자 정보 페이지로 이동
-    } else {
-      alert("비밀번호가 틀렸습니다. 다시 시도해주세요.");
-    }
-  };
+  
 
   return (
     <div className={`Header ${isMode ? 'day' : 'night'}`}>
       <div className="Nav">
         <Navbar collapseOnSelect expand="lg">
           <Container>
-            <Navbar.Brand href="/">
+            <Navbar.Brand href="/home">
               <img src={isMode ? "/img/hanbit_day_logo.PNG" : "/img/hanbit_night_logo.PNG"} width='120' height='50' alt="logo"/>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -98,7 +89,7 @@ function Header() {
                 </NavDropdown>
               </Nav>
               <Form className={`d-flex header-icons ${isMode ? 'day' : 'night'}`}>
-                <Nav.Link as={Link} to={isMode ? "/day" : "/night"} onClick={changeMode}>
+                <Nav.Link as={Link} to="#" onClick={changeMode}>
                   <i className={`toggle-icon ${isMode ? 'fa-solid fa-toggle-on' : 'fa-solid fa-toggle-off'} me-2`} 
                     style={{ fontSize: '45px', color: isMode ? '#e9fef7' : '#f8496c'}}
                   ></i>
