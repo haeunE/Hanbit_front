@@ -10,7 +10,7 @@ import UserProfile from './components/main/UserProfile'
 import Test from './pages/jsx/Test'
 import {login, logout} from './redux/userState'
 import { useDispatch } from 'react-redux'
-import Intro from './pages/jsx/Intro'
+
 
 
 function App() {
