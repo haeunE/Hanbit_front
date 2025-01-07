@@ -3,6 +3,7 @@ import { Route, Router, Routes } from 'react-router-dom'
 import './App.css'
 
 import Header from './components/main/Header'
+import Intro from './pages/jsx/intro'
 import Login from './components/main/Login'
 import Signup from "./components/main/Signup";
 import UserProfile from './components/main/UserProfile'
@@ -33,6 +34,8 @@ function App() {
       
       <Header />
       <Routes>
+        <Route path='/hanbit/test' element={<Test/>} />
+        <Route path='/' element={<Intro />} /> 
         <Route path='/test' element={<Test/>} />
         <Route path='/login' element={<Login/>} />
         <Route path='/signup' element={<Signup/>} />
