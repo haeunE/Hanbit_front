@@ -1,11 +1,11 @@
-.intro {
+.Intro {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100vw;
   height: 100vh;             /* 화면 전체 높이를 사용 */
-  background: linear-gradient(to right, #f3eada 50%, #2f4858 50%)
+  background: linear-gradient(to right, #f3eada , #2f4858, #fff067, #1a2a34)
 }
 
 .top {
@@ -13,7 +13,7 @@
   justify-content: space-between; /* 로고와 텍스트를 좌우로 정렬 */
   align-items: center; /* 세로 중앙 정렬 */
   width: 80%; /* 너비 설정 */
-  background: linear-gradient(to right,  #2f4858 50%,#f3eada 50%);
+  background-color: bisque;
   min-block-size: 20%;
 }
 
@@ -71,8 +71,6 @@
   justify-content: center;
   align-items: center;
   color: white;
-  font-size: 24px;
-  font-weight: bold;
   opacity: 0;
   transition: opacity 0.3s ease;
 }

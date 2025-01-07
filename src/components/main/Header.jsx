@@ -46,7 +46,7 @@ function Header() {
         <Navbar collapseOnSelect expand="lg">
           <Container>
             <Navbar.Brand href="/home">
-              <img src={isMode ? "/img/hanbit_day_logo.PNG" : "/img/hanbit_night_logo.PNG"} width='120' height='50' alt="logo"/>
+              <img src={isMode ? "/img/logo/hanbit_day_logo.PNG" : "/img/logo/hanbit_night_logo.PNG"} width='120' height='50' alt="logo"/>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../css/intro.css';
+import '../css/Intro.css';
 import { LuSun } from "react-icons/lu";
 import { WiMoonWaxingCrescent4 } from "react-icons/wi";
 import { useDispatch } from 'react-redux';
@@ -26,12 +26,12 @@ function Intro() {
   
 
   return (
-    <div className='intro'>
+    <div className='Intro'>
 
       <div className='top'>
-        <div className='logo-top'>
-          <img src='/img/logo_intro.png' alt="Logo Image" className="image" ></img>
-        </div>
+        {/* <div className='logo-top'>
+          <img src='/img/logo/logo_intro.png' alt="Logo Image" className="image" ></img>
+        </div> */}
 
         <div className='text-top'>
           <p>Click the journey you'd like!<br />
@@ -42,12 +42,12 @@ function Intro() {
       <div className="image-overlay">
 
         <div className="image-wrapper" onClick={DayMode}>
-          <img src="/img/introday.jpg" alt="Day Image" className="image" />
+          <img src="/img/intro/introday.jpg" alt="Day Image" className="image" />
           <div className="overlay"><LuSun /> DAY</div>
         </div>
 
         <div className="image-wrapper" onClick={NightMode}>
-          <img src="/img/intronight.jpg" alt="Night Image" className="image" />
+          <img src="/img/intro/intronight.jpg" alt="Night Image" className="image" />
           <div className="overlay">NIGHT <WiMoonWaxingCrescent4 /></div>
         </div>
       </div>
