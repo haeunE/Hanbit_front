@@ -70,14 +70,14 @@
 
 /* 아이콘 크기 및 여백 */
 .header-icons.day {
-  font-size: 25px;
+  font-size: 30px;
   gap: 5px;
   color: #f3eada;
   padding-right: 5px;
 }
 
 .header-icons.night {
-  font-size: 25px;
+  font-size: 30px;
   gap: 5px;
   padding-right: 5px;
   color: #f8496c;

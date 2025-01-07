@@ -4,6 +4,7 @@ import '../css/intro.css';
 import { LuSun } from "react-icons/lu";
 import { WiMoonWaxingCrescent4 } from "react-icons/wi";
 import { useDispatch } from 'react-redux';
+import { SetIsMode } from '../../redux/modeState';
 
 function Intro() {
   const navigate = useNavigate();
@@ -11,14 +12,18 @@ function Intro() {
 
   // 낮 모드
   const DayMode = () => {
-    navigate('/day');
+    dispatch(SetIsMode(true));
+    localStorage.setItem("isMode", JSON.stringify(true)); 
+    navigate('/home');
   };
-
+  
   //  밤 모드
   const NightMode = () => {
-    navigate('/night');
     dispatch(SetIsMode(false));
+    localStorage.setItem("isMode", JSON.stringify(false)); 
+    navigate('/home');
   };
+  
 
   return (
     <div className='intro'>
