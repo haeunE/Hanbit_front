@@ -2,18 +2,30 @@ import { Button, Container, Form, Nav, Navbar, NavDropdown, OverlayTrigger, Tool
 import "./Header.css";
 import { useDispatch, useSelector } from "react-redux";
 import { SetIsMode } from "../../redux/modeState";
+import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-// localstorage에 Mode저장 해두기 => 사용자 컴퓨터에 저장됨
 
 function Header() {
   const isMode = useSelector(state => state.isMode);
   const dispatch = useDispatch();
   const isPath = useLocation();
 
+  // 모드 변경 및 localStorage 저장
   const changeMode = () => {
-    dispatch(SetIsMode(!isMode));
+    const savedMode = !isMode;  // savedMode에 상태 업데이트
+    dispatch(SetIsMode(savedMode));
+    localStorage.setItem("isMode", JSON.stringify(savedMode));  // localStorage에 저장
   };
+
+  // 페이지 로드 시 localStorage에서 모드 불러오기
+  useEffect(() => {
+    const savedMode = JSON.parse(localStorage.getItem("isMode"));
+    if (savedMode !== null) {
+      dispatch(SetIsMode(savedMode));  // 저장된 모드 상태 불러오기
+    }
+  }, [dispatch]);
+  
 
   // 툴팁 렌더링 함수
   const renderTooltip = (message) => (props) => (
@@ -33,7 +45,7 @@ function Header() {
       <div className="Nav">
         <Navbar collapseOnSelect expand="lg">
           <Container>
-            <Navbar.Brand href="/">
+            <Navbar.Brand href="/home">
               <img src={isMode ? "/img/logo/hanbit_day_logo.PNG" : "/img/logo/hanbit_night_logo.PNG"} width='120' height='50' alt="logo"/>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -77,7 +89,7 @@ function Header() {
                 </NavDropdown>
               </Nav>
               <Form className={`d-flex header-icons ${isMode ? 'day' : 'night'}`}>
-                <Nav.Link as={Link} to={isMode ? "/day" : "/night"} onClick={changeMode}>
+                <Nav.Link as={Link} to="#" onClick={changeMode}>
                   <i className={`toggle-icon ${isMode ? 'fa-solid fa-toggle-on' : 'fa-solid fa-toggle-off'} me-2`} 
                     style={{ fontSize: '45px', color: isMode ? '#e9fef7' : '#f8496c'}}
                   ></i>
