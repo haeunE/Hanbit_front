@@ -4,14 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { SetIsMode } from "../../redux/modeState";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import Subtest from "../jsx/Subtest";
-import Location from "../jsx/Location";
 
 
 function Header() {
   const isMode = useSelector(state => state.isMode);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   // 모드 변경 및 localStorage 저장
   const changeMode = () => {
@@ -121,8 +118,6 @@ function Header() {
           </Container>
         </Navbar>
       </div>
-      <Subtest />
-      <Location />
     </div>
   );
 }
