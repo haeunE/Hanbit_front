@@ -9,27 +9,26 @@ import Signup from "./components/main/Signup";
 import UserProfile from './components/main/UserProfile'
 import Test from './pages/jsx/Test'
 import {login, logout} from './redux/userState'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 
 
 function App() {
 
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
 
   useEffect(() => {
-    const jwt = sessionStorage.getItem('jwt');
-    if (jwt) {
-      // JWT가 있을 경우 로그인 처리 (JWT와 사용자 정보를 payload로 전달)
-      const user = JSON.parse(sessionStorage.getItem('user')); // 사용자 정보를 sessionStorage에서 가져옴
-      if (user) {
-        dispatch(login({ token: jwt, user }));  // JWT와 user 정보로 로그인 상태 설정
-      }
+    // 만약 auth.token이 존재하면 sessionStorage에 저장
+    if (auth.token) {
+      sessionStorage.setItem("jwt", auth.token);  // auth.token을 sessionStorage에 저장
     } else {
-      // JWT가 없으면 로그아웃 처리
-      dispatch(logout());
+      // auth.token이 없다면 로그아웃 처리
+      localStorage.removeItem("jwt");
+      sessionStorage.removeItem("jwt");
+      document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     }
-  }, [dispatch]);  // dispatch가 변경될 때마다 실행되도록 설정
+  }, auth.token); 
 
   return (
     <div className='app'>

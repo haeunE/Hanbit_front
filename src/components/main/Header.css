@@ -86,3 +86,20 @@
 .gap{
   padding-left: 1.5rem;
 }
+
+.user-icon-dropdown-container {
+  position: relative;
+}
+
+.user_dropdown .dropdown-menu .show {
+  top: 100%; /* 아이콘 아래로 배치 */
+  right: 0;  /* 오른쪽 정렬 */
+  margin-top: var(--bs-dropdown-spacer); /* 드롭다운 간격 */
+}
+.user_dropdown .dropdown-item {
+  cursor: pointer;
+  padding: 10px;
+}
+.user_dropdown .dropdown-item:hover {
+  background-color: #f1f1f1;
+}

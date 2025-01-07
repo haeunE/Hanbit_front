@@ -89,11 +89,18 @@
 }
 .chk-box {
   display: flex;
-  width: 60%;
+  width: 20%;
 }
 
 .forign_check {
   width: 20px;
   height: 20px;
   margin: auto;
+}
+.chk-label {
+  display: block;
+  margin-bottom: 5px;
+  color: #434343;
+  width: 40%;
+  padding: 8px;
 }

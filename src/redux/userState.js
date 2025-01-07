@@ -14,8 +14,11 @@ const authSlice = createSlice({
       state.user = null;
       state.token = null;
     },
+    updateUser: (state, action) => {
+      state.user = { ...state.user, ...action.payload }; // 변경된 필드를 기존 값에 병합
+    }
   },
 });
 
-export const { login, logout } = authSlice.actions;
+export const { login, logout, updateUser } = authSlice.actions;
 export default authSlice;

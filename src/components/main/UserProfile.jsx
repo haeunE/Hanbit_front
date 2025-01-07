@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './User.css';
 import { Container } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import axiosInstance from '../../axiosInstance';
 import { useNavigate } from 'react-router-dom';
+import { updateUser, logout } from "../../redux/userState";
 
 function UserProfile() {
   // redux에서 auth 상태 가져오기
@@ -21,6 +22,7 @@ function UserProfile() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const dispatch = useDispatch();
 
   // 컴포넌트가 처음 렌더링될 때 redux에서 가져온 사용자 정보로 초기화
   useEffect(() => {
@@ -34,8 +36,7 @@ function UserProfile() {
         email: user.email || '',
       });
     }
-  }, [user]);  // user가 변경될 때마다 실행
-
+  }, [user]);  
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -60,22 +61,21 @@ function UserProfile() {
       return;
     }
     setPasswordError('');
-
+    console.log("user")
+    console.log(user.tel)
     // 변경된 데이터만 추출
     const updatedData = {};
-    const user = JSON.parse(sessionStorage.getItem('user'));
+    
     if (formData.password) updatedData.password = formData.password; // 비밀번호 변경된 경우
     if (formData.tel !== user.tel) updatedData.tel = formData.tel; // 연락처 변경된 경우
     if (formData.foreignYN !== user.foreignYN) updatedData.foreignYN = formData.foreignYN; // 외국인 여부 변경된 경우
-    console.log(updatedData)
     try {
       // 서버에 업데이트 요청 보내기 (필요한 필드만 포함)
       const response = await axiosInstance.put('/updateUser', updatedData);
-
       if (response.status === 200) {
         alert('회원 정보가 수정되었습니다.');
-        sessionStorage.setItem('user', JSON.stringify({ ...user, ...updatedData }));
-        navigate("/");
+        dispatch(updateUser(updatedData)); 
+        navigate("/home");
       }
     } catch (error) {
       console.error('회원 정보 수정 실패:', error);
@@ -93,7 +93,8 @@ function UserProfile() {
       if (response.status === 200) {
         console.log("User deleted");
         alert("휴면 계정으로 전환되었습니다. \n3일 안으로 로그인 하시면 회원님의 정보가 삭제되지 않습니다.");
-        navigate("/"); // 홈으로 이동
+        dispatch(logout())
+        navigate("/"); 
       } else {
         // 에러 메시지가 있을 경우
         alert(`삭제 실패: ${response.data.message || "알 수 없는 오류"}`);
@@ -121,6 +122,10 @@ function UserProfile() {
               value={formData.username}
               onChange={handleChange}
               disabled
+              autoComplete="off"  // autocomplete 속성 추가
+              autoCapitalize="none"  // 자동 대문자화 방지
+              autoCorrect="off"  // 자동 수정 방지
+              spellCheck="false"  // 맞춤법 검사 방지
             />
           </div>
           <div className="form-group">
@@ -132,6 +137,10 @@ function UserProfile() {
               name="password"
               value={formData.password}
               onChange={handleChange}
+              autoComplete="off"  // autocomplete 속성 추가
+              autoCapitalize="none"  // 자동 대문자화 방지
+              autoCorrect="off"  // 자동 수정 방지
+              spellCheck="false"  // 맞춤법 검사 방지
             />
           </div>
           <div className="form-group">
@@ -181,7 +190,7 @@ function UserProfile() {
             />
           </div>
           <div className="form-group">
-            <label className="user_label">외국인 여부:</label>
+            <label className="chk-label">외국인이신가요? </label>
             <div className="chk-box">
               <input
                 className="forign_check"

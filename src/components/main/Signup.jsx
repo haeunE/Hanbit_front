@@ -18,6 +18,8 @@ const Signup = () => {
   const [emailVerified, setEmailVerified] = useState(false);
   const [inputCode, setInputCode] = useState('');
   const [emailVerificationPending, setEmailVerificationPending] = useState(false);
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -63,6 +65,12 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (formData.password && formData.password !== confirmPassword) {
+      setPasswordError('비밀번호가 일치하지 않습니다.');
+      return;
+    }
+    setPasswordError('');
+
     if (!emailVerified) {
       alert('이메일 인증을 완료해주세요.');
       return;
@@ -111,7 +119,22 @@ const Signup = () => {
                 name="password"
                 value={userForm.password}
                 onChange={handleChange}
+                autoComplete="off"  // autocomplete 속성 추가
+                autoCapitalize="none"  // 자동 대문자화 방지
+                autoCorrect="off"  // 자동 수정 방지
+                spellCheck="false"  // 맞춤법 검사 방지
                 required
+              />
+            </div>
+            <div className="form-group">
+              <label className="user_label" htmlFor="confirmPassword">비밀번호 확인:</label>
+              <input
+                className="user_input"
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </div>
             <div className="form-group">
@@ -179,7 +202,7 @@ const Signup = () => {
               />
             </div>
             <div className="form-group">
-              <label className="user_label">외국인 여부:</label>
+              <label className="chk-label">외국인이신가요? </label>
               <div className='chk-box'>
               <input
                 className='forign_check'
@@ -190,6 +213,7 @@ const Signup = () => {
               />
               </div>
             </div>
+            {passwordError && <div style={{ color: 'red' }}>{passwordError}</div>}
             <button className='user_button' type="submit">회원가입</button>
           </form>
         </div>

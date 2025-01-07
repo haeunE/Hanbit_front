@@ -34,12 +34,10 @@ const Login = () => {
 
       // JWT와 사용자 정보를 sessionStorage에 저장
       sessionStorage.setItem('jwt', token);
-      sessionStorage.setItem(
-        'user',
-        JSON.stringify({ username, name, email, tel, foreignYN  })
-      );
+     
+      dispatch(login({ token, user: { username, name, email, tel, foreignYN  }}));  
       
-      navigate('/');
+      navigate('home');
       } else {
         console.error('로그인 실패:', response.status);
         alert('로그인 실패! 아이디와 비밀번호를 확인하세요.');
@@ -91,6 +89,10 @@ const Login = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                autoComplete="off"  // autocomplete 속성 추가
+                autoCapitalize="none"  // 자동 대문자화 방지
+                autoCorrect="off"  // 자동 수정 방지
+                spellCheck="false"  // 맞춤법 검사 방지
               />
             </div>
             <button className='user_button' type="submit">로그인</button>
