@@ -3,15 +3,18 @@ import { Route, Router, Routes } from 'react-router-dom'
 import './App.css'
 
 import Header from './components/main/Header'
-import Intro from './pages/jsx/intro'
+import Intro from './pages/jsx/Intro'
 import Login from './components/main/Login'
 import Signup from "./components/main/Signup";
 import UserProfile from './components/main/UserProfile'
 import Test from './pages/jsx/Test'
 import {login, logout} from './redux/userState'
+
 import { useDispatch, useSelector } from 'react-redux'
 import Home from './pages/jsx/Home'
 import { SetIsMode } from './redux/modeState'
+import Footer from './components/main/Footer'
+
 
 
 
@@ -50,6 +53,7 @@ function App() {
         <Route path='/signup' element={<Signup/>} />
         <Route path='/userprofile' element={<UserProfile/>} />
       </Routes>
+      <Footer />
       
     </div>
   )

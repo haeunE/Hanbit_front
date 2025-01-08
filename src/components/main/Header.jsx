@@ -9,7 +9,7 @@ import { Link, useLocation } from "react-router-dom";
 function Header() {
   const isMode = useSelector(state => state.isMode);
   const dispatch = useDispatch();
-  const isPath = useLocation();
+  const removeHeader = useLocation();
 
   // 모드 변경 및 localStorage 저장
   const changeMode = () => {
@@ -35,7 +35,7 @@ function Header() {
   );
 
     // Intro 페이지에서 헤더 숨기기
-    if (isPath.pathname === '/') {
+    if (removeHeader.pathname === '/') {
       return null; // '/' 경로에서는 헤더를 렌더링하지 않음
     }
   
@@ -46,7 +46,7 @@ function Header() {
         <Navbar collapseOnSelect expand="lg">
           <Container>
             <Navbar.Brand href="/home">
-              <img src={isMode ? "/img/hanbit_day_logo.PNG" : "/img/hanbit_night_logo.PNG"} width='120' height='50' alt="logo"/>
+              <img src={isMode ? "/img/logo/hanbit_day_logo.PNG" : "/img/logo/hanbit_night_logo.PNG"} width='120' height='50' alt="logo"/>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
