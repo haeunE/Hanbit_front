@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Route, Router, Routes } from 'react-router-dom'
+import { Route, Router, Routes, useLocation } from 'react-router-dom'
 import './App.css'
 
 import Header from './components/main/Header'
@@ -55,7 +55,7 @@ function App() {
         <Route path='/signup' element={<Signup/>} />
         <Route path='/userprofile' element={<UserProfile/>} />
       </Routes>
-      <Footer />
+      {!['/login', '/signup', '/userprofile'].includes(useLocation().pathname) && <Footer />}
       
     </div>
   )

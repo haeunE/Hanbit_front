@@ -65,7 +65,7 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.password && formData.password !== confirmPassword) {
+    if (userForm.password && userForm.password !== confirmPassword) {
       setPasswordError('비밀번호가 일치하지 않습니다.');
       return;
     }
