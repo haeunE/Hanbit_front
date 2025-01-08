@@ -63,12 +63,12 @@ function Weather() {
       >
         {weatherData ? (
           <div className={`weather  ${isMode?'day':'night'}`}>
-            <p className="weather-icon">
+            <div className="weather-icon">
               <img
                 src={`https://openweathermap.org/img/wn/${weatherData.icon}@2x.png`}
                 alt="날씨 아이콘"
               />
-            </p>
+            </div>
             <p className="weather-temp">{weatherData.temp}°C</p>
           </div>
         ) : (

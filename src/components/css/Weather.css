@@ -13,12 +13,12 @@
 }
 
 .weather.day {
+  display: flex;
   color: #000000;  /* 낮 모드: 검정색 글자 */
+  justify-content: center;
+  align-items: center;
 }
 
-.weather.night {
-  color: #ffffff;  /* 밤 모드: 흰색 글자 */
-}
 
 .weather-info.night {
   background-color: #ffffff; /* 낮 모드: 흰색 배경 */
@@ -29,4 +29,15 @@
 .weather-info.day {
   background-color: #999494; /* 밤 모드: 어두운 배경 */
   color: #ffffff;  /* 흰색 글자 */
+}
+.weather-icon{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.weather-icon img{
+  height: 4.5rem;
+  width: auto;
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SetIsLocation } from '../../redux/locationState';
 import axiosInstance from '../../axiosInstance';
+import '../css/Weather.css'
 
 function Location() {
   const isMode = useSelector(state => state.isMode);
@@ -73,7 +74,7 @@ function Location() {
       {loading ? (
         <p>위치 정보를 가져오는 중입니다...</p>
       ) : location.latitude && location.longitude ? (
-        <p style={{ color: isMode ? 'black' : 'white', fontWeight:'bold' }}>{location.region}</p>
+        <div style={{ color: "black", fontWeight:'bold' }}>{location.region}</div>
       ) : (
         <p>{error || '위치 정보가 없습니다.'}</p>
       )}
