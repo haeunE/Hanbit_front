@@ -1,12 +1,15 @@
 .home {
   height: 100vh;
   margin: auto;
+  padding-top: 100px; /* 모든 페이지에 적용 해야함 header 때문 */
 }
 
 .change-mode {
   display: flex;
   gap: 10px;
   text-align: center;
+  width: 100%;
+  justify-content: center;
 }
 
 .home-change-mode-day,
@@ -17,9 +20,8 @@
   font-weight: 700;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  min-width: 150px;
   height: 60px;
-  width: 400px;
+  width: 50%;
 }
 
 button:disabled {
@@ -70,8 +72,15 @@ button:disabled {
 
 .location-weather{
   display: flex;
-  justify-content: flex-end; /*가로*/
+  margin-left: auto;
+  justify-content: center; /*가로*/
   align-items: center;  /*세로*/
+  background-color: #e0dea5;
+  border-radius: 15px;
+  width: auto;
+  height: 5rem;
+  margin-top: 1rem;
+  max-width:20rem;
 }
 
 @media (max-width: 768px) {

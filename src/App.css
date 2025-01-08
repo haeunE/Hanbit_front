@@ -3,12 +3,12 @@
   display: flex;
   flex-direction: row;
   min-height: 100vh;
-  padding-top: 100px;
 }
 
 .app.day{
   background-color: #e9fef7;
 }
+
 .app.night{
   background-color:#23333f;
 }

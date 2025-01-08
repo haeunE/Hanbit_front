@@ -5,7 +5,7 @@ import location from './locationState';
 
 export default configureStore({
   reducer:{
-    authSlice : authSlice.reducer,
+    auth : authSlice.reducer,
     isMode : isMode.reducer,
     location : location.reducer,
   }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Route, Router, Routes } from 'react-router-dom'
+import { Route, Router, Routes, useLocation } from 'react-router-dom'
 import './App.css'
 
 import Header from './components/main/Header'
@@ -22,17 +22,19 @@ import Footer from './components/main/Footer'
 function App() {
   const isMode = useSelector(state => state.isMode);
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
 
   useEffect(() => {
-    const jwt = sessionStorage.getItem('jwt');
-    if (jwt) {
-      // JWT가 있을 경우 로그인 처리 (JWT를 payload로 전달)
-      dispatch(login({ token: jwt, user }));
+    // 만약 auth.token이 존재하면 sessionStorage에 저장
+    if (auth.token) {
+      sessionStorage.setItem("jwt", auth.token);  // auth.token을 sessionStorage에 저장
     } else {
-      // JWT가 없으면 로그아웃 처리
-      dispatch(logout());
+      // auth.token이 없다면 로그아웃 처리
+      localStorage.removeItem("jwt");
+      sessionStorage.removeItem("jwt");
+      document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     }
-  }, [dispatch]);  // dispatch가 변경될 때마다 실행되도록 설정
+  }, auth.token);  // dispatch가 변경될 때마다 실행되도록 설정
 
   useEffect(() => {
     const savedMode = JSON.parse(localStorage.getItem("isMode"));
@@ -53,7 +55,7 @@ function App() {
         <Route path='/signup' element={<Signup/>} />
         <Route path='/userprofile' element={<UserProfile/>} />
       </Routes>
-      <Footer />
+      {!['/login', '/signup', '/userprofile'].includes(useLocation().pathname) && <Footer />}
       
     </div>
   )
