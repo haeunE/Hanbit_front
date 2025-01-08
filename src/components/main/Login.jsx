@@ -37,7 +37,7 @@ const Login = () => {
      
       dispatch(login({ token, user: { username, name, email, tel, foreignYN  }}));  
       
-      navigate('home');
+      navigate('/home');
       } else {
         console.error('로그인 실패:', response.status);
         alert('로그인 실패! 아이디와 비밀번호를 확인하세요.');

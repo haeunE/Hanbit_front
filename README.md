@@ -8,7 +8,6 @@ npm run dev
 앱폴더에 .env.local 파일 생성 후 해당 코드 넣어주세요
 ```
 VITE_REACT_APP_SERVER_URL=http://localhost:8888
-VITE_WEATHER_API_KEY=your_api_key
 ```
 
 # 날씨 API 설정
@@ -22,3 +21,7 @@ VITE_WEATHER_API_KEY=your_api_key
 ```
 VITE_WEATHER_API_KEY=your_api_key
 ```
+
+# 인구밀집도 (Population) API
+POPULATION_MAP_API_URL=https://data.seoul.go.kr/SeoulRtd/
+POPULATION_MAP_API_KEY=your_api_key

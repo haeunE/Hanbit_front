@@ -5,7 +5,8 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap"; // Tooltip 추가 imp
 
 function Weather() {
   const isMode = useSelector(state => state.isMode)
-  const location = useSelector((state) => state.location);
+  const savedLocation = localStorage.getItem('location');
+  const location = JSON.parse(savedLocation);
   const APIKEY = import.meta.env.VITE_WEATHER_API_KEY;
   const [weatherData, setWeatherData] = useState(null);
 

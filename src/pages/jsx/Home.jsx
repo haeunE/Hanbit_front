@@ -5,6 +5,7 @@ import { SetIsMode } from "../../redux/modeState";
 import Weather from "../../components/jsx/Weather";
 import Location from "../../components/jsx/Location";
 import { Container } from "react-bootstrap";
+import Population from "../../components/jsx/Population";
 
 function Home(){
   const isMode = useSelector(state => state.isMode)
@@ -50,6 +51,9 @@ function Home(){
         </div>
         <div className="recommand">
 
+        </div>
+        <div className="population-density">
+          <Population />
         </div>
       </div>
     </Container>
