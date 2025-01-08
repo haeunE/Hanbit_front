@@ -1,48 +1,68 @@
-
-.outer-container {
-  width: 90%;      /* 전체 너비를 70%로 설정 */
-  height: 60%;     /* 화면 높이의 60%로 설정 */
-  margin: 0 auto;  /* 가운데 정렬 */
-  background-color: #fff; /* 배경 색상 추가 (선택사항) */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 약간의 그림자 효과 (선택사항) */
-}
-
-.image-container {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.image-wrapper {
-  position: relative;
-  width: 50%; /* 화면을 반으로 나눔 */
-  height: 100%;
-  cursor: pointer;
-}
-
-.image-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.3); /* 반투명 검은색 */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* 버튼 스타일 */
+.naver-img-button,
+.naver-blog-button {
+  padding: 15px;
+  font-size: 18px;
+  background-color: #5387af; /* 버튼 기본 색상 */
   color: white;
-  font-size: 24px;
-  font-weight: bold;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  border: 2px solid #5387af;
+  border-radius: 8px;  /* 둥근 모서리 */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 0 5px; /* 버튼 사이 여백 */
+  flex: 1; /* 버튼이 각각 50%씩 차지 */
 }
 
-.image-wrapper:hover .overlay {
-  opacity: 1; /* 마우스 오버 시 오버레이 보이기 */
+/* 버튼 컨테이너 스타일 (버튼들을 수평으로 정렬) */
+.button-container {
+  display: flex;
+  justify-content: center; /* 가운데 정렬 */
+  margin-bottom: 20px;
+  padding-top: 100px; /* 버튼 상단 여백 */
 }
+
+/* 버튼 hover 시 스타일 */
+.naver-img-button:hover,
+.naver-blog-button:hover {
+  background-color: white;
+  color: #0078d4;
+  border-color: #0078d4;
+  transform: scale(1.05);  /* 살짝 확대되는 효과 */
+}
+
+/* 버튼 active 상태 */
+.naver-img-button:active,
+.naver-blog-button:active {
+  transform: scale(0.98);  /* 눌렸을 때 작아지는 효과 */
+}
+
+/* 버튼 첫 번째 버튼에만 왼쪽 둥근 모서리 */
+.naver-blog-button {
+  border-radius: 8px 0 0 8px;
+}
+
+/* 버튼 두 번째 버튼에만 오른쪽 둥근 모서리 */
+.naver-img-button {
+  border-radius: 0 8px 8px 0;
+}
+
+/* 컨테이너 레이아웃 */
+.place-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* 기본적으로 컨테이너 숨기기 */
+.naver-blog,
+.naver-img {
+  display: none;
+}
+
+.naver-blog.active,
+.naver-img.active {
+  display: block;
+}
+
+

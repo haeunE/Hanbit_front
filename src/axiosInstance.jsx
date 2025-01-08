@@ -8,7 +8,7 @@ const axiosInstance = axios.create({
 })
 
 function addJwtToRequest(config){
-  const jwt = sessionStorage.getItem('jwt');
+  const jwt = localStorage.getItem('jwt');
 
   if(jwt)
     config.headers['Authorization'] = `${jwt}`

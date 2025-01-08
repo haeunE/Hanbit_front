@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axiosInstance from "../../axiosInstance";
 import { logout } from "../../redux/userState";
+import { clearAllStorage } from "../../utils/clearAllStorage";
 
 
 function Header() {
@@ -14,10 +15,10 @@ function Header() {
   const isPath = useLocation();
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [password, setPassword] = useState("");
-  const jwt = sessionStorage.getItem('jwt'); // 토큰 가져오기
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
-  const isAuth = useSelector((state) => state.auth.isAuth);
+  const {isAuth} = useSelector((state) => state.auth);
+  const jwt = localStorage.getItem('jwt')
 
   // 모드 변경 및 localStorage 저장
   const changeMode = () => {
@@ -81,6 +82,8 @@ function Header() {
   const handleLogout = () => {
     dispatch(logout());
     // 로컬 스토리지 및 세션 스토리지, 쿠키 초기화
+    clearAllStorage();
+    setShowPasswordModal(false);
     alert("로그아웃 되었습니다.");
     window.location.href = "/home"; // 로그인 페이지로 리다이렉트
   };

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Route, Router, Routes, useLocation } from 'react-router-dom'
+import { Route, Router, Routes, useLocation, useNavigate } from 'react-router-dom'
 import './App.css'
 
 import Header from './components/main/Header'
@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Home from './pages/jsx/Home'
 import { SetIsMode } from './redux/modeState'
 import Footer from './components/main/Footer'
+import Cookies from 'js-cookie';
 
 
 
@@ -23,18 +24,25 @@ function App() {
   const isMode = useSelector(state => state.isMode);
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
+  const naviagte = useNavigate();
+  
+
 
   useEffect(() => {
-    // 만약 auth.token이 존재하면 sessionStorage에 저장
-    if (auth.token) {
-      sessionStorage.setItem("jwt", auth.token);  // auth.token을 sessionStorage에 저장
-    } else {
-      // auth.token이 없다면 로그아웃 처리
-      localStorage.removeItem("jwt");
-      sessionStorage.removeItem("jwt");
-      document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    const jwt = localStorage.getItem("jwt")
+    const userinfo = Cookies.get('userInfo')
+    console.log(jwt)
+    if (jwt&&userinfo) {
+      dispatch(login({ token: jwt, user: userinfo }));
+    }else if(jwt&&!userinfo){
+      dispatch(logout())
+      alert('로그인정보가 만료되어 재로그인 해야합니다.')
+      naviagte('/login')
     }
-  }, auth.token);  // dispatch가 변경될 때마다 실행되도록 설정
+    else (
+      dispatch(logout())
+    )
+  }, [dispatch]);  // dispatch가 변경될 때마다 실행되도록 설정
 
   useEffect(() => {
     const savedMode = JSON.parse(localStorage.getItem("isMode"));
