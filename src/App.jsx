@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Home from './pages/jsx/Home'
 import { SetIsMode } from './redux/modeState'
 import Footer from './components/main/Footer'
+import TripPlacesDay from './components/jsx/TripPlacesDay'
 
 
 
@@ -54,6 +55,7 @@ function App() {
         <Route path='/login' element={<Login/>} />
         <Route path='/signup' element={<Signup/>} />
         <Route path='/userprofile' element={<UserProfile/>} />
+        <Route path='/trip' element={<TripPlacesDay/>} />
       </Routes>
       {!['/login', '/signup', '/userprofile'].includes(useLocation().pathname) && <Footer />}
       

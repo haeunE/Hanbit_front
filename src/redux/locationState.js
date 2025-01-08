@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const location = createSlice({
-  name : "location",
+const locationSlice = createSlice({
+  name : "isLocation",
   initialState : { latitude: null, longitude: null, region:null },
   reducers : {
     SetIsLocation(state, action) {
@@ -13,5 +13,5 @@ const location = createSlice({
   }
 })
 
-export const {SetIsLocation} = location.actions;
-export default location;
+export const {SetIsLocation} = locationSlice.actions;
+export default locationSlice;
