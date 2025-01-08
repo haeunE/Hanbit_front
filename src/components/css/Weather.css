@@ -9,6 +9,7 @@
 .weather-temp, .weather-max-temp, .weather-min-temp {
   display: inline-block;
   margin: 5px;
+  font-weight: bold;
 }
 
 .weather.day {
@@ -26,6 +27,6 @@
 
 
 .weather-info.day {
-  background-color: #b9b4b4; /* 밤 모드: 어두운 배경 */
+  background-color: #999494; /* 밤 모드: 어두운 배경 */
   color: #ffffff;  /* 흰색 글자 */
 }

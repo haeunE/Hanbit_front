@@ -73,7 +73,7 @@ function Location() {
       {loading ? (
         <p>위치 정보를 가져오는 중입니다...</p>
       ) : location.latitude && location.longitude ? (
-        <p style={{ color: isMode ? 'black' : 'white' }}>{location.region}</p>
+        <p style={{ color: isMode ? 'black' : 'white', fontWeight:'bold' }}>{location.region}</p>
       ) : (
         <p>{error || '위치 정보가 없습니다.'}</p>
       )}
