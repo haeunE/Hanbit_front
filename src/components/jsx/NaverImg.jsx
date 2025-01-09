@@ -18,7 +18,7 @@ const NaverImg = () => {
       const response = await axios.get('api/v1/search/image.json', {
         params: {
           query: query,
-          display: 10,  // 표시할 이미지 개수
+          display: 30,  // 표시할 이미지 개수
           start: 1,     // 시작 페이지
         },
         headers: {
