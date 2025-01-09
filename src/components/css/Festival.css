@@ -1,19 +1,18 @@
-.place-card {
+.event-card {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
-  
 }
 
-.place-container {
+.event-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 0.5fr));
   gap: 20px;
-  width: 100%;
+  width: 80%;
 }
 
-.place-item {
+.event-item {
   position: relative;
   width: 100%;
   height: 250px;
@@ -22,9 +21,10 @@
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-decoration: none; /* 링크의 기본 스타일 제거 */
 }
 
-.img-info {
+.img-info-event {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -35,14 +35,24 @@
   text-align: center;
 }
 
-.place-addr {
-  font-size: 14px;
+.event-title {
+  font-size: 16px;
+  font-weight: bold;
   margin-bottom: 5px;
 }
 
-.place-title {
-  font-size: 16px;
-  font-weight: bold;
+.event-place,
+.event-date {
+  font-size: 14px;
+}
+
+.event-place {
+  margin-bottom: 5px;
+}
+
+.event-date {
+  font-size: 12px;
+  color: #bbb;
 }
 
 .loading-container {
