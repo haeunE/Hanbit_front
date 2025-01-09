@@ -3,7 +3,7 @@ import { Route, Router, Routes, useLocation, useNavigate } from 'react-router-do
 import './App.css'
 
 import Header from './components/main/Header'
-import Intro from './pages/jsx/Intro'
+import Intro from './pages/jsx/intro'
 import Login from './components/main/Login'
 import Signup from "./components/main/Signup";
 import UserProfile from './components/main/UserProfile'
