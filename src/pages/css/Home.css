@@ -1,7 +1,7 @@
 .home {
-  height: 100vh;
   margin: auto;
   padding-top: 100px; /* 모든 페이지에 적용 해야함 header 때문 */
+  min-height: 900px;
 }
 
 .change-mode {

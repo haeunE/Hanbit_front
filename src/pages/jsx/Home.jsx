@@ -5,6 +5,7 @@ import { SetIsMode } from "../../redux/modeState";
 import Weather from "../../components/jsx/Weather";
 import Location from "../../components/jsx/Location";
 import { Container } from "react-bootstrap";
+import TripPlacesDay from "../../components/jsx/TripPlacesDay";
 
 function Home(){
   const isMode = useSelector(state => state.isMode)
@@ -49,7 +50,7 @@ function Home(){
         <div className="carousel">
         </div>
         <div className="recommand">
-
+          <TripPlacesDay />
         </div>
       </div>
     </Container>

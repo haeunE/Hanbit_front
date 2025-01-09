@@ -1,5 +1,6 @@
 /* Header 스타일 */
 .Header.day {
+  z-index: 999;
   background-color: #5d9d8a;
   position: fixed;
   top: 0;
@@ -8,6 +9,7 @@
 }
 
 .Header.night {
+  z-index: 999;
   background-color: #2f4858;
   position: fixed;
   top: 0;
