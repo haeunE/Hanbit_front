@@ -25,3 +25,7 @@ VITE_WEATHER_API_KEY=your_api_key
 # 인구밀집도 (Population) API
 POPULATION_MAP_API_URL=https://data.seoul.go.kr/SeoulRtd/
 POPULATION_MAP_API_KEY=your_api_key
+
+# 네이버 지도 API 정보 넣기
+NAVER_MAP_CLIENT_ID=your_api_key
+NAVER_MAP_CLIENT_SECRET=your_api_key

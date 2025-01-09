@@ -45,8 +45,8 @@ function App() {
 
   return (
     <div className={`app ${isMode ? 'day' : 'night'}`}>
-      
       <Header />
+      <div className='main-content'>
       <Routes>
         <Route path='/' element={<Intro />} />
         <Route path='/home' element={<Home />} />
@@ -55,8 +55,8 @@ function App() {
         <Route path='/signup' element={<Signup/>} />
         <Route path='/userprofile' element={<UserProfile/>} />
       </Routes>
+      </div>
       {!['/login', '/signup', '/userprofile'].includes(useLocation().pathname) && <Footer />}
-      
     </div>
   )
 }

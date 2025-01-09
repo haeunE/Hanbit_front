@@ -42,22 +42,15 @@ function Population() {
     return <div>{error}</div>;
   }
 
-  // 인구 데이터가 있을 경우 출력
   return (
     <div className="Population">
       <h1>서울시 실시간 인구데이터</h1>
       <div>
-        {/* 인구 데이터 출력 */}
         <p>지역: {populationData.AREA_NM}</p>
         <p>최대 인구: {populationData.AREA_PPLTN_MAX}</p>
         <p>최소 인구: {populationData.AREA_PPLTN_MIN}</p>
-        <p>혼잡도 수준: {populationData.AREA_CONGEST_LVL}</p>
-
-        {/* 밀집도 메시지 출력 */}
-        <div>
-          <h2>혼잡도 안내</h2>
-          <p>{populationData.AREA_CONGEST_MSG}</p>
-        </div>
+        <p>혼잡도 수준: {populationData.AREA_CONGEST_LVL}
+          <br />{populationData.AREA_CONGEST_MSG}</p>
       </div>
     </div>
   );
