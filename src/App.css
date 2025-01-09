@@ -5,11 +5,6 @@
   min-height: 100vh;
 }
 
-.main-content {
-  margin-bottom: 5%;
-  flex-grow: 1; /* 콘텐츠가 늘어나면 푸터는 하단으로 밀린다 */
-}
-
 .app.day{
   background-color: #e9fef7;
 }
@@ -17,7 +12,6 @@
 .app.night{
   background-color:#23333f;
 }
-
 
 /* 미디어 쿼리: 화면 크기가 768px 이하일 때 */
 @media (max-width: 768px) {
