@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const isMode = createSlice({
+const modeSlice = createSlice({
   name:"isMode",
   initialState : true, // true : dayMode, false : nightMode
   reducers : {
@@ -10,5 +10,5 @@ const isMode = createSlice({
   }
 })
 
-export const {SetIsMode} = isMode.actions;
-export default isMode;
+export const {SetIsMode} = modeSlice.actions;
+export default modeSlice;
