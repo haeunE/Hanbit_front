@@ -16,9 +16,6 @@ import { SetIsMode } from './redux/modeState'
 import Footer from './components/main/Footer'
 
 
-
-
-
 function App() {
   const isMode = useSelector(state => state.isMode);
   const dispatch = useDispatch();
