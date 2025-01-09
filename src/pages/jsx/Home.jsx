@@ -6,6 +6,7 @@ import Weather from "../../components/jsx/Weather";
 import Location from "../../components/jsx/Location";
 import { Container } from "react-bootstrap";
 import Population from "../../components/jsx/Population";
+import TripPlacesDay from "../../components/jsx/TripPlacesDay";
 
 function Home(){
   const isMode = useSelector(state => state.isMode)
@@ -50,7 +51,7 @@ function Home(){
         <div className="carousel">
         </div>
         <div className="recommand">
-
+          <TripPlacesDay />
         </div>
         <div className="population-density">
           <Population />
