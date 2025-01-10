@@ -1,68 +1,58 @@
-/* 버튼 스타일 */
-.naver-img-button,
-.naver-blog-button {
-  padding: 15px;
-  font-size: 18px;
-  background-color: #5387af; /* 버튼 기본 색상 */
-  color: white;
-  border: 2px solid #5387af;
-  border-radius: 8px;  /* 둥근 모서리 */
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin: 0 5px; /* 버튼 사이 여백 */
-  flex: 1; /* 버튼이 각각 50%씩 차지 */
-}
-
-/* 버튼 컨테이너 스타일 (버튼들을 수평으로 정렬) */
-.button-container {
-  display: flex;
-  justify-content: center; /* 가운데 정렬 */
-  margin-bottom: 20px;
-  padding-top: 100px; /* 버튼 상단 여백 */
-}
-
-/* 버튼 hover 시 스타일 */
-.naver-img-button:hover,
-.naver-blog-button:hover {
-  background-color: white;
-  color: #0078d4;
-  border-color: #0078d4;
-  transform: scale(1.05);  /* 살짝 확대되는 효과 */
-}
-
-/* 버튼 active 상태 */
-.naver-img-button:active,
-.naver-blog-button:active {
-  transform: scale(0.98);  /* 눌렸을 때 작아지는 효과 */
-}
-
-/* 버튼 첫 번째 버튼에만 왼쪽 둥근 모서리 */
-.naver-blog-button {
-  border-radius: 8px 0 0 8px;
-}
-
-/* 버튼 두 번째 버튼에만 오른쪽 둥근 모서리 */
-.naver-img-button {
-  border-radius: 0 8px 8px 0;
-}
-
 /* 컨테이너 레이아웃 */
-.place-container {
+.detail-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 100px;
+  width: 100%; /* 컨테이너가 부모 요소의 너비를 가득 채움 */
+  gap:1rem;
+  background-color: rgb(240, 255, 250);
+  padding: 1rem;
+  border-radius: 10px;
 }
 
-/* 기본적으로 컨테이너 숨기기 */
-.naver-blog,
-.naver-img {
-  display: none;
+.detail-container h2 {
+  color: #555;
 }
 
-.naver-blog.active,
-.naver-img.active {
-  display: block;
+.place-imgs {
+  margin-top: 1rem;
 }
 
+.detail-tab-container {
+  width: 100%; 
+}
+
+.detail-tab.mb-3 {
+  display: flex;
+  align-items: center;
+  width: 100%; 
+  justify-content: space-between; 
+}
+
+/* 탭 컨테이너의 스타일 */
+.nav-tabs {
+  border-bottom: 2px solid gray; /* 하단 테두리 색상 */
+}
+
+/* 탭 버튼의 스타일 */
+.nav-tabs .nav-link {
+  color: #555; /* 기본 텍스트 색상 */
+  padding: 10px 20px; /* 패딩 */
+  font-size: 16px; /* 글자 크기 */
+  transition: background-color 0.3s ease;
+}
+
+/* 활성 탭 스타일 */
+.nav-tabs .nav-link.active {
+  color: white; /* 활성화된 탭의 텍스트 색상 */
+  background-color: 	#417477; /* 활성화된 탭의 배경색 */
+  border-color: gray; /* 테두리 색상 */
+}
+
+/* 탭 버튼 hover 시 스타일 */
+.nav-tabs .nav-link:hover {
+  color: #555; 
+  background-color: #e0e0e0; /* hover 배경색 */
+}
 
