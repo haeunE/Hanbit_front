@@ -7,7 +7,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import axiosInstance from "../../axiosInstance";
 import { logout } from "../../redux/userState";
 
-
 function Header() {
   const isMode = useSelector(state => state.isMode);
   const dispatch = useDispatch();
@@ -18,6 +17,14 @@ function Header() {
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
   const isAuth = useSelector((state) => state.auth.isAuth);
+  
+    // 페이지 로드 시 localStorage에서 모드 불러오기
+    useEffect(() => {
+      const savedMode = JSON.parse(localStorage.getItem("isMode"));
+      if (savedMode !== null) {
+        dispatch(SetIsMode(savedMode));  // 저장된 모드 상태 불러오기
+      }
+    }, [dispatch]);
 
   // 모드 변경 및 localStorage 저장
   const changeMode = () => {
@@ -25,15 +32,6 @@ function Header() {
     dispatch(SetIsMode(savedMode));
     localStorage.setItem("isMode", JSON.stringify(savedMode));  // localStorage에 저장
   };
-
-  // 페이지 로드 시 localStorage에서 모드 불러오기
-  useEffect(() => {
-    const savedMode = JSON.parse(localStorage.getItem("isMode"));
-    if (savedMode !== null) {
-      dispatch(SetIsMode(savedMode));  // 저장된 모드 상태 불러오기
-    }
-  }, [dispatch]);
-  
 
   // 툴팁 렌더링 함수
   const renderTooltip = (message) => (props) => (
@@ -84,7 +82,13 @@ function Header() {
     alert("로그아웃 되었습니다.");
     window.location.href = "/home"; // 로그인 페이지로 리다이렉트
   };
-  
+
+  // Nav 링크 배열
+  const navLinks = [
+    { to: "/tip", icon: "fa-info", label: "도움말" },
+    { to: "/search", icon: "fa-magnifying-glass", label: "검색" },
+    { to: "/lanuage", icon: "fa-globe", label: "언어 설정" },
+  ];
 
   return (
     <div className={`Header ${isMode ? 'day' : 'night'}`}>
@@ -98,42 +102,49 @@ function Header() {
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="me-auto">
                 <Nav.Link href="">{isMode ? 'DAY SEOUL' : 'NIGHT SEOUL'}</Nav.Link>
+                
+                {/* 편의시설 NavDropdown */}
                 <NavDropdown title="편의시설" id="navbarScrollingDropdown">
-                  <NavDropdown.Item className={`custom-dropdown-item ${isMode ? 'day' : 'night'}`} href="#action3">
-                    <i className="fa-solid fa-store"></i>
-                    &nbsp;&nbsp;&nbsp;편의시설 
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item className={`custom-dropdown-item ${isMode ? 'day' : 'night'}`} href="#action5">
-                    <i className="fa-solid fa-ban"></i>
-                    &nbsp;&nbsp;&nbsp;위험지역 
-                  </NavDropdown.Item>
+                  {[
+                    { icon: "fa-store", label: "편의시설", href: "#action3" },
+                    { icon: "fa-ban", label: "위험지역", href: "#action5" }
+                  ].map((item, index) => (
+                    <NavDropdown.Item key={index} className={`custom-dropdown-item ${isMode ? 'day' : 'night'}`} href={item.href}>
+                      <i className={`fa-solid ${item.icon}`}></i>
+                      &nbsp;&nbsp;&nbsp;{item.label}
+                    </NavDropdown.Item>
+                  ))}
                 </NavDropdown>
+
+                {/* 음식지도 NavDropdown */}
                 <NavDropdown title="음식지도" id="navbarScrollingDropdown">
-                  <NavDropdown.Item className={`custom-dropdown-item ${isMode ? 'day' : 'night'}`} href="#action3">
-                    <i class="fa-solid fa-bowl-food"></i>
-                    &nbsp;&nbsp;&nbsp;음식지도
-                  </NavDropdown.Item>
-                  <NavDropdown.Item className={`custom-dropdown-item ${isMode ? 'day' : 'night'}`} href="#action4">
-                    <i class="fa-solid fa-motorcycle"></i>
-                    &nbsp;&nbsp;&nbsp;배달의 나라 
-                  </NavDropdown.Item>
+                  {[
+                    { icon: "fa-bowl-food", label: "음식지도", href: "#action3" },
+                    { icon: "fa-motorcycle", label: "배달의 나라", href: "#action4" }
+                  ].map((item, index) => (
+                    <NavDropdown.Item key={index} className={`custom-dropdown-item ${isMode ? 'day' : 'night'}`} href={item.href}>
+                      <i className={`fa-solid ${item.icon}`}></i>
+                      &nbsp;&nbsp;&nbsp;{item.label}
+                    </NavDropdown.Item>
+                  ))}
                 </NavDropdown>
+
+                {/* 교통 NavDropdown */}
                 <NavDropdown title="교통" id="navbarScrollingDropdown">
-                  <NavDropdown.Item className={`custom-dropdown-item ${isMode ? 'day' : 'night'}`} href="#action3">
-                    <i class="fa-solid fa-map-pin"></i>
-                    &nbsp;&nbsp;&nbsp;길찾기
-                  </NavDropdown.Item>
-                  <NavDropdown.Item className={`custom-dropdown-item ${isMode ? 'day' : 'night'}`} href="#action4">
-                    <i class="fa-solid fa-bus"></i>
-                    &nbsp;&nbsp;&nbsp;대중교통
-                  </NavDropdown.Item>
-                  <NavDropdown.Item className={`custom-dropdown-item ${isMode ? 'day' : 'night'}`} href="#action4">
-                    <i class="fa-solid fa-person-biking"></i>
-                    &nbsp;&nbsp;&nbsp;따릉이
-                  </NavDropdown.Item>
+                  {[
+                    { icon: "fa-map-pin", label: "길찾기", href: "#action3" },
+                    { icon: "fa-bus", label: "대중교통", href: "#action4" },
+                    { icon: "fa-person-biking", label: "따릉이", href: "/bicycle" }
+                  ].map((item, index) => (
+                    <NavDropdown.Item key={index} className={`custom-dropdown-item ${isMode ? 'day' : 'night'}`} href={item.href}>
+                      <i className={`fa-solid ${item.icon}`}></i>
+                      &nbsp;&nbsp;&nbsp;{item.label}
+                    </NavDropdown.Item>
+                  ))}
                 </NavDropdown>
               </Nav>
+
+              {/* 사용자 메뉴 */}
               <Form className={`d-flex header-icons ${isMode ? 'day' : 'night'}`}>
                 <Nav.Link as={Link} to="#" onClick={changeMode}>
                   <i className={`toggle-icon ${isMode ? 'fa-solid fa-toggle-on' : 'fa-solid fa-toggle-off'} me-2`} 
@@ -143,23 +154,13 @@ function Header() {
                 <div className="gap"></div>
 
                 {/* 툴팁이 있는 Nav.Link들 */}
-                <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip("도움말")}>
-                  <Nav.Link as={Link} to="/tip" onClick={(e) => e.stopPropagation()}>
-                    <i className="fa-solid fa-info me-2"></i>
-                  </Nav.Link>
-                </OverlayTrigger>
-
-                <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip("검색")}>
-                  <Nav.Link as={Link} to="/search" onClick={(e) => e.stopPropagation()}>
-                    <i className="fa-solid fa-magnifying-glass me-2"></i>
-                  </Nav.Link>
-                </OverlayTrigger>
-
-                <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip("언어 설정")}>
-                  <Nav.Link as={Link} to="/lanuage" onClick={(e) => e.stopPropagation()}>
-                    <i className="fa-solid fa-globe me-2"></i>
-                  </Nav.Link>
-                </OverlayTrigger>
+                {navLinks.map((link, index) => (
+                  <OverlayTrigger key={index} placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip(link.label)}>
+                    <Nav.Link as={Link} to={link.to} onClick={(e) => e.stopPropagation()}>
+                      <i className={`fa-solid ${link.icon} me-2`}></i>
+                    </Nav.Link>
+                  </OverlayTrigger>
+                ))}
 
                 <div className="user-icon-dropdown-container" autoComplete="off">
                   {/* 사용자 아이콘 클릭 시 드롭다운 메뉴 */}
