@@ -61,7 +61,7 @@ VITE_KOREA_TOURIST_DAY_API_KEY = your_api_key
 
 ## .env.local 파일에 api 정보 넣기
 ```
-VITE_KOREA_Festival_DAY_API_KEY = your_api_key
+VITE_KOREA_SEOUL_DATA_API_KEY = your_api_key
 ```
 
 # .env.local 파일 
@@ -71,4 +71,6 @@ VITE_REACT_APP_SERVER_URL=http://localhost:8888
 VITE_WEATHER_API_KEY=your_api_key
 VITE_KOREA_TOURIST_DAY_API_KEY = your_api_key
 VITE_KOREA_Festival_DAY_API_KEY = your_api_key
+```
+VITE_KOREA_SEOUL_DATA_API_KEY = your_api_key
 ```

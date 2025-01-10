@@ -6,18 +6,43 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axiosInstance from "../../axiosInstance";
 import { logout } from "../../redux/userState";
+import SearchModal from "../jsx/SearchModal";
+import { SetLanguage } from "../../redux/languageState";
+import { useTranslation } from "react-i18next";
+import "@/locales/i18n";
+import i18n from 'i18next';  // i18n을 import
 
 
 function Header() {
+  const { t } = useTranslation();
   const isMode = useSelector(state => state.isMode);
+  const isAuth = useSelector((state) => state.auth.isAuth);
   const dispatch = useDispatch();
   const isPath = useLocation();
+  const navigate = useNavigate();
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [password, setPassword] = useState("");
   const jwt = sessionStorage.getItem('jwt'); // 토큰 가져오기
-  const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
-  const isAuth = useSelector((state) => state.auth.isAuth);
+  const [showSearchModal, setShowSearchModal] = useState(false);  // 초기값 false로 설정
+  const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
+
+  // 페이지 로드 시 localStorage에서 모드 불러오기
+  useEffect(() => {
+    const savedMode = JSON.parse(localStorage.getItem("isMode"));
+    if (savedMode !== null) {
+      dispatch(SetIsMode(savedMode));
+    } else {
+      dispatch(SetIsMode(true));
+    }
+
+    const savedLanguage = localStorage.getItem('lang');
+    if (savedLanguage) {
+      i18n.changeLanguage(savedLanguage); // 로컬스토리지에서 언어 불러와 적용
+      dispatch(SetLanguage(savedLanguage)); 
+    }
+  }, [dispatch, ]);
+  
 
   // 모드 변경 및 localStorage 저장
   const changeMode = () => {
@@ -25,15 +50,6 @@ function Header() {
     dispatch(SetIsMode(savedMode));
     localStorage.setItem("isMode", JSON.stringify(savedMode));  // localStorage에 저장
   };
-
-  // 페이지 로드 시 localStorage에서 모드 불러오기
-  useEffect(() => {
-    const savedMode = JSON.parse(localStorage.getItem("isMode"));
-    if (savedMode !== null) {
-      dispatch(SetIsMode(savedMode));  // 저장된 모드 상태 불러오기
-    }
-  }, [dispatch]);
-  
 
   // 툴팁 렌더링 함수
   const renderTooltip = (message) => (props) => (
@@ -84,7 +100,25 @@ function Header() {
     alert("로그아웃 되었습니다.");
     window.location.href = "/home"; // 로그인 페이지로 리다이렉트
   };
+
+  // 언어 설정 변경
+  const changeLanguage = (lang) => {
+    dispatch(SetLanguage(lang)); // Redux 상태 업데이트
+    i18n.changeLanguage(lang); // i18n 언어 변경
+    localStorage.setItem('lang', lang);
+  };
   
+  // 검색 모달 열기/닫기
+  const toggleSearchModal = () => {
+    setShowSearchModal(!showSearchModal);
+  };
+
+  // 검색어 처리 함수
+  const handleSearch = (searchQuery) => {
+    console.log("검색어:", searchQuery);
+    // 여기서 API 호출 등 실제 검색 작업을 수행할 수 있습니다.
+    // 예: searchResults(searchQuery);
+  };
 
   return (
     <div className={`Header ${isMode ? 'day' : 'night'}`}>
@@ -97,43 +131,50 @@ function Header() {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link href="">{isMode ? 'DAY SEOUL' : 'NIGHT SEOUL'}</Nav.Link>
-                <NavDropdown title="편의시설" id="navbarScrollingDropdown">
-                  <NavDropdown.Item className={`custom-dropdown-item ${isMode ? 'day' : 'night'}`} href="#action3">
-                    <i className="fa-solid fa-store"></i>
-                    &nbsp;&nbsp;&nbsp;편의시설 
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item className={`custom-dropdown-item ${isMode ? 'day' : 'night'}`} href="#action5">
-                    <i className="fa-solid fa-ban"></i>
-                    &nbsp;&nbsp;&nbsp;위험지역 
-                  </NavDropdown.Item>
+                <Nav.Link href={`${isMode?'/daySeoul':'/nightSeoul'}`}>{isMode ? t`header.day-seoul` :  t`header.night-seoul`}</Nav.Link>
+                
+                {/* 편의시설 NavDropdown */}
+                <NavDropdown title={t`header.amenities`} id="navbarScrollingDropdown">
+                  {[ 
+                    { icon: "fa-store", label: (t`header.amenities`), href: "#action3" },
+                    { icon: "fa-ban", label: (t`header.danger-area`), href: "#action5" }
+                  ].map((item, index) => (
+                    <NavDropdown.Item key={index} className={`custom-dropdown-item ${isMode ? 'day' : 'night'}`} href={item.href}>
+                      <i className={`fa-solid ${item.icon}`}></i>
+                      &nbsp;&nbsp;&nbsp;{item.label}
+                    </NavDropdown.Item>
+                  ))}
                 </NavDropdown>
-                <NavDropdown title="음식지도" id="navbarScrollingDropdown">
-                  <NavDropdown.Item className={`custom-dropdown-item ${isMode ? 'day' : 'night'}`} href="#action3">
-                    <i class="fa-solid fa-bowl-food"></i>
-                    &nbsp;&nbsp;&nbsp;음식지도
-                  </NavDropdown.Item>
-                  <NavDropdown.Item className={`custom-dropdown-item ${isMode ? 'day' : 'night'}`} href="#action4">
-                    <i class="fa-solid fa-motorcycle"></i>
-                    &nbsp;&nbsp;&nbsp;배달의 나라 
-                  </NavDropdown.Item>
+
+                {/* 음식지도 NavDropdown */}
+                <NavDropdown title={t`header.food-map`} id="navbarScrollingDropdown">
+                  {[ 
+                    { icon: "fa-bowl-food", label: (t`header.food-map`), href: "#action3" },
+                    { icon: "fa-motorcycle", label: (t`header.delivery`), href: "#action4" }
+                  ].map((item, index) => (
+                    <NavDropdown.Item key={index} className={`custom-dropdown-item ${isMode ? 'day' : 'night'}`} href={item.href}>
+                      <i className={`fa-solid ${item.icon}`}></i>
+                      &nbsp;&nbsp;&nbsp;{item.label}
+                    </NavDropdown.Item>
+                  ))}
                 </NavDropdown>
-                <NavDropdown title="교통" id="navbarScrollingDropdown">
-                  <NavDropdown.Item className={`custom-dropdown-item ${isMode ? 'day' : 'night'}`} href="#action3">
-                    <i class="fa-solid fa-map-pin"></i>
-                    &nbsp;&nbsp;&nbsp;길찾기
-                  </NavDropdown.Item>
-                  <NavDropdown.Item className={`custom-dropdown-item ${isMode ? 'day' : 'night'}`} href="#action4">
-                    <i class="fa-solid fa-bus"></i>
-                    &nbsp;&nbsp;&nbsp;대중교통
-                  </NavDropdown.Item>
-                  <NavDropdown.Item className={`custom-dropdown-item ${isMode ? 'day' : 'night'}`} href="#action4">
-                    <i class="fa-solid fa-person-biking"></i>
-                    &nbsp;&nbsp;&nbsp;따릉이
-                  </NavDropdown.Item>
+
+                {/* 교통 NavDropdown */}
+                <NavDropdown title={t`header.traffic`}  id="navbarScrollingDropdown">
+                  {[ 
+                    { icon: "fa-map-pin", label: (t`header.directions`), href: "#action3" },
+                    { icon: "fa-bus", label: (t`header.public-transportation`), href: "#action4" },
+                    { icon: "fa-person-biking", label: (t`header.Ddareungi`), href: "/bicycle" }
+                  ].map((item, index) => (
+                    <NavDropdown.Item key={index} className={`custom-dropdown-item ${isMode ? 'day' : 'night'}`} href={item.href}>
+                      <i className={`fa-solid ${item.icon}`}></i>
+                      &nbsp;&nbsp;&nbsp;{item.label}
+                    </NavDropdown.Item>
+                  ))}
                 </NavDropdown>
               </Nav>
+
+              {/* 사용자 메뉴 */}
               <Form className={`d-flex header-icons ${isMode ? 'day' : 'night'}`}>
                 <Nav.Link as={Link} to="#" onClick={changeMode}>
                   <i className={`toggle-icon ${isMode ? 'fa-solid fa-toggle-on' : 'fa-solid fa-toggle-off'} me-2`} 
@@ -142,27 +183,47 @@ function Header() {
                 </Nav.Link>
                 <div className="gap"></div>
 
-                {/* 툴팁이 있는 Nav.Link들 */}
-                <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip("도움말")}>
+                <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip((t`header.help`))}>
                   <Nav.Link as={Link} to="/tip" onClick={(e) => e.stopPropagation()}>
                     <i className="fa-solid fa-info me-2"></i>
                   </Nav.Link>
                 </OverlayTrigger>
 
-                <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip("검색")}>
-                  <Nav.Link as={Link} to="/search" onClick={(e) => e.stopPropagation()}>
-                    <i className="fa-solid fa-magnifying-glass me-2"></i>
-                  </Nav.Link>
-                </OverlayTrigger>
-
-                <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip("언어 설정")}>
-                  <Nav.Link as={Link} to="/lanuage" onClick={(e) => e.stopPropagation()}>
+                {/* 언어 설정 아이콘 */}
+                <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip((t`header.language-settings`))}>
+                  <Nav.Link as={Link} to="#" onClick={(e) => {
+                    e.preventDefault(); // 기본 링크 동작 방지
+                    setShowLanguageDropdown(!showLanguageDropdown); // 드롭다운 토글
+                  }}>
                     <i className="fa-solid fa-globe me-2"></i>
                   </Nav.Link>
                 </OverlayTrigger>
+              
+                {/* 언어 설정 드롭다운 */}
+                {showLanguageDropdown && (
+                <NavDropdown align="end" className="language-dropdown" show>
+                  <NavDropdown.Item onClick={() => {changeLanguage("ko"); setShowLanguageDropdown(!showLanguageDropdown);}}>한국어</NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => {changeLanguage("en"); setShowLanguageDropdown(!showLanguageDropdown);}}>English</NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => {changeLanguage("zh"); setShowLanguageDropdown(!showLanguageDropdown);}}>中文</NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => {changeLanguage("ja"); setShowLanguageDropdown(!showLanguageDropdown);}}>日本語</NavDropdown.Item>
+                </NavDropdown>
+              )}
 
+                {/* 검색 설정 아이콘 */}
+                <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip((t`header.search`))}>
+                  <Nav.Link as={Link} to="/search" onClick={(e) => {
+                    e.preventDefault();
+                    toggleSearchModal(); // 모달 토글
+                  }}>
+                    <i className="fa-solid fa-magnifying-glass me-2"></i>
+                  </Nav.Link>
+                </OverlayTrigger>
+              
+              {/* SearchModal이 화면에 보이도록 설정 */}
+              <SearchModal show={showSearchModal} handleClose={toggleSearchModal} handleSearch={handleSearch} />
+
+                {/* 사용자 아이콘 클릭 시 드롭다운 메뉴 */}
                 <div className="user-icon-dropdown-container" autoComplete="off">
-                  {/* 사용자 아이콘 클릭 시 드롭다운 메뉴 */}
                   <Nav.Link as={Link} to="#" onClick={handleUserIconClick}>
                     <i className="fa-solid fa-user me-2"></i>
                   </Nav.Link>
@@ -174,41 +235,41 @@ function Header() {
                       <Dropdown.Item onClick={handleLogout}>로그아웃</Dropdown.Item>
                     </Dropdown.Menu>
                   )}
-
-                  {/* 비밀번호 확인 모달 */}
-                  <Modal show={showPasswordModal} onHide={() => setShowPasswordModal(false)} >
-                    <Modal.Header closeButton>
-                      <Modal.Title>비밀번호 확인</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      <p>비밀번호를 입력해주세요.</p>
-                      <input
-                        type="password"
-                        className="form-control"
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="비밀번호"
-                        autoComplete="off"  // autocomplete 속성 추가
-                        autoCapitalize="none"  // 자동 대문자화 방지
-                        autoCorrect="off"  // 자동 수정 방지
-                        spellCheck="false"  // 맞춤법 검사 방지
-                        name="new-password-field"  // 유니크한 name 속성
-                      />
-                    </Modal.Body>
-                    <Modal.Footer>
-                      <Button variant="secondary" onClick={() => setShowPasswordModal(false)}>
-                        취소
-                      </Button>
-                      <Button variant="primary" onClick={handlePasswordSubmit}>
-                        확인
-                      </Button>
-                    </Modal.Footer>
-                  </Modal>
                 </div>
               </Form>
             </Navbar.Collapse>
           </Container>
         </Navbar>
       </div>
+
+      {/* 비밀번호 확인 모달 */}
+      <Modal show={showPasswordModal} onHide={() => setShowPasswordModal(false)} >
+        <Modal.Header closeButton>
+          <Modal.Title>비밀번호 확인</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>비밀번호를 입력해주세요.</p>
+          <input
+            type="password"
+            className="form-control"
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="비밀번호"
+            autoComplete="off"  // autocomplete 속성 추가
+            autoCapitalize="none"  // 자동 대문자화 방지
+            autoCorrect="off"  // 자동 수정 방지
+            spellCheck="false"  // 맞춤법 검사 방지
+            name="new-password-field"  // 유니크한 name 속성
+          />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowPasswordModal(false)}>
+            취소
+          </Button>
+          <Button variant="primary" onClick={handlePasswordSubmit}>
+            확인
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

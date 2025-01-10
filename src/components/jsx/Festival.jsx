@@ -4,13 +4,13 @@ import '../css/Festival.css'
 
 function Festival(){
   const location = JSON.parse(localStorage.getItem("location"));
-  const APIKEY = import.meta.env.VITE_KOREA_Festival_DAY_API_KEY;
+  const APIKEY = import.meta.env.VITE_KOREA_SEOUL_DATA_API_KEY;
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const city = location.city;
-    const URL = `http://openapi.seoul.go.kr:8088/${APIKEY}/json/culturalEventInfo/2/100/%20/${city}`;
+    const URL = `http://openapi.seoul.go.kr:8088/${APIKEY}/json/culturalEventInfo/1/100/%20/${city}`;
 
     fetch(URL)
       .then((response) => response.json())

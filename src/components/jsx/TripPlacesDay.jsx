@@ -1,29 +1,44 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import '../css/TripPlacesDay.css';
+import { useTranslation } from "react-i18next";
+import "@/locales/i18n";
+import i18n from 'i18next';  // i18n을 import
+import { SetLanguage } from "../../redux/languageState";
 
 function TripPlacesDay({ contentTypeId, pageNo }) {
+  const { t } = useTranslation();
   const location = JSON.parse(localStorage.getItem("location"));
   const isLanguage = useSelector(state => state.isLanguage);
+  const isMode = useSelector(state => state.isMode);
   const APIKEY = import.meta.env.VITE_KOREA_TOURIST_DAY_API_KEY;
   const [places, setPlaces] = useState([]);
   const [isLoading, setIsLoading] = useState(true);  // 로딩 상태 관리
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const lat = location.latitude;
     const lon = location.longitude;
     
+    const savedLanguage = localStorage.getItem('lang');
+    if (savedLanguage) {
+      i18n.changeLanguage(savedLanguage); // 로컬스토리지에서 언어 불러와 적용
+      dispatch(SetLanguage(savedLanguage)); 
+    }
     let serviceType = "KorService1"; 
-    if (isLanguage === "english") {
+    if( isLanguage === "ko"){
+     serviceType = "KorService1";
+    }else if (isLanguage === "en") {
       serviceType = "EngService1";
-    } else if (isLanguage === "japan") {
+    } else if (isLanguage === "ja") {
       serviceType = "JpnService1";
-    } else if (isLanguage === "china") {
+    } else if (isLanguage === "zh") {
       serviceType = "ChsService1";
     }
+    
 
     const URL = `https://apis.data.go.kr/B551011/${serviceType}/locationBasedList1?numOfRows=10&pageNo=${pageNo}&MobileOS=WIN&MobileApp=hanbit&_type=json&mapX=${lon}&mapY=${lat}&radius=10000&contentTypeId=${Number(contentTypeId)}&serviceKey=${APIKEY}`;
-
+    console.log(URL)
     fetch(URL)
       .then((response) => response.json())
       .then((data) => {
@@ -46,7 +61,7 @@ function TripPlacesDay({ contentTypeId, pageNo }) {
       .catch((error) => {
         console.error("API 호출 오류:", error);
       });
-  }, [isLanguage, pageNo]);
+  }, [isLanguage]);
 
   const getRandomItems = (arr, n) => {
     const shuffled = [...arr].sort(() => 0.5 - Math.random()); 
@@ -57,7 +72,7 @@ function TripPlacesDay({ contentTypeId, pageNo }) {
     <div className="place-card">
       {isLoading ? (
         <div className="loading-container">
-          <p>로딩 중...</p>  {/* 로딩 중 텍스트 */}
+          <p>{t`loading`}</p>  {/* 로딩 중 텍스트 */}
         </div>
       ) : (
         <div className="place-container">
