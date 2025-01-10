@@ -1,0 +1,43 @@
+{
+  "header" : {
+    "day-seoul" : "ソウルの昼間",
+    "night-seoul" : "ソウルの夜",
+    "amenities" : "設備",
+    "danger-area" : "危険地域",
+    "food-map" : "グルメマップ",
+    "delivery" : "デリバリー",
+    "traffic" : "交通",
+    "directions" : "道案内",
+    "public-transportation" : "公共交通機関",
+    "Ddareungi" : "ソウルシェアサイクル(自転車レンタル)",
+    "help": "ヘルプ",
+    "language-settings": "言語設定",
+    "search": "検索"
+  },
+  "home" : {
+    "day" : "昼間",
+    "night" : "夜",
+    "event" : "イベント",
+    "performance" : "パフォーマンス", 
+    "recommended-restaurants" : "おすすめレストラン",
+    "recommended-accommodation": "おすすめ宿泊施設"
+  },
+  "Ddareungi-page" : {
+    "bicycle-rental-location" : "自転車レンタルステーション",
+    "title": "ソウルシェアサイクルの使い方",
+    "steps1": "1. レンタルステーションに到着し、自転車を選んでください。",
+    "steps2": "2. 自転車をレンタルするには、スマートフォンの'Ddareungi'アプリを開きます。",
+    "steps3": "3. アプリでQRコードをスキャンして自転車をレンタルしてください。",
+    "steps4": "4. 自転車を使用した後、近くのレンタルステーションに返却してください。",
+    "steps5": "5. レンタルステーションに自転車がない場合、他のステーションを確認するか、自転車が利用できる場所に移動してください。",
+    "go-to-website": "DDAREUNGIのウェブサイトに移動",
+    "download-android": "DDAREUNGIアプリをダウンロード (Android)",
+    "download-ios": "DDAREUNGIアプリをダウンロード (iOS)"
+  },
+  "loading" : "読み込み中...",
+  "weather": {
+    "current-temp": "現在の温度",
+    "max-temp": "最高温度",
+    "min-temp": "最低温度"
+  }
+}

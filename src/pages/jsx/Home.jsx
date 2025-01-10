@@ -7,8 +7,13 @@ import Location from "../../components/jsx/Location";
 import { Container } from "react-bootstrap";
 import TripPlacesDay from "../../components/jsx/TripPlacesDay";
 import Festival from "../../components/jsx/Festival";
+import "@/locales/i18n";
+import i18n from 'i18next';  // i18n을 import
+import { SetLanguage } from "../../redux/languageState";
+import { useTranslation } from "react-i18next";
 
 function Home() {
+  const { t } = useTranslation();
   const isMode = useSelector((state) => state.isMode);
   const isLanguage = useSelector((state) => state.isLanguage);
   const dispatch = useDispatch();
@@ -33,7 +38,7 @@ function Home() {
 
   useEffect(() => {
     // isLanguage 상태에 따라 contentTypeId 변경
-    if (isLanguage === "korean") {
+    if (isLanguage === "ko") {
       setPlaceContentTypeId(12);  // 한국어일 때
       setRestaurantContentTypeId(39);
       setHotelContentTypeId(32);  // 한국어일 때 추천 음식
@@ -42,8 +47,11 @@ function Home() {
       setRestaurantContentTypeId(82);
       setHotelContentTypeId(80);  // 다른 언어일 때 추천 음식
     }
+
+    // i18n 라이브러리에서 언어 변경
+    i18n.changeLanguage(isLanguage);
+
   }, [isLanguage]);
-  
 
   const changeMode = () => {
     const savedMode = !isMode;
@@ -60,14 +68,14 @@ function Home() {
             onClick={changeMode}
             disabled={isMode} // isMode가 true일 때 DAY 버튼 비활성화
           >
-            DAY
+            {t`home.day`}
           </button>
           <button
             className="home-change-mode-night"
             onClick={changeMode}
             disabled={!isMode} // isMode가 false일 때 NIGHT 버튼 비활성화
           >
-            NIGHT
+            {t`home.night`}
           </button>
         </div>
         <div className="location-weather">
@@ -83,15 +91,15 @@ function Home() {
           <div className="population"></div>
           <div className="homepage-buttom">
             <div className="recommend-festival">
-              <div className="event-banner">행사/공연</div>
+              <div className="event-banner">{t`home.event`}/{t`home.performance`}</div>
               <Festival />
             </div>
             <div className="recommend-restaurant">
-              <div className="restaurant-banner">추천맛집</div>
+              <div className="restaurant-banner">{t`home.recommended-restaurants`}</div>
               <TripPlacesDay contentTypeId={restaurantContentTypeId} pageNo={restaurantPageNo} />
             </div>
             <div className="recommend-hotel">
-              <div className="hotel-banner">추천숙소</div>
+              <div className="hotel-banner">{t`home.recommended-accommodation`}</div>
               <TripPlacesDay contentTypeId={hotelContentTypeId} pageNo={hotelPageNo} />
             </div>
           </div>

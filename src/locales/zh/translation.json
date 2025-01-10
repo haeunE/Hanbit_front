@@ -1,0 +1,44 @@
+{
+  "header" : {
+    "day-seoul" : "首尔的白天",
+    "night-seoul" : "首尔的夜晚",
+    "amenities" : "便利设施",
+    "danger-area" : "危险区域",
+    "food-map" : "美食地图",
+    "delivery" : "配送",
+    "traffic" : "交通",
+    "directions" : "路线指引",
+    "public-transportation" : "公共交通",
+    "Ddareungi" : "首尔公共自行车(自行车租赁)",
+    "help": "帮助",
+    "language-settings": "语言设置",
+    "search": "搜索"
+  },
+  "home" : {
+    "day" : "白天",
+    "night" : "夜晚",
+    "event" : "活动",
+    "performance" : "表演", 
+    "recommended-restaurants" : "推荐餐厅",
+    "recommended-accommodation": "推荐住宿"
+  },
+  "Ddareungi-page" : {
+    "bicycle-rental-location" : "自行车租赁地点",
+    "title": "首尔公共自行车使用方法",
+    "steps1": "1. 到达租赁站并选择一辆自行车。",
+    "steps2": "2. 打开智能手机上的'Ddareungi'应用程序以租赁自行车。",
+    "steps3": "3. 扫描应用中的二维码以租赁自行车。",
+    "steps4": "4. 使用完自行车后，将其归还至附近的租赁站。",
+    "steps5": "5. 如果租赁站没有自行车，请检查其他租赁站或前往有自行车的地点。",
+    "go-to-website": "前往DDAREUNGI网站",
+    "download-android": "下载DDAREUNGI应用程序 (Android)",
+    "download-ios": "下载DDAREUNGI应用程序 (iOS)"
+  },
+  "loading" : "加载中...",
+  "weather": {
+    "current-temp": "当前温度",
+    "max-temp": "最高温度",
+    "min-temp": "最低温度"
+  }
+
+}
