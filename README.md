@@ -64,7 +64,6 @@ VITE_KOREA_TOURIST_DAY_API_KEY = your_api_key
 VITE_KOREA_Festival_DAY_API_KEY = your_api_key
 ```
 
-
 # .env.local 파일 
 앱폴더에 .env.local 파일 생성 후 해당 코드 넣어주세요
 ```
