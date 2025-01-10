@@ -68,11 +68,10 @@ function Population() {
   // 엔터키로 검색
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
-      e.preventDefault(); // 기본 동작 막기
-      handleSearch(); // 엔터키 눌렀을 때 검색
+      e.preventDefault();
+      handleSearch();  // 엔터키 검색
     }
   };
-
 
   if (loading) {
     return <div>Loading...</div>;
@@ -90,7 +89,7 @@ function Population() {
           type='search'
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          onKeyDown={handleKeyDown}  // 엔터키 처리
+          onKeyDown={handleKeyDown}  // 엔터키 검색
           placeholder='ex) 김포공항, 성수카페거리, 인사동'
         />
         <button onClick={handleSearch}>검색</button>
@@ -122,8 +121,6 @@ const MapPage = ({ region, places }) => {
 // 지역에 맞는 좌표로 지도에 표시
 const MapWithMarker = ({ region, places }) => {
   const navermaps = useNavermaps();
-
-  // region 값에 맞는 좌표 설정
   const defaultLocation = new navermaps.LatLng(37.5365, 127.1242);
 
   return (
