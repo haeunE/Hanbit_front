@@ -2,8 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import "../css/Weather.css";
 import { OverlayTrigger, Tooltip } from "react-bootstrap"; // Tooltip 추가 import
+import { useTranslation } from "react-i18next";
+import "@/locales/i18n";
+import i18n from 'i18next';  // i18n을 import
 
 function Weather() {
+  const { t } = useTranslation();
   const isMode = useSelector(state => state.isMode);
   const location = JSON.parse(localStorage.getItem("location"));
   const APIKEY = import.meta.env.VITE_WEATHER_API_KEY;
@@ -58,9 +62,9 @@ function Weather() {
               alt="날씨 아이콘"
             />
           </p>
-          <p className="weather-temp">현재 온도: {weatherData.temp}°C</p>
-          <p className="weather-max-temp">최고 온도: {weatherData.maxTemp}°C</p>
-          <p className="weather-min-temp">최저 온도: {weatherData.minTemp}°C</p>
+          <p className="weather-temp">{t`weather.current-temp`}: {weatherData.temp}°C</p>
+          <p className="weather-max-temp">{t`weather.max-temp`}: {weatherData.maxTemp}°C</p>
+          <p className="weather-min-temp">{t`weather.min-temp`}: {weatherData.minTemp}°C</p>
         </div>
       )}
     </Tooltip>

@@ -1,7 +1,15 @@
 import { useEffect, useState } from "react";
 import "../css/Bicycle.css";
+import { useTranslation } from "react-i18next";
+import "@/locales/i18n";
+import i18n from 'i18next';  // i18n을 import
+import { useDispatch, useSelector } from "react-redux";
+import { SetIsMode } from "../../redux/modeState";
 
 function Bicycle() {
+  const { t } = useTranslation();
+  const isMode = useSelector((state) => state.isMode);
+  const dispatch = useDispatch();
   const location = JSON.parse(localStorage.getItem("location"));
   const APIKEY = import.meta.env.VITE_KOREA_SEOUL_DATA_API_KEY;
   const CLIENT_ID = import.meta.env.VITE_NAVER_MAP_CLIENT_ID;
@@ -9,6 +17,13 @@ function Bicycle() {
   const [stations, setStations] = useState([]);
 
   useEffect(() => {
+    const savedMode = JSON.parse(localStorage.getItem("isMode"));
+        if (savedMode !== null) {
+          dispatch(SetIsMode(savedMode));
+        } else {
+          dispatch(SetIsMode(true));
+        }
+
     if (!location || !location.latitude || !location.longitude) return;
 
     // Naver 지도 API 스크립트 로드
@@ -45,7 +60,7 @@ function Bicycle() {
     return () => {
       document.head.removeChild(script);
     };
-  }, []);
+  }, [isMode]);
 
   useEffect(() => {
     if (stations.length > 0 && window.naver && window.naver.maps) {
@@ -76,32 +91,46 @@ function Bicycle() {
 
   return (
     <div className="bicycle">
-      <h2>{location.city} 자전거 대여소</h2>
+      <h2>{t`Ddareungi-page.bicycle-rental-location`}</h2>
       {isLoading ? (
-        <p>로딩 중...</p>
+        <p>{t`loading`}</p>
       ) : (
         <div id="map" style={{ width: "100%", height: "500px" }}></div>
       )}
 
       {/* 따릉이 사용법 섹션 추가 */}
       <div className="instructions">
-        <h3>따릉이 사용법</h3>
+        <h3>{t`Ddareungi-page.title`}</h3>
         <ul>
-          <li>1. 대여소에 도착하여 자전거를 선택하세요.</li>
-          <li>2. 자전거를 대여하려면 스마트폰의 '따릉이' 앱을 실행합니다.</li>
-          <li>3. 앱에서 QR코드를 스캔하여 자전거를 대여하세요.</li>
-          <li>4. 자전거를 이용한 후 가까운 대여소에 반납하세요.</li>
-          <li>5. 대여소에 자전거가 없는 경우, 다른 대여소를 확인하거나 대여 가능한 자전거가 있는 곳으로 이동하세요.</li>
+          <li>{t`Ddareungi-page.steps1`}</li>
+          <li>{t`Ddareungi-page.steps2`}</li>
+          <li>{t`Ddareungi-page.steps3`}</li>
+          <li>{t`Ddareungi-page.steps4`}</li>
+          <li>{t`Ddareungi-page.steps5`}</li>
         </ul>
 
         {/* 앱과 웹사이트 링크 추가 */}
-        <div className="button-container">
+        <div className={`button-container ${isMode? 'day':'night'}`}>
           <a
             href="https://www.bikeseoul.com" // 서울 따릉이 웹사이트
             target="_blank"
             rel="noopener noreferrer"
           >
-            따릉이 웹사이트로 이동
+            {t`Ddareungi-page.go-to-website`}
+          </a>
+          <a
+            href="https://play.google.com/store/apps/details?id=com.bikeseoul" // 안드로이드 앱 다운로드 링크
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t`Ddareungi-page.download-android`}
+          </a>
+          <a
+            href="https://apps.apple.com/kr/app/%EB%94%B0%EB%A6%89%EC%9D%B4/id963513619" // iOS 앱 다운로드 링크
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t`Ddareungi-page.download-ios`}
           </a>
         </div>
       </div>
