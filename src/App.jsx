@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Home from './pages/jsx/Home'
 import { SetIsMode } from './redux/modeState'
 import Footer from './components/main/Footer'
+import Bicycle from './pages/jsx/Bicycle'
 import Cookies from 'js-cookie';
 
 
@@ -62,6 +63,7 @@ function App() {
         <Route path='/login' element={<Login/>} />
         <Route path='/signup' element={<Signup/>} />
         <Route path='/userprofile' element={<UserProfile/>} />
+        <Route path='/bicycle' element={<Bicycle />} />
       </Routes>
       </div>
       {!['/login', '/signup', '/userprofile'].includes(useLocation().pathname) && <Footer />}
