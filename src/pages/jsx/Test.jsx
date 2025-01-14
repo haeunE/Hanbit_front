@@ -6,6 +6,7 @@ import Placeimg from "../../components/jsx/placeimg";
 import { useParams } from "react-router-dom";
 import Details from "../../components/jsx/Details";
 import axios from "axios";
+import Review from "../../components/jsx/Review";
 
 function Test() {
   const { id, typeid } = useParams();
@@ -78,6 +79,7 @@ function Test() {
             </Tab>
             <Tab eventKey="review" title="REVIEW">
               <div className="review">
+                <Review placeid={id} typeid={typeid}/>
               </div>
             </Tab>
           </Tabs>

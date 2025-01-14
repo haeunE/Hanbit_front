@@ -34,7 +34,7 @@ function App() {
     const userinfo = Cookies.get('userInfo')
     console.log(jwt)
     if (jwt&&userinfo) {
-      dispatch(login({ token: jwt, user: userinfo }));
+      dispatch(login({ token: jwt, user: JSON.parse(userinfo) }));
     }else if(jwt&&!userinfo){
       dispatch(logout())
       alert('로그인정보가 만료되어 재로그인 해야합니다.')

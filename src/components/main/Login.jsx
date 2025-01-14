@@ -30,17 +30,17 @@ const Login = () => {
       );
 
       if (response.status === 200) {
-        const { token, username, name, email, tel, foreignYN } = response.data;
+        const { token, id, username, name, email, tel, foreignYN } = response.data;
 
-        console.log('로그인 성공:', {token, username, name, email, tel, foreignYN  });
+        console.log('로그인 성공:', {token, id, username, name, email, tel, foreignYN  });
         localStorage.setItem("jwt",token)
         // 사용자 정보를 클라이언트 쿠키에 저장
-        setCookie('userInfo', JSON.stringify({ username, name, email, tel, foreignYN }), {
+        setCookie('userInfo', JSON.stringify({ id, username, name, email, tel, foreignYN }), {
           path: '/',
           expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000), // 1일 후 만료
         });
         
-        dispatch(login({ token:token, user: { username, name, email, tel, foreignYN  }}));  
+        dispatch(login({ token:token, user: { id, username, name, email, tel, foreignYN  }}));  
         
         navigate('/home');
       } else {
