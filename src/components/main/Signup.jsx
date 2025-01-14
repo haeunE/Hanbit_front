@@ -84,9 +84,17 @@ const Signup = () => {
       }
     } catch (error) {
       if (error.response) {
-        alert(error.response.data);
+        // 서버가 응답을 보낸 경우
+        console.error('서버 응답 오류:', error.response);
+        alert(`서버 오류: ${error.response.status} - ${error.response.data.message}`);
+      } else if (error.request) {
+        // 서버로 요청을 보냈지만 응답을 받지 못한 경우
+        console.error('서버로 요청을 보냈지만 응답을 받지 못했습니다:', error.request);
+        alert('서버와 연결할 수 없습니다. 네트워크를 확인해주세요.');
       } else {
-        console.error('An error occurred:', error);
+        // 요청 설정 중 오류가 발생한 경우
+        console.error('요청 설정 오류:', error.message);
+        alert('회원가입 중 오류가 발생했습니다. 다시 시도해 주세요.');
       }
     }
   };

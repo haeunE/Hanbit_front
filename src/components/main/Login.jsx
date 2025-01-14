@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../axiosInstance';
 import { login } from '../../redux/userState';
 import { useDispatch } from 'react-redux';
+import { setCookie } from '../../utils/cookieUtils';
+import Cookies from 'js-cookie';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -28,8 +30,9 @@ const Login = () => {
       );
 
       if (response.status === 200) {
-        const { token, username, name, email, tel, foreignYN  } = response.data;
+        const { token, id, username, name, email, tel, foreignYN } = response.data;
 
+<<<<<<< HEAD
       console.log('로그인 성공:', { token, username, name, email, tel, foreignYN  });
 
       // JWT와 사용자 정보를 sessionStorage에 저장
@@ -38,6 +41,19 @@ const Login = () => {
       dispatch(login({ token, user: { username, name, email, tel, foreignYN  }}));  
       
       navigate('/home');
+=======
+        console.log('로그인 성공:', {token, id, username, name, email, tel, foreignYN  });
+        localStorage.setItem("jwt",token)
+        // 사용자 정보를 클라이언트 쿠키에 저장
+        setCookie('userInfo', JSON.stringify({ id, username, name, email, tel, foreignYN }), {
+          path: '/',
+          expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000), // 1일 후 만료
+        });
+        
+        dispatch(login({ token:token, user: { id, username, name, email, tel, foreignYN  }}));  
+        
+        navigate('/home');
+>>>>>>> cf998b4422fbe7afcef97d48374d493a103cdd9b
       } else {
         console.error('로그인 실패:', response.status);
         alert('로그인 실패! 아이디와 비밀번호를 확인하세요.');

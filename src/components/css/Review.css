@@ -1,0 +1,255 @@
+/* 리뷰 작성 폼 컨테이너 */
+.review-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 제목 */
+.review-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+/* 로그인 후 리뷰 작성 버튼 */
+.review-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #417477;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.review-button:hover {
+  background-color: #417477;
+}
+
+/* 로그인 메시지 */
+.login-message {
+  text-align: center;
+  font-size: 16px;
+  color: #888;
+}
+
+/* 리뷰 작성 폼 */
+.review-form {
+  margin: 0 1rem 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 1rem;
+  border: 2px solid #c4c3c3;
+  border-radius: 10px;
+}
+
+/* 입력 필드 스타일 */
+.input-field,
+.textarea-field,
+.file-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* 텍스트 영역 스타일 */
+.textarea-field {
+  height: 150px;
+  resize: vertical;
+}
+
+/* 파일 선택 필드 */
+.file-input {
+  padding: 10px;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* 전송 버튼 */
+.review-submit-button {
+  padding: 12px;
+  background-color: #417477;
+  color: white;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.review-submit-button:disabled {
+  background-color: #ccc;
+}
+
+.review-submit-button:hover:not(:disabled) {
+  background-color: #417477;
+}
+
+/* 폼 요소 사이에 공간 추가 */
+.review-form > div {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 사진 선택 필드 */
+label {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+/* 에러 메시지나 알림 스타일 */
+.alert {
+  color: red;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* 이미지 미리보기 */
+.image-previews .image-container {
+  position: relative;
+  display: inline-block;
+  margin-right: 10px; /* 이미지 간의 간격 */
+  margin-bottom: 10px; /* 이미지 아래 간격 */
+}
+
+.preview-image {
+  max-width: 100px; /* 가로 최대 크기 100px */
+  max-height: 100px; /* 세로 최대 크기 100px */
+  object-fit: cover; /* 이미지 비율 유지하며 크기 맞추기 */
+}
+
+.delete-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+/* 부모 컨테이너 */
+.review-list-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+/* 제목 */
+.review-list-container h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+/* 리뷰가 없는 경우 메시지 */
+.review-list-container p {
+  font-size: 16px;
+  color: #666;
+  text-align: center;
+}
+
+/* 리뷰 목록 */
+.review-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* 개별 리뷰 항목 */
+.review-item {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.review-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 리뷰 제목 */
+.review-item h4 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+/* 리뷰 내용 */
+.review-item p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+/* 작성자 */
+.review-item p:last-child {
+  font-size: 12px;
+  color: #888;
+  font-style: italic;
+}
+
+/* 이미지 섹션 */
+.review-images {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.review-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.review-image:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+/* 모바일 및 작은 화면 대응 */
+@media screen and (max-width: 600px) {
+  .review-container {
+    padding: 15px;
+  }
+
+  .review-title {
+    font-size: 20px;
+  }
+
+  .review-button,
+  .submit-button {
+    font-size: 14px;
+  }
+}
