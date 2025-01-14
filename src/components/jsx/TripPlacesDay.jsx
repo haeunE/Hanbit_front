@@ -74,7 +74,7 @@ function TripPlacesDay({ contentTypeId, pageNo }) {
 
   // 이미지 클릭 핸들러
   const handleImageClick = (id,typeid) => {
-    navigate(`/test/${id}/${typeid}`); // URL에 ID 포함
+    navigate(`/places/${id}/${typeid}`); // URL에 ID 포함
   };
 
   return (

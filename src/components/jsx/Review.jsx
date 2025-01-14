@@ -152,7 +152,7 @@ const handleAddImages = (event) => {
     if (!idAuth) {
       alert("로그인이 필요합니다.");
     } else {
-      setIsFormVisible(true); // 폼을 보이게 설정
+      setIsFormVisible(!isFormVisible); // 폼을 보이게 설정
     }
   };
 
@@ -163,8 +163,6 @@ const handleAddImages = (event) => {
 
   return (
     <div className="review-container">
-      <h2 className="review-title">리뷰 작성</h2>
-
       {idAuth ? (
         <button onClick={handleReviewClick} className="review-button">
           리뷰 작성
@@ -227,7 +225,7 @@ const handleAddImages = (event) => {
             </div>
           </div>
 
-          <button type="submit" className="submit-button" disabled={isSubmitting}>
+          <button type="submit" className="review-submit-button" disabled={isSubmitting}>
             {isSubmitting ? "전송 중..." : "리뷰 전송"}
           </button>
         </form>

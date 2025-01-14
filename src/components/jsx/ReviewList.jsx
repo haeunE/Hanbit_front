@@ -1,7 +1,8 @@
 import '../css/Review.css'; 
 const ReviewList = ({ reviews }) => (
   <div className="review-list-container">
-    <h3>리뷰 목록</h3>
+    <h3>REVIEWS</h3>
+    <hr></hr>
     {reviews.length === 0 ? (
       <p>등록된 리뷰가 없습니다.</p>
     ) : (

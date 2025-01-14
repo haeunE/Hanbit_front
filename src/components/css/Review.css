@@ -22,7 +22,7 @@
 .review-button {
   width: 100%;
   padding: 12px;
-  background-color: #4caf50;
+  background-color: #417477;
   color: white;
   font-size: 16px;
   border: none;
@@ -33,7 +33,7 @@
 }
 
 .review-button:hover {
-  background-color: #45a049;
+  background-color: #417477;
 }
 
 /* 로그인 메시지 */
@@ -45,9 +45,13 @@
 
 /* 리뷰 작성 폼 */
 .review-form {
+  margin: 0 1rem 2rem 1rem;
   display: flex;
   flex-direction: column;
   gap: 15px;
+  padding: 1rem;
+  border: 2px solid #c4c3c3;
+  border-radius: 10px;
 }
 
 /* 입력 필드 스타일 */
@@ -77,23 +81,23 @@
 }
 
 /* 전송 버튼 */
-.submit-button {
+.review-submit-button {
   padding: 12px;
-  background-color: #4caf50;
+  background-color: #417477;
   color: white;
-  font-size: 16px;
+  font-size: 14px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.submit-button:disabled {
+.review-submit-button:disabled {
   background-color: #ccc;
 }
 
-.submit-button:hover:not(:disabled) {
-  background-color: #45a049;
+.review-submit-button:hover:not(:disabled) {
+  background-color: #417477;
 }
 
 /* 폼 요소 사이에 공간 추가 */

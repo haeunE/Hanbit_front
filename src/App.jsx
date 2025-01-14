@@ -16,6 +16,7 @@ import { SetIsMode } from './redux/modeState'
 import Footer from './components/main/Footer'
 import Bicycle from './pages/jsx/Bicycle'
 import Cookies from 'js-cookie';
+import PlaceDetail from './pages/jsx/PlaceDetail'
 
 
 
@@ -59,11 +60,12 @@ function App() {
       <Routes>
         <Route path='/' element={<Intro />} />
         <Route path='/home' element={<Home />} />
-        <Route path='/test/:id/:typeid' element={<Test/>} />
+        <Route path='/test' element={<Test/>} />
         <Route path='/login' element={<Login/>} />
         <Route path='/signup' element={<Signup/>} />
         <Route path='/userprofile' element={<UserProfile/>} />
         <Route path='/bicycle' element={<Bicycle />} />
+        <Route path='/places/:id/:typeid' element={<PlaceDetail/>} />
       </Routes>
       </div>
       {!['/login', '/signup', '/userprofile'].includes(useLocation().pathname) && <Footer />}
