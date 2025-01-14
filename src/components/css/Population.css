@@ -10,30 +10,60 @@
 
 .search-population {
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
   font-size: 20px;
+  width: 100%;
 }
 
-.search-population p{
+.search-population p {
+  display: flex;
+  align-items: flex-start;
+  margin-left: 0;
+  font-size: 12px;
+  margin: 1%;
+  color: #4c4c4c;
+}
+
+.search-box {
+  position: relative;
+  font-size: 16px;
   display: flex;
   align-items: center;
+  justify-content: flex-start; /* 왼쪽 정렬 (기본값) */
+  width: 50%;
   margin: 1%;
+  margin-left: auto; /* 왼쪽 여백을 자동으로 설정하여 우측 정렬 */
+}
+
+.search-box strong {
+  margin: 1%;
+  min-width: 10vh;
   font-weight: 600;
   color: #4c4c4c;
 }
 
-.search-population input{
-  display: flex;
-  margin: 1%;
-  width: 28%;
+.search-population input {
+  width: 100%;
+  padding: 10px 40px 10px 10px;  /* 오른쪽에 여백 추가 */
   font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
 }
-.search-population button{
-  display: flex;
-  margin: 1%;
-  width: 33px;
-  height: 33px;
-  font-size: 15px;
+
+.search-population button {
+  position: absolute;
+  right: 0;
+  background-color: #00b493;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  height: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.search-population button:hover {
+  background-color: #05f096;
 }
 
 .text-population {
@@ -43,6 +73,9 @@
   margin-right: 10%;
 }
 
-.text-population h2 {
+.text-population h1 {
   text-align: center;
+  font-weight: 600;
+  color: #00b493;
+  margin-top: 3%;
 }
