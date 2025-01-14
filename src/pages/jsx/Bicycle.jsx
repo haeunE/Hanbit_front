@@ -5,6 +5,7 @@ import "@/locales/i18n";
 import i18n from 'i18next';  // i18n을 import
 import { useDispatch, useSelector } from "react-redux";
 import { SetIsMode } from "../../redux/modeState";
+import { SetLanguage } from "../../redux/languageState";
 
 function Bicycle() {
   const { t } = useTranslation();
@@ -16,52 +17,65 @@ function Bicycle() {
   const [isLoading, setIsLoading] = useState(true);
   const [stations, setStations] = useState([]);
 
+  // Naver 지도 API 스크립트를 로드하는 함수
+  const loadNaverMapAPI = () => {
+    return new Promise((resolve, reject) => {
+      if (window.naver && window.naver.maps) {
+        return resolve(); // 이미 로드된 경우 바로 리턴
+      }
+
+      const script = document.createElement("script");
+      script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${CLIENT_ID}&language=${i18n.language}`;
+      script.async = true;
+      script.onload = () => {
+        if (!window.naver || !window.naver.maps) {
+          return reject("Naver 지도 API가 로드되지 않았습니다.");
+        }
+        resolve();
+      };
+      script.onerror = () => reject("Naver 지도 API 스크립트를 로드할 수 없습니다.");
+      document.head.appendChild(script);
+    });
+  };
+
   useEffect(() => {
     const savedMode = JSON.parse(localStorage.getItem("isMode"));
-        if (savedMode !== null) {
-          dispatch(SetIsMode(savedMode));
-        } else {
-          dispatch(SetIsMode(true));
-        }
+    if (savedMode !== null) {
+      dispatch(SetIsMode(savedMode));
+    } else {
+      dispatch(SetIsMode(true));
+    }
+
+    const savedLanguage = localStorage.getItem("lang");
+    if (savedLanguage) {
+      i18n.changeLanguage(savedLanguage);
+    }
 
     if (!location || !location.latitude || !location.longitude) return;
 
-    // Naver 지도 API 스크립트 로드
-    const script = document.createElement("script");
-    script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${CLIENT_ID}`;
-    script.async = true;
-    script.onload = () => {
-      if (!window.naver || !window.naver.maps) {
-        console.error("Naver 지도 API가 로드되지 않았습니다.");
+    loadNaverMapAPI()
+      .then(() => {
+        const URL = `http://openapi.seoul.go.kr:8088/${APIKEY}/json/tbCycleStationInfo/1/500/`;
+
+        fetch(URL)
+          .then((response) => response.json())
+          .then((data) => {
+            const items = data.stationInfo.row || [];
+            setStations(items);
+            setIsLoading(false);
+          })
+          .catch((error) => {
+            console.error("API 호출 오류:", error);
+            setIsLoading(false);
+          });
+      })
+      .catch((error) => {
+        console.error(error);
         setIsLoading(false);
-        return;
-      }
+      });
+  }, []);
 
-      const URL = `http://openapi.seoul.go.kr:8088/${APIKEY}/json/tbCycleStationInfo/1/500/`;
-
-      fetch(URL)
-        .then((response) => response.json())
-        .then((data) => {
-          const items = data.stationInfo.row || [];
-          setStations(items);
-          setIsLoading(false);
-        })
-        .catch((error) => {
-          console.error("API 호출 오류:", error);
-          setIsLoading(false);
-        });
-    };
-    script.onerror = () => {
-      console.error("Naver 지도 API 스크립트를 로드할 수 없습니다.");
-      setIsLoading(false);
-    };
-    document.head.appendChild(script);
-
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, [isMode]);
-
+  // 지도 로드 후 마커 표시 함수
   useEffect(() => {
     if (stations.length > 0 && window.naver && window.naver.maps) {
       const map = new window.naver.maps.Map("map", {
@@ -89,9 +103,23 @@ function Bicycle() {
     }
   }, [stations]);
 
+  // 언어 변경 시 페이지 새로 고침
+  useEffect(() => {
+    const langChangeHandler = () => {
+      window.location.reload();
+      loadNaverMapAPI()
+    };
+
+    i18n.on("languageChanged", langChangeHandler);
+
+    return () => {
+      i18n.off("languageChanged", langChangeHandler);
+    };
+  }, []);
+
   return (
     <div className="bicycle">
-      <h2>{t`Ddareungi-page.bicycle-rental-location`}</h2>
+      <h2 className={`bicycle-title ${isMode ? "day" : "night"}`}>{t`Ddareungi-page.bicycle-rental-location`}</h2>
       {isLoading ? (
         <p>{t`loading`}</p>
       ) : (
@@ -110,7 +138,7 @@ function Bicycle() {
         </ul>
 
         {/* 앱과 웹사이트 링크 추가 */}
-        <div className={`button-container ${isMode? 'day':'night'}`}>
+        <div className={`button-container ${isMode ? 'day' : 'night'}`}>
           <a
             href="https://www.bikeseoul.com" // 서울 따릉이 웹사이트
             target="_blank"

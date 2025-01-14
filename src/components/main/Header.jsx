@@ -30,33 +30,20 @@ function Header() {
   // 페이지 로드 시 localStorage에서 모드 불러오기
   useEffect(() => {
     const savedMode = JSON.parse(localStorage.getItem("isMode"));
-    if (savedMode !== null) {
-      dispatch(SetIsMode(savedMode));
-    } else {
-      dispatch(SetIsMode(true));
-    }
+    if (savedMode !== null) dispatch(SetIsMode(savedMode));
 
-    const savedLanguage = localStorage.getItem('lang');
+    const savedLanguage = localStorage.getItem("lang");
     if (savedLanguage) {
-      i18n.changeLanguage(savedLanguage); // 로컬스토리지에서 언어 불러와 적용
-      dispatch(SetLanguage(savedLanguage)); 
+      i18n.changeLanguage(savedLanguage);
+      dispatch(SetLanguage(savedLanguage));
     }
-  }, [dispatch, ]);
-  
+  }, [dispatch]);
 
-  // 모드 변경 및 localStorage 저장
   const changeMode = () => {
-    const savedMode = !isMode;  // savedMode에 상태 업데이트
-    dispatch(SetIsMode(savedMode));
-    localStorage.setItem("isMode", JSON.stringify(savedMode));  // localStorage에 저장
+    const newMode = !isMode;
+    dispatch(SetIsMode(newMode));
+    localStorage.setItem("isMode", JSON.stringify(newMode));
   };
-
-  // 툴팁 렌더링 함수
-  const renderTooltip = (message) => (props) => (
-    <Tooltip id="button-tooltip" {...props}>
-      {message}
-    </Tooltip>
-  );
 
   // Intro 페이지에서 헤더 숨기기
   if (isPath.pathname === '/') {
@@ -101,6 +88,20 @@ function Header() {
     window.location.href = "/home"; // 로그인 페이지로 리다이렉트
   };
 
+  const navDropdownItems = (items) =>
+    items.map((item, index) => (
+      <NavDropdown.Item key={index} className={`custom-dropdown-item ${isMode ? "day" : "night"}`} href={item.href}>
+        <i className={`fa-solid ${item.icon}`}></i>
+        &nbsp;&nbsp;&nbsp;{item.label}
+      </NavDropdown.Item>
+    ));
+
+  const renderTooltip = (message) => (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      {message}
+    </Tooltip>
+  );
+
   // 언어 설정 변경
   const changeLanguage = (lang) => {
     dispatch(SetLanguage(lang)); // Redux 상태 업데이트
@@ -121,60 +122,45 @@ function Header() {
   };
 
   return (
-    <div className={`Header ${isMode ? 'day' : 'night'}`}>
-      <div className="Nav">
-        <Navbar collapseOnSelect expand="lg">
-          <Container>
-            <Navbar.Brand href="/home">
-              <img src={isMode ? "/img/logo/hanbit_day_logo.PNG" : "/img/logo/hanbit_night_logo.PNG"} width='120' height='50' alt="logo" className="nav-img"/>
-            </Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-            <Navbar.Collapse id="responsive-navbar-nav">
-              <Nav className="me-auto">
-                <Nav.Link href={`${isMode?'/daySeoul':'/nightSeoul'}`}>{isMode ? t`header.day-seoul` :  t`header.night-seoul`}</Nav.Link>
-                
-                {/* 편의시설 NavDropdown */}
-                <NavDropdown title={t`header.amenities`} id="navbarScrollingDropdown">
-                  {[ 
-                    { icon: "fa-store", label: (t`header.amenities`), href: "#action3" },
-                    { icon: "fa-ban", label: (t`header.danger-area`), href: "#action5" }
-                  ].map((item, index) => (
-                    <NavDropdown.Item key={index} className={`custom-dropdown-item ${isMode ? 'day' : 'night'}`} href={item.href}>
-                      <i className={`fa-solid ${item.icon}`}></i>
-                      &nbsp;&nbsp;&nbsp;{item.label}
-                    </NavDropdown.Item>
-                  ))}
-                </NavDropdown>
+    <div className={`Header ${isMode ? "day" : "night"}`}>
+      <Navbar collapseOnSelect expand="lg">
+        <Container>
+          <Navbar.Brand href="/home">
+            <img
+              src={isMode ? "/img/logo/hanbit_day_logo.PNG" : "/img/logo/hanbit_night_logo.PNG"}
+              width="120"
+              height="50"
+              alt="logo"
+              className="nav-img"
+            />
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link href={isMode ? "/daySeoul" : "/nightSeoul"}>
+                {isMode ? t("header.day-seoul") : t("header.night-seoul")}
+              </Nav.Link>
+              <NavDropdown title={t("header.amenities")} id="navbarScrollingDropdown">
+                {navDropdownItems([
+                  { icon: "fa-store", label: t("header.amenities"), href: "#action3" },
+                  { icon: "fa-ban", label: t("header.danger-area"), href: "#action5" },
+                ])}
+              </NavDropdown>
+              <NavDropdown title={t("header.food-map")} id="navbarScrollingDropdown">
+                {navDropdownItems([
+                  { icon: "fa-bowl-food", label: t("header.food-map"), href: "#action3" },
+                  { icon: "fa-motorcycle", label: t("header.delivery"), href: "#action4" },
+                ])}
+              </NavDropdown>
+              <NavDropdown title={t("header.traffic")} id="navbarScrollingDropdown">
+                {navDropdownItems([
+                  { icon: "fa-map-pin", label: t("header.directions"), href: "#action3" },
+                  { icon: "fa-bus", label: t("header.public-transportation"), href: "#action4" },
+                  { icon: "fa-person-biking", label: t("header.Ddareungi"), href: "/bicycle" },
+                ])}
+              </NavDropdown>
+            </Nav>
 
-                {/* 음식지도 NavDropdown */}
-                <NavDropdown title={t`header.food-map`} id="navbarScrollingDropdown">
-                  {[ 
-                    { icon: "fa-bowl-food", label: (t`header.food-map`), href: "#action3" },
-                    { icon: "fa-motorcycle", label: (t`header.delivery`), href: "#action4" }
-                  ].map((item, index) => (
-                    <NavDropdown.Item key={index} className={`custom-dropdown-item ${isMode ? 'day' : 'night'}`} href={item.href}>
-                      <i className={`fa-solid ${item.icon}`}></i>
-                      &nbsp;&nbsp;&nbsp;{item.label}
-                    </NavDropdown.Item>
-                  ))}
-                </NavDropdown>
-
-                {/* 교통 NavDropdown */}
-                <NavDropdown title={t`header.traffic`}  id="navbarScrollingDropdown">
-                  {[ 
-                    { icon: "fa-map-pin", label: (t`header.directions`), href: "#action3" },
-                    { icon: "fa-bus", label: (t`header.public-transportation`), href: "#action4" },
-                    { icon: "fa-person-biking", label: (t`header.Ddareungi`), href: "/bicycle" }
-                  ].map((item, index) => (
-                    <NavDropdown.Item key={index} className={`custom-dropdown-item ${isMode ? 'day' : 'night'}`} href={item.href}>
-                      <i className={`fa-solid ${item.icon}`}></i>
-                      &nbsp;&nbsp;&nbsp;{item.label}
-                    </NavDropdown.Item>
-                  ))}
-                </NavDropdown>
-              </Nav>
-
-              {/* 사용자 메뉴 */}
               <Form className={`d-flex header-icons ${isMode ? 'day' : 'night'}`}>
                 <Nav.Link as={Link} to="#" onClick={changeMode}>
                   <i className={`toggle-icon ${isMode ? 'fa-solid fa-toggle-on' : 'fa-solid fa-toggle-off'} me-2`} 
@@ -240,7 +226,7 @@ function Header() {
             </Navbar.Collapse>
           </Container>
         </Navbar>
-      </div>
+      
 
       {/* 비밀번호 확인 모달 */}
       <Modal show={showPasswordModal} onHide={() => setShowPasswordModal(false)} >

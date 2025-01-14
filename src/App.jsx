@@ -15,6 +15,9 @@ import Home from './pages/jsx/Home'
 import { SetIsMode } from './redux/modeState'
 import Footer from './components/main/Footer'
 import Bicycle from './pages/jsx/Bicycle'
+import SeoulPage from './pages/jsx/SeoulPage'
+
+
 
 
 function App() {
@@ -53,6 +56,7 @@ function App() {
         <Route path='/signup' element={<Signup/>} />
         <Route path='/userprofile' element={<UserProfile/>} />
         <Route path='/bicycle' element={<Bicycle />} />
+        <Route path='/daySeoul' element={<SeoulPage />} />
       </Routes>
       </div>
       {!['/login', '/signup', '/userprofile'].includes(useLocation().pathname) && <Footer />}
