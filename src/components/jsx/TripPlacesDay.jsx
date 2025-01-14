@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import "@/locales/i18n";
 import i18n from 'i18next';  // i18n을 import
 import { SetLanguage } from "../../redux/languageState";
+import { useNavigate } from "react-router-dom";
 
 function TripPlacesDay({ contentTypeId, pageNo }) {
   const { t } = useTranslation();
@@ -15,6 +16,8 @@ function TripPlacesDay({ contentTypeId, pageNo }) {
   const [places, setPlaces] = useState([]);
   const [isLoading, setIsLoading] = useState(true);  // 로딩 상태 관리
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  console.log(places);
 
   useEffect(() => {
     const lat = location.latitude;
@@ -52,7 +55,8 @@ function TripPlacesDay({ contentTypeId, pageNo }) {
           img: i.firstimage,
           lon: i.mapx,
           lat: i.mapy,
-          title: i.title
+          title: i.title,
+          typeid: i.contenttypeid
         }));
 
         setPlaces(formattedPlaces);
@@ -68,6 +72,11 @@ function TripPlacesDay({ contentTypeId, pageNo }) {
     return shuffled.slice(0, n); 
   };
 
+  // 이미지 클릭 핸들러
+  const handleImageClick = (id,typeid) => {
+    navigate(`/places/${id}/${typeid}`); // URL에 ID 포함
+  };
+
   return (
     <div className="place-card">
       {isLoading ? (
@@ -77,7 +86,7 @@ function TripPlacesDay({ contentTypeId, pageNo }) {
       ) : (
         <div className="place-container">
           {places.map((place) => (
-            <div key={place.id} className="place-item" style={{ backgroundImage: `url(${place.img})` }}>
+            <div key={place.id} className="place-item" style={{ backgroundImage: `url(${place.img})` }} onClick={() => handleImageClick(place.id,place.typeid)}>
               <div className="img-info">
                 <div className="place-addr">{place.add}</div>
                 <div className="place-title">{place.title}</div>

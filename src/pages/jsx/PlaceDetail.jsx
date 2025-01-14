@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { Container, Tab, Tabs } from "react-bootstrap";
 import NaverBlog from "../../components/jsx/NaverBlog";
-import "../css/Test.css"
+import "../css/PlaceDetail.css"
 import Placeimg from "../../components/jsx/placeimg";
 import { useParams } from "react-router-dom";
 import Details from "../../components/jsx/Details";
 import axios from "axios";
 import Review from "../../components/jsx/Review";
 
-function Test() {
+function PlaceDetail() {
   const { id, typeid } = useParams();
   const [activeKey, setActiveKey] = useState('blog');
   const apiKey = import.meta.env.VITE_KOREA_TOURIST_DAY_API_KEY;
@@ -89,4 +89,4 @@ function Test() {
   );
 }
 
-export default Test;
+export default PlaceDetail;
