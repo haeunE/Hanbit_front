@@ -3,12 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import "../css/TripPlacesDay.css";
 import { useTranslation } from "react-i18next";
 import { SetLanguage } from "../../redux/languageState";
+import PlaceCard from "./PlaceCard";
+import SeoulPageSpotDetails from "./SeoulPageSpotDetails";
+import NaverMap from "./NaverMap";
 
-function TripPlacesDay({ contentTypeId, pageNo }) {
+
+function TripPlacesDay({ contentTypeId, pageNo, num, page }) {
   const { t } = useTranslation();
   const location = JSON.parse(localStorage.getItem("location")) || {};
   const isLanguage = useSelector((state) => state.isLanguage);
-  const isMode = useSelector((state) => state.isMode);
   const APIKEY = import.meta.env.VITE_KOREA_TOURIST_DAY_API_KEY;
   const [places, setPlaces] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -37,7 +40,7 @@ function TripPlacesDay({ contentTypeId, pageNo }) {
         const items = data.response?.body?.items?.item || [];
         const filteredPlaces = getRandomItems(
           items.filter((item) => item.firstimage),
-          4
+          num
         ).map(formatPlace);
 
         setPlaces(filteredPlaces);
@@ -78,21 +81,13 @@ function TripPlacesDay({ contentTypeId, pageNo }) {
         <div className="loading-container">
           <p>{t("loading")}</p>
         </div>
+      ) : page === "home" ? (
+        <PlaceCard places={places} />
       ) : (
-        <div className="place-container">
-          {places.map((place) => (
-            <div
-              key={place.id}
-              className="place-item"
-              style={{ backgroundImage: `url(${place.img})` }}
-            >
-              <div className="img-info">
-                <div className="place-addr">{place.add}</div>
-                <div className="place-title">{place.title}</div>
-              </div>
-            </div>
-          ))}
-        </div>
+        <div>
+          <NaverMap />
+          <SeoulPageSpotDetails places={places} />
+        </div>       
       )}
     </div>
   );
