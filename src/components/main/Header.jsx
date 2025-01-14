@@ -11,18 +11,20 @@ import { SetLanguage } from "../../redux/languageState";
 import { useTranslation } from "react-i18next";
 import "@/locales/i18n";
 import i18n from 'i18next';  // i18n을 import
+import { clearAllStorage } from "../../utils/clearAllStorage";
 
 
 function Header() {
   const { t } = useTranslation();
   const isMode = useSelector(state => state.isMode);
-  const isAuth = useSelector((state) => state.auth.isAuth);
   const dispatch = useDispatch();
   const isPath = useLocation();
   const navigate = useNavigate();
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [password, setPassword] = useState("");
-  const jwt = sessionStorage.getItem('jwt'); // 토큰 가져오기
+  const {isAuth} = useSelector((state) => state.auth);
+  const jwt = localStorage.getItem('jwt')
+
   const [showDropdown, setShowDropdown] = useState(false);
   const [showSearchModal, setShowSearchModal] = useState(false);  // 초기값 false로 설정
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
@@ -37,8 +39,8 @@ function Header() {
       i18n.changeLanguage(savedLanguage);
       dispatch(SetLanguage(savedLanguage));
     }
-  }, [dispatch]);
-
+  }, [dispatch, ]);
+  
   const changeMode = () => {
     const newMode = !isMode;
     dispatch(SetIsMode(newMode));
@@ -84,6 +86,8 @@ function Header() {
   const handleLogout = () => {
     dispatch(logout());
     // 로컬 스토리지 및 세션 스토리지, 쿠키 초기화
+    clearAllStorage();
+    setShowPasswordModal(false);
     alert("로그아웃 되었습니다.");
     window.location.href = "/home"; // 로그인 페이지로 리다이렉트
   };

@@ -7,6 +7,7 @@ import PlaceCard from "./PlaceCard";
 import SeoulPageSpotDetails from "./SeoulPageSpotDetails";
 import NaverMap from "./NaverMap";
 
+import { useNavigate } from "react-router-dom";
 
 function TripPlacesDay({ contentTypeId, pageNo, num, page }) {
   const { t } = useTranslation();
@@ -16,6 +17,8 @@ function TripPlacesDay({ contentTypeId, pageNo, num, page }) {
   const [places, setPlaces] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  console.log(places);
 
   useEffect(() => {
     const { latitude: lat, longitude: lon } = location;
@@ -42,6 +45,19 @@ function TripPlacesDay({ contentTypeId, pageNo, num, page }) {
           items.filter((item) => item.firstimage),
           num
         ).map(formatPlace);
+        const items = data.response.body.items.item || [];
+        const filteredItems = items.filter(item => item.firstimage && item.firstimage !== "");
+        const randomPlaces = getRandomItems(filteredItems, 4);
+
+        const formattedPlaces = randomPlaces.map((i) => ({
+          id: i.contentid,
+          add: i.addr1,
+          img: i.firstimage,
+          lon: i.mapx,
+          lat: i.mapy,
+          title: i.title,
+          typeid: i.contenttypeid
+        }));
 
         setPlaces(filteredPlaces);
         setIsLoading(false);
@@ -74,6 +90,15 @@ function TripPlacesDay({ contentTypeId, pageNo, num, page }) {
     lat: item.mapy,
     title: item.title,
   });
+  const getRandomItems = (arr, n) => {
+    const shuffled = [...arr].sort(() => 0.5 - Math.random()); 
+    return shuffled.slice(0, n); 
+  };
+
+  // 이미지 클릭 핸들러
+  const handleImageClick = (id,typeid) => {
+    navigate(`/places/${id}/${typeid}`); // URL에 ID 포함
+  };
 
   return (
     <div className="place-card">
@@ -88,6 +113,17 @@ function TripPlacesDay({ contentTypeId, pageNo, num, page }) {
           <NaverMap />
           <SeoulPageSpotDetails places={places} />
         </div>       
+      ) : (
+        <div className="place-container">
+          {places.map((place) => (
+            <div key={place.id} className="place-item" style={{ backgroundImage: `url(${place.img})` }} onClick={() => handleImageClick(place.id,place.typeid)}>
+              <div className="img-info">
+                <div className="place-addr">{place.add}</div>
+                <div className="place-title">{place.title}</div>
+              </div>
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );

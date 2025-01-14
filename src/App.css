@@ -6,7 +6,6 @@
 }
 
 .main-content {
-  margin-bottom: 5%;
   flex-grow: 1; /* 콘텐츠가 늘어나면 푸터는 하단으로 밀린다 */
 }
 

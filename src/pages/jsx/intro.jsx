@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../css/Intro.css';
+import '../css/intro.css';
 import { LuSun } from "react-icons/lu";
 import { WiMoonWaxingCrescent4 } from "react-icons/wi";
 import { useDispatch } from 'react-redux';
