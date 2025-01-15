@@ -5,16 +5,17 @@ import axiosInstance from '../../axiosInstance';
 import ReviewList from './ReviewList';
 
 
-const Review = ({ placeid, typeid }) => {
+const Review = ({ placeid, typeid, placetitle }) => {
   const idAuth = useSelector((state) => state.auth.isAuth); // 로그인 상태
   const user = useSelector((state) => state.auth.user);
-
+  console.log(placetitle)
   const [form, setForm] = useState({
     title: "",
     content: "",
     userId: user ? user.id : null,
     placeid,
     typeid,
+    placetitle,
     photos: [], // 사진 리스트
   });
 
@@ -53,7 +54,6 @@ const Review = ({ placeid, typeid }) => {
       ...prevForm,
       [name]: value,
     }));
-    console.log(form)
   };
 
   // 미리보기 이미지 업데이트
@@ -108,14 +108,13 @@ const handleAddImages = (event) => {
     setIsSubmitting(true);
     
     try {
-      console.log(user.id)
-      console.log(form)
       const formData = new FormData();
       formData.append("title", form.title);
       formData.append("content", form.content);
       formData.append("userId", form.userId);
       formData.append("placeid", form.placeid);
       formData.append("typeid", form.typeid);
+      formData.append("placetitle", form.placetitle);
       
       form.photos.forEach((photo) => {
         formData.append("photos", photo); // 'photos'로 전달

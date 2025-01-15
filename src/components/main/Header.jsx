@@ -76,6 +76,10 @@ function Header() {
     }
   };
 
+  const handleMyReviews = () =>{
+    navigate("/myreviews");
+  }
+
   const handlePasswordSubmit = async () => {
     try {
       // 비밀번호를 객체로 전달 (JSON 형식)
@@ -236,6 +240,7 @@ function Header() {
                   {/* 드롭다운 메뉴 */}
                   {showDropdown && isAuth && (
                     <Dropdown.Menu align="end" className="user_dropdown" show>
+                      <Dropdown.Item onClick={handleMyReviews}>나의 리뷰</Dropdown.Item>
                       <Dropdown.Item onClick={() => setShowPasswordModal(true)}>회원정보수정</Dropdown.Item>
                       <Dropdown.Item onClick={handleLogout}>로그아웃</Dropdown.Item>
                     </Dropdown.Menu>
