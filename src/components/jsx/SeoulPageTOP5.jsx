@@ -11,8 +11,8 @@ function SeoulPageTOP5({ category }) {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(true);
   const [spots, setSpots] = useState([]);
-  const clientId = import.meta.env.VITE_NAVER_SEARCH_CLIENT_ID;
-  const clientSecret = import.meta.env.VITE_NAVER_SEARCH_CLIENT_SECRET;
+  const clientId = import.meta.env.VITE_NAVER_API_ID;
+  const clientSecret = import.meta.env.VITE_NAVER_API_SECRET;
 
   useEffect(() => {
     const handleSearch = async () => {
