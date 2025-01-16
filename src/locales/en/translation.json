@@ -39,5 +39,13 @@
     "current-temp": "Current Temperature",
     "max-temp": "Max Temperature",
     "min-temp": "Min Temperature"
+  },
+  "seoul-page": {
+    "tourist-spots": "Tourist Spots",
+    "cultural-facilities": "Cultural Facilities",
+    "restaurants": "Restaurants",
+    "accommodation": "Accommodation",
+    "shopping": "Shopping",
+    "leisure": "Leisure"
   }
 }

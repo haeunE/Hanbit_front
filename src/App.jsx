@@ -13,15 +13,13 @@ import Home from './pages/jsx/Home'
 import Bicycle from './pages/jsx/Bicycle'
 import PlaceDetail from './pages/jsx/PlaceDetail'
 import MyReviews from './pages/jsx/MyReviews'
+import SeoulPage from './pages/jsx/SeoulPage'
 
 import {login, logout} from './redux/userState'
 import { SetIsMode } from './redux/modeState'
 import { clearAllStorage } from './utils/clearAllStorage'
-
 import { useDispatch, useSelector } from 'react-redux'
 import Cookies from 'js-cookie';
-
-
 
 
 
@@ -69,6 +67,7 @@ function App() {
         <Route path='/userprofile' element={<UserProfile/>} />
         <Route path='/bicycle' element={<Bicycle />} />
         <Route path='/places/:id/:typeid' element={<PlaceDetail/>} />
+        <Route path='/daySeoul' element={<SeoulPage />} />
         <Route path='/myreviews' element={<MyReviews />} />
       </Routes>
       </div>

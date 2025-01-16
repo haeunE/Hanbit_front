@@ -1,0 +1,26 @@
+.day-seoul{
+  margin: auto;
+  padding-top: 100px; 
+}
+
+.day-seoul .hashtag-btn {
+  background: #00b493;
+  border: 2px solid ;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: all 0.3s easy;
+}
+
+.day-seoul .hashtag-btn:hover {
+  background-color: #01614f; 
+}
+
+#map {
+  width: 100%;
+  height: 500px;
+}
