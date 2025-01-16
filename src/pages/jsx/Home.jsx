@@ -22,9 +22,9 @@ function Home() {
   const hotelContentTypeId = i18n.language === "ko" ? 32 : 80;
 
   // 랜덤 페이지 번호 계산
-  const placePageNo = Math.floor(Math.random() * 20) + 1;
+  const placePageNo = Math.floor(Math.random() * 8) + 1;
   const restaurantPageNo = Math.floor(Math.random() * 20) + 1;
-  const hotelPageNo = Math.floor(Math.random() * 8) + 1;
+  const hotelPageNo = Math.floor(Math.random() * 2) + 1;
 
   useEffect(() => {
     const savedMode = JSON.parse(localStorage.getItem("isMode"));
@@ -78,7 +78,7 @@ function Home() {
         {isMode && (
           <div>
             <div className="recommend-place">
-              <TripPlacesDay contentTypeId={placeContentTypeId} pageNo={placePageNo} num={4} page={"home"}/>
+              <TripPlacesDay contentTypeId={placeContentTypeId} pageNo={placePageNo} />
             </div>
             <div className="population"></div>
             <div className="homepage-buttom">
@@ -93,8 +93,6 @@ function Home() {
                 <TripPlacesDay
                   contentTypeId={restaurantContentTypeId}
                   pageNo={restaurantPageNo}
-                  num={4}
-                  page={"home"}
                 />
               </div>
               <div className="recommend-hotel">
@@ -102,8 +100,6 @@ function Home() {
                 <TripPlacesDay
                   contentTypeId={hotelContentTypeId}
                   pageNo={hotelPageNo}
-                  num={4}
-                  page={"home"}
                 />
               </div>
             </div>

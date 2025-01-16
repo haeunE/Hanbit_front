@@ -37,7 +37,7 @@ function NaverMap({ items, language }) {
 
         // 마커 추가
         items.forEach((spot) => {
-          const position = new window.naver.maps.LatLng(spot.mapy / 10000000, spot.mapx / 10000000);
+          const position = new window.naver.maps.LatLng(spot.lat, spot.lon);
           const marker = new window.naver.maps.Marker({
             position: position,
             map: map,

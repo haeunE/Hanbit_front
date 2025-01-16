@@ -4,9 +4,10 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import i18n from "i18next";
 
-const TripPlacesDay = ({ contentTypeId, pageNo, num }) => {
+function TripPlacesDay({ contentTypeId, pageNo }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
+
   const [places, setPlaces] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -18,7 +19,7 @@ const TripPlacesDay = ({ contentTypeId, pageNo, num }) => {
       const { latitude: lat, longitude: lon } = location;
 
       if (!lat || !lon) {
-        setIsLoading(false);
+        console.error("위치 정보가 없습니다.");
         return;
       }
 
@@ -28,16 +29,26 @@ const TripPlacesDay = ({ contentTypeId, pageNo, num }) => {
       }
 
       const serviceType = getServiceType(i18n.language);
-      const URL = `https://apis.data.go.kr/B551011/${serviceType}/locationBasedList1?numOfRows=10&pageNo=${pageNo}&MobileOS=WIN&MobileApp=hanbit&_type=json&arrange=R&mapX=${lon}&mapY=${lat}&radius=10000&contentTypeId=${Number(contentTypeId)}&serviceKey=${APIKEY}`;
+      const URL = `https://apis.data.go.kr/B551011/${serviceType}/locationBasedList1?numOfRows=10&pageNo=${pageNo}&MobileOS=WIN&MobileApp=hanbit&_type=json&mapX=${lon}&mapY=${lat}&radius=10000&contentTypeId=${Number(contentTypeId)}&serviceKey=${APIKEY}`;
 
       try {
         const response = await fetch(URL);
         const data = await response.json();
         const items = data.response?.body?.items?.item || [];
+
         const filteredPlaces = getRandomItems(
           items.filter((item) => item.firstimage),
-          num
-        );
+          4
+        ).map((item) => ({
+          id: item.contentid,
+          add: item.addr1,
+          img: item.firstimage,
+          lon: item.mapx,
+          lat: item.mapy,
+          title: item.title,
+          typeid: item.contenttypeid,
+        }));
+
         setPlaces(filteredPlaces);
       } catch (error) {
         console.error("API 호출 오류:", error);
@@ -47,7 +58,7 @@ const TripPlacesDay = ({ contentTypeId, pageNo, num }) => {
     };
 
     fetchPlaces();
-  }, [contentTypeId]);
+  }, [i18n.language]);
 
   const getServiceType = (language) => {
     const serviceTypes = {
@@ -62,6 +73,7 @@ const TripPlacesDay = ({ contentTypeId, pageNo, num }) => {
   const getRandomItems = (arr, n) => arr.sort(() => 0.5 - Math.random()).slice(0, n);
 
   const handleImageClick = (id, typeid) => {
+    console.log("Clicked Place ID:", id, "TypeID:", typeid);
     navigate(`/places/${id}/${typeid}`);
   };
 
@@ -71,15 +83,13 @@ const TripPlacesDay = ({ contentTypeId, pageNo, num }) => {
         <div className="loading-container">
           <p>{t("loading")}</p>
         </div>
-      ) : (
+      ) :  (
         <div className="place-container">
           {places.map((place) => (
             <div
               key={place.id}
               className="place-item"
-              style={{
-                backgroundImage: `url(${place.img || "default-image.jpg"})`,
-              }}
+              style={{ backgroundImage: `url(${place.img})` }}
               onClick={() => handleImageClick(place.id, place.typeid)}
             >
               <div className="img-info">
@@ -89,9 +99,8 @@ const TripPlacesDay = ({ contentTypeId, pageNo, num }) => {
             </div>
           ))}
         </div>
-      )}
+      ) }
     </div>
   );
-};
-
+}
 export default TripPlacesDay;
