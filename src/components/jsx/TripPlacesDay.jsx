@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import "../css/TripPlacesDay.css";
 import { useTranslation } from "react-i18next";
+import NaverMap from "./NaverMap";
+import SeoulPageSpotDetails from "./SeoulPageSpotDetails";
 import { useNavigate } from "react-router-dom";
 import i18n from "i18next";
 import { Container } from "react-bootstrap";
 
-const TripPlacesDay = ({ contentTypeId, pageNo, num }) => {
+function TripPlacesDay({ contentTypeId, pageNo, num, page }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
+
   const [places, setPlaces] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -19,7 +22,7 @@ const TripPlacesDay = ({ contentTypeId, pageNo, num }) => {
       const { latitude: lat, longitude: lon } = location;
 
       if (!lat || !lon) {
-        setIsLoading(false);
+        console.error("위치 정보가 없습니다.");
         return;
       }
 
@@ -29,50 +32,25 @@ const TripPlacesDay = ({ contentTypeId, pageNo, num }) => {
       }
 
       const serviceType = getServiceType(i18n.language);
-      const URL = `https://apis.data.go.kr/B551011/${serviceType}/locationBasedList1?numOfRows=10&pageNo=${pageNo}&MobileOS=WIN&MobileApp=hanbit&_type=json&arrange=R&mapX=${lon}&mapY=${lat}&radius=10000&contentTypeId=${Number(contentTypeId)}&serviceKey=${APIKEY}`;
+      const URL = `https://apis.data.go.kr/B551011/${serviceType}/locationBasedList1?numOfRows=10&pageNo=${pageNo}&MobileOS=WIN&MobileApp=hanbit&_type=json&mapX=${lon}&mapY=${lat}&radius=10000&contentTypeId=${Number(contentTypeId)}&serviceKey=${APIKEY}`;
 
       try {
         const response = await fetch(URL);
         const data = await response.json();
         const items = data.response?.body?.items?.item || [];
 
-        const filteredPlaces = await Promise.all(
-          getRandomItems(
-            items.filter((item) => item.firstimage),
-            num
-          ).map(async (item) => {
-            // 추가 API 호출로 상세 정보를 가져오기
-            const detailURL = `http://apis.data.go.kr/B551011/KorService1/detailCommon1?serviceKey=${APIKEY}&MobileOS=ETC&MobileApp=hanbit&contentId=${item.contentid}&contentTypeId=${item.contenttypeid}&_type=json&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y`;
-            try {
-              const detailResponse = await axios.get(detailURL);
-              const detailItems = detailResponse.data.response.body.items.item || [];
-              const overview = detailItems[0]?.overview || "";
-
-              return {
-                id: item.contentid,
-                add: item.addr1,
-                img: item.firstimage,
-                lon: item.mapx,
-                lat: item.mapy,
-                title: item.title,
-                typeid: item.contenttypeid,
-                overview, // 설명 추가
-              };
-            } catch (detailError) {
-              console.error("상세 정보 API 호출 오류:", detailError);
-              return {
-                id: item.contentid,
-                add: item.addr1,
-                img: item.firstimage,
-                lon: item.mapx,
-                lat: item.mapy,
-                title: item.title,
-                typeid: item.contenttypeid,
-                overview: "설명 데이터를 가져올 수 없습니다.",
-              };
-            }
-          })
-        );
+        const filteredPlaces = getRandomItems(
+          items.filter((item) => item.firstimage),
+          num
+        ).map((item) => ({
+          id: item.contentid,
+          add: item.addr1,
+          img: item.firstimage,
+          lon: item.mapx,
+          lat: item.mapy,
+          title: item.title,
+          typeid: item.contenttypeid,
+        }));
 
         setPlaces(filteredPlaces);
       } catch (error) {
@@ -83,7 +61,7 @@ const TripPlacesDay = ({ contentTypeId, pageNo, num }) => {
     };
 
     fetchPlaces();
-  }, [contentTypeId]);
+  }, [i18n.language]);
 
   const getServiceType = (language) => {
     const serviceTypes = {
@@ -98,9 +76,10 @@ const TripPlacesDay = ({ contentTypeId, pageNo, num }) => {
   const getRandomItems = (arr, n) => arr.sort(() => 0.5 - Math.random()).slice(0, n);
 
   const handleImageClick = (id, typeid) => {
+    console.log("Clicked Place ID:", id, "TypeID:", typeid);
     navigate(`/places/${id}/${typeid}`);
   };
-  console.log(places)
+
   return (
     <Container>
       <div className="place-card">
@@ -135,6 +114,6 @@ const TripPlacesDay = ({ contentTypeId, pageNo, num }) => {
       </div>
     </Container>
   );
-};
+}
 
 export default TripPlacesDay;

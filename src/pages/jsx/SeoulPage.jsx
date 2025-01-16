@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SetIsMode } from '../../redux/modeState';
 import { SetIsLocation } from '../../redux/locationState';
 import PageWithMaps from '../../components/jsx/PageWithMaps';
+import TripPlacesDay from '../../components/jsx/TripPlacesDay';
 
 
 function SeoulPage() {
@@ -79,7 +80,7 @@ function SeoulPage() {
                   <PageWithMaps category={category} contentTypeId={contentId} pageNo={pageNo} />
                 </div>
                 <div className='items-list'>
-                  <SeoulPageSpots category={category}/>
+                  <TripPlacesDay category={category}/>
                 </div>
               </div>
             )}

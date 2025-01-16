@@ -60,3 +60,40 @@
   font-size: 16px;
   font-weight: bold;
 }
+
+.place-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.list-place-item {
+  width: 200px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.list-place-img img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.list-place-info {
+  margin-top: 10px;
+}
+
+.list-place-info h3 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 0 5px 0;
+}
+
+.list-place-info p {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
