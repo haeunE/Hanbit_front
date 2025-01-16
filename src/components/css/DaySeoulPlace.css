@@ -3,25 +3,30 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
+  flex: 3;
 }
 
 .map-container {
   display: flex;
   width: 100%;
-  height: 55vh; 
+  height: 55vh; /* 화면 높이의 55% */
+  flex: 2;
+  background-color: #fafdfc;
+  border-radius: 10px;
 }
 
 .map-with-top5 {
   padding: 1rem;
   display: flex;
+  flex-direction: row; /* 기본으로 가로 배치 */
   width: 100%;
   height: 100%; /* 맵과 리스트를 같은 높이로 설정 */
-  flex:3;
+  flex: 1;
 }
 
-.map {
+.spot-map {
   flex: 2; /* 맵이 나머지 공간을 차지하도록 설정 */
-  height: 100%; 
+  height: 100%;
   position: relative;
   margin-top: 10px;
 }
@@ -29,22 +34,23 @@
 .spot-container {
   display: flex;
   flex-direction: column;
-  flex:1;
+  flex: 1;
   padding: 1.2rem;
-  height: 100%; 
+  height: 100%;
 }
 
-.top5{
+.top5 {
   height: 10%;
   font-weight: bold;
   color: red;
   margin-bottom: 0.5rem;
 }
+
 .spot-item {
   flex: 6;
   margin-bottom: 1rem;
   transition: transform 0.3s ease;
-  height: 80%; 
+  height: 80%;
 }
 
 .spot-item:hover {
@@ -115,7 +121,6 @@
   color: #007bff; /* 호버 시 색상 변경 */
 }
 
-
 .spot-place-overview {
   font-size: 0.9rem;
   color: #666;
@@ -140,6 +145,14 @@
 
 /* 반응형 디자인 */
 @media (max-width: 768px) {
+  .map-with-top5 {
+    flex-direction: column; /* 세로로 배치 */
+    height: 800px;
+  }
+
+  .spot-map {
+    width: 100%; /* 화면에 맞게 크기 조정 */
+  }
 
   .spot-place-list {
     flex-direction: column;
@@ -156,6 +169,9 @@
   .img-info {
     align-items: center;
   }
+
+  /* map-container가 너무 작은 화면에서 사라지지 않도록 처리 */
+  .map-container {
+    height: 40vh; /* 작은 화면에서도 맵이 보이도록 높이 조정 */
+  }
 }
-
-

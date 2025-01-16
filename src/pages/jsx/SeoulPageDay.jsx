@@ -7,7 +7,8 @@ import '../css/SeoulPage.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { SetIsMode } from '../../redux/modeState';
 import { SetIsLocation } from '../../redux/locationState';
-import PageWithMaps from '../../components/jsx/PageWithMaps';
+import DaySeoulPlace from '../../components/jsx/DaySeoulPlace';
+
 
 
 function SeoulPage() {
@@ -16,7 +17,7 @@ function SeoulPage() {
   const dispatch = useDispatch();
   const city = JSON.parse(localStorage.getItem("location")).city;
   const [category, setCategory] = useState(`${city}맛집`);
-  const [contentId, setContentId] = useState();
+  const [contentId, setContentId] = useState(39);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -55,12 +56,10 @@ function SeoulPage() {
 
   // 랜덤 페이지 번호 계산
   const pageNo = Math.floor(Math.random() * 10) + 1;
-
   return (
     <Container>
       <div className="day-seoul">
         <div className="hashtag-list">
-          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}관광지`)}>{t("seoul-page.tourist-spots")}</button> 
           <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}문화시설`)}>{t("seoul-page.cultural-facilities")}</button>
           <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}음식점`)}>{t("seoul-page.restaurants")}</button>
           <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}숙박`)}>{t("seoul-page.accommodation")}</button>
@@ -75,7 +74,7 @@ function SeoulPage() {
             ) : (
               <div className='places-list'>
                 <div>
-                  <PageWithMaps category={category} contentTypeId={contentId} pageNo={pageNo} />
+                  <DaySeoulPlace category={category} contentTypeId={contentId} pageNo={pageNo} />
                 </div>
               </div>
             )}

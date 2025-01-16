@@ -63,7 +63,7 @@ function DaySeoulPlace({ category, contentTypeId, pageNo }) {
 
     fetchSpots();
   }, [category]);
-
+  
   // 여행지 데이터 불러오기
   useEffect(() => {
     const fetchPlaces = async () => {
@@ -77,13 +77,13 @@ function DaySeoulPlace({ category, contentTypeId, pageNo }) {
         default: "KorService1",
       }[localStorage.getItem("lang")] || "KorService1";
 
-      const URL = `https://apis.data.go.kr/B551011/${serviceType}/locationBasedList1?numOfRows=10&pageNo=${pageNo}&MobileOS=WIN&MobileApp=hanbit&_type=json&mapX=${lon}&mapY=${lat}&radius=10000&contentTypeId=${Number(contentTypeId)}&serviceKey=${APIKEY}`;
+      const URL = `https://apis.data.go.kr/B551011/${serviceType}/locationBasedList1?numOfRows=10&pageNo=${1}&MobileOS=WIN&MobileApp=hanbit&_type=json&mapX=${lon}&mapY=${lat}&radius=10000&contentTypeId=${Number(contentTypeId)}&serviceKey=${APIKEY}`;
 
       try {
         const response = await fetch(URL);
         const data = await response.json();
         const items = data.response?.body?.items?.item || [];
- 
+
         const filteredPlaces = await Promise.all(
           getRandomItems(
             items.filter((item) => item.firstimage),
@@ -95,7 +95,7 @@ function DaySeoulPlace({ category, contentTypeId, pageNo }) {
               const detailResponse = await axios.get(detailURL);
               const detailItems = detailResponse.data.response.body.items.item || [];
               const overview = detailItems[0]?.overview || "";
-              console.log(overview);
+
               return {
                 id: item.contentid,
                 add: item.addr1,
@@ -132,10 +132,10 @@ function DaySeoulPlace({ category, contentTypeId, pageNo }) {
 
     fetchPlaces();
   }, [contentTypeId, i18n.language]);
+  console.log(places)
 
   // HTML 태그 제거 함수
   const removeHTMLTags = (text) => text.replace(/<[^>]*>/g, '');
-
   return (
     <div className="page-with-maps">
       <div className="map-container">
@@ -143,7 +143,7 @@ function DaySeoulPlace({ category, contentTypeId, pageNo }) {
           <p>{t("loading")}</p>
         ) : (
           <div className="map-with-top5">
-            <div className="map">
+            <div className="spot-map">
               <NaverMap items={[...spots, ...places]} language={i18n.language} />
             </div>
             <div className="spot-container">
