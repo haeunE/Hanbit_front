@@ -130,6 +130,32 @@ const fetchPopulationData = async () => {
   }
 };
 
+  // 히트맵 생성 함수
+  const createHeatmap = (navermaps, populationData) => {
+    // 인구 밀도를 기반으로 가중치 생성
+    const heatmapData = populationData.map((place) => ({
+      lat: place.Latitude,
+      lng: place.Longitude,
+      weight: normalizePopulation(place.AREA_PPLTN_MIN), // 인구 밀도 정규화
+    }));
+
+    const heatmap = new navermaps.visualization.HeatMap({
+      map: navermaps, // 히트맵을 표시할 지도 객체
+      data: heatmapData,
+      radius: 30, // 반경 크기 (픽셀)
+      opacity: 0.7, // 불투명도
+      colorMap: naver.maps.visualization.SpectrumStyle.RAINBOW, // 색상 스펙트럼
+    });
+  };
+
+  // 인구 밀도를 0~1로 정규화하는 함수
+  const normalizePopulation = (population) => {
+    const minPopulation = Math.min(...populationData.map(place => place.AREA_PPLTN_MIN));
+    const maxPopulation = Math.max(...populationData.map(place => place.AREA_PPLTN_MAX));
+
+    return (population - minPopulation) / (maxPopulation - minPopulation); // 0~1로 정규화
+  };
+
 
   // 장소 검색 함수
   const searchPlace = async (query) => {
@@ -180,6 +206,8 @@ const fetchPopulationData = async () => {
       if (closestPlace) {
         setNearPlace(closestPlace); // 가장 가까운 명소 위치 설정
         fetchPopulationData(); // 가장 가까운 명소의 AREA_NM을 실시간 인구 데이터 API에 전달
+      } else {
+        setNoDataMessage('검색하신 장소와 가장 가까운 장소의 데이터를 불러옵니다.');
       }
     }
   };
@@ -237,24 +265,26 @@ const fetchPopulationData = async () => {
 }
 
 // 지도 페이지
-const MapPage = ({ region, places, nearPlace }) => {
+const MapPage = ({ region, places, nearPlace, populationData }) => {
   return (
     <NavermapsProvider ncpClientId={import.meta.env.VITE_NAVER_MAP_CLIENT_ID}>
       <MapDiv style={{ width: '100%', height: '400px' }}>
-        <MapWithMarker region={region} places={places} nearPlace={nearPlace} />
+      <MapWithMarker region={region} places={places} nearPlace={nearPlace} populationData={populationData} />
       </MapDiv>
     </NavermapsProvider>
   );
 };
 
 // 지역에 맞는 좌표로 지도에 표시
-const MapWithMarker = ({ places, nearPlace }) => {
+const MapWithMarker = ({ places, nearPlace, populationData }) => {
   const navermaps = useNavermaps();
   const defaultLocation = new navermaps.LatLng(37.5365, 127.1242);
 
-  const getPlaceTitle = (place) => {
-    return place.ENG_NM || place.AREA_NM;
-  };
+  useEffect(() => {
+    if (navermaps && populationData) {
+      createHeatmap(navermaps, populationData);
+    }
+  }, [navermaps, populationData]); // populationData 변경 시마다 히트맵 갱신
 
   return (
     <NaverMap defaultCenter={defaultLocation} defaultZoom={12}>
@@ -270,8 +300,7 @@ const MapWithMarker = ({ places, nearPlace }) => {
           );
         })
       ) : (
-        // 검색된 장소가 없으면 가장 가까운 명소를 표시
-        nearPlace && (
+        nearPlace && (        // 검색된 장소가 없으면 가장 가까운 명소를 표시
           <Marker
             position={new navermaps.LatLng(parseFloat(nearPlace.mapy), parseFloat(nearPlace.mapx))}
             title={getPlaceTitle(nearPlace)}
