@@ -41,11 +41,12 @@
     "min-temp": "Min Temperature"
   },
   "seoul-page": {
-    "tourist-spots": "Tourist Spots",
-    "cultural-facilities": "Cultural Facilities",
-    "restaurants": "Restaurants",
-    "accommodation": "Accommodation",
-    "shopping": "Shopping",
-    "leisure": "Leisure"
-  }
+    "tourist-spots": "#Tourist Spots",
+    "cultural-facilities": "#Cultural Facilities",
+    "restaurants": "#Restaurants",
+    "accommodation": "#Accommodation",
+    "shopping": "#Shopping",
+    "leisure": "#Leisure"
+  },
+  "top5":"TOP5"
 }

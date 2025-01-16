@@ -98,16 +98,17 @@ function PageWithMaps({ category, contentTypeId, pageNo }) {
             <div className="map">
             <NaverMap items={[...spots, ...places]} language={i18n.language} />
             </div>
-            <ul className="spot-list">
+            <div className="spot-container">
+              <h4 className="top5">{t("top5")}</h4>
               {spots.map((spot, index) => (
-                <li key={index} className="spot-item">
+                <div key={index} className="spot-item">
                   <a href={spot.link} target="_blank" rel="noopener noreferrer">
                     <h3>{removeHTMLTags(spot.title)}</h3>
-                    <p>{removeHTMLTags(spot.address)}</p>
+                    <p className="spot-address">{removeHTMLTags(spot.address)}</p>
                   </a>
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
         )}
       </div>
