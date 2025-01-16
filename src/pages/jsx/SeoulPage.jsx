@@ -4,18 +4,19 @@ import { useTranslation } from "react-i18next";
 import "@/locales/i18n";
 import i18n from 'i18next';  
 import '../css/SeoulPage.css'
-import SeoulPageTOP5 from '../../components/jsx/SeoulPageTOP5';
 import { useDispatch, useSelector } from 'react-redux';
 import { SetIsMode } from '../../redux/modeState';
-import SeoulPageSpots from '../../components/jsx/SeoulPageSpots';
 import { SetIsLocation } from '../../redux/locationState';
+import PageWithMaps from '../../components/jsx/PageWithMaps';
+
 
 function SeoulPage() {
   const { t } = useTranslation();
-  const isLocation = useSelector((state)=>state.isLocation)
+  const isLocation = useSelector((state) => state.isLocation);
   const dispatch = useDispatch();
-  const city = JSON.parse(localStorage.getItem("location")).city
+  const city = JSON.parse(localStorage.getItem("location")).city;
   const [category, setCategory] = useState(`${city}맛집`);
+  const [contentId, setContentId] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -34,11 +35,26 @@ function SeoulPage() {
       i18n.changeLanguage(savedLanguage);
     }
     setIsLoading(false);
-  }, [category]); 
+  }, [category]);
+
+  // 카테고리별 콘텐츠 ID 매핑
+  const categoryToContentIdMap = {
+    관광지: i18n.language === "ko" ? 12 : 76,
+    문화시설: i18n.language === "ko" ? 14 : 78,
+    음식점: i18n.language === "ko" ? 39 : 82,
+    숙박: i18n.language === "ko" ? 32 : 80,
+    쇼핑: i18n.language === "ko" ? 38 : 79,
+    레포츠: i18n.language === "ko" ? 28 : 75,
+  };
 
   const handleCategoryClick = (newCategory) => {
     setCategory(newCategory);
+    const categoryKey = newCategory.replace(`${city}`, '');  // '서울맛집' → '맛집'
+    setContentId(categoryToContentIdMap[categoryKey] || null);  // 카테고리에 맞는 contentId 설정
   };
+
+  // 랜덤 페이지 번호 계산
+  const pageNo = Math.floor(Math.random() * 10) + 1;
 
   return (
     <Container>
@@ -58,14 +74,10 @@ function SeoulPage() {
               <p>{t`loading`}</p>
             ) : (
               <div className='places-list'>
-                <div className='TOP5'>      
-                  <SeoulPageTOP5 category={category}/>
+                <div>
+                  <PageWithMaps category={category} contentTypeId={contentId} pageNo={pageNo} />
                 </div>
-                {/* <div className='items-list'>
-                  <SeoulPageSpots category={category}/>
-                </div> */}
               </div>
-              
             )}
           </div>
         </div>
