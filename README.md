@@ -49,6 +49,13 @@ VITE_KOREA_TOURIST_DAY_API_KEY = your_api_key
 VITE_KOREA_SEOUL_DATA_API_KEY = your_api_key
 ```
 
+# NaverBlog,NaverImg
+1. https://developers.naver.com/apps/#/register 에서 어플리케이션 등록 후
+2. https://developers.naver.com/apps/#/list 에서 api id와 secret가져오기
+```
+VITE_NAVER_API_ID=
+VITE_NAVER_API_SECRET=
+```
 
 # .env.local 파일 
 앱폴더에 .env.local 파일 생성 후 해당 코드 넣어주세요
@@ -57,4 +64,7 @@ VITE_REACT_APP_SERVER_URL=http://localhost:8888
 VITE_WEATHER_API_KEY=your_api_key
 VITE_KOREA_TOURIST_DAY_API_KEY = your_api_key
 VITE_KOREA_SEOUL_DATA_API_KEY = your_api_key
+VITE_NAVER_API_ID=
+VITE_NAVER_API_SECRET=
 ```
+
