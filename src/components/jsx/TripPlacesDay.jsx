@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
 import "../css/TripPlacesDay.css";
 import { useTranslation } from "react-i18next";
-import NaverMap from "./NaverMap";
-import SeoulPageSpotDetails from "./SeoulPageSpotDetails";
 import { useNavigate } from "react-router-dom";
 import i18n from "i18next";
 import { Container } from "react-bootstrap";
 
-function TripPlacesDay({ contentTypeId, pageNo, num, page }) {
+const TripPlacesDay = ({ contentTypeId, pageNo, num }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-
   const [places, setPlaces] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -22,7 +19,7 @@ function TripPlacesDay({ contentTypeId, pageNo, num, page }) {
       const { latitude: lat, longitude: lon } = location;
 
       if (!lat || !lon) {
-        console.error("위치 정보가 없습니다.");
+        setIsLoading(false);
         return;
       }
 
@@ -32,7 +29,7 @@ function TripPlacesDay({ contentTypeId, pageNo, num, page }) {
       }
 
       const serviceType = getServiceType(i18n.language);
-      const URL = `https://apis.data.go.kr/B551011/${serviceType}/locationBasedList1?numOfRows=10&pageNo=${pageNo}&MobileOS=WIN&MobileApp=hanbit&_type=json&mapX=${lon}&mapY=${lat}&radius=10000&contentTypeId=${Number(contentTypeId)}&serviceKey=${APIKEY}`;
+      const URL = `https://apis.data.go.kr/B551011/${serviceType}/locationBasedList1?numOfRows=10&pageNo=${pageNo}&MobileOS=WIN&MobileApp=hanbit&_type=json&arrange=R&mapX=${lon}&mapY=${lat}&radius=10000&contentTypeId=${Number(contentTypeId)}&serviceKey=${APIKEY}`;
 
       try {
         const response = await fetch(URL);
@@ -86,7 +83,7 @@ function TripPlacesDay({ contentTypeId, pageNo, num, page }) {
     };
 
     fetchPlaces();
-  }, [i18n.language]);
+  }, [contentTypeId]);
 
   const getServiceType = (language) => {
     const serviceTypes = {
@@ -101,7 +98,6 @@ function TripPlacesDay({ contentTypeId, pageNo, num, page }) {
   const getRandomItems = (arr, n) => arr.sort(() => 0.5 - Math.random()).slice(0, n);
 
   const handleImageClick = (id, typeid) => {
-    console.log("Clicked Place ID:", id, "TypeID:", typeid);
     navigate(`/places/${id}/${typeid}`);
   };
   console.log(places)
@@ -139,6 +135,6 @@ function TripPlacesDay({ contentTypeId, pageNo, num, page }) {
       </div>
     </Container>
   );
-}
+};
 
 export default TripPlacesDay;

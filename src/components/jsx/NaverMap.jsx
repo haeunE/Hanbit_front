@@ -58,8 +58,6 @@ function NaverMap({ items, language }) {
             infoWindow.open(map, marker);
           });
         });
-
-
       };
 
       script.onerror = () => {

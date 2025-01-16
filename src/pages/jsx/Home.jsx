@@ -22,9 +22,9 @@ function Home() {
   const hotelContentTypeId = i18n.language === "ko" ? 32 : 80;
 
   // 랜덤 페이지 번호 계산
-  const placePageNo = Math.floor(Math.random() * 4) + 1;
+  const placePageNo = Math.floor(Math.random() * 20) + 1;
   const restaurantPageNo = Math.floor(Math.random() * 20) + 1;
-  const hotelPageNo = Math.floor(Math.random() * 2) + 1;
+  const hotelPageNo = Math.floor(Math.random() * 8) + 1;
 
   useEffect(() => {
     const savedMode = JSON.parse(localStorage.getItem("isMode"));
@@ -36,7 +36,7 @@ function Home() {
     if (savedLanguage) {
       i18n.changeLanguage(savedLanguage);
     }
-  }, []); 
+  }, [i18n.language]); 
 
   const changeMode = () => {
     const newMode = !isMode;
