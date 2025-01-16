@@ -7,16 +7,15 @@ import '../css/SeoulPage.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { SetIsMode } from '../../redux/modeState';
 import { SetIsLocation } from '../../redux/locationState';
-import PageWithMaps from '../../components/jsx/PageWithMaps';
+import NightSeoulPlace from '../../components/jsx/NightSeoulPlace';
 
 
-function SeoulPage() {
+function SeoulPageNight() {
   const { t } = useTranslation();
   const isLocation = useSelector((state) => state.isLocation);
   const dispatch = useDispatch();
   const city = JSON.parse(localStorage.getItem("location")).city;
-  const [category, setCategory] = useState(`${city}맛집`);
-  const [contentId, setContentId] = useState();
+  const [category, setCategory] = useState(`${city}`);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -37,35 +36,21 @@ function SeoulPage() {
     setIsLoading(false);
   }, [category]);
 
-  // 카테고리별 콘텐츠 ID 매핑
-  const categoryToContentIdMap = {
-    관광지: i18n.language === "ko" ? 12 : 76,
-    문화시설: i18n.language === "ko" ? 14 : 78,
-    음식점: i18n.language === "ko" ? 39 : 82,
-    숙박: i18n.language === "ko" ? 32 : 80,
-    쇼핑: i18n.language === "ko" ? 38 : 79,
-    레포츠: i18n.language === "ko" ? 28 : 75,
-  };
-
   const handleCategoryClick = (newCategory) => {
     setCategory(newCategory);
     const categoryKey = newCategory.replace(`${city}`, '');  // '서울맛집' → '맛집'
-    setContentId(categoryToContentIdMap[categoryKey] || null);  // 카테고리에 맞는 contentId 설정
   };
-
-  // 랜덤 페이지 번호 계산
-  const pageNo = Math.floor(Math.random() * 10) + 1;
 
   return (
     <Container>
       <div className="day-seoul">
         <div className="hashtag-list">
-          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}관광지`)}>{t("seoul-page.tourist-spots")}</button> 
-          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}문화시설`)}>{t("seoul-page.cultural-facilities")}</button>
-          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}음식점`)}>{t("seoul-page.restaurants")}</button>
-          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}숙박`)}>{t("seoul-page.accommodation")}</button>
-          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}쇼핑`)}>{t("seoul-page.shopping")}</button>
-          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}레포츠`)}>{t("seoul-page.leisure")}</button>
+          <button className="hashtag-btn" onClick={() => handleCategoryClick(`술집`)}>{t("seoulNight-page.hotBars")}</button> 
+          <button className="hashtag-btn" onClick={() => handleCategoryClick(`조용한술집`)}>{t("seoulNight-page.quietBars")}</button>
+          <button className="hashtag-btn" onClick={() => handleCategoryClick(`메이드/집사카페`)}>{t("seoulNight-page.maidButlerCafe")}</button>
+          <button className="hashtag-btn" onClick={() => handleCategoryClick(`헌팅핫플`)}>{t("seoulNight-page.pickUpSpots")}</button>
+          <button className="hashtag-btn" onClick={() => handleCategoryClick(`헌팅포차`)}>{t("seoulNight-page.pickUpTargets")}</button>
+          <button className="hashtag-btn" onClick={() => handleCategoryClick(`이태원클럽`)}>{t("seoulNight-page.club")}</button>
         </div>
 
         <div className="container mt-5">
@@ -75,7 +60,7 @@ function SeoulPage() {
             ) : (
               <div className='places-list'>
                 <div>
-                  <PageWithMaps category={category} contentTypeId={contentId} pageNo={pageNo} />
+                  <NightSeoulPlace category={category}/>
                 </div>
               </div>
             )}
@@ -86,4 +71,4 @@ function SeoulPage() {
   );
 }
 
-export default SeoulPage;
+export default SeoulPageNight;

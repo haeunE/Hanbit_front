@@ -5,9 +5,9 @@ import "@/locales/i18n";
 import i18n from 'i18next';  
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import "../css/PageWithMaps.css";
+import "../css/DaySeoulPlace.css";
 
-function PageWithMaps({ category, contentTypeId, pageNo }) {
+function NightSeoulPlace({ category }) {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(true);
   const [spots, setSpots] = useState([]);
@@ -37,7 +37,13 @@ function PageWithMaps({ category, contentTypeId, pageNo }) {
             "X-Naver-Client-Secret": clientSecret,
           },
         });
-        setSpots(data.items);
+        setSpots(data.items.map(item => ({
+          add: item.address,
+          link: item.link,
+          lon: item.mapx / 10000000, // 경도
+          lat: item.mapy / 10000000, // 위도
+          title: item.title.replace(/<[^>]*>/g, '')
+        })) || []);
       } catch (error) {
         console.error("검색 오류:", error);
       } finally {
@@ -48,45 +54,8 @@ function PageWithMaps({ category, contentTypeId, pageNo }) {
     fetchSpots();
   }, [category]);
 
-  // 여행지 데이터 불러오기
-  useEffect(() => {
-    const fetchPlaces = async () => {
-      const { latitude: lat, longitude: lon } = location;
-      if (!lat || !lon) return;
+  // 여행지 데이터 불러오기 -night
 
-      const serviceType = {
-        en: "EngService1",
-        ja: "JpnService1",
-        zh: "ChsService1",
-        default: "KorService1",
-      }[localStorage.getItem("lang")] || "KorService1";
-
-      const URL = `https://apis.data.go.kr/B551011/${serviceType}/locationBasedList1?numOfRows=10&pageNo=${pageNo}&MobileOS=WIN&MobileApp=hanbit&_type=json&arrange=R&mapX=${lon}&mapY=${lat}&radius=10000&contentTypeId=${Number(contentTypeId)}&serviceKey=${APIKEY}`;
-
-      try {
-        const response = await fetch(URL);
-        const data = await response.json();
-        setPlaces(data.response?.body?.items?.item.map(item => ({
-          id: item.contentid,
-          add: item.addr1,
-          img: item.firstimage,
-          lon: item.mapx,
-          lat: item.mapy,
-          title: item.title,
-          typeid: item.contenttypeid,
-        })) || []);
-      } catch (error) {
-        console.error("API 호출 오류:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchPlaces();
-  }, [contentTypeId, i18n.language]);
-
-  // HTML 태그 제거 함수
-  const removeHTMLTags = (text) => text.replace(/<[^>]*>/g, '');
 
   return (
     <div className="page-with-maps">
@@ -96,15 +65,15 @@ function PageWithMaps({ category, contentTypeId, pageNo }) {
         ) : (
           <div className="map-with-top5">
             <div className="map">
-            <NaverMap items={[...spots, ...places]} language={i18n.language} />
+            <NaverMap items={[...spots]} language={i18n.language} />
             </div>
             <div className="spot-container">
               <h4 className="top5">{t("top5")}</h4>
               {spots.map((spot, index) => (
                 <div key={index} className="spot-item">
                   <a href={spot.link} target="_blank" rel="noopener noreferrer">
-                    <h3>{removeHTMLTags(spot.title)}</h3>
-                    <p className="spot-address">{removeHTMLTags(spot.address)}</p>
+                    <h3>{spot.title}</h3>
+                    <p className="spot-address">{spot.add}</p>
                   </a>
                 </div>
               ))}
@@ -113,25 +82,25 @@ function PageWithMaps({ category, contentTypeId, pageNo }) {
         )}
       </div>
 
-      <div className="lists-container">
-        <div className="place-card">
+      {/* <div className="lists-container">
+        <div className="spot-place-card">
           {places.map((place) => (
             <div
               key={place.id}
-              className="place-item"
+              className="spot-place-item"
               onClick={() => navigate(`/places/${place.id}/${place.typeid}`)}
               style={{ backgroundImage: `url(${place.img || "default-image.jpg"})` }}
             >
-              <div className="img-info">
-                <div className="place-addr">{place.add}</div>
-                <div className="place-title">{place.title}</div>
+              <div className="spot-img-info">
+                <div className="spot-place-addr">{place.add}</div>
+                <div className="spot-place-title">{place.title}</div>
               </div>
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
 
-export default PageWithMaps;
+export default NightSeoulPlace;
