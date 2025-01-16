@@ -37,7 +37,7 @@ function Home() {
     if (savedLanguage) {
       i18n.changeLanguage(savedLanguage);
     }
-  }, []); 
+  }, []);
 
   const changeMode = () => {
     const newMode = !isMode;
@@ -71,26 +71,15 @@ function Home() {
           <Location />
           <Weather />
         </div>
-<<<<<<< HEAD
-        <div className="carousel">
-        </div>
-        <div className="recommand">
-          <TripPlacesDay />
-        </div>
-        <div className="population-density">
-          <Population />
-        </div>
-=======
 
         {/* 케러셀 */}
->>>>>>> 263da680a0ba51a6a85fa4dbd6bc82df5f2229ef
         <div className="carousel"></div>
 
         {/* 콘텐츠 렌더링 */}
         {isMode && (
           <div>
             <div className="recommend-place">
-              <TripPlacesDay contentTypeId={placeContentTypeId} pageNo={placePageNo} num={4} page={"home"}/>
+              <TripPlacesDay contentTypeId={placeContentTypeId} pageNo={placePageNo} num={4} page={"home"} />
             </div>
             <div className="population"></div>
             <div className="homepage-buttom">
@@ -121,6 +110,10 @@ function Home() {
             </div>
           </div>
         )}
+
+        <div className="population-density">
+          <Population />
+        </div>
       </div>
     </Container>
   );

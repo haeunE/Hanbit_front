@@ -11,38 +11,48 @@ function Population() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState(''); // 사용자가 입력한 검색어
-  const [places, setPlaces] = useState([]); // 검색된 장소 목록
-  const [nearPlace, setNearPlace] = useState(null); // 가장 가까운 명소
-  const [allPlaces, setAllPlaces] = useState([]); // 서울시 주요 116곳 명소 정보
+  const [places, setPlaces] = useState([]); // 검색된 장소
   const [region, setRegion] = useState(initialRegion); // 현재 선택된 지역
+  const [allPlaces, setAllPlaces] = useState([]); // 서울시 주요 116곳 명소 정보
+
   const [naverLoaded, setNaverLoaded] = useState(false); // 네이버 지도 API 로드 상태
 
-  const [userLocation, setUserLocation] = useState(location ? { 
-    lat: JSON.parse(location).latitude, 
-    lon: JSON.parse(location).longitude 
-  } : { lat: 37.5365, lon: 127.1242 }); // 기본값: 천호역
-
-  // 네이버 지도 API 스크립트를 동적으로 로드하는 함수
-  const loadNaverMapScript = () => {
-    if (window.naver) return; // 네이버 지도 API가 이미 로드되었으면 아무 것도 하지 않음
-
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${import.meta.env.VITE_NAVER_MAP_CLIENT_ID}`;
-    script.async = true;
-    script.onload = () => {
-      setNaverLoaded(true); // 네이버 지도 API 로드 후 상태 업데이트
-    };
-    document.head.appendChild(script);
-  };
+  console.log(location)
 
   // 네이버 지도 API 로드
   useEffect(() => {
+    const loadNaverMapScript = () => {
+      if (window.naver) return; // 네이버 지도 API가 이미 로드되었으면 아무 것도 하지 않음
+
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${import.meta.env.VITE_NAVER_MAP_CLIENT_ID}`;
+      script.async = true;
+      script.onload = () => {
+        setNaverLoaded(true); // 네이버 지도 API 로드 후 상태 업데이트
+      };
+      document.head.appendChild(script);
+    };
+
     loadNaverMapScript();
   }, []);
 
+  // // 좌표로 주소를 변환하는 코드 (Reverse Geocoding)
+  // const convertCoordinates = async (mapx, mapy) => {
+  //   const address = `${mapx},${mapy}`;  // 좌표를 주소로 변환할 수 있도록 변경
+  //   try {
+  //     const response = await fetch(`/geocode?address=${address}`);
+  //     const data = await response.json();
+  //     return {
+  //       latitude: data.latitude,   // 위도
+  //       longitude: data.longitude, // 경도
+  //     };
+  //   } catch (error) {
+  //     console.error('좌표 변환 오류:', error);
+  //   }
+  // };
 
-  // Haversine 공식을 이용한 두 지점 간의 거리 계산 함수
+  // 현재 위치 - 서울 116곳 명소 직선 거리(km) 계산
   const calculateDistance = (lat1, lon1, lat2, lon2) => {
     const R = 6371; // 지구 반지름 (km)
     const dLat = (lat2 - lat1) * Math.PI / 180;
@@ -56,26 +66,25 @@ function Population() {
     return R * c; // 거리 (km)
   };
 
+
   // 가장 가까운 장소 찾기
   const findClosestPlace = (lat, lon) => {
     let closestPlace = null;
     let minDistance = Infinity;
 
     allPlaces.forEach(place => {
-      const distance = calculateDistance(lat, lon, place.Latitude, place.Longitude);
-
+      const distance = calculateDistance(lat, lon, place.Latitude, place.Longitude); // mapy와 mapx 사용
       if (distance < minDistance) {
         minDistance = distance;
         closestPlace = place;
+        console.log(place);
       }
     });
 
-    if (!closestPlace) {
-      console.error("가장 가까운 장소를 찾을 수 없습니다.");
-    }
     return closestPlace;
   };
 
+  // CSV 파일 로드
   useEffect(() => {
     const loadcsv = async () => {
       const response = await fetch('/data/update_geo_population.csv');
@@ -101,70 +110,92 @@ function Population() {
     loadcsv();
   }, []);
 
-// 데이터 fetching 함수 (인구 데이터)
-const fetchPopulationData = async () => {
-  const closestPlace = findClosestPlace(userLocation.lat, userLocation.lon);
 
-  // closestPlace가 null일 경우, 함수 실행을 종료
-  if (!closestPlace) {
-    console.error("가장 가까운 장소를 찾을 수 없습니다.");
-    return;
-  }
-
-  console.log(closestPlace.AREA_NM);
-
-  const POPULATION_MAP_API_URL = `http://openapi.seoul.go.kr:8088/${import.meta.env.VITE_POPULATION_API_KEY}/json/citydata_ppltn/1/5/${closestPlace.AREA_NM}`;
-
-  try {
-    const response = await fetch(POPULATION_MAP_API_URL);
-    if (!response.ok) {
-      throw new Error('ERROR');
+  useEffect(() => {
+    if (allPlaces.length > 0) {
+      fetchPopulationData();
     }
-    const data = await response.json();
-    const result = await data["SeoulRtd.citydata_ppltn"][0];
-    setPopulationData(result);
-  } catch (error) {
-    setError(error.message);
-  } finally {
-    setLoading(false);
-  }
-};
+  }, [allPlaces]);  // allPlaces가 업데이트될 때마다 호출
+
+  // 데이터 fetching 함수 (인구 데이터)
+  const fetchPopulationData = async () => {
+    if (allPlaces.length === 0) {
+      return;
+    }
+
+    const userLocationData = JSON.parse(location);  // 현재 위치 정보 가져오기
+    const closestPlace = findClosestPlace(userLocationData.latitude, userLocationData.longitude);
+
+    if (!closestPlace) {
+      console.error("가장 가까운 장소를 찾을 수 없습니다.");
+      return;
+    }
+
+    const POPULATION_MAP_API_URL = `http://openapi.seoul.go.kr:8088/${import.meta.env.VITE_POPULATION_API_KEY}/json/citydata_ppltn/1/5/${closestPlace.AREA_NM}`;
+
+    try {
+      const response = await fetch(POPULATION_MAP_API_URL);
+      if (!response.ok) {
+        throw new Error('ERROR');
+      }
+      const data = await response.json();
+      const result = await data["SeoulRtd.citydata_ppltn"][0];
+      setPopulationData(result);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // 히트맵 생성 함수
   const createHeatmap = (navermaps, populationData) => {
-    // 인구 밀도를 기반으로 가중치 생성
     const heatmapData = populationData.map((place) => ({
       lat: place.Latitude,
       lng: place.Longitude,
-      weight: normalizePopulation(place.AREA_PPLTN_MIN), // 인구 밀도 정규화
+      weight: normalizePopulation(place.AREA_PPLTN_MIN, populationData),
     }));
 
-    const heatmap = new navermaps.visualization.HeatMap({
-      map: navermaps, // 히트맵을 표시할 지도 객체
-      data: heatmapData,
-      radius: 30, // 반경 크기 (픽셀)
-      opacity: 0.7, // 불투명도
-      colorMap: naver.maps.visualization.SpectrumStyle.RAINBOW, // 색상 스펙트럼
-    });
+    if (navermaps.visualization) {
+      const heatmap = new navermaps.visualization.HeatMap({
+        map: navermaps,
+        data: heatmapData,
+        radius: 30,
+        opacity: 0.7,
+        colorMap: naver.maps.visualization.SpectrumStyle.YIGnBu,
+      });
+    } else {
+      console.error('Naver Map visualization 모듈이 로드되지 않았습니다.');
+    }
   };
 
   // 인구 밀도를 0~1로 정규화하는 함수
-  const normalizePopulation = (population) => {
+  const normalizePopulation = (population, populationData) => {
+    if (populationData.length === 0) {
+      return 0; // 데이터가 없을 경우 기본값 0
+    }
+
     const minPopulation = Math.min(...populationData.map(place => place.AREA_PPLTN_MIN));
     const maxPopulation = Math.max(...populationData.map(place => place.AREA_PPLTN_MAX));
+    console.log(populationData)
 
-    return (population - minPopulation) / (maxPopulation - minPopulation); // 0~1로 정규화
+    if (maxPopulation === minPopulation) {
+      return 0; // 분모가 0인 경우를 처리
+    }
+
+    return (population - minPopulation) / (maxPopulation - minPopulation);
   };
 
 
   // 장소 검색 함수
   const searchPlace = async (query) => {
     try {
-      const response = await fetch(`/searchmap?query=${encodeURIComponent(query)}`);
+      const response = await fetch(`http://localhost:8888/searchmap?query=${query}`);
 
       if (response.ok) {
         const data = await response.json();
-        setPlaces(data.places);  // 검색된 장소 항목을 상태로 설정
+        console.log(data.items[0].mapx, data.items[0].mapy)
+        setPlaces([{ mapx: data.items[0].mapx, mapy: data.items[0].mapy }]);  // 검색된 장소 항목을 상태로 설정
       } else {
         throw new Error("데이터 가져오기 실패 : " + response.statusText);
       }
@@ -174,42 +205,12 @@ const fetchPopulationData = async () => {
     }
   };
 
-  // 명소에 대한 경도, 위도 정보를 백엔드 API를 통해 받아오기
-  const fetchCoordinates = async (placeName) => {
-    try {
-      const response = await fetch(`/geocode?address=${encodeURIComponent(placeName)}`);
-
-      if (response.ok) {
-        const data = await response.json();
-        const { x: longitude, y: latitude } = data.addresses[0];
-        return new naver.maps.LatLng(parseFloat(latitude), parseFloat(longitude));
-      } else {
-        console.error('Geocode API 요청 실패:', response.statusText);
-        return null;
-      }
-    } catch (error) {
-      console.error('좌표를 가져오는 중 오류가 발생했습니다:', error);
-      return null;
-    }
-  };
-
   // 검색 버튼 클릭 시 검색
   const handleSearch = async () => {
     if (!searchQuery) return; // 검색어가 비어있으면 아무 것도 하지 않음
     setRegion(searchQuery);  // 검색어를 지역으로 설정
     await searchPlace(searchQuery);
-
-    // 입력된 지역이 명소 목록에 없으면, 가장 가까운 명소 찾기
-    const coordinates = await fetchCoordinates(searchQuery);
-    if (coordinates) {
-      const closestPlace = findClosestPlace(coordinates.lat(), coordinates.lng());
-      if (closestPlace) {
-        setNearPlace(closestPlace); // 가장 가까운 명소 위치 설정
-        fetchPopulationData(); // 가장 가까운 명소의 AREA_NM을 실시간 인구 데이터 API에 전달
-      } else {
-        setNoDataMessage('검색하신 장소와 가장 가까운 장소의 데이터를 불러옵니다.');
-      }
-    }
+    fetchPopulationData();  // 가장 가까운 명소의 AREA_NM을 실시간 인구 데이터 API에 전달
   };
 
   // 엔터키로 검색
@@ -219,10 +220,6 @@ const fetchPopulationData = async () => {
       handleSearch();  // 엔터키로 검색
     }
   };
-
-  useEffect(() => {
-    fetchPopulationData();  // 새로 설정된 지역에 대해 데이터 요청
-  }, [allPlaces]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -252,7 +249,7 @@ const fetchPopulationData = async () => {
         </div>
       </div>
 
-      <MapPage region={region} places={places} nearPlace={nearPlace} />
+      <MapPage region={region} places={places} />
 
       <div className="text-population">
         <h1>{populationData.AREA_NM}</h1><br />
@@ -265,47 +262,46 @@ const fetchPopulationData = async () => {
 }
 
 // 지도 페이지
-const MapPage = ({ region, places, nearPlace, populationData }) => {
+const MapPage = ({ region, places }) => {
   return (
     <NavermapsProvider ncpClientId={import.meta.env.VITE_NAVER_MAP_CLIENT_ID}>
       <MapDiv style={{ width: '100%', height: '400px' }}>
-      <MapWithMarker region={region} places={places} nearPlace={nearPlace} populationData={populationData} />
+        <MapWithMarker region={region} places={places} />
       </MapDiv>
     </NavermapsProvider>
   );
 };
 
 // 지역에 맞는 좌표로 지도에 표시
-const MapWithMarker = ({ places, nearPlace, populationData }) => {
+const MapWithMarker = ({ places }) => {
   const navermaps = useNavermaps();
-  const defaultLocation = new navermaps.LatLng(37.5365, 127.1242);
 
-  useEffect(() => {
-    if (navermaps && populationData) {
-      createHeatmap(navermaps, populationData);
-    }
-  }, [navermaps, populationData]); // populationData 변경 시마다 히트맵 갱신
+  // useEffect(() => {
+  //   if (navermaps **) {      // 히트맵 생성
+  //   }
+  // }, [navermaps]);
 
   return (
-    <NaverMap defaultCenter={defaultLocation} defaultZoom={12}>
+    <NaverMap
+      defaultCenter={places.length > 0 ? new navermaps.LatLng(places[0].mapy, places[0].mapx) : null}
+      defaultZoom={12}
+    >
       {places.length > 0 ? (
         places.map((place, index) => {
           const { mapx, mapy } = place;
-          const lat = parseFloat(mapy);
-          const lng = parseFloat(mapx);
-          const location = new navermaps.LatLng(lat, lng);
+          const lat = parseFloat(mapx);
+          const lng = parseFloat(mapy);
+          const searchedLatLon = new naver.maps.LatLng(lat, lng);
+          console.log(lat, lng);
+          console.log(mapx, mapy);
+          // console.log(place)
 
           return (
-            <Marker key={index} position={location} title={getPlaceTitle(place)} />
+            <Marker key={index} position={searchedLatLon} title={'검색된 장소'} />
           );
         })
       ) : (
-        nearPlace && (        // 검색된 장소가 없으면 가장 가까운 명소를 표시
-          <Marker
-            position={new navermaps.LatLng(parseFloat(nearPlace.mapy), parseFloat(nearPlace.mapx))}
-            title={getPlaceTitle(nearPlace)}
-          />
-        )
+        <div>장소 없음</div>
       )}
     </NaverMap>
   );
