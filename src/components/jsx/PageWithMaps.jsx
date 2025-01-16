@@ -99,6 +99,7 @@ function PageWithMaps({ category, contentTypeId, pageNo }) {
             <NaverMap items={[...spots, ...places]} language={i18n.language} />
             </div>
             <div className="spot-container">
+              <h4 className="top5">{t("top5")}</h4>
               {spots.map((spot, index) => (
                 <div key={index} className="spot-item">
                   <a href={spot.link} target="_blank" rel="noopener noreferrer">
