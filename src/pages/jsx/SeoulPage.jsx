@@ -39,7 +39,7 @@ function SeoulPage() {
   const handleCategoryClick = (newCategory) => {
     setCategory(newCategory);
   };
-
+  console.log(category)
   return (
     <Container>
       <div className="day-seoul">
@@ -61,9 +61,9 @@ function SeoulPage() {
                 <div className='TOP5'>      
                   <SeoulPageTOP5 category={category}/>
                 </div>
-                {/* <div className='items-list'>
+                <div className='items-list'>
                   <SeoulPageSpots category={category}/>
-                </div> */}
+                </div>
               </div>
               
             )}

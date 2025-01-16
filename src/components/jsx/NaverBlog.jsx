@@ -46,10 +46,10 @@ const NaverBlog = ({ title }) => {
               rel="noopener noreferrer"
               className="result-link"
             >
-              {item.title.replace(/<[^>]+>/g, '')} {/* HTML 태그 제거 */}
+              {item.title.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&')} {/* HTML 태그 제거 */}
             </a>
             <p className="blog-description">
-              {item.description.replace(/<[^>]+>/g, '')}
+              {item.description.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&')}
             </p>
           </li>
         ))}

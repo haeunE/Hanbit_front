@@ -9,7 +9,6 @@ function NaverMap({ items, language }) {
   const { t } = useTranslation();
   const location = useSelector((state) => state.isLocation);
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(true);
   const mapContainerRef = useRef(null);
 
   // 지도 로드 함수
@@ -24,7 +23,6 @@ function NaverMap({ items, language }) {
       script.onload = () => {
         if (!window.naver || !window.naver.maps) {
           console.error("Naver 지도 API가 로드되지 않았습니다.");
-          setIsLoading(false);
           return;
         }
 
@@ -61,12 +59,11 @@ function NaverMap({ items, language }) {
           });
         });
 
-        setIsLoading(false);
+
       };
 
       script.onerror = () => {
         console.error("Naver 지도 API 스크립트를 로드할 수 없습니다.");
-        setIsLoading(false);
       };
 
       document.head.appendChild(script);
@@ -81,15 +78,9 @@ function NaverMap({ items, language }) {
     // 지도 로드
     if (mapContainerRef.current) {
       loadMap();
-    } else {
-      setIsLoading(false); // 지도 컨테이너가 없다면 로딩 상태 해제
-    }
-  }, [items, language, location, dispatch]);
+    } 
+  }, [items, language, dispatch]);
 
-  // 로딩 중일 때 표시
-  if (isLoading) {
-    return <div>{t`loading`}</div>;
-  }
 
   return <div ref={mapContainerRef} style={{ width: "100%", height: "400px" }} />;
 }
