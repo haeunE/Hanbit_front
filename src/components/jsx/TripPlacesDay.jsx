@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import "../css/TripPlacesDay.css";
 import { useTranslation } from "react-i18next";
-import NaverMap from "./NaverMap";
-import SeoulPageSpotDetails from "./SeoulPageSpotDetails";
 import { useNavigate } from "react-router-dom";
 import i18n from "i18next";
 
-function TripPlacesDay({ contentTypeId, pageNo, num, page }) {
+function TripPlacesDay({ contentTypeId, pageNo }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -40,7 +38,7 @@ function TripPlacesDay({ contentTypeId, pageNo, num, page }) {
 
         const filteredPlaces = getRandomItems(
           items.filter((item) => item.firstimage),
-          num
+          4
         ).map((item) => ({
           id: item.contentid,
           add: item.addr1,
@@ -85,7 +83,7 @@ function TripPlacesDay({ contentTypeId, pageNo, num, page }) {
         <div className="loading-container">
           <p>{t("loading")}</p>
         </div>
-      ) : page === "home" ? (
+      ) :  (
         <div className="place-container">
           {places.map((place) => (
             <div
@@ -101,16 +99,8 @@ function TripPlacesDay({ contentTypeId, pageNo, num, page }) {
             </div>
           ))}
         </div>
-      ) : (
-        <div>
-          <>
-            <NaverMap />
-            <SeoulPageSpotDetails places={places} />
-          </>
-        </div>
-      )}
+      ) }
     </div>
   );
 }
-
 export default TripPlacesDay;

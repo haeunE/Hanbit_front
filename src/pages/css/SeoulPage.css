@@ -1,5 +1,4 @@
 .day-seoul{
-  margin: auto;
   padding-top: 100px; 
 }
 
@@ -19,8 +18,16 @@
 .day-seoul .hashtag-btn:hover {
   background-color: #01614f; 
 }
+.day-seoul .hashtag-list {
+  display: flex;
+  flex-direction: row;       /* 가로 방향으로 버튼 배치 */
+  justify-content: center;   /* 수평 중앙 정렬 */
+  align-items: center;       /* 수직 중앙 정렬 */
+  gap: 10px;                 /* 버튼 간 간격 */
+  margin-bottom: 20px;
+  height: 100%;              /* 부모 요소의 높이에 맞춰 수직 중앙 정렬 */
+}
 
-#map {
-  width: 100%;
-  height: 500px;
+.places-list{
+  background-color: white;
 }

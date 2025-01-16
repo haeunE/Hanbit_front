@@ -40,13 +40,22 @@
     "max-temp": "最高温度",
     "min-temp": "最低温度"
   },
-  "seoul-page": {
-    "tourist-spots": "旅游景点",
-    "cultural-facilities": "文化设施",
-    "restaurants": "餐馆",
-    "accommodation": "住宿",
-    "shopping": "购物",
-    "leisure": "休闲"
-  }
+  "seoulDay-page": {
+    "tourist-spots": "#旅游景点",
+    "cultural-facilities": "#文化设施",
+    "restaurants": "#餐馆",
+    "accommodation": "#住宿",
+    "shopping": "#购物",
+    "leisure": "#休闲"
+  },
+  "seoulNight-page": {
+    "hotBars": "#热门酒吧",
+    "quietBars": "#安静酒吧",
+    "maidButlerCafe": "#女仆/管家咖啡馆",
+    "pickUpSpots": "#搭讪热地",
+    "pickUpTargets": "#搭讪目标",
+    "club": "#俱乐部"
+  },
+  "top5": "前五名"
 
 }
