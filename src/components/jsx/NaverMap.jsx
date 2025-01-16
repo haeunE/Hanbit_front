@@ -80,7 +80,7 @@ function NaverMap({ items, language }) {
   }, [items, language, dispatch]);
 
 
-  return <div ref={mapContainerRef} style={{ width: "100%", height: "400px" }} />;
+  return <div ref={mapContainerRef} style={{ width: "100%", height: "100%" }} />;
 }
 
 export default NaverMap;

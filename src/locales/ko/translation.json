@@ -46,11 +46,11 @@
     "min-temp": "최저 온도"
   },
   "seoul-page": {
-    "tourist-spots": "관광지",
-    "cultural-facilities": "문화시설",
-    "restaurants": "음식점",
-    "accommodation": "숙박",
-    "shopping": "쇼핑",
-    "leisure": "레포츠"
+    "tourist-spots": "#관광지",
+    "cultural-facilities": "#문화시설",
+    "restaurants": "#음식점",
+    "accommodation": "#숙박",
+    "shopping": "#쇼핑",
+    "leisure": "#레포츠"
   }
 }
