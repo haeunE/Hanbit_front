@@ -79,7 +79,7 @@ function PlaceDetail() {
             </Tab>
             <Tab eventKey="review" title="REVIEW">
               <div className="review">
-                <Review placeid={id} typeid={typeid}/>
+                <Review placeid={id} typeid={typeid} placetitle={placedata.title}/>
               </div>
             </Tab>
           </Tabs>

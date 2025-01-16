@@ -1,23 +1,28 @@
-import { useEffect, useState } from 'react'
-import { Route, Router, Routes, useLocation, useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import './App.css'
 
+import Test from './pages/jsx/Test'
 import Header from './components/main/Header'
-import Intro from './pages/jsx/intro'
+import Footer from './components/main/Footer'
 import Login from './components/main/Login'
 import Signup from "./components/main/Signup";
 import UserProfile from './components/main/UserProfile'
-import Test from './pages/jsx/Test'
+import Intro from './pages/jsx/intro'
+import Home from './pages/jsx/Home'
+import Bicycle from './pages/jsx/Bicycle'
+import PlaceDetail from './pages/jsx/PlaceDetail'
+import MyReviews from './pages/jsx/MyReviews'
+
 import {login, logout} from './redux/userState'
+import { SetIsMode } from './redux/modeState'
+import { clearAllStorage } from './utils/clearAllStorage'
 
 import { useDispatch, useSelector } from 'react-redux'
-import Home from './pages/jsx/Home'
-import { SetIsMode } from './redux/modeState'
-import Footer from './components/main/Footer'
-import Bicycle from './pages/jsx/Bicycle'
 import Cookies from 'js-cookie';
 import PlaceDetail from './pages/jsx/PlaceDetail'
 import SeoulPage from './pages/jsx/SeoulPage'
+
 
 
 
@@ -27,7 +32,6 @@ function App() {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
   const naviagte = useNavigate();
-  
 
 
   useEffect(() => {
@@ -38,6 +42,7 @@ function App() {
       dispatch(login({ token: jwt, user: JSON.parse(userinfo) }));
     }else if(jwt&&!userinfo){
       dispatch(logout())
+      clearAllStorage()
       alert('로그인정보가 만료되어 재로그인 해야합니다.')
       naviagte('/login')
     }
@@ -67,6 +72,7 @@ function App() {
         <Route path='/bicycle' element={<Bicycle />} />
         <Route path='/places/:id/:typeid' element={<PlaceDetail/>} />
         <Route path='/daySeoul' element={<SeoulPage />} />
+        <Route path='/myreviews' element={<MyReviews />} />
       </Routes>
       </div>
       {!['/login', '/signup', '/userprofile'].includes(useLocation().pathname) && <Footer />}
