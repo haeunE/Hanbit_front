@@ -17,7 +17,7 @@ function SeoulPage() {
   const dispatch = useDispatch();
   const city = JSON.parse(localStorage.getItem("location")).city;
   const [category, setCategory] = useState(`${city}맛집`);
-  const [contentId, setContentId] = useState();
+  const [contentId, setContentId] = useState("39");
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -55,7 +55,8 @@ function SeoulPage() {
   };
 
   // 랜덤 페이지 번호 계산
-  const pageNo = Math.floor(Math.random() * 10) + 1;
+  // const pageNo = Math.floor(Math.random() * 10) + 1;
+  // console.log(pageNo)
 
   console.log(category)
   return (
@@ -77,7 +78,7 @@ function SeoulPage() {
             ) : (
               <div className='places-list'>
                 <div>
-                  <PageWithMaps category={category} contentTypeId={contentId} pageNo={pageNo} />
+                  <PageWithMaps category={category} contentTypeId={contentId} pageNo={1} />
                 </div>
                 <div className='items-list'>
                   <TripPlacesDay category={category}/>
