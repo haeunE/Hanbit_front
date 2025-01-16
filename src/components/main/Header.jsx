@@ -33,19 +33,27 @@ function Header() {
   useEffect(() => {
     const savedMode = JSON.parse(localStorage.getItem("isMode"));
     if (savedMode !== null) dispatch(SetIsMode(savedMode));
-
+  
+    if (isPath.pathname === "/daySeoul" && isMode === false) {
+      navigate("/nightSeoul");
+    } else if (isPath.pathname === "/nightSeoul" && isMode === true) {
+      navigate("/daySeoul");
+    }
     const savedLanguage = localStorage.getItem("lang");
     if (savedLanguage) {
       i18n.changeLanguage(savedLanguage);
       dispatch(SetLanguage(savedLanguage));
     }
-  }, [dispatch, ]);
+  }, [dispatch, isMode]); // isMode와 isPath.pathname 추가
+  
   
   const changeMode = () => {
     const newMode = !isMode;
     dispatch(SetIsMode(newMode));
     localStorage.setItem("isMode", JSON.stringify(newMode));
+  
   };
+  
 
   // Intro 페이지에서 헤더 숨기기
   if (isPath.pathname === '/') {

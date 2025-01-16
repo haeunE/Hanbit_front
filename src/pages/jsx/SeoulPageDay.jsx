@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SetIsMode } from '../../redux/modeState';
 import { SetIsLocation } from '../../redux/locationState';
 import PageWithMaps from '../../components/jsx/PageWithMaps';
-import TripPlacesDay from '../../components/jsx/TripPlacesDay';
 
 
 function SeoulPage() {
@@ -17,7 +16,7 @@ function SeoulPage() {
   const dispatch = useDispatch();
   const city = JSON.parse(localStorage.getItem("location")).city;
   const [category, setCategory] = useState(`${city}맛집`);
-  const [contentId, setContentId] = useState("39");
+  const [contentId, setContentId] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -55,10 +54,8 @@ function SeoulPage() {
   };
 
   // 랜덤 페이지 번호 계산
-  // const pageNo = Math.floor(Math.random() * 10) + 1;
-  // console.log(pageNo)
+  const pageNo = Math.floor(Math.random() * 10) + 1;
 
-  console.log(category)
   return (
     <Container>
       <div className="day-seoul">
@@ -78,10 +75,7 @@ function SeoulPage() {
             ) : (
               <div className='places-list'>
                 <div>
-                  <PageWithMaps category={category} contentTypeId={contentId} pageNo={1} />
-                </div>
-                <div className='items-list'>
-                  <TripPlacesDay category={category}/>
+                  <PageWithMaps category={category} contentTypeId={contentId} pageNo={pageNo} />
                 </div>
               </div>
             )}

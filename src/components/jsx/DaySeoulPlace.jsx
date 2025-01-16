@@ -5,9 +5,9 @@ import "@/locales/i18n";
 import i18n from 'i18next';  
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import "../css/PageWithMaps.css";
+import "../css/DaySeoulPlace.css";
 
-function PageWithMaps({ category, contentTypeId, pageNo }) {
+function DaySeoulPlace({ category, contentTypeId, pageNo }) {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(true);
   const [spots, setSpots] = useState([]);
@@ -18,7 +18,6 @@ function PageWithMaps({ category, contentTypeId, pageNo }) {
   const APIKEY = import.meta.env.VITE_KOREA_TOURIST_DAY_API_KEY;
   const location = JSON.parse(localStorage.getItem("location")) || {};
   const navigate = useNavigate();
-  const [mapxy,setMapxy] = useState()
 
   const getRandomItems = (arr, n) => {
     if (!Array.isArray(arr) || n <= 0) {
@@ -46,7 +45,15 @@ function PageWithMaps({ category, contentTypeId, pageNo }) {
             "X-Naver-Client-Secret": clientSecret,
           },
         });
-        setSpots(data.items);
+
+        // 검색된 장소 정보를 spots 상태에 저장
+        setSpots(data.items.map(item => ({
+          add: item.address,
+          link: item.link,
+          lon: item.mapx / 10000000, // 경도
+          lat: item.mapy / 10000000, // 위도
+          title: item.title.replace(/<[^>]*>/g, '') // HTML 태그 제거
+        })) || []);
       } catch (error) {
         console.error("검색 오류:", error);
       } finally {
@@ -128,6 +135,7 @@ function PageWithMaps({ category, contentTypeId, pageNo }) {
 
   // HTML 태그 제거 함수
   const removeHTMLTags = (text) => text.replace(/<[^>]*>/g, '');
+
   return (
     <div className="page-with-maps">
       <div className="map-container">
@@ -136,7 +144,7 @@ function PageWithMaps({ category, contentTypeId, pageNo }) {
         ) : (
           <div className="map-with-top5">
             <div className="map">
-            <NaverMap items={[...spots, ...places]} language={i18n.language} />
+              <NaverMap items={[...spots, ...places]} language={i18n.language} />
             </div>
             <div className="spot-container">
               <h4 className="top5">{t("top5")}</h4>
@@ -144,7 +152,7 @@ function PageWithMaps({ category, contentTypeId, pageNo }) {
                 <div key={index} className="spot-item">
                   <a href={spot.link} target="_blank" rel="noopener noreferrer">
                     <h3>{removeHTMLTags(spot.title)}</h3>
-                    <p className="spot-address">{removeHTMLTags(spot.address)}</p>
+                    <p className="spot-address">{removeHTMLTags(spot.add)}</p>
                   </a>
                 </div>
               ))}
@@ -215,4 +223,4 @@ function PageWithMaps({ category, contentTypeId, pageNo }) {
   );
 }
 
-export default PageWithMaps;
+export default DaySeoulPlace;
