@@ -73,6 +73,7 @@ const Details = ({ data }) => {
   return (
     <div className="naver-img-container">
       {loading && <p className="naver-img-loading">로딩 중...</p>}
+      {/* MAP 들어갈 예정 */}
       <div className="details-content details-item">
         {Object.keys(details).map((key) => {
           const label = placeDic[key]; 
