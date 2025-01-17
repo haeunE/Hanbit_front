@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Cookies from 'js-cookie';
 import SeoulPageDay from './pages/jsx/SeoulPageDay'
 import SeoulPageNight from './pages/jsx/SeoulPageNight'
+import Directions from './pages/jsx/Directions'
 
 
 
@@ -71,6 +72,7 @@ function App() {
         <Route path='/daySeoul' element={<SeoulPageDay />} />
         <Route path='/nightSeoul' element={<SeoulPageNight />} />
         <Route path='/myreviews' element={<MyReviews />} />
+        <Route path='/directions' element={<Directions />} />
       </Routes>
       </div>
       {!['/login', '/signup', '/userprofile'].includes(useLocation().pathname) && <Footer />}

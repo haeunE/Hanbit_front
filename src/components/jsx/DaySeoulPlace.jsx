@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import "../css/DaySeoulPlace.css";
 
-function DaySeoulPlace({ category, contentTypeId, pageNo }) {
+function DaySeoulPlace({ category, contentTypeId }) {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(true);
   const [spots, setSpots] = useState([]);
@@ -77,7 +77,7 @@ function DaySeoulPlace({ category, contentTypeId, pageNo }) {
         default: "KorService1",
       }[localStorage.getItem("lang")] || "KorService1";
 
-      const URL = `https://apis.data.go.kr/B551011/${serviceType}/locationBasedList1?numOfRows=10&pageNo=${1}&MobileOS=WIN&MobileApp=hanbit&_type=json&mapX=${lon}&mapY=${lat}&radius=10000&contentTypeId=${Number(contentTypeId)}&serviceKey=${APIKEY}`;
+      const URL = `https://apis.data.go.kr/B551011/${serviceType}/locationBasedList1?numOfRows=10&pageNo=1&MobileOS=WIN&MobileApp=hanbit&_type=json&mapX=${lon}&mapY=${lat}&radius=10000&contentTypeId=${Number(contentTypeId)}&serviceKey=${APIKEY}`;
 
       try {
         const response = await fetch(URL);
@@ -144,7 +144,7 @@ function DaySeoulPlace({ category, contentTypeId, pageNo }) {
         ) : (
           <div className="map-with-top5">
             <div className="spot-map">
-              <NaverMap items={[...spots, ...places]} language={i18n.language} />
+              <NaverMap items={[...spots, ...places]} language={i18n.language} zoom={13}/>
             </div>
             <div className="spot-container">
               <h4 className="top5">{t("top5")}</h4>
