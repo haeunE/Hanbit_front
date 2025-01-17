@@ -10,13 +10,14 @@ import { SetIsLocation } from '../../redux/locationState';
 import DaySeoulPlace from '../../components/jsx/DaySeoulPlace';
 
 
-function SeoulPageDay() {
+
+function SeoulPage() {
   const { t } = useTranslation();
   const isLocation = useSelector((state) => state.isLocation);
   const dispatch = useDispatch();
   const city = JSON.parse(localStorage.getItem("location")).city;
-  const [category, setCategory] = useState(`${city}`);
-  const [contentId, setContentId] = useState();
+  const [category, setCategory] = useState(`${city}맛집`);
+  const [contentId, setContentId] = useState(39);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -55,12 +56,10 @@ function SeoulPageDay() {
 
   // 랜덤 페이지 번호 계산
   const pageNo = Math.floor(Math.random() * 10) + 1;
-
   return (
     <Container>
       <div className="day-seoul">
         <div className="hashtag-list">
-          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}관광지`)}>{t("seoulDay-page.tourist-spots")}</button> 
           <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}문화시설`)}>{t("seoulDay-page.cultural-facilities")}</button>
           <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}음식점`)}>{t("seoulDay-page.restaurants")}</button>
           <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}숙박`)}>{t("seoulDay-page.accommodation")}</button>
@@ -86,4 +85,4 @@ function SeoulPageDay() {
   );
 }
 
-export default SeoulPageDay;
+export default SeoulPage;

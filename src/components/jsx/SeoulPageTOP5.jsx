@@ -48,7 +48,7 @@ function SeoulPageTOP5({ category }) {
   const removeHTMLTags = (str) => {
     return str.replace(/<[^>]*>/g, "");  // <태그>...</태그> 제거
   };
-
+  console.log(spots)
   return (
     <div className="seoul-page-container">
       {isLoading ? (

@@ -12,11 +12,19 @@ function DaySeoulPlace({ category, contentTypeId, pageNo }) {
   const [isLoading, setIsLoading] = useState(true);
   const [spots, setSpots] = useState([]);
   const [places, setPlaces] = useState([]);
+  const [expandedState, setExpandedState] = useState({});
   const clientId = import.meta.env.VITE_NAVER_API_ID;
   const clientSecret = import.meta.env.VITE_NAVER_API_SECRET;
   const APIKEY = import.meta.env.VITE_KOREA_TOURIST_DAY_API_KEY;
   const location = JSON.parse(localStorage.getItem("location")) || {};
   const navigate = useNavigate();
+
+  const getRandomItems = (arr, n) => {
+    if (!Array.isArray(arr) || n <= 0) {
+      return [];
+    }
+    return arr.sort(() => Math.random() - 0.5).slice(0, n);
+  };
 
   // 서울 TOP5 검색
   useEffect(() => {
@@ -55,10 +63,9 @@ function DaySeoulPlace({ category, contentTypeId, pageNo }) {
 
     fetchSpots();
   }, [category]);
-
+  
   // 여행지 데이터 불러오기
   useEffect(() => {
-    if (!contentTypeId) return;
     const fetchPlaces = async () => {
       const { latitude: lat, longitude: lon } = location;
       if (!lat || !lon) return;
@@ -70,20 +77,52 @@ function DaySeoulPlace({ category, contentTypeId, pageNo }) {
         default: "KorService1",
       }[localStorage.getItem("lang")] || "KorService1";
 
-      const URL = `https://apis.data.go.kr/B551011/${serviceType}/locationBasedList1?numOfRows=10&pageNo=${pageNo}&MobileOS=WIN&MobileApp=hanbit&_type=json&arrange=R&mapX=${lon}&mapY=${lat}&radius=10000&contentTypeId=${Number(contentTypeId)}&serviceKey=${APIKEY}`;
+      const URL = `https://apis.data.go.kr/B551011/${serviceType}/locationBasedList1?numOfRows=10&pageNo=${1}&MobileOS=WIN&MobileApp=hanbit&_type=json&mapX=${lon}&mapY=${lat}&radius=10000&contentTypeId=${Number(contentTypeId)}&serviceKey=${APIKEY}`;
 
       try {
         const response = await fetch(URL);
         const data = await response.json();
-        setPlaces(data.response?.body?.items?.item.map(item => ({
-          id: item.contentid,
-          add: item.addr1,
-          img: item.firstimage,
-          lon: item.mapx,
-          lat: item.mapy,
-          title: item.title,
-          typeid: item.contenttypeid,
-        })) || []);
+        const items = data.response?.body?.items?.item || [];
+
+        const filteredPlaces = await Promise.all(
+          getRandomItems(
+            items.filter((item) => item.firstimage),
+            10
+          ).map(async (item) => {
+            // 추가 API 호출로 상세 정보를 가져오기
+            const detailURL = `http://apis.data.go.kr/B551011/${serviceType}/detailCommon1?serviceKey=${APIKEY}&MobileOS=ETC&MobileApp=hanbit&contentId=${item.contentid}&contentTypeId=${item.contenttypeid}&_type=json&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y`;
+            try {
+              const detailResponse = await axios.get(detailURL);
+              const detailItems = detailResponse.data.response.body.items.item || [];
+              const overview = detailItems[0]?.overview || "";
+
+              return {
+                id: item.contentid,
+                add: item.addr1,
+                img: item.firstimage,
+                lon: item.mapx,
+                lat: item.mapy,
+                title: item.title,
+                typeid: item.contenttypeid,
+                overview, // 설명 추가
+              };
+            } catch (detailError) {
+              console.error("상세 정보 API 호출 오류:", detailError);
+              return {
+                id: item.contentid,
+                add: item.addr1,
+                img: item.firstimage,
+                lon: item.mapx,
+                lat: item.mapy,
+                title: item.title,
+                typeid: item.contenttypeid,
+                overview: "설명 데이터를 가져올 수 없습니다.",
+              };
+            }
+          })
+        );
+        
+        setPlaces(filteredPlaces);
       } catch (error) {
         console.error("API 호출 오류:", error);
       } finally {
@@ -93,10 +132,10 @@ function DaySeoulPlace({ category, contentTypeId, pageNo }) {
 
     fetchPlaces();
   }, [contentTypeId, i18n.language]);
+  console.log(places)
 
   // HTML 태그 제거 함수
   const removeHTMLTags = (text) => text.replace(/<[^>]*>/g, '');
-
   return (
     <div className="page-with-maps">
       <div className="map-container">
@@ -104,7 +143,7 @@ function DaySeoulPlace({ category, contentTypeId, pageNo }) {
           <p>{t("loading")}</p>
         ) : (
           <div className="map-with-top5">
-            <div className="map">
+            <div className="spot-map">
               <NaverMap items={[...spots, ...places]} language={i18n.language} />
             </div>
             <div className="spot-container">
@@ -122,23 +161,64 @@ function DaySeoulPlace({ category, contentTypeId, pageNo }) {
         )}
       </div>
 
-      <div className="lists-container">
-        <div className="spot-place-card">
-          {places.map((place) => (
+      <div className="spot-lists-container">
+        {places.map((place) => {
+          const isExpanded = expandedState[place.id] || false;
+
+          // Overview를 일정 길이로 잘라 표시
+          const maxOverviewLength = 100;
+          const shortenedOverview =
+            place.overview.length > maxOverviewLength
+              ? place.overview.slice(0, maxOverviewLength) + "..."
+              : place.overview;
+
+          return (
             <div
               key={place.id}
-              className="spot-place-item"
-              onClick={() => navigate(`/places/${place.id}/${place.typeid}`)}
-              style={{ backgroundImage: `url(${place.img || "default-image.jpg"})` }}
+              className="spot-place-list"
+              
             >
+              {/* 이미지 영역 */}
+              <div
+                className="spot-place-item"
+                style={{ backgroundImage: `url(${place.img || "default-image.jpg"})` }}
+              ></div>
+
+              {/* 텍스트 정보 영역 */}
               <div className="spot-img-info">
-                <div className="spot-place-addr">{place.add}</div>
-                <div className="spot-place-title">{place.title}</div>
+              <p
+                className="spot-place-title"
+                onClick={() => navigate(`/places/${place.id}/${place.typeid}`)}
+              >
+                {place.title}
+              </p>
+
+                <p className="spot-place-addr">{place.add}</p>
+                <div className="spot-place-overview">
+                  {/* Overview 텍스트 */}
+                  {isExpanded ? place.overview : shortenedOverview}
+                  {/* 더보기/접기 버튼 */}
+                  {place.overview.length > maxOverviewLength && (
+                    <button
+                      className="overview-toggle-btn"
+                      onClick={(e) => {
+                        e.stopPropagation(); // 부모 클릭 이벤트 방지
+                        setExpandedState((prevState) => ({
+                          ...prevState,
+                          [place.id]: !isExpanded,
+                        }));
+                      }}
+                    >
+                      {isExpanded ? "접기" : "더보기"}
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
-          ))}
-        </div>
+          );
+        })}
       </div>
+
     </div>
   );
 }
