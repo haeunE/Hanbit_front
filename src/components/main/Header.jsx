@@ -170,7 +170,7 @@ function Header() {
               </NavDropdown>
               <NavDropdown title={t("header.traffic")} id="navbarScrollingDropdown">
                 {navDropdownItems([
-                  { icon: "fa-map-pin", label: t("header.directions"), href: "#action3" },
+                  { icon: "fa-map-pin", label: t("header.directions"), href: "/directions" },
                   { icon: "fa-bus", label: t("header.public-transportation"), href: "#action4" },
                   { icon: "fa-person-biking", label: t("header.Ddareungi"), href: "/bicycle" },
                 ])}
@@ -193,7 +193,7 @@ function Header() {
 
                 <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip((t`header.exchangeRate`))}>
                   <Nav.Link as={Link} to="/exchageRate" onClick={(e) => e.stopPropagation()}>
-                    <i class="fa-solid fa-calculator"></i>
+                    <i className="fa-solid fa-calculator"></i>
                   </Nav.Link>
                 </OverlayTrigger>
 

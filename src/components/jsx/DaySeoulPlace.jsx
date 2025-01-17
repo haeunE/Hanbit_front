@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import "../css/DaySeoulPlace.css";
 
-function DaySeoulPlace({ category, contentTypeId, pageNo }) {
+function DaySeoulPlace({ category, contentTypeId }) {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(true);
   const [spots, setSpots] = useState([]);
@@ -77,7 +77,7 @@ function DaySeoulPlace({ category, contentTypeId, pageNo }) {
         default: "KorService1",
       }[localStorage.getItem("lang")] || "KorService1";
 
-      const URL = `https://apis.data.go.kr/B551011/${serviceType}/locationBasedList1?numOfRows=10&pageNo=${1}&MobileOS=WIN&MobileApp=hanbit&_type=json&mapX=${lon}&mapY=${lat}&radius=10000&contentTypeId=${Number(contentTypeId)}&serviceKey=${APIKEY}`;
+      const URL = `https://apis.data.go.kr/B551011/${serviceType}/locationBasedList1?numOfRows=10&pageNo=1&MobileOS=WIN&MobileApp=hanbit&_type=json&mapX=${lon}&mapY=${lat}&radius=10000&contentTypeId=${Number(contentTypeId)}&serviceKey=${APIKEY}`;
 
       try {
         const response = await fetch(URL);
@@ -136,89 +136,87 @@ function DaySeoulPlace({ category, contentTypeId, pageNo }) {
 
   // HTML 태그 제거 함수
   const removeHTMLTags = (text) => text.replace(/<[^>]*>/g, '');
+
   return (
     <div className="page-with-maps">
-      <div className="map-container">
-        {isLoading ? (
-          <p>{t("loading")}</p>
-        ) : (
-          <div className="map-with-top5">
-            <div className="spot-map">
-              <NaverMap items={[...spots, ...places]} language={i18n.language} />
-            </div>
-            <div className="spot-container">
-              <h4 className="top5">{t("top5")}</h4>
-              {spots.map((spot, index) => (
-                <div key={index} className="spot-item">
-                  <a href={spot.link} target="_blank" rel="noopener noreferrer">
-                    <h3>{removeHTMLTags(spot.title)}</h3>
-                    <p className="spot-address">{removeHTMLTags(spot.add)}</p>
-                  </a>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-
-      <div className="spot-lists-container">
-        {places.map((place) => {
-          const isExpanded = expandedState[place.id] || false;
-
-          // Overview를 일정 길이로 잘라 표시
-          const maxOverviewLength = 100;
-          const shortenedOverview =
-            place.overview.length > maxOverviewLength
-              ? place.overview.slice(0, maxOverviewLength) + "..."
-              : place.overview;
-
-          return (
-            <div
-              key={place.id}
-              className="spot-place-list"
-              
-            >
-              {/* 이미지 영역 */}
-              <div
-                className="spot-place-item"
-                style={{ backgroundImage: `url(${place.img || "default-image.jpg"})` }}
-              ></div>
-
-              {/* 텍스트 정보 영역 */}
-              <div className="spot-img-info">
-              <p
-                className="spot-place-title"
-                onClick={() => navigate(`/places/${place.id}/${place.typeid}`)}
-              >
-                {place.title}
-              </p>
-
-                <p className="spot-place-addr">{place.add}</p>
-                <div className="spot-place-overview">
-                  {/* Overview 텍스트 */}
-                  {isExpanded ? place.overview : shortenedOverview}
-                  {/* 더보기/접기 버튼 */}
-                  {place.overview.length > maxOverviewLength && (
-                    <button
-                      className="overview-toggle-btn"
-                      onClick={(e) => {
-                        e.stopPropagation(); // 부모 클릭 이벤트 방지
-                        setExpandedState((prevState) => ({
-                          ...prevState,
-                          [place.id]: !isExpanded,
-                        }));
-                      }}
-                    >
-                      {isExpanded ? "접기" : "더보기"}
-                    </button>
-                  )}
-                </div>
+      {isLoading ? (
+        <p>{t("loading")}</p> // 전체 로딩 메시지
+      ) : (
+        <>
+          <div className="map-container">
+            <div className="map-with-top5">
+              <div className="spot-map">
+                <NaverMap items={[...spots, ...places]} language={i18n.language} zoom={13} />
+              </div>
+              <div className="spot-container">
+                <h4 className="top5">{t("top5")}</h4>
+                {spots.map((spot, index) => (
+                  <div key={index} className="spot-item">
+                    <a href={spot.link} target="_blank" rel="noopener noreferrer">
+                      <h3>{removeHTMLTags(spot.title)}</h3>
+                      <p className="spot-address">{removeHTMLTags(spot.add)}</p>
+                    </a>
+                  </div>
+                ))}
               </div>
             </div>
-          );
-        })}
-      </div>
+          </div>
 
+          <div className="spot-lists-container">
+            {places.map((place) => {
+              const isExpanded = expandedState[place.id] || false;
+
+              // Overview를 일정 길이로 잘라 표시
+              const maxOverviewLength = 100;
+              const shortenedOverview =
+                place.overview.length > maxOverviewLength
+                  ? place.overview.slice(0, maxOverviewLength) + "..."
+                  : place.overview;
+
+              return (
+                <div key={place.id} className="spot-place-list">
+                  {/* 이미지 영역 */}
+                  <div
+                    className="spot-place-item"
+                    style={{ backgroundImage: `url(${place.img || "default-image.jpg"})` }}
+                  ></div>
+
+                  {/* 텍스트 정보 영역 */}
+                  <div className="spot-img-info">
+                    <p
+                      className="spot-place-title"
+                      onClick={() => navigate(`/places/${place.id}/${place.typeid}`)}
+                    >
+                      {place.title}
+                    </p>
+
+                    <p className="spot-place-addr">{place.add}</p>
+                    <div className="spot-place-overview">
+                      {/* Overview 텍스트 */}
+                      {isExpanded ? place.overview : shortenedOverview}
+                      {/* 더보기/접기 버튼 */}
+                      {place.overview.length > maxOverviewLength && (
+                        <button
+                          className="overview-toggle-btn"
+                          onClick={(e) => {
+                            e.stopPropagation(); // 부모 클릭 이벤트 방지
+                            setExpandedState((prevState) => ({
+                              ...prevState,
+                              [place.id]: !isExpanded,
+                            }));
+                          }}
+                        >
+                          {isExpanded ? "접기" : "더보기"}
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </>
+      )}
     </div>
   );
 }

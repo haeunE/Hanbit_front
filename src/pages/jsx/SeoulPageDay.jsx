@@ -54,8 +54,7 @@ function SeoulPage() {
     setContentId(categoryToContentIdMap[categoryKey] || null);  // 카테고리에 맞는 contentId 설정
   };
 
-  // 랜덤 페이지 번호 계산
-  const pageNo = Math.floor(Math.random() * 10) + 1;
+ 
   return (
     <Container>
       <div className="day-seoul">
@@ -74,7 +73,7 @@ function SeoulPage() {
             ) : (
               <div className='places-list'>
                 <div>
-                  <DaySeoulPlace category={category} contentTypeId={contentId} pageNo={pageNo} />
+                  <DaySeoulPlace category={category} contentTypeId={contentId} />
                 </div>
               </div>
             )}

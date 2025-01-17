@@ -65,7 +65,7 @@ function NightSeoulPlace({ category }) {
         ) : (
           <div className="map-with-top5">
             <div className="map">
-            <NaverMap items={[...spots]} language={i18n.language} />
+            <NaverMap items={[...spots]} language={i18n.language} zoom={13}/>
             </div>
             <div className="spot-container">
               <h4 className="top5">{t("top5")}</h4>
