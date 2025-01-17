@@ -1,4 +1,28 @@
-/* Details.css */
+/* 기존 스타일은 그대로 두고, 버튼에 대한 독립적인 스타일 추가 */
+.direction-btn {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #00b493; /* 원하는 배경색 */
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  margin-top: 20px; /* 버튼과 상단 간격 */
+}
+
+.direction-btn:hover {
+  background-color: #5d9d8a; /* 마우스를 올렸을 때 색상 변경 */
+}
+
+/* 버튼을 포함한 부모 요소가 중앙에 오도록 */
+.details-content {
+  text-align: center; /* 내부 텍스트 및 버튼을 중앙 정렬 */
+}
+
 .naver-img-container {
   display: flex;
   flex-direction: column;

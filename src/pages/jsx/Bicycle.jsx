@@ -118,6 +118,30 @@ function Bicycle() {
     };
   }, []);
 
+  // 앱 설치 여부 확인 후 처리 함수
+  const openAppOrRedirect = (e, platform) => {
+    e.preventDefault();
+    const appUrls = {
+      android: "intent://#Intent;scheme=nmap;package=com.nhn.android.nmap;end", // 안드로이드 앱 인텐트 URL
+      ios: "nmap://", // iOS 앱 URL
+    };
+
+    const appUrl = appUrls[platform];
+
+    // 모바일에서 앱을 여는 코드
+    if (navigator.userAgent.match(/iPhone|iPad|iPod/)) {
+      window.location = appUrl;
+      setTimeout(() => {
+        window.location = 'https://apps.apple.com/kr/app/%EB%94%B0%EB%A6%89%EC%9D%B4/id963513619'; // App Store로 리다이렉트
+      }, 1500);
+    } else if (navigator.userAgent.match(/Android/)) {
+      window.location = appUrl;
+      setTimeout(() => {
+        window.location = 'https://play.google.com/store/apps/details?id=com.bikeseoul'; // Google Play로 리다이렉트
+      }, 1500);
+    }
+  };
+
   return (
     <Container>
       <div className="bicycle">
@@ -149,16 +173,14 @@ function Bicycle() {
               {t`Ddareungi-page.go-to-website`}
             </a>
             <a
-              href="https://play.google.com/store/apps/details?id=com.bikeseoul" // 안드로이드 앱 다운로드 링크
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#"
+              onClick={(e) => openAppOrRedirect(e, 'android')} // Android 앱 다운로드
             >
               {t`Ddareungi-page.download-android`}
             </a>
             <a
-              href="https://apps.apple.com/kr/app/%EB%94%B0%EB%A6%89%EC%9D%B4/id963513619" // iOS 앱 다운로드 링크
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#"
+              onClick={(e) => openAppOrRedirect(e, 'ios')} // iOS 앱 다운로드
             >
               {t`Ddareungi-page.download-ios`}
             </a>

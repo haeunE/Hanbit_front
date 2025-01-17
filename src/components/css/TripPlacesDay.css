@@ -60,3 +60,9 @@
   font-size: 16px;
   font-weight: bold;
 }
+
+.place-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
