@@ -34,7 +34,7 @@ function PlaceDetail() {
           img2: i.firstimage2,
           homepage : i.homepage,
           cat: i.cat3,
-          addr: i.addr1 + i.addr2,
+          add: i.addr1 + i.addr2,
           addrcode: i.zipcode,
           lon: i.mapx,
           lat: i.mapy,
