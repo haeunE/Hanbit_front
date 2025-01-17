@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import Details from "../../components/jsx/Details";
 import axios from "axios";
 import Review from "../../components/jsx/Review";
+import GoogleTranslate from "../../components/jsx/GoogleTranslate";
 
 function PlaceDetail() {
   const { id, typeid } = useParams();
@@ -60,6 +61,9 @@ function PlaceDetail() {
   console.log(placedata)
   return (
     <Container>
+      <div className="google">
+        <GoogleTranslate />
+      </div>
       {/* 컨텐츠 영역 */}
       <div className="detail-container">
         <h2>{placedata.title}</h2>

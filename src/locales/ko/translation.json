@@ -62,5 +62,13 @@
     "pickUpTargets": "#헌팅포자",
     "club": "#클럽"
   },
-  "top5":"TOP5"
+  "top5":"TOP5",
+  "directions": {
+    "title": "경로 안내",
+    "currentLocation": "현재 위치",
+    "noCurrentLocation": "현재 위치 정보를 가져올 수 없습니다.",
+    "destination": "목적지",
+    "noDestination": "목적지 정보가 없습니다.",
+    "openNaverMap": "네이버 지도 앱 열기"
+  }
 }

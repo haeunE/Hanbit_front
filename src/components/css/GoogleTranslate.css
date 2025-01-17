@@ -1,0 +1,12 @@
+#google_translate_element{
+  padding-top: 80px;
+}
+
+/* 구글 번역 툴바 숨기기 */
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}
+.goog-te-combo {
+  font-size: 14px;
+  z-index: 10 !important; /* 구글 번역 툴바의 z-index를 낮게 설정 */
+}

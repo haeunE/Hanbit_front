@@ -57,6 +57,14 @@
     "pickUpTargets": "#搭讪目标",
     "club": "#俱乐部"
   },
-  "top5": "前五名"
+  "top5": "前五名",
+  "directions": {
+    "title": "路线指引",
+    "currentLocation": "当前位置",
+    "noCurrentLocation": "无法获取当前位置信息。",
+    "destination": "目的地",
+    "noDestination": "没有目的地信息。",
+    "openNaverMap": "打开Naver地图应用"
+  }
 
 }

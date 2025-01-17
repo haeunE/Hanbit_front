@@ -57,5 +57,13 @@
     "pickUpTargets": "#ピックアップターゲット",
     "club": "#クラブ"
   },
-  "top5": "トップ5"
+  "top5": "トップ5",
+  "directions": {
+    "title": "経路案内",
+    "currentLocation": "現在地",
+    "noCurrentLocation": "現在地情報を取得できません。",
+    "destination": "目的地",
+    "noDestination": "目的地の情報がありません。",
+    "openNaverMap": "ネイバー地図アプリを開く"
+  }
 }

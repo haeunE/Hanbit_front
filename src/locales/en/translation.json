@@ -57,5 +57,13 @@
     "pickUpTargets": "#Pick-up Targets",
     "club": "#Club"
   },
-  "top5":"TOP5"
+  "top5":"TOP5",
+  "directions": {
+    "title": "Directions",
+    "currentLocation": "Current Location",
+    "noCurrentLocation": "Unable to retrieve current location.",
+    "destination": "Destination",
+    "noDestination": "No destination information available.",
+    "openNaverMap": "Open Naver Map App"
+  }
 }
