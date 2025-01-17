@@ -60,11 +60,11 @@ function SeoulPage() {
     <Container>
       <div className="day-seoul">
         <div className="hashtag-list">
-          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}문화시설`)}>{t("seoul-page.cultural-facilities")}</button>
-          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}음식점`)}>{t("seoul-page.restaurants")}</button>
-          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}숙박`)}>{t("seoul-page.accommodation")}</button>
-          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}쇼핑`)}>{t("seoul-page.shopping")}</button>
-          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}레포츠`)}>{t("seoul-page.leisure")}</button>
+          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}문화시설`)}>{t("seoulDay-page.cultural-facilities")}</button>
+          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}음식점`)}>{t("seoulDay-page.restaurants")}</button>
+          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}숙박`)}>{t("seoulDay-page.accommodation")}</button>
+          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}쇼핑`)}>{t("seoulDay-page.shopping")}</button>
+          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}레포츠`)}>{t("seoulDay-page.leisure")}</button>
         </div>
 
         <div className="container mt-5">

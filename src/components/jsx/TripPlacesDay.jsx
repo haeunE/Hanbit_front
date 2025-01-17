@@ -76,7 +76,7 @@ function TripPlacesDay({ contentTypeId, pageNo }) {
     console.log("Clicked Place ID:", id, "TypeID:", typeid);
     navigate(`/places/${id}/${typeid}`);
   };
-  console.log(places)
+
   return (
     <div className="place-card">
       {isLoading ? (

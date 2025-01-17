@@ -31,7 +31,7 @@ function NaverMap({ items, language }) {
           center: location
             ? new window.naver.maps.LatLng(location.latitude, location.longitude) // 저장된 위치 사용
             : new window.naver.maps.LatLng(37.5665, 126.9780), // 기본 서울 위치
-          zoom: 12,
+          zoom: 13,
         };
         const map = new window.naver.maps.Map(mapContainerRef.current, mapOptions);
 

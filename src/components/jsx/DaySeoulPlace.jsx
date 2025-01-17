@@ -90,7 +90,7 @@ function DaySeoulPlace({ category, contentTypeId, pageNo }) {
             10
           ).map(async (item) => {
             // 추가 API 호출로 상세 정보를 가져오기
-            const detailURL = `http://apis.data.go.kr/B551011/KorService1/detailCommon1?serviceKey=${APIKEY}&MobileOS=ETC&MobileApp=hanbit&contentId=${item.contentid}&contentTypeId=${item.contenttypeid}&_type=json&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y`;
+            const detailURL = `http://apis.data.go.kr/B551011/${serviceType}/detailCommon1?serviceKey=${APIKEY}&MobileOS=ETC&MobileApp=hanbit&contentId=${item.contentid}&contentTypeId=${item.contenttypeid}&_type=json&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y`;
             try {
               const detailResponse = await axios.get(detailURL);
               const detailItems = detailResponse.data.response.body.items.item || [];
