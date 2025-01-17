@@ -27,7 +27,8 @@ VITE_WEATHER_API_KEY=your_api_key
 
 ## 관광정보 API 생성 및 설정
 1. https://www.data.go.kr/index.do 로그인
-2. https://www.data.go.kr/data/15101578/openapi.do, https://www.data.go.kr/data/15101753/openapi.do 활용신청 누르기
+2. https://www.data.go.kr/data/15101578/openapi.do, https://www.data.go.kr/data/15101753/openapi.do,
+  https://www.data.go.kr/data/15101760/openapi.do, https://www.data.go.kr/data/15101764/openapi.do 활용신청 누르기
 3. 마이페이지 개인 API인증키 인증키 복사
 
 ## .env.local 파일에 api 정보 넣기
