@@ -255,6 +255,7 @@ function Population() {
   );
 }
 
+
 const MapPage = ({ closestPlace }) => {
   return (
     <NavermapsProvider ncpClientId={import.meta.env.VITE_NAVER_MAP_CLIENT_ID}>
