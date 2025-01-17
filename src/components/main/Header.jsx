@@ -191,6 +191,12 @@ function Header() {
                   </Nav.Link>
                 </OverlayTrigger>
 
+                <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip((t`header.exchangeRate`))}>
+                  <Nav.Link as={Link} to="/exchageRate" onClick={(e) => e.stopPropagation()}>
+                    <i class="fa-solid fa-calculator"></i>
+                  </Nav.Link>
+                </OverlayTrigger>
+
                 {/* 언어 설정 아이콘 */}
                 <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip((t`header.language-settings`))}>
                   <Nav.Link as={Link} to="#" onClick={(e) => {
@@ -209,7 +215,7 @@ function Header() {
                   <NavDropdown.Item onClick={() => {changeLanguage("zh"); setShowLanguageDropdown(!showLanguageDropdown);}}>中文</NavDropdown.Item>
                   <NavDropdown.Item onClick={() => {changeLanguage("ja"); setShowLanguageDropdown(!showLanguageDropdown);}}>日本語</NavDropdown.Item>
                 </NavDropdown>
-              )}
+                )}
 
                 {/* 검색 설정 아이콘 */}
                 <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip((t`header.search`))}>
@@ -221,8 +227,8 @@ function Header() {
                   </Nav.Link>
                 </OverlayTrigger>
               
-              {/* SearchModal이 화면에 보이도록 설정 */}
-              <SearchModal show={showSearchModal} handleClose={toggleSearchModal} handleSearch={handleSearch} />
+                {/* SearchModal이 화면에 보이도록 설정 */}
+                <SearchModal show={showSearchModal} handleClose={toggleSearchModal} handleSearch={handleSearch} />
 
                 {/* 사용자 아이콘 클릭 시 드롭다운 메뉴 */}
                 <div className="user-icon-dropdown-container" autoComplete="off">

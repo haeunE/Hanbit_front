@@ -84,9 +84,12 @@
   padding-right: 5px;
   color: #f8496c;
 }
+.calculator{
+  padding-right: 10px;
+}
 
 .gap{
-  padding-left: 1.5rem;
+  padding-left: 1rem;
 }
 
 .user-icon-dropdown-container {
