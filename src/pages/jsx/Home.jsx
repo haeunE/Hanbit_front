@@ -37,7 +37,7 @@ function Home() {
     if (savedLanguage) {
       i18n.changeLanguage(savedLanguage);
     }
-  }, [i18n.language]); 
+  }, [i18n.language]);
 
   const changeMode = () => {
     const newMode = !isMode;
@@ -78,6 +78,9 @@ function Home() {
         {/* 콘텐츠 렌더링 */}
         {isMode && (
           <div>
+            <div className="population-density">
+              <Population />
+            </div>
             <div className="recommend-place">
               <TripPlacesDay contentTypeId={placeContentTypeId} pageNo={placePageNo} />
             </div>
@@ -106,10 +109,6 @@ function Home() {
             </div>
           </div>
         )}
-
-        <div className="population-density">
-          <Population />
-        </div>
       </div>
     </Container>
   );
