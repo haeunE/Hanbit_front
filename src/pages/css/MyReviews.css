@@ -1,0 +1,145 @@
+.myreview-container {
+  max-width: 800px;
+  margin: 100px 0px 2rem 0px;
+  padding: 20px;
+  background: linear-gradient(135deg, #f9f9f9, #ffffff);
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.myreview-title {
+  font-size: 2.5rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.myreview-no-reviews {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #777;
+}
+
+.myreview-list {
+  list-style: none;
+  padding: 0;
+}
+
+.myreview-item {
+  background: #ffffff;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.myreview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.placetitle-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* 장소 이름 스타일 */
+.placetitle-button {
+  max-height: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background: none;
+  color: #21a186;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline dotted;
+  transition: color 0.3s, text-decoration-color 0.3s;
+}
+
+.placetitle-button:hover {
+  color: #004999;
+  text-decoration-color: #004999;
+}
+
+/* 리뷰 제목 스타일 */
+.myreview-item-title {
+  font-size: 1.rem;
+  font-weight: bold;
+  color: #333;
+  margin: 10px 0;
+  text-align: left;
+}
+
+.myreview-item-content {
+  font-size: 1.2rem;
+  color: #444;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.myreview-dates {
+  font-size: 0.9rem;
+  color: #777;
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.image-previews {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.image-container {
+  /* flex: 0 0 calc(33.333% - 10px); */
+  gap: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.preview-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.myreview-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.myreview-edit,
+.myreview-delete {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.myreview-edit {
+  background-color: #4caf50;
+  color: white;
+  font-weight: bold;
+}
+
+.myreview-edit:hover {
+  background-color: #45a049;
+}
+
+.myreview-delete {
+  background-color: #f44336;
+  color: white;
+  font-weight: bold;
+}
+
+.myreview-delete:hover {
+  background-color: #e53935;
+}

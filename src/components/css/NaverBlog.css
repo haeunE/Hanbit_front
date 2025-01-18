@@ -1,0 +1,48 @@
+/* NaverBlog.css */
+.blog-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #e3e9e1;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.blog-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.blog-item {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.blog-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.result-link {
+  font-size: 18px;
+  font-weight: bold;
+  color: #0070f3;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.result-link:hover {
+  color: #0056b3;
+}
+
+.blog-description {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.5;
+}

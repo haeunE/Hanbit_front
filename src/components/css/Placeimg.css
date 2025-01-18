@@ -1,0 +1,134 @@
+/* .img-container: 캐러셀의 컨테이너 */
+.img-container {
+  text-align: center;
+  max-width: 100%;
+  position: relative;
+  margin: 0 auto;
+  height: 500px;
+}
+
+/* 이미지 메인 컨테이너 */
+.img-main-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  /* margin-bottom: 20px; */
+  padding: 1rem;
+  height: 490px;
+  border: 2px solid #ddd; /* 컨테이너의 테두리 */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 선택된 이미지 및 버튼*/
+.select-img-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 4;
+  max-width: 100%;
+  height: 90%;
+  gap: 5px;
+}
+
+.img-main {
+  position: relative;
+  /* width: 100%; */
+  height: 100%;
+}
+
+.img-mainimage {
+  max-width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+}
+
+/* 캐러셀 버튼을 이미지 아래에 배치 */
+.img-carousel-buttons {
+  gap: 20%;
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+  width: 100%;
+}
+
+.img-carousel-button {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 20px;
+  height: auto;
+  width: 35px;
+  padding: 5px;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.img-carousel-button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+  transform: scale(1.1);
+}
+
+/* 작은 이미지 컨테이너 */
+.img-small-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  flex: 1;
+  height: 80%;
+  /* max-height: 444px; */
+  overflow-y: auto; /* 세로 스크롤 가능 */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 10px;
+  margin:10px
+}
+
+.img-small-container::-webkit-scrollbar {
+  width: 10px;
+}
+.img-small-container::-webkit-scrollbar-thumb {
+  background-color: #2f3542;
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+}
+.img-small-container::-webkit-scrollbar-track {
+  background-color: grey;
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 5px white;
+} 
+
+/* 작은 이미지 아이템 */
+.img-small-item {
+  cursor: pointer;
+  transition: transform 0.3s ease, border 0.3s ease;
+  border-radius: 8px;
+}
+
+.img-small-item:hover {
+  transform: scale(1.05); /* 마우스 오버 시 크기 확대 */
+}
+
+/* 작은 이미지 */
+.img-small-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 5px;
+  border: 2px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* 선택된 이미지 강조 */
+.img-small-item.selected {
+  border: 2px solid #007bff; /* 선택된 이미지에 파란색 테두리 */
+  transform: scale(1.1); /* 선택된 이미지 크기 확대 */
+}
+

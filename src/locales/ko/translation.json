@@ -11,6 +11,7 @@
     "public-transportation" : "대중교통",
     "Ddareungi" : "따릉이",
     "help": "도움말",
+    "exchangeRate" : "환율",
     "language-settings": "언어 설정",
     "search": "검색"
   },
@@ -44,5 +45,22 @@
     "current-temp": "현재 온도",
     "max-temp": "최고 온도",
     "min-temp": "최저 온도"
-  }
+  },
+  "seoulDay-page": {
+    "tourist-spots": "#관광지",
+    "cultural-facilities": "#문화시설",
+    "restaurants": "#음식점",
+    "accommodation": "#숙박",
+    "shopping": "#쇼핑",
+    "leisure": "#레포츠"
+  },
+  "seoulNight-page": {
+    "hotBars": "#핫한술집",
+    "quietBars": "#조용한술집",
+    "maidButlerCafe": "#메이드/집사카페",
+    "pickUpSpots": "#헌팅핫플",
+    "pickUpTargets": "#헌팅포자",
+    "club": "#클럽"
+  },
+  "top5":"TOP5"
 }

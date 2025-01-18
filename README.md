@@ -42,7 +42,8 @@ VITE_KOREA_TOURIST_DAY_API_KEY = your_api_key
 
 ## 관광정보 API 생성 및 설정
 1. https://www.data.go.kr/index.do 로그인
-2. https://www.data.go.kr/data/15101578/openapi.do, https://www.data.go.kr/data/15101753/openapi.do 활용신청 누르기
+2. https://www.data.go.kr/data/15101578/openapi.do, https://www.data.go.kr/data/15101753/openapi.do,
+  https://www.data.go.kr/data/15101760/openapi.do, https://www.data.go.kr/data/15101764/openapi.do 활용신청 누르기
 3. 마이페이지 개인 API인증키 인증키 복사
 
 ## .env.local 파일에 api 정보 넣기
@@ -64,6 +65,37 @@ VITE_KOREA_TOURIST_DAY_API_KEY = your_api_key
 VITE_KOREA_SEOUL_DATA_API_KEY = your_api_key
 ```
 
+# NaverBlog,NaverImg
+1. https://developers.naver.com/apps/#/register 에서 어플리케이션 등록 후
+2. https://developers.naver.com/apps/#/list 에서 api id와 secret가져오기
+```
+VITE_NAVER_API_ID=
+VITE_NAVER_API_SECRET=
+```
+# 네이버 지도 API
+네이버 지도 기능을 사용하시려면 아래 내용을 진행하셔야 합니다.
+
+## 1. ncloud 가입
+1. [https://www.ncloud.com/ 가입하기](https://www.ncloud.com/product/applicationService/maps) 이용신청 누르기
+2. 로그인/회원가입 하기
+3. 카드등록하기
+4. AI·NAVER API1에 들어가서 API발급받기
+5. Application 생성 버튼 누르기 - Maps 전체 선택
+6. Application 이름 : hanbit
+7. Web 서비스 URL(최대 10개) : http://localhost:5173/, http://localhost:8888/ 넣어주기
+
+## 2. application.properties 설정하기
+```
+map.api.client-id=클라이언트 아이디
+map.api.client-secret=클라이언트 시크릿 키
+```
+# 관리자 계정 생성
+application.properties 에 아래 내용을 추가 하세요
+```
+# 관리자계정 생성
+VITE_NAVER_MAP_CLIENT_ID = your_api_key
+```
+
 # .env.local 파일 
 앱폴더에 .env.local 파일 생성 후 해당 코드 넣어주세요
 ```
@@ -73,4 +105,8 @@ VITE_KOREA_TOURIST_DAY_API_KEY = your_api_key
 VITE_KOREA_Festival_DAY_API_KEY = your_api_key
 ```
 VITE_KOREA_SEOUL_DATA_API_KEY = your_api_key
+VITE_NAVER_API_ID= your_api_key
+VITE_NAVER_API_SECRET= your_api_key
+VITE_NAVER_MAP_CLIENT_ID = your_api_key
 ```
+

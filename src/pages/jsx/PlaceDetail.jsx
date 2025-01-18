@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { Container, Tab, Tabs } from "react-bootstrap";
 import NaverBlog from "../../components/jsx/NaverBlog";
-import "../css/Test.css"
+import "../css/PlaceDetail.css"
 import Placeimg from "../../components/jsx/placeimg";
 import { useParams } from "react-router-dom";
 import Details from "../../components/jsx/Details";
 import axios from "axios";
 import Review from "../../components/jsx/Review";
 
-function Test() {
+function PlaceDetail() {
   const { id, typeid } = useParams();
   const [activeKey, setActiveKey] = useState('blog');
   const apiKey = import.meta.env.VITE_KOREA_TOURIST_DAY_API_KEY;
@@ -34,7 +34,7 @@ function Test() {
           img2: i.firstimage2,
           homepage : i.homepage,
           cat: i.cat3,
-          addr: i.addr1 + i.addr2,
+          add: i.addr1 + i.addr2,
           addrcode: i.zipcode,
           lon: i.mapx,
           lat: i.mapy,
@@ -57,13 +57,13 @@ function Test() {
   const handleSelect = (key) => {
     setActiveKey(key);
   };
-
+  console.log(placedata)
   return (
     <Container>
       {/* 컨텐츠 영역 */}
       <div className="detail-container">
         <h2>{placedata.title}</h2>
-        <Placeimg contentId={id} contype={typeid} className="place-imgs"/>
+        <Placeimg contentId={id} contype={typeid} firstimage={placedata.img} className="place-imgs"/>
         {/* 버튼 영역 */}
         <div className="detail-tab-container">
           <Tabs activeKey={activeKey} onSelect={handleSelect} className="detail-tab mb-3" fill>
@@ -79,7 +79,7 @@ function Test() {
             </Tab>
             <Tab eventKey="review" title="REVIEW">
               <div className="review">
-                <Review placeid={id} typeid={typeid}/>
+                <Review placeid={id} typeid={typeid} placetitle={placedata.title}/>
               </div>
             </Tab>
           </Tabs>
@@ -89,4 +89,4 @@ function Test() {
   );
 }
 
-export default Test;
+export default PlaceDetail;

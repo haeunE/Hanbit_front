@@ -6,13 +6,19 @@
   text-align: center; /* 텍스트 가운데 정렬 */
 }
 
-.bicycle h2 {
+.bicycle-title {
   font-size: 24px;
   font-weight: bold;
-  color: #333;
   margin-bottom: 20px;
 }
 
+.bicycle-title.day {
+  color: #000000; /* 검은색 */
+}
+
+.bicycle-title.night {
+  color: #FFFFFF; /* 흰색 */
+}
 #map {
   width: 100%;
   height: 500px; /* 지도 높이 설정 */

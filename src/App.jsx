@@ -1,38 +1,53 @@
-import { useEffect, useState } from 'react'
-import { Route, Router, Routes, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import './App.css'
 
+import Test from './pages/jsx/Test'
 import Header from './components/main/Header'
-import Intro from './pages/jsx/Intro'
+import Footer from './components/main/Footer'
 import Login from './components/main/Login'
 import Signup from "./components/main/Signup";
 import UserProfile from './components/main/UserProfile'
-import Test from './pages/jsx/Test'
-import {login, logout} from './redux/userState'
-
-import { useDispatch, useSelector } from 'react-redux'
+import Intro from './pages/jsx/intro'
 import Home from './pages/jsx/Home'
-import { SetIsMode } from './redux/modeState'
-import Footer from './components/main/Footer'
 import Bicycle from './pages/jsx/Bicycle'
+import PlaceDetail from './pages/jsx/PlaceDetail'
+import MyReviews from './pages/jsx/MyReviews'
+
+import {login, logout} from './redux/userState'
+import { SetIsMode } from './redux/modeState'
+import { clearAllStorage } from './utils/clearAllStorage'
+import { useDispatch, useSelector } from 'react-redux'
+import Cookies from 'js-cookie';
+import SeoulPageDay from './pages/jsx/SeoulPageDay'
+import SeoulPageNight from './pages/jsx/SeoulPageNight'
+import Directions from './pages/jsx/Directions'
+
 
 
 function App() {
   const isMode = useSelector(state => state.isMode);
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
+  const naviagte = useNavigate();
+
 
   useEffect(() => {
-    // 만약 auth.token이 존재하면 sessionStorage에 저장
-    if (auth.token) {
-      sessionStorage.setItem("jwt", auth.token);  // auth.token을 sessionStorage에 저장
-    } else {
-      // auth.token이 없다면 로그아웃 처리
-      localStorage.removeItem("jwt");
-      sessionStorage.removeItem("jwt");
-      document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    const jwt = localStorage.getItem("jwt")
+    const userinfo = Cookies.get('userInfo')
+    console.log(jwt)
+    if (jwt&&userinfo) {
+      dispatch(login({ token: jwt, user: JSON.parse(userinfo) }));
+    }else if(jwt&&!userinfo){
+      dispatch(logout())
+      clearAllStorage()
+      alert('로그인정보가 만료되어 재로그인 해야합니다.')
+      naviagte('/login')
     }
-  }, auth.token);  // dispatch가 변경될 때마다 실행되도록 설정
+    else (
+      dispatch(logout())
+    )
+  }, [dispatch]);  // dispatch가 변경될 때마다 실행되도록 설정
 
   useEffect(() => {
     const savedMode = JSON.parse(localStorage.getItem("isMode"));
@@ -53,6 +68,11 @@ function App() {
         <Route path='/signup' element={<Signup/>} />
         <Route path='/userprofile' element={<UserProfile/>} />
         <Route path='/bicycle' element={<Bicycle />} />
+        <Route path='/places/:id/:typeid' element={<PlaceDetail/>} />
+        <Route path='/daySeoul' element={<SeoulPageDay />} />
+        <Route path='/nightSeoul' element={<SeoulPageNight />} />
+        <Route path='/myreviews' element={<MyReviews />} />
+        <Route path='/directions' element={<Directions />} />
       </Routes>
       </div>
       {!['/login', '/signup', '/userprofile'].includes(useLocation().pathname) && <Footer />}
