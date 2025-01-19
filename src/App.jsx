@@ -22,6 +22,7 @@ import Cookies from 'js-cookie';
 import SeoulPageDay from './pages/jsx/SeoulPageDay'
 import SeoulPageNight from './pages/jsx/SeoulPageNight'
 import Directions from './pages/jsx/Directions'
+import Amenities from './pages/jsx/Amenities'
 
 
 
@@ -73,6 +74,7 @@ function App() {
         <Route path='/nightSeoul' element={<SeoulPageNight />} />
         <Route path='/myreviews' element={<MyReviews />} />
         <Route path='/directions' element={<Directions />} />
+        <Route path='/amenities' element={<Amenities/>} />
       </Routes>
       </div>
       {!['/login', '/signup', '/userprofile'].includes(useLocation().pathname) && <Footer />}
