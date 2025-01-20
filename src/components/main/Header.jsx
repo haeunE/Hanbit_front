@@ -13,7 +13,6 @@ import "@/locales/i18n";
 import i18n from 'i18next';  // i18n을 import
 import { clearAllStorage } from "../../utils/clearAllStorage";
 
-
 function Header() {
   const { t } = useTranslation();
   const isMode = useSelector(state => state.isMode);
@@ -22,7 +21,7 @@ function Header() {
   const navigate = useNavigate();
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [password, setPassword] = useState("");
-  const {isAuth,user} = useSelector((state) => state.auth);
+  const {isAuth, user} = useSelector((state) => state.auth);
   const jwt = localStorage.getItem('jwt')
   const [showDropdown, setShowDropdown] = useState(false);
   const [showSearchModal, setShowSearchModal] = useState(false);  // 초기값 false로 설정
@@ -35,26 +34,23 @@ function Header() {
       i18n.changeLanguage(savedLanguage);
       dispatch(SetLanguage(savedLanguage));
     }
-  }, [dispatch]); // isMode와 isPath.pathname 추가
-  
+  }, [dispatch]);
+
   useEffect(() => {
     const savedMode = JSON.parse(localStorage.getItem("isMode"));
     if (savedMode !== null) dispatch(SetIsMode(savedMode));
-    if (location.pathname === "/daySeoul" && isMode === false) {
+    if (isPath.pathname === "/daySeoul" && isMode === false) {
       navigate("/nightSeoul");
-    } else if (location.pathname === "/nightSeoul" && isMode === true) {
+    } else if (isPath.pathname === "/nightSeoul" && isMode === true) {
       navigate("/daySeoul");
     }
-  }, [isMode, location.pathname]); // `isPath` 대신 `location` 사용
-  
-  
+  }, [isMode, isPath.pathname]);
+
   const changeMode = () => {
     const newMode = !isMode;
     dispatch(SetIsMode(newMode));
     localStorage.setItem("isMode", JSON.stringify(newMode));
-  
   };
-  
 
   // Intro 페이지에서 헤더 숨기기
   if (isPath.pathname === '/') {
@@ -71,7 +67,7 @@ function Header() {
     }
   };
 
-  const handleMyReviews = () =>{
+  const handleMyReviews = () => {
     navigate("/myreviews");
   }
 
@@ -81,7 +77,7 @@ function Header() {
       const response = await axiosInstance.post('/usercheck', {
         password: password
       });
-  
+
       if (response.status === 200) {
         alert(t('passwordCheck.success')); // 다국어 지원된 메시지
         setShowPasswordModal(false);
@@ -125,7 +121,7 @@ function Header() {
     i18n.changeLanguage(lang); // i18n 언어 변경
     localStorage.setItem('lang', lang);
   };
-  
+
   // 검색 모달 열기/닫기
   const toggleSearchModal = () => {
     setShowSearchModal(!showSearchModal);
@@ -137,6 +133,12 @@ function Header() {
     // 여기서 API 호출 등 실제 검색 작업을 수행할 수 있습니다.
     // 예: searchResults(searchQuery);
   };
+
+  // useLocation 훅을 사용하여 현재 경로를 얻음
+  const { pathname } = useLocation();
+
+  // 언어 설정 드롭다운을 표시할 수 있는 경로 목록
+  const canShowLanguageDropdown = !pathname.startsWith('/places') && pathname !== '/amenities';
 
   return (
     <div className={`Header ${isMode ? "day" : "night"}`}>
@@ -159,20 +161,20 @@ function Header() {
               </Nav.Link>
               <NavDropdown title={t("header.amenities")} id="navbarScrollingDropdown">
                 {navDropdownItems([
-                  { icon: "fa-store", label: t("header.amenities"), href: "#action3" },
-                  { icon: "fa-ban", label: t("header.danger-area"), href: "#action5" },
+                  { icon: "fa-store", label: t("header.amenities"), href: "/amenities" },
+                  { icon: "fa-ban", label: t("header.danger-area"), href: "/dangerArea" },
                 ])}
               </NavDropdown>
               <NavDropdown title={t("header.food-map")} id="navbarScrollingDropdown">
                 {navDropdownItems([
-                  { icon: "fa-bowl-food", label: t("header.food-map"), href: "#action3" },
-                  { icon: "fa-motorcycle", label: t("header.delivery"), href: "#action4" },
+                  { icon: "fa-bowl-food", label: t("header.food-map"), href: "/foodMap" },
+                  { icon: "fa-motorcycle", label: t("header.delivery"), href: "/delivery" },
                 ])}
               </NavDropdown>
               <NavDropdown title={t("header.traffic")} id="navbarScrollingDropdown">
                 {navDropdownItems([
                   { icon: "fa-map-pin", label: t("header.directions"), href: "/directions" },
-                  { icon: "fa-bus", label: t("header.public-transportation"), href: "#action4" },
+                  { icon: "fa-bus", label: t("header.public-transportation"), href: "/transport" },
                   { icon: "fa-person-biking", label: t("header.Ddareungi"), href: "/bicycle" },
                 ])}
               </NavDropdown>
@@ -199,6 +201,7 @@ function Header() {
                 </OverlayTrigger>
 
                 {/* 언어 설정 아이콘 */}
+                {canShowLanguageDropdown && (
                 <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip((t`header.language-settings`))}>
                   <Nav.Link as={Link} to="#" onClick={(e) => {
                     e.preventDefault(); // 기본 링크 동작 방지
@@ -207,9 +210,10 @@ function Header() {
                     <i className="fa-solid fa-globe me-2"></i>
                   </Nav.Link>
                 </OverlayTrigger>
-              
+                )}
+
                 {/* 언어 설정 드롭다운 */}
-                {showLanguageDropdown && (
+                {showLanguageDropdown && canShowLanguageDropdown && (
                 <NavDropdown align="end" className="language-dropdown" show>
                   <NavDropdown.Item onClick={() => {changeLanguage("ko"); setShowLanguageDropdown(!showLanguageDropdown);}}>한국어</NavDropdown.Item>
                   <NavDropdown.Item onClick={() => {changeLanguage("en"); setShowLanguageDropdown(!showLanguageDropdown);}}>English</NavDropdown.Item>

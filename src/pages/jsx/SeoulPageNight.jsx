@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SetIsMode } from '../../redux/modeState';
 import { SetIsLocation } from '../../redux/locationState';
 import NightSeoulPlace from '../../components/jsx/NightSeoulPlace';
+import GoogleTranslate from "../../components/jsx/GoogleTranslate";
 
 
 function SeoulPageNight() {
@@ -42,9 +43,13 @@ function SeoulPageNight() {
     setCategory(newCategory);
   };
 
+
   return (
     <Container>
-      <div className="day-seoul">
+      <div className="google">
+        <GoogleTranslate />
+      </div>
+      <div className="night-seoul">
         <div className="hashtag-list">
           <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city} 술집`, 101)}>{t("seoulNight-page.hotBars")}</button> 
           <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city} 조용한술집`, 101)}>{t("seoulNight-page.quietBars")}</button>

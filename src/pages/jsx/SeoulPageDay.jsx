@@ -3,13 +3,11 @@ import { Container } from 'react-bootstrap';
 import { useTranslation } from "react-i18next";
 import "@/locales/i18n";
 import i18n from 'i18next';  
-import '../css/SeoulPage.css'
+import '../css/SeoulPage.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { SetIsMode } from '../../redux/modeState';
 import { SetIsLocation } from '../../redux/locationState';
 import DaySeoulPlace from '../../components/jsx/DaySeoulPlace';
-
-
 
 function SeoulPage() {
   const { t } = useTranslation();
@@ -17,7 +15,7 @@ function SeoulPage() {
   const city = JSON.parse(localStorage.getItem("location")).city;
   
   const [category, setCategory] = useState(`${city}`);
-  const [contentId, setContentId] = useState(39);
+  const [contentId, setContentId] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -52,7 +50,7 @@ function SeoulPage() {
   // 카테고리가 변경될 때 contentId 업데이트
   useEffect(() => {
     const categoryKey = category.replace(`${city} `, ''); // '서울맛집' → '맛집'
-    setContentId(categoryToContentIdMap[categoryKey] || 39); // 기본값 39 설정
+    setContentId(categoryToContentIdMap[categoryKey] || i18n.language === "ko" ? 39 : 82); // 기본값 39 설정
   }, [category]);
 
   // 버튼 클릭 시 category만 변경
@@ -60,8 +58,6 @@ function SeoulPage() {
     setCategory(newCategory);
   };
 
-  console.log("현재 카테고리:", category);
-  console.log("현재 contentId:", contentId);
 
   return (
     <Container>
@@ -77,7 +73,7 @@ function SeoulPage() {
         <div className="container mt-5">
           <div className="row">
             {isLoading ? (
-              <p>{t`loading`}</p>
+              <p>{t("loading")}</p>
             ) : (
               <div className='places-list'>
                 <div>

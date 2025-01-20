@@ -10,6 +10,7 @@ import Festival from "../../components/jsx/Festival";
 import "@/locales/i18n";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
+import TripPlacesNight from "../../components/jsx/TripPlacesNight";
 
 function Home() {
   const { t } = useTranslation();
@@ -43,6 +44,7 @@ function Home() {
     dispatch(SetIsMode(newMode));
     localStorage.setItem("isMode", JSON.stringify(newMode));
   };
+
 
   return (
     <Container>
@@ -105,6 +107,30 @@ function Home() {
             </div>
           </div>
         )}
+        {!isMode && (
+        <div>
+          <div className="recommend-place">
+            <TripPlacesNight contentId={103} />
+          </div>
+          <div className="population">
+            {/* 이곳에 isMode가 false일 때 보여줄 내용을 추가할 수 있습니다. */}
+          </div>
+          <div className="homepage-buttom">
+            <div className="recommend-restaurant">
+              <div className="restaurant-banner">{t("home.recommended-restaurants")}</div>
+              <TripPlacesNight
+                contentId={103}
+              />
+            </div>
+            <div className="recommend-hotel">
+              <div className="hotel-banner">{t("home.recommended-accommodation")}</div>
+              <TripPlacesNight
+                contentId={103}
+              />
+            </div>
+          </div>
+        </div>
+      )}
       </div>
     </Container>
   );

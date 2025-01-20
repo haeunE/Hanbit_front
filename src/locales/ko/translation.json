@@ -67,6 +67,26 @@
     "club": "#클럽"
   },
   "top5":"TOP5",
+  "directions": {
+    "title": "경로 안내",
+    "currentLocation": "현재 위치",
+    "noCurrentLocation": "현재 위치 정보를 가져올 수 없습니다.",
+    "destination": "목적지",
+    "noDestination": "목적지 정보가 없습니다.",
+    "openNaverMap": "네이버 지도 앱 열기"
+  },
+  "amenities" :{
+    "convenience-store" :"편의점",
+    "subway" : "지하철역",
+    "coffee" : "카페",
+    "hospital" : "병원",
+    "pharmacy" : "약국"
+  },
+  "underConstruction": {
+    "title": "구현 중입니다",
+    "message": "현재 페이지는 개발 중입니다. 잠시 후 다시 방문해주세요."
+  },
+  "direction" : "길찾기",
   "login-page":{
     "login": "로그인",
     "username": "아이디",

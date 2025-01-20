@@ -7,10 +7,9 @@ import { useParams } from "react-router-dom";
 import Details from "../../components/jsx/Details";
 import axios from "axios";
 import Review from "../../components/jsx/Review";
-import { useTranslation } from "react-i18next";
+import GoogleTranslate from "../../components/jsx/GoogleTranslate";
 
 function PlaceDetail() {
-  const { t } = useTranslation();
   const { id, typeid } = useParams();
   const [activeKey, setActiveKey] = useState('blog');
   const apiKey = import.meta.env.VITE_KOREA_TOURIST_DAY_API_KEY;
@@ -36,15 +35,16 @@ function PlaceDetail() {
       try {
         const url = `http://apis.data.go.kr/B551011/${serviceType}/detailCommon1?serviceKey=${apiKey}&MobileOS=ETC&MobileApp=hanbit&contentId=${id}&contentTypeId=${typeid}&_type=json`;
         const response = await axios.get(url+"&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y");
+        console.log(response.data)
         const items = response.data.response.body.items.item || [];
         const placedetail = items.map((i) => ({
           title: i.title,
           tel: i.tel,
           img: i.firstimage,
           img2: i.firstimage2,
-          homepage: i.homepage,
+          homepage : i.homepage,
           cat: i.cat3,
-          add: i.addr1 + i.addr2,
+          addr: i.addr1 + i.addr2,
           addrcode: i.zipcode,
           lon: i.mapx,
           lat: i.mapy,
@@ -52,27 +52,28 @@ function PlaceDetail() {
         }));
         setPlacedata(...placedetail); // 데이터 저장
       } catch (err) {
-        setError(err); // 에러 처리
+        setError(err); // 에러 저장
       } finally {
         setLoading(false); // 로딩 종료
       }
     };
 
     fetchData();
-  }, [id, typeId, lang]);  // typeId와 lang이 변경되면 데이터 다시 요청
+  }, [id]); // 빈 배열로 한 번만 실행
 
-  // 로딩 중이나 에러가 발생하면 그에 대한 처리를 해준다.
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
-  // 탭 선택 처리
   const handleSelect = (key) => {
     setActiveKey(key);
   };
-  console.log(placedata)
+
   return (
     <Container>
       {/* 컨텐츠 영역 */}
+      <div className="google">
+        <GoogleTranslate />
+      </div>
       <div className="detail-container">
         <h2>{placedata.title}</h2>
         <Placeimg contentId={id} contype={typeid} firstimage={placedata.img} className="place-imgs"/>
@@ -91,7 +92,7 @@ function PlaceDetail() {
             </Tab>
             <Tab eventKey="review" title="REVIEW">
               <div className="review">
-                <Review placeid={id} typeid={typeid} placetitle={placedata.title}/>
+                <Review placeid={id} typeid={typeid}/>
               </div>
             </Tab>
           </Tabs>
