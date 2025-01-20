@@ -20,58 +20,11 @@ function PlaceDetail() {
   const [lang, setLang] = useState(localStorage.getItem("lang"));
   const [typeId, setTypeId] = useState(typeid);
 
-  // getTypeId 함수 (lang 변경에 따라 typeId 업데이트)
-  const getTypeId = (id) => {
-    console.log(lang,id)
-    if (lang !== "ko") {
-      const toForeignLangMapping = {
-        12: 76,
-        14: 78,
-        39: 82,  
-        32: 80,  
-        38: 79,
-      };
-      return toForeignLangMapping[id] || id;  // 매핑이 없으면 원래 값 반환
-    }
-
-    // 다른 나라에서 한국으로 바뀔 때
-    const toKoreanMapping = {
-      76: 12,  
-      78: 14, 
-      82: 39,  
-      80: 32,  
-      79: 38,  
-    };
-
-    return toKoreanMapping[id] || id;  
-  };
-
-  // 언어 변경 시 typeId 업데이트
-  // useEffect(() => {
-  //   const updateTypeId = () => {
-  //     const updatedId = getTypeId(lang, typeid); // lang 변경 시 typeId 업데이트
-  //     setTypeId(updatedId);  // state에 반영
-  //   };
-
-  //   updateTypeId();  // 초기값 갱신
-  //   const handleStorageChange = (e) => {
-  //     if (e.key === "lang") {
-  //       const newLang = localStorage.getItem("lang");
-  //       setLang(newLang); // 언어 상태 갱신
-  //     }
-  //   };
-
-  //   window.addEventListener("storage", handleStorageChange);
-
-  //   return () => {
-  //     window.removeEventListener("storage", handleStorageChange); // 컴포넌트 언마운트 시 리스너 제거
-  //   };
-  // }, [lang, typeid]);
+  
 
   // 데이터 가져오기
   useEffect(() => {
-    const updatedId = getTypeId(typeid);
-    console.log(updatedId)
+  
     const serviceType = {
       en: "EngService1",
       ja: "JpnService1",
@@ -81,7 +34,7 @@ function PlaceDetail() {
 
     const fetchData = async () => {
       try {
-        const url = `http://apis.data.go.kr/B551011/${serviceType}/detailCommon1?serviceKey=${apiKey}&MobileOS=ETC&MobileApp=hanbit&contentId=${id}&contentTypeId=${typeId}&_type=json`;
+        const url = `http://apis.data.go.kr/B551011/${serviceType}/detailCommon1?serviceKey=${apiKey}&MobileOS=ETC&MobileApp=hanbit&contentId=${id}&contentTypeId=${typeid}&_type=json`;
         const response = await axios.get(url+"&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y");
         const items = response.data.response.body.items.item || [];
         const placedetail = items.map((i) => ({

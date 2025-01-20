@@ -20,6 +20,21 @@ function NightSeoulPlace({ category, contentId}) {
   const location = JSON.parse(localStorage.getItem("location")) || {};
   const navigate = useNavigate();
   const defaultImage = "/public/img/non_img.png"
+
+  //UTM-K 좌표계
+  const proj4_5174 = '+proj=tmerc +lat_0=38 +lon_0=127 +k=1 +x_0=200000 +y_0=500000 +datum=WGS84 +units=m +no_defs';
+  //GRS80(중부원점) 좌표계
+  var grs80 = "+proj=tmerc +lat_0=38 +lon_0=127.5 +k=0.9996 +x_0=1000000 +y_0=2000000 +ellps=GRS80 +units=m +no_defs";
+  //wgs84(위경도)좌표계
+  const proj4_4326 = '+proj=longlat +datum=WGS84 +no_defs';
+
+  const convertCoordinates = (x, y) => {
+      // 좌표 변환
+      const [lon, lat] = proj4(proj4_5174, proj4_4326, [x, y]);
+
+      // 변환된 경도(lon)와 위도(lat)를 반환
+      return { lon, lat };
+  };
   console.log(category)
   // 서울 TOP5 검색
   useEffect(() => {
@@ -57,14 +72,7 @@ function NightSeoulPlace({ category, contentId}) {
 
     fetchSpots();
   }, [category]);
-  // KATEC 좌표계 -> WGS84 좌표계 변환 설정
-  const KATEC = "+proj=tmerc +lat_0=38 +lon_0=127.002227222222 +k=1 +x_0=200000 +y_0=600000 +datum=WGS84 +units=m +no_defs";
-  const WGS84 = "+proj=longlat +datum=WGS84 +no_defs";
-  // 좌표 변환 함수
-  const convertToLatLng = (x, y) => {
-    const [lon, lat] = proj4(KATEC, WGS84, [x, y]);
-    return { lon, lat };
-  };
+  
 
   useEffect(() => {
     axiosInstance.get(`/places/nightlist?contentId=${contentId}`)
@@ -72,11 +80,13 @@ function NightSeoulPlace({ category, contentId}) {
       // 서버 응답이 배열인지를 확인
       if (Array.isArray(response.data)) {
         const updatedData = response.data.map(item => {
-          const { lon, lat } = convertToLatLng(item.x, item.y); // KATEC -> WGS84 변환
+          console.log(item.x,item.y)
+          const { lon, lat } = convertCoordinates(item.x, item.y); // KATEC -> WGS84 변환
+          console.log(lon,lat)
           return {
             ...item,  // 기존의 모든 속성
-            lon: Number(lon) ,  // 변환된 lon (경도)
-            lat: Number(lat),  // 변환된 lat (위도)
+            lon: lon,  // 변환된 lon (경도)
+            lat: lat,  // 변환된 lat (위도)
             add: item.addo,  // 기타 속성
           };
         });
