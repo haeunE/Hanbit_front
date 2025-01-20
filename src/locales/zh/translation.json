@@ -13,7 +13,11 @@
     "help": "帮助",
     "exchangeRate": "汇率",
     "language-settings": "语言设置",
-    "search": "搜索"
+    "search": "搜索",
+    "adminPage": "管理员页面",
+    "myReviews": "我的评论",
+    "updateProfile": "更新资料",
+    "logout": "登出"
   },
   "home" : {
     "day" : "白天",
@@ -57,6 +61,69 @@
     "pickUpTargets": "#搭讪目标",
     "club": "#俱乐部"
   },
-  "top5": "前五名"
+  "top5": "前五名",
+  "login-page":{
+    "login": "登录",
+    "username": "用户名",
+    "password": "密码",
+    "login_button": "登录",
+    "signup_button": "注册",
+    "login_fail": "登录失败: 请检查您的用户名和密码。",
+    "server_error": "服务器错误: {{status}} - {{message}}",
+    "network_error": "无法连接到服务器。请检查您的网络。",
+    "request_error": "登录过程中发生错误。请再试一次。"
+  },
+  "signup": {
+    "username": "用户名",
+    "password": "密码",
+    "confirmPassword": "确认密码",
+    "email": "电子邮件",
+    "verification": "验证码",
+    "name": "姓名",
+    "tel": "紧急联系人",
+    "foreignYN": "您是外国人吗？",
+    "signup_button": "注册",
+    "email_verification_button": "发送验证码",
+    "email_verification_in_progress": "发送中...",
+    "verify_code_button": "验证代码",
+    "password_mismatch": "密码不匹配。",
+    "email_verification_pending": "请完成电子邮件验证。",
+    "email_verified": "电子邮件验证成功。",
+    "verification_error": "验证码无效。",
+    "server_error": "服务器错误: {{status}} - {{message}}",
+    "network_error": "无法连接到服务器。请检查网络。",
+    "signup_error": "注册时发生错误。请重试。"
+  },
+  "profile": {
+    "username": "用户名",
+    "password": "新密码",
+    "confirmPassword": "确认密码",
+    "email": "电子邮件",
+    "name": "姓名",
+    "tel": "紧急联系电话",
+    "foreignYN": "是否为外国人？",
+    "updateButton": "修改会员",
+    "deleteButton": "注销会员",
+    "confirmModal": {
+      "title": "确认",
+      "message": "您真的要注销吗？ \n账号将转换为休眠状态，3天后将删除您的所有信息。",
+      "cancelButton": "取消",
+      "confirmButton": "确认"
+    }
+  },
+  "passwordCheck": {
+    "login": "需要登录才能继续。请先登录。",
+    "modalTitle": "密码验证",
+    "prompt": "请输入您的密码。",
+    "placeholder": "密码",
+    "success": "密码验证成功！",
+    "failure": "验证失败。",
+    "error": "发生错误，请再试一次。",
+    "cancelButton": "取消",
+    "confirmButton": "确认"
+  },
+  "logout": {
+    "success": "您已成功登出。"
+  }
 
 }

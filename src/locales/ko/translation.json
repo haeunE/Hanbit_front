@@ -13,7 +13,11 @@
     "help": "도움말",
     "exchangeRate" : "환율",
     "language-settings": "언어 설정",
-    "search": "검색"
+    "search": "검색",
+    "adminPage": "관리자 페이지",
+    "myReviews": "나의 리뷰",
+    "updateProfile": "회원정보수정",
+    "logout": "로그아웃"
   },
   "home" : {
     "day" : "낮",
@@ -62,5 +66,68 @@
     "pickUpTargets": "#헌팅포자",
     "club": "#클럽"
   },
-  "top5":"TOP5"
+  "top5":"TOP5",
+  "login-page":{
+    "login": "로그인",
+    "username": "아이디",
+    "password": "비밀번호",
+    "login_button": "로그인",
+    "signup_button": "회원가입",
+    "login_fail": "로그인 실패: 아이디와 비밀번호를 확인하세요.",
+    "server_error": "서버 오류: {{status}} - {{message}}",
+    "network_error": "서버와 연결할 수 없습니다. 네트워크를 확인해주세요.",
+    "request_error": "로그인 중 오류가 발생했습니다. 다시 시도해 주세요."
+  },
+  "signup": {
+    "username": "아이디",
+    "password": "비밀번호",
+    "confirmPassword": "비밀번호 확인",
+    "email": "이메일",
+    "verification": "인증 코드",
+    "name": "이름",
+    "tel": "비상 연락처",
+    "foreignYN": "외국인이신가요?",
+    "signup_button": "회원가입",
+    "email_verification_button": "인증 코드 발송",
+    "email_verification_in_progress": "발송 중...",
+    "verify_code_button": "인증하기",
+    "password_mismatch": "비밀번호가 일치하지 않습니다.",
+    "email_verification_pending": "이메일 인증을 완료해주세요.",
+    "email_verified": "이메일 인증이 완료되었습니다.",
+    "verification_error": "인증 코드가 올바르지 않습니다.",
+    "server_error": "서버 오류: {{status}} - {{message}}",
+    "network_error": "서버와 연결할 수 없습니다. 네트워크를 확인해주세요.",
+    "signup_error": "회원가입 중 오류가 발생했습니다. 다시 시도해 주세요."
+  },
+  "profile": {
+    "username": "아이디",
+    "password": "새 비밀번호",
+    "confirmPassword": "비밀번호 확인",
+    "email": "이메일",
+    "name": "이름",
+    "tel": "비상 연락처",
+    "foreignYN": "외국인이신가요?",
+    "updateButton": "회원 수정",
+    "deleteButton": "회원 탈퇴",
+    "confirmModal": {
+      "title": "확인",
+      "message": "정말 탈퇴하시겠습니까? \n휴면계정으로 전환되고 3일 뒤 회원님의 모든 정보가 삭제됩니다.",
+      "cancelButton": "취소",
+      "confirmButton": "확인"
+    }
+  },
+  "passwordCheck": {
+    "login": "로그인이 필요합니다. 로그인 후 진행해주세요.",
+    "modalTitle": "비밀번호 확인",
+    "prompt": "비밀번호를 입력해주세요.",
+    "placeholder": "비밀번호",
+    "success": "비밀번호 확인 성공!",
+    "failure": "인증에 실패했습니다.",
+    "error": "오류가 발생했습니다. 다시 시도하세요.",
+    "cancelButton": "취소",
+    "confirmButton": "확인"
+  },
+  "logout": {
+    "success": "로그아웃 되었습니다."
+  }
 }

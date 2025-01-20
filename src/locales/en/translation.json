@@ -13,7 +13,11 @@
     "help": "HELP",
     "exchangeRate": "Exchange Rate",
     "language-settings": "LANGUAGE SETTINGS",
-    "search": "SEARCH"
+    "search": "SEARCH",
+    "adminPage": "Admin Page",
+    "myReviews": "My Reviews",
+    "updateProfile": "Update Profile",
+    "logout": "Logout"
   },
   "home" : {
     "day" : "DAY",
@@ -57,5 +61,68 @@
     "pickUpTargets": "#Pick-up Targets",
     "club": "#Club"
   },
-  "top5":"TOP5"
+  "top5":"TOP5",
+  "login-page":{
+    "login": "Login",
+    "username": "Username",
+    "password": "Password",
+    "login_button": "Log in",
+    "signup_button": "Sign up",
+    "login_fail": "Login failed: Please check your username and password.",
+    "server_error": "Server error: {{status}} - {{message}}",
+    "network_error": "Could not connect to the server. Please check your network.",
+    "request_error": "An error occurred during the login process. Please try again."
+  },
+  "signup":{
+    "username": "Username",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "email": "Email",
+    "verification": "Verification Code",
+    "name": "Name",
+    "tel": "Emergency Contact",
+    "foreignYN": "Are you a foreigner?",
+    "signup_button": "Sign Up",
+    "email_verification_button": "Send Verification Code",
+    "email_verification_in_progress": "Sending...",
+    "verify_code_button": "Verify Code",
+    "password_mismatch": "Passwords do not match.",
+    "email_verification_pending": "Please complete email verification.",
+    "email_verified": "Email verified successfully.",
+    "verification_error": "Invalid verification code.",
+    "server_error": "Server error: {{status}} - {{message}}",
+    "network_error": "Unable to connect to the server. Please check your network.",
+    "signup_error": "An error occurred during signup. Please try again."
+  },
+  "profile": {
+    "username": "Username",
+    "password": "New Password",
+    "confirmPassword": "Confirm Password",
+    "email": "Email",
+    "name": "Name",
+    "tel": "Emergency Contact",
+    "foreignYN": "Are you a foreigner?",
+    "updateButton": "Update Profile",
+    "deleteButton": "Delete Account",
+    "confirmModal": {
+      "title": "Confirm",
+      "message": "Are you sure you want to delete your account? \nYour account will be converted to a dormant state, and all your information will be deleted in 3 days.",
+      "cancelButton": "Cancel",
+      "confirmButton": "Confirm"
+    }
+  },
+  "passwordCheck": {
+    "login": "Login is required. Please log in to proceed.",
+    "modalTitle": "Password Verification",
+    "prompt": "Please enter your password.",
+    "placeholder": "Password",
+    "success": "Password verification successful!",
+    "failure": "Verification failed.",
+    "error": "An error occurred. Please try again.",
+    "cancelButton": "Cancel",
+    "confirmButton": "Confirm"
+  },
+  "logout": {
+    "success": "You have been logged out."
+  }
 }

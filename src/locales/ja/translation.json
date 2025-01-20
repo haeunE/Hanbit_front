@@ -13,7 +13,11 @@
     "help": "ヘルプ",
     "exchangeRate": "為替レート",
     "language-settings": "言語設定",
-    "search": "検索"
+    "search": "検索",
+    "adminPage": "管理者ページ",
+    "myReviews": "私のレビュー",
+    "updateProfile": "プロフィールの更新",
+    "logout": "ログアウト"
   },
   "home" : {
     "day" : "昼間",
@@ -57,5 +61,68 @@
     "pickUpTargets": "#ピックアップターゲット",
     "club": "#クラブ"
   },
-  "top5": "トップ5"
+  "top5": "トップ5",
+  "login-page":{
+    "login": "ログイン",
+    "username": "ユーザー名",
+    "password": "パスワード",
+    "login_button": "ログイン",
+    "signup_button": "サインアップ",
+    "login_fail": "ログイン失敗: ユーザー名とパスワードを確認してください。",
+    "server_error": "サーバーエラー: {{status}} - {{message}}",
+    "network_error": "サーバーに接続できません。ネットワークを確認してください。",
+    "request_error": "ログイン中にエラーが発生しました。もう一度お試しください。"
+  },
+  "signup": {
+    "username": "ユーザー名",
+    "password": "パスワード",
+    "confirmPassword": "パスワード確認",
+    "email": "メール",
+    "verification": "認証コード",
+    "name": "名前",
+    "tel": "緊急連絡先",
+    "foreignYN": "外国人ですか？",
+    "signup_button": "サインアップ",
+    "email_verification_button": "認証コード送信",
+    "email_verification_in_progress": "送信中...",
+    "verify_code_button": "認証する",
+    "password_mismatch": "パスワードが一致しません。",
+    "email_verification_pending": "メール認証を完了してください。",
+    "email_verified": "メール認証が完了しました。",
+    "verification_error": "認証コードが無効です。",
+    "server_error": "サーバーエラー: {{status}} - {{message}}",
+    "network_error": "サーバーに接続できません。ネットワークを確認してください。",
+    "signup_error": "サインアップ中にエラーが発生しました。再度お試しください。"
+  },
+  "profile": {
+    "username": "ユーザーID",
+    "password": "新しいパスワード",
+    "confirmPassword": "パスワード確認",
+    "email": "メールアドレス",
+    "name": "名前",
+    "tel": "緊急連絡先",
+    "foreignYN": "外国人ですか？",
+    "updateButton": "会員情報を更新",
+    "deleteButton": "会員削除",
+    "confirmModal": {
+      "title": "確認",
+      "message": "本当に退会しますか？ \nアカウントは休眠状態になり、3日後にすべての情報が削除されます。",
+      "cancelButton": "キャンセル",
+      "confirmButton": "確認"
+    }
+  },
+  "passwordCheck": {
+    "login": "ログインが必要です。続行するにはログインしてください。",
+    "modalTitle": "パスワード確認",
+    "prompt": "パスワードを入力してください。",
+    "placeholder": "パスワード",
+    "success": "パスワード確認成功！",
+    "failure": "認証に失敗しました。",
+    "error": "エラーが発生しました。もう一度お試しください。",
+    "cancelButton": "キャンセル",
+    "confirmButton": "確認"
+  },
+  "logout": {
+    "success": "ログアウトしました。"
+  }
 }
