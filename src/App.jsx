@@ -22,6 +22,9 @@ import Cookies from 'js-cookie';
 import SeoulPageDay from './pages/jsx/SeoulPageDay'
 import SeoulPageNight from './pages/jsx/SeoulPageNight'
 import Directions from './pages/jsx/Directions'
+import Amenities from './pages/jsx/Amenities'
+
+
 
 function App() {
   const isMode = useSelector(state => state.isMode);
@@ -89,20 +92,21 @@ function App() {
       </div>
 
       <div className='main-content'>
-        <Routes>
-          <Route path='/' element={<Intro />} />
-          <Route path='/home' element={<Home />} />
-          <Route path='/test' element={<Test />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/signup' element={<Signup />} />
-          <Route path='/userprofile' element={<UserProfile />} />
-          <Route path='/bicycle' element={<Bicycle />} />
-          <Route path='/places/:id/:typeid' element={<PlaceDetail />} />
-          <Route path='/daySeoul' element={<SeoulPageDay />} />
-          <Route path='/nightSeoul' element={<SeoulPageNight />} />
-          <Route path='/myreviews' element={<MyReviews />} />
-          <Route path='/directions' element={<Directions />} />
-        </Routes>
+      <Routes>
+        <Route path='/' element={<Intro />} />
+        <Route path='/home' element={<Home />} />
+        <Route path='/test' element={<Test/>} />
+        <Route path='/login' element={<Login/>} />
+        <Route path='/signup' element={<Signup/>} />
+        <Route path='/userprofile' element={<UserProfile/>} />
+        <Route path='/bicycle' element={<Bicycle />} />
+        <Route path='/places/:id/:typeid' element={<PlaceDetail/>} />
+        <Route path='/daySeoul' element={<SeoulPageDay />} />
+        <Route path='/nightSeoul' element={<SeoulPageNight />} />
+        <Route path='/myreviews' element={<MyReviews />} />
+        <Route path='/directions' element={<Directions />} />
+        <Route path='/amenities' element={<Amenities/>} />
+      </Routes>
       </div>
 
       {!['/login', '/signup', '/userprofile'].includes(location.pathname) && <Footer />}

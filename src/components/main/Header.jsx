@@ -158,7 +158,7 @@ function Header() {
               </Nav.Link>
               <NavDropdown title={t("header.amenities")} id="navbarScrollingDropdown">
                 {navDropdownItems([
-                  { icon: "fa-store", label: t("header.amenities"), href: "#action3" },
+                  { icon: "fa-store", label: t("header.amenities"), href: "/amenities" },
                   { icon: "fa-ban", label: t("header.danger-area"), href: "#action5" },
                 ])}
               </NavDropdown>
