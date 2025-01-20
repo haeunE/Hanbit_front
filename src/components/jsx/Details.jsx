@@ -6,8 +6,10 @@ import placeDic from '../../utils/placeDic.js'
 import NaverMap from './NaverMap.jsx';
 import "@/locales/i18n";
 import i18n from 'i18next';
+import { useTranslation } from "react-i18next";
 
 const Details = ({ data }) => {
+  const { t } = useTranslation();
   const { id, typeid } = useParams();
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -20,16 +22,19 @@ const Details = ({ data }) => {
   console.log(data);
 
   const handleSearch = async () => {
-    let searchTitle = ''
+    let searchTitle = '';
     if (!data.title) return;
-    if (localStorage.getItem("lang") != "kr"){
-      searchTitle = data.title.match(/[가-힣\s(),]+/g).join("").trim();
-    }else{
-      searchTitle = data.title.split('(')[0].trim();
+  
+    // 한국어일 때 처리
+    if (localStorage.getItem("lang") !== "kr") {
+      searchTitle = data.title.match(/[가-힣\s(),]+/g).join("").trim();  // 한국어가 아니면 한글만 필터링
+    } else {
+      searchTitle = data.title.trim();  // 한국어일 경우, title을 그대로 사용
     }
+  
     setLoading(true);
-    console.log(searchTitle)
-
+    console.log(searchTitle);
+  
     try {
       const response = await axios.get('/api/v1/search/image.json', {
         params: {
@@ -42,7 +47,7 @@ const Details = ({ data }) => {
           'X-Naver-Client-Secret': clientSecret,
         },
       });
-
+  
       setImages(response.data.items || []);
     } catch (error) {
       console.error('Error fetching data', error);
@@ -50,7 +55,7 @@ const Details = ({ data }) => {
       setLoading(false);
     }
   };
-
+  
   useEffect(() => {
     const serviceType = {
       en: "EngService1",
@@ -90,7 +95,7 @@ const Details = ({ data }) => {
 
   return (
     <div className="naver-img-container">
-      {loading && <p className="naver-img-loading">로딩 중...</p>}
+      {loading && <p className="naver-img-loading">{t("loading")}</p>}
       <div className="details-content details-item">
         {Object.keys(details).map((key) => {
           const label = placeDic[key];
@@ -108,7 +113,7 @@ const Details = ({ data }) => {
         <div style={{ width: '100%', height: '300px' }}>
           <NaverMap items={[data]} language={i18n.language} zoom={11} />
         </div>
-        <button className='direction-btn' onClick={handleDirectionsClick}>Directions</button>  {/* 버튼 클릭 시 navigate */}
+        <button className='direction-btn' onClick={handleDirectionsClick}>{t("direction")}</button>  {/* 버튼 클릭 시 navigate */}
       </div>
       {images.length > 0 ? (
         <div className="naver-img-image-list">

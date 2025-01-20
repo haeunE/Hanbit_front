@@ -42,6 +42,7 @@ function SeoulPageNight() {
     setCategory(newCategory);
   };
 
+
   return (
     <Container>
       <div className="day-seoul">

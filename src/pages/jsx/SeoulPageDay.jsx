@@ -3,13 +3,11 @@ import { Container } from 'react-bootstrap';
 import { useTranslation } from "react-i18next";
 import "@/locales/i18n";
 import i18n from 'i18next';  
-import '../css/SeoulPage.css'
+import '../css/SeoulPage.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { SetIsMode } from '../../redux/modeState';
 import { SetIsLocation } from '../../redux/locationState';
 import DaySeoulPlace from '../../components/jsx/DaySeoulPlace';
-
-
 
 function SeoulPage() {
   const { t } = useTranslation();
@@ -60,8 +58,6 @@ function SeoulPage() {
     setCategory(newCategory);
   };
 
-  console.log("현재 카테고리:", category);
-  console.log("현재 contentId:", contentId);
 
   return (
     <Container>
@@ -77,7 +73,7 @@ function SeoulPage() {
         <div className="container mt-5">
           <div className="row">
             {isLoading ? (
-              <p>{t`loading`}</p>
+              <p>{t("loading")}</p>
             ) : (
               <div className='places-list'>
                 <div>
