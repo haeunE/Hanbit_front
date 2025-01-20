@@ -1,10 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authSlice from './userState';
-import isMode from './modeState';
+import languageSlice from './languageState';
+import modeSlice from './modeState';
+import locationSlice from './locationState';
+import reviewsSlice from './myReviews';
 
 export default configureStore({
   reducer:{
-    authSlice : authSlice.reducer,
-    isMode : isMode.reducer,
+    auth : authSlice.reducer,
+    isMode : modeSlice.reducer,
+    isLocation : locationSlice.reducer,
+    isLanguage : languageSlice.reducer,
+    reviews: reviewsSlice.reducer,
   }
 })

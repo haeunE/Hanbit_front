@@ -1,0 +1,61 @@
+{
+  "header" : {
+    "day-seoul" : "DAY IN SEOUL",
+    "night-seoul" : "NIGHT IN SEOUL",
+    "amenities" : "Amenities",
+    "danger-area" : "Danger Area",
+    "food-map" : "Food Map",
+    "delivery" : "Delivery",
+    "traffic" : "Traffic",
+    "directions" : "Directions",
+    "public-transportation" : "Public Transportation",
+    "Ddareungi" : "Ddareungi(Bicycle Rental)",
+    "help": "HELP",
+    "exchangeRate": "Exchange Rate",
+    "language-settings": "LANGUAGE SETTINGS",
+    "search": "SEARCH"
+  },
+  "home" : {
+    "day" : "DAY",
+    "night" : "NIGHT",
+    "event" : "Event",
+    "performance" : "Performance", 
+    "recommended-restaurants" : "Recommended Restaurants",
+    "recommended-accommodation": "Recommended Accommodation"
+  },
+  "Ddareungi-page" : {
+    "bicycle-rental-location" :"Bicycle Rental Location",
+    "title": "How to Use Ddareungi",
+    "steps1": "1. Arrive at the rental station and choose a bicycle.",
+    "steps2": "2. To rent a bicycle, open the 'Ddareungi' app on your smartphone.",
+    "steps3": "3. Scan the QR code in the app to rent the bicycle.",
+    "steps4": "4. After using the bicycle, return it to a nearby rental station.",
+    "steps5": "5. If there are no bicycles at the rental station, check other stations or go to a location where bikes are available.",
+    "go-to-website": "Go to Ddareungi Website",
+    "download-android": "Download Ddareungi App (Android)",
+    "download-ios": "Download Ddareungi App (iOS)"
+  },
+  "loading" : "Loading...",
+  "weather": {
+    "current-temp": "Current Temperature",
+    "max-temp": "Max Temperature",
+    "min-temp": "Min Temperature"
+  },
+  "seoulDay-page": {
+    "tourist-spots": "#Tourist Spots",
+    "cultural-facilities": "#Cultural Facilities",
+    "restaurants": "#Restaurants",
+    "accommodation": "#Accommodation",
+    "shopping": "#Shopping",
+    "leisure": "#Leisure"
+  },
+  "seoulNight-page": {
+    "hotBars": "#Hot Bars",
+    "quietBars": "#Quiet Bars",
+    "maidButlerCafe": "#Maid/Butler Cafe",
+    "pickUpSpots": "#Pick-up Spots",
+    "pickUpTargets": "#Pick-up Targets",
+    "club": "#Club"
+  },
+  "top5":"TOP5"
+}

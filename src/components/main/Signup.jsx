@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './User.css';
 import axiosInstance from '../../axiosInstance';
 import { Container } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const [userForm, setSignupForm] = useState({
@@ -13,9 +14,12 @@ const Signup = () => {
     foreignYN: false,
   });
 
+  const navigate = useNavigate();
   const [emailVerified, setEmailVerified] = useState(false);
   const [inputCode, setInputCode] = useState('');
   const [emailVerificationPending, setEmailVerificationPending] = useState(false);
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -61,6 +65,12 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (userForm.password && userForm.password !== confirmPassword) {
+      setPasswordError('비밀번호가 일치하지 않습니다.');
+      return;
+    }
+    setPasswordError('');
+
     if (!emailVerified) {
       alert('이메일 인증을 완료해주세요.');
       return;
@@ -70,12 +80,21 @@ const Signup = () => {
       const response = await axiosInstance.post('/signup', userForm);
       if (response.status === 200) {
         alert('회원가입 완료');
+        navigate("/login");
       }
     } catch (error) {
       if (error.response) {
-        alert(error.response.data);
+        // 서버가 응답을 보낸 경우
+        console.error('서버 응답 오류:', error.response);
+        alert(`서버 오류: ${error.response.status} - ${error.response.data.message}`);
+      } else if (error.request) {
+        // 서버로 요청을 보냈지만 응답을 받지 못한 경우
+        console.error('서버로 요청을 보냈지만 응답을 받지 못했습니다:', error.request);
+        alert('서버와 연결할 수 없습니다. 네트워크를 확인해주세요.');
       } else {
-        console.error('An error occurred:', error);
+        // 요청 설정 중 오류가 발생한 경우
+        console.error('요청 설정 오류:', error.message);
+        alert('회원가입 중 오류가 발생했습니다. 다시 시도해 주세요.');
       }
     }
   };
@@ -108,7 +127,22 @@ const Signup = () => {
                 name="password"
                 value={userForm.password}
                 onChange={handleChange}
+                autoComplete="off"  // autocomplete 속성 추가
+                autoCapitalize="none"  // 자동 대문자화 방지
+                autoCorrect="off"  // 자동 수정 방지
+                spellCheck="false"  // 맞춤법 검사 방지
                 required
+              />
+            </div>
+            <div className="form-group">
+              <label className="user_label" htmlFor="confirmPassword">비밀번호 확인:</label>
+              <input
+                className="user_input"
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </div>
             <div className="form-group">
@@ -176,7 +210,7 @@ const Signup = () => {
               />
             </div>
             <div className="form-group">
-              <label className="user_label">외국인 여부:</label>
+              <label className="chk-label">외국인이신가요? </label>
               <div className='chk-box'>
               <input
                 className='forign_check'
@@ -187,6 +221,7 @@ const Signup = () => {
               />
               </div>
             </div>
+            {passwordError && <div style={{ color: 'red' }}>{passwordError}</div>}
             <button className='user_button' type="submit">회원가입</button>
           </form>
         </div>

@@ -1,0 +1,143 @@
+/* 기존 스타일은 그대로 두고, 버튼에 대한 독립적인 스타일 추가 */
+.direction-btn {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #00b493; /* 원하는 배경색 */
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  margin-top: 20px; /* 버튼과 상단 간격 */
+}
+
+.direction-btn:hover {
+  background-color: #5d9d8a; /* 마우스를 올렸을 때 색상 변경 */
+}
+
+/* 버튼을 포함한 부모 요소가 중앙에 오도록 */
+.details-content {
+  text-align: center; /* 내부 텍스트 및 버튼을 중앙 정렬 */
+}
+
+.naver-img-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+.naver-img-loading {
+  font-size: 18px;
+  color: #666;
+  margin: 20px 0;
+}
+
+.naver-img-image-list {
+  margin-top: 1rem;
+  column-count: 3; /* 컬럼 수 조정 */
+  column-gap: 16px; /* 컬럼 간 간격 */
+  width: 90%;
+  max-width: 1200px;
+}
+
+@media (max-width: 1200px) {
+  .naver-img-image-list {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .naver-img-image-list {
+    column-count: 1;
+  }
+}
+
+.naver-img-image-item {
+  break-inside: avoid; /* 컬럼 내에서 분리되지 않도록 설정 */
+  margin-bottom: 16px;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.naver-img-image-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.naver-img-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.naver-img-thumbnail {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.naver-img-thumbnail:hover {
+  transform: scale(1.05);
+}
+
+.naver-img-title {
+  font-size: 14px;
+  color: #333;
+  padding: 8px;
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.naver-img-no-images {
+  font-size: 18px;
+  color: #999;
+  text-align: center;
+  margin: 20px;
+}
+
+.details-content {
+  width: 90%;
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin: 0.5rem;
+  padding: 12px;
+  font-family: 'Arial', sans-serif;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.details-item:hover {
+  transform: scale(1.03);
+}
+
+.details-item strong {
+  color: #333;
+  font-weight: bold;
+}
+
+.details-item span {
+  color: #555;
+  font-size: 14px;
+  display: block;
+  margin-top: 4px;
+}
+
+.details-item:last-child {
+  margin-bottom: 0;
+}
+
+.details-item .label {
+  color: #ff6600; /* 라벨 색상 */
+}

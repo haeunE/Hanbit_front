@@ -1,0 +1,66 @@
+{
+  "header" : {
+    "day-seoul" : "서울의 낮",
+    "night-seoul" : "서울의 밤",
+    "amenities" : "편의시설",
+    "danger-area" : "위험지역",
+    "food-map" : "음식지도",
+    "delivery" : "배달",
+    "traffic" : "교통",
+    "directions" : "길찾기",
+    "public-transportation" : "대중교통",
+    "Ddareungi" : "따릉이",
+    "help": "도움말",
+    "exchangeRate" : "환율",
+    "language-settings": "언어 설정",
+    "search": "검색"
+  },
+  "home" : {
+    "day" : "낮",
+    "night" : "밤",
+    "event" : "행사",
+    "performance" : "공연", 
+    "recommended-restaurants" : "추천맛집",
+    "recommended-accommodation": "추천숙소"
+  },
+  "Ddareungi-page" : {
+    "bicycle-rental-location" :"자전거 대여소",
+    "title": "따릉이 사용법",
+    "steps1": 
+      "1. 대여소에 도착하여 자전거를 선택하세요.",
+    "steps2": 
+      "2. 자전거를 대여하려면 스마트폰의 '따릉이' 앱을 실행합니다.",
+    "steps3": 
+      "3. 앱에서 QR코드를 스캔하여 자전거를 대여하세요.",
+    "steps4": 
+      "4. 자전거를 이용한 후 가까운 대여소에 반납하세요.",
+    "steps5":  
+      "5. 대여소에 자전거가 없는 경우, 다른 대여소를 확인하거나 대여 가능한 자전거가 있는 곳으로 이동하세요.",
+    "go-to-website": "따릉이 웹사이트로 이동",
+    "download-android": "따릉이 앱 다운로드 (Android)",
+    "download-ios": "따릉이 앱 다운로드 (iOS)"
+  },
+  "loading" : "로딩중...",
+  "weather": {
+    "current-temp": "현재 온도",
+    "max-temp": "최고 온도",
+    "min-temp": "최저 온도"
+  },
+  "seoulDay-page": {
+    "tourist-spots": "#관광지",
+    "cultural-facilities": "#문화시설",
+    "restaurants": "#음식점",
+    "accommodation": "#숙박",
+    "shopping": "#쇼핑",
+    "leisure": "#레포츠"
+  },
+  "seoulNight-page": {
+    "hotBars": "#핫한술집",
+    "quietBars": "#조용한술집",
+    "maidButlerCafe": "#메이드/집사카페",
+    "pickUpSpots": "#헌팅핫플",
+    "pickUpTargets": "#헌팅포자",
+    "club": "#클럽"
+  },
+  "top5":"TOP5"
+}

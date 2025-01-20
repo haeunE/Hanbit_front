@@ -1,0 +1,147 @@
+.home {
+  min-height: 900px;
+  margin: auto;
+  padding-top: 100px; /* 모든 페이지에 적용 해야함 header 때문 */
+}
+
+.change-mode {
+  display: flex;
+  gap: 10px;
+  text-align: center;
+  width: 100%;
+  justify-content: center;
+}
+
+.home-change-mode-day,
+.home-change-mode-night {
+  border: none;
+  border-radius: 8px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  height: 60px;
+  width: 50%;
+}
+
+button:disabled {
+  color: #FFFFFF !important;            
+  cursor: not-allowed !important;        /* 클릭 불가능 상태로 표시 */
+}
+
+.change-mode.day .home-change-mode-day {
+  background-color: #5d9d8a;
+  color: #ffffff;
+}
+
+.change-mode.day .home-change-mode-night {
+  background-color: #2f4858;
+  color: #ffffff;
+}
+
+.change-mode.night .home-change-mode-day {
+  background-color: #f3eada;
+  color: #000000;
+}
+
+.change-mode.night .home-change-mode-night {
+  background-color: #f8496c;
+  color: #ffffff;
+}
+
+.home-change-mode-day:hover,
+.home-change-mode-night:hover {
+  transform: scale(1.05);
+}
+
+.change-mode.day .home-change-mode-day:hover {
+  background-color: #4a806a;
+}
+
+.change-mode.day .home-change-mode-night:hover {
+  background-color: #263e4d;
+}
+
+.change-mode.night .home-change-mode-day:hover {
+  background-color: #d1d0b3;
+}
+
+.change-mode.night .home-change-mode-night:hover {
+  background-color: #e23b5c;
+}
+
+.location-weather{
+  display: flex;
+  margin-left: auto;
+  justify-content: center; /*가로*/
+  align-items: center;  /*세로*/
+  background-color: #dddb96;
+  border-radius: 15px;
+  width: auto;
+  height: 5rem;
+  margin-top: 1rem;
+  max-width:20rem;
+}
+
+.homepage-buttom {
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px; /* 각 섹션 사이의 간격 */
+  padding: 20px;
+  background-color: #7ec9b2;
+}
+
+.recommend-festival,
+.recommend-restaurant,
+.recommend-hotel {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.event-banner,
+.restaurant-banner,
+.hotel-banner {
+  font-size: 24px;
+  font-weight: bold;
+  color: #00b493;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #00b493; /* 배너 아래에 라인 추가 */
+  padding-bottom: 10px;
+}
+
+.event-banner,
+.recommend-restaurant,
+.recommend-hotel {
+  display: flex;
+  flex-direction: column;
+}
+
+.recommend-restaurant .place-container,
+.recommend-hotel .place-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .home-change-mode-day,
+  .home-change-mode-night {
+    padding: 1rem 2rem;
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-change-mode-day,
+  .home-change-mode-night {
+    padding: 0.8rem 1.5rem;
+    font-size: 1.1rem;
+    min-width: 120px;
+  }
+}

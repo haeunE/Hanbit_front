@@ -1,8 +1,20 @@
 /* 기본 레이아웃 스타일 */
 .app {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   min-height: 100vh;
+}
+
+.main-content {
+  flex-grow: 1; /* 콘텐츠가 늘어나면 푸터는 하단으로 밀린다 */
+}
+
+.app.day{
+  background-color: #e9fef7;
+}
+
+.app.night{
+  background-color:#23333f;
 }
 
 

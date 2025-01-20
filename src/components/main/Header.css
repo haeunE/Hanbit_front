@@ -1,5 +1,6 @@
 /* Header 스타일 */
 .Header.day {
+  z-index: 999;
   background-color: #5d9d8a;
   position: fixed;
   top: 0;
@@ -8,6 +9,7 @@
 }
 
 .Header.night {
+  z-index: 999;
   background-color: #2f4858;
   position: fixed;
   top: 0;
@@ -70,19 +72,63 @@
 
 /* 아이콘 크기 및 여백 */
 .header-icons.day {
-  font-size: 25px;
+  font-size: 30px;
   gap: 5px;
   color: #f3eada;
   padding-right: 5px;
 }
 
 .header-icons.night {
-  font-size: 25px;
+  font-size: 30px;
   gap: 5px;
   padding-right: 5px;
   color: #f8496c;
 }
 
-.gap{
-  padding-left: 1.5rem;
+.fa-calculator{
+  padding-right: 10px;
 }
+
+.gap{
+  padding-left: 1rem;
+}
+
+.user-icon-dropdown-container {
+  position: relative;
+}
+
+.user_dropdown .dropdown-menu .show {
+  top: 100%; /* 아이콘 아래로 배치 */
+  right: 0;  /* 오른쪽 정렬 */
+  margin-top: var(--bs-dropdown-spacer); /* 드롭다운 간격 */
+}
+.user_dropdown .dropdown-item {
+  cursor: pointer;
+  padding: 10px;
+}
+.user_dropdown .dropdown-item:hover {
+  background-color: #f1f1f1;
+}
+
+.search-component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search-component input {
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 200px;
+}
+
+.search-component button {
+  padding: 10px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.user-icon-dropdown-container {
+  position: relative; /* 드롭다운의 부모 요소에 relative 설정 */
+}
+
