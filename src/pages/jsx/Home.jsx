@@ -11,6 +11,7 @@ import "@/locales/i18n";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
 import TripPlacesNight from "../../components/jsx/TripPlacesNight";
+import GoogleTranslate from "../../components/jsx/GoogleTranslate";
 
 function Home() {
   const { t } = useTranslation();
@@ -109,6 +110,9 @@ function Home() {
         )}
         {!isMode && (
         <div>
+          <div className="google">
+            <GoogleTranslate />
+          </div>
           <div className="recommend-place">
             <TripPlacesNight contentId={103} />
           </div>

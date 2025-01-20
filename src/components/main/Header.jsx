@@ -195,7 +195,7 @@ function Header() {
                 </OverlayTrigger>
 
                 <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip((t`header.exchangeRate`))}>
-                  <Nav.Link as={Link} to="/exchageRate" onClick={(e) => e.stopPropagation()}>
+                  <Nav.Link as={Link} to="/exchangeRate" onClick={(e) => e.stopPropagation()}>
                     <i className="fa-solid fa-calculator"></i>
                   </Nav.Link>
                 </OverlayTrigger>
