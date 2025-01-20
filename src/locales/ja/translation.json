@@ -65,5 +65,17 @@
     "destination": "目的地",
     "noDestination": "目的地の情報がありません。",
     "openNaverMap": "ネイバー地図アプリを開く"
-  }
+  },
+  "amenities": {
+    "convenience-store": "コンビニ",
+    "subway": "地下鉄駅",
+    "coffee": "カフェ",
+    "hospital": "病院",
+    "pharmacy": "薬局"
+  },
+  "underConstruction": {
+    "title": "工事中です",
+    "message": "現在このページは開発中です。後ほど再度ご確認ください。"
+  },
+  "direction": "道案内"
 }

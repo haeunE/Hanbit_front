@@ -31,7 +31,6 @@ import Amenities from './pages/jsx/Amenities'
 import UnderConstruction from './components/jsx/UnderConstruction'
 
 
-
 function App() {
   const isMode = useSelector(state => state.isMode);
   const dispatch = useDispatch();
@@ -79,8 +78,8 @@ function App() {
     return () => observer.disconnect();
   }, []);
 
-  // 🔹 현재 페이지가 `/places/:id/:typeid`인지 확인
-  const isPlaceDetailPage = location.pathname.startsWith("/places/");
+  // 🔹 현재 페이지가 `/places/:id/:typeid` 또는 `/amenities`인지 확인
+  const isPlaceOrAmenityPage = location.pathname.startsWith("/places/") || location.pathname.startsWith("/amenities");
 
   return (
     <div className={`app ${isMode ? 'day' : 'night'}`}>
@@ -88,7 +87,7 @@ function App() {
       <div
         className="header-container"
         style={{
-          transform: isPlaceDetailPage && isTranslated ? "translateY(50px)" : "translateY(0)",
+          transform: (isPlaceOrAmenityPage && isTranslated) ? "translateY(50px)" : "translateY(0)",
           transition: "transform 0.3s ease-in-out",
           position: 'relative',  /* or 'absolute' */
           zIndex: 9999  /* 헤더가 최상위 */
@@ -98,42 +97,42 @@ function App() {
       </div>
 
       <div className='main-content'>
-      <Routes>
-        {/* 관리자 페이지 */}
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute>
-              <AdminPage /> {/* 공통 레이아웃 */}
-            </ProtectedRoute>
-          }
-        >
-          {/* /admin/ 하위 경로 */}
-          <Route path="csv" element={<CsvUpload />} />
-          <Route path="place" element={<PlaceUpload />} />
-        </Route>
-        {/* 권한 없음 페이지 */}
-        <Route path="/unauthorized" element={<UnauthorizedPage />} />
-        {/* 메인 페이지 */}
-        <Route path='/' element={<Intro />} />
-        <Route path='/home' element={<Home />} />
-        <Route path='/test' element={<Test/>} />
-        <Route path='/login' element={<Login/>} />
-        <Route path='/signup' element={<Signup/>} />
-        <Route path='/userprofile' element={<UserProfile/>} />
-        <Route path='/bicycle' element={<Bicycle />} />
-        <Route path='/places/:id/:typeid' element={<PlaceDetail/>} />
-        <Route path='/daySeoul' element={<SeoulPageDay />} />
-        <Route path='/nightSeoul' element={<SeoulPageNight />} />
-        <Route path='/myreviews' element={<MyReviews />} />
-        <Route path='/directions' element={<Directions />} />
-        <Route path='/amenities' element={<Amenities/>} />
-        {/* 구현중 */}
-        <Route path='/dangerArea' element={<UnderConstruction />} />
-        <Route path='/foodMap' element={<UnderConstruction />} />
-        <Route path='/delivery' element={<UnderConstruction />} />
-        <Route path='/transport' element={<UnderConstruction />} />
-      </Routes>
+        <Routes>
+          {/* 관리자 페이지 */}
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <AdminPage /> {/* 공통 레이아웃 */}
+              </ProtectedRoute>
+            }
+          >
+            {/* /admin/ 하위 경로 */}
+            <Route path="csv" element={<CsvUpload />} />
+            <Route path="place" element={<PlaceUpload />} />
+          </Route>
+          {/* 권한 없음 페이지 */}
+          <Route path="/unauthorized" element={<UnauthorizedPage />} />
+          {/* 메인 페이지 */}
+          <Route path='/' element={<Intro />} />
+          <Route path='/home' element={<Home />} />
+          <Route path='/test' element={<Test />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/userprofile' element={<UserProfile />} />
+          <Route path='/bicycle' element={<Bicycle />} />
+          <Route path='/places/:id/:typeid' element={<PlaceDetail />} />
+          <Route path='/daySeoul' element={<SeoulPageDay />} />
+          <Route path='/nightSeoul' element={<SeoulPageNight />} />
+          <Route path='/myreviews' element={<MyReviews />} />
+          <Route path='/directions' element={<Directions />} />
+          <Route path='/amenities' element={<Amenities />} />
+          {/* 구현중 */}
+          <Route path='/dangerArea' element={<UnderConstruction />} />
+          <Route path='/foodMap' element={<UnderConstruction />} />
+          <Route path='/delivery' element={<UnderConstruction />} />
+          <Route path='/transport' element={<UnderConstruction />} />
+        </Routes>
       </div>
 
       {!['/login', '/signup', '/userprofile'].includes(location.pathname) && <Footer />}

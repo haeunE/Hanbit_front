@@ -65,5 +65,17 @@
     "destination": "Destination",
     "noDestination": "No destination information available.",
     "openNaverMap": "Open Naver Map App"
-  }
+  },
+  "amenities": {
+    "convenience-store": "Convenience Store",
+    "subway": "Subway Station",
+    "coffee": "Cafe",
+    "hospital": "Hospital",
+    "pharmacy": "Pharmacy"
+  },
+  "underConstruction": {
+    "title": "Under Construction",
+    "message": "This page is under development. Please check back later."
+  },
+  "direction": "Directions"
 }

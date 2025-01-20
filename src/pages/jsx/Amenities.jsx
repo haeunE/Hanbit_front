@@ -1,22 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import "../css/Amenities.css"
+import GoogleTranslate from '../../components/jsx/GoogleTranslate';
+import { useTranslation } from "react-i18next";
+import "@/locales/i18n";
+import i18n from 'i18next';  // i18n을 import
+
 
 // 카테고리 정보 (아이콘 URL을 직접 포함)
-const categories = [
-  { id: 'CS2', name: '편의점', icon: '/img/icon/icon-convenience.png' }, // 편의점 아이콘 URL
-  { id: 'SW8', name: '지하철역', icon: '/img/icon/icon-subway.png' }, // 지하철역 아이콘 URL
-  { id: 'CE7', name: '카페', icon: '/img/icon/icon-coffee.png' }, // 카페 아이콘 URL
-  { id: 'HP8', name: '병원', icon: '/img/icon/icon-hospital.png' }, // 병원 아이콘 URL
-  { id: 'PM9', name: '약국', icon: '/img/icon/icon-pharmacy.png' } // 약국 아이콘 URL
-];
 
 const Amenities = () => {
+  const { t } = useTranslation();
   const [map, setMap] = useState(null);
   const [placeOverlay, setPlaceOverlay] = useState(null);
   const [markers, setMarkers] = useState([]);
   const [currCategory, setCurrCategory] = useState('');
   const kakaoApiKey = import.meta.env.VITE_KAKAO_REST_API_KEY; // 환경 변수로 API 키 가져오기
+  
+  const categories = [
+    { id: 'CS2', name: t('amenities.convenience-store'), icon: '/img/icon/icon-convenience.png' }, // 편의점 아이콘 URL
+    { id: 'SW8', name: t('amenities.subway'), icon: '/img/icon/icon-subway.png' }, // 지하철역 아이콘 URL
+    { id: 'CE7', name: t('amenities.coffee'), icon: '/img/icon/icon-coffee.png' }, // 카페 아이콘 URL
+    { id: 'HP8', name: t('amenities.hospital'), icon: '/img/icon/icon-hospital.png' }, // 병원 아이콘 URL
+    { id: 'PM9', name: t('amenities.pharmacy'), icon: '/img/icon/icon-pharmacy.png' } // 약국 아이콘 URL
+  ];
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -146,6 +153,9 @@ const Amenities = () => {
 
   return (
     <Container>
+      <div className="google">
+        <GoogleTranslate />
+      </div>
       <div className='kakao-amenities'>
         <div id="category">
           {categories.map((category) => (

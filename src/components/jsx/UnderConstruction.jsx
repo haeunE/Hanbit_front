@@ -1,12 +1,15 @@
 import React from "react";
-import './UnderConstruction.css'; // 스타일 파일
+import '../css/UnderConstruction.css'; // 스타일 파일
+import { useTranslation } from "react-i18next";
+import "@/locales/i18n";
 
 const UnderConstruction = () => {
+  const { t } = useTranslation();
   return (
-    <div className="container">
+    <div className="under-container">
       <div className="content">
-        <h1>구현중입니다</h1>
-        <p>현재 페이지는 개발 중입니다. 잠시 후 다시 방문해주세요.</p>
+        <h1>{t('underConstruction.title')}</h1>
+        <p>{t('underConstruction.message')}</p>
         <div className="emoji">🚧</div>
       </div>
     </div>
@@ -14,3 +17,4 @@ const UnderConstruction = () => {
 };
 
 export default UnderConstruction;
+
