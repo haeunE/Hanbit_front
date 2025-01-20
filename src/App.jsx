@@ -15,7 +15,6 @@ import PlaceDetail from './pages/jsx/PlaceDetail'
 import MyReviews from './pages/jsx/MyReviews'
 
 import {login, logout} from './redux/userState'
-import { useDispatch } from 'react-redux'
 import Information from './pages/jsx/Information'
 import ExchangeRate from './pages/jsx/ExchangeRate'
 import { SetIsMode } from './redux/modeState'
@@ -70,8 +69,8 @@ function App() {
         <Route path='/login' element={<Login/>} />
         <Route path='/signup' element={<Signup/>} />
         <Route path='/userprofile' element={<UserProfile/>} />
-        <Route path='/information' element={<Information/>} />
-        <Route path='/ExchangeRate' element={<ExchangeRate/>} />
+        <Route path='/tip' element={<Information/>} />
+        <Route path='/exchangeRate' element={<ExchangeRate/>} />
         <Route path='/bicycle' element={<Bicycle />} />
         <Route path='/places/:id/:typeid' element={<PlaceDetail/>} />
         <Route path='/daySeoul' element={<SeoulPageDay />} />

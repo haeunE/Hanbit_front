@@ -1,15 +1,18 @@
+import { useTranslation } from 'react-i18next';
 import '../css/ExchangeRate.css'
 import { useState, useEffect } from 'react';
 
-const curr = {
-  'krw' : '원',
-  'usd' : '달러',
-  'eur' : '유로',
-  'cny' : '위안',
-  'jpy' : '엔화'
-}
 
 function ExchangeRate() {
+  const { t } = useTranslation();
+  
+  const curr = {
+    'krw' : t`exchange.kor-curr`,
+    'usd' : t`exchange.us-curr`,
+    'eur' : t`exchange.eu-curr`,
+    'cny' : t`exchange.cn-curr`,
+    'jpy' : t`exchange.jp-curr`
+  }
 
   const [rateValue, setRateValue] = useState('usd');
 
@@ -59,49 +62,49 @@ function ExchangeRate() {
     .then((data) => {
       setRateCheck([
         {
-          'country' : '미국',
+          'country' : t`exchange.us`,
           'currency' : 'usd',
           'rate' : 1 / data.krw.usd
         },
         {
-          'country' : '유럽연합',
+          'country' : t`exchange.eu`,
           'currency' : 'eur',
           'rate' : 1 / data.krw.eur
         },
         {
-          'country' : '중국',
+          'country' : t`exchange.cn`,
           'currency' : 'cny',
           'rate' : 1 / data.krw.cny
         },
         {
-          'country' : '일본',
+          'country' : t`exchange.jp`,
           'currency' : 'jpy',
           'rate' : 1 / data.krw.jpy
         },
       ])
     })
-  }, []);
+  }, [t]);
 
   return(
     <div id='ExchangeRate'>
        <section>
-        <h2>환율계산</h2>         
+        <h2>{t`exchange.title`}</h2>         
           <div className='inner'>
            <div className='excr_box'>
             <div className='slc_box'>
               
               <select value={rateValue} onChange={handleChange}>
-                <option value="krw">대한민국</option>
-                <option value="usd">미국</option>
-                <option value="eur">유럽연합</option>
-                <option value="cny">중국</option>
-                <option value="jpy">일본</option>
+                <option value="krw">{t`exchange.kor`}</option>
+                <option value="usd">{t`exchange.us`}</option>
+                <option value="eur">{t`exchange.eu`}</option>
+                <option value="cny">{t`exchange.cn`}</option>
+                <option value="jpy">{t`exchange.jp`}</option>
               </select>
             </div>
 
             <div className='num'>
               <label for='num' className='u_hc'>&nbsp;&nbsp;</label>
-              <input value={inputValue} onChange={handleInputChange} placeholder='숫자 입력'  type='number' id='num' className='input' />
+              <input value={inputValue} onChange={handleInputChange} placeholder={t`exchange.placeholder`}  type='number' id='num' className='input' />
             
             <div className='recite'>
               <span className='nb_txt'>{Number(inputValue).toLocaleString()} {curr[rateValue]}</span>
@@ -113,18 +116,18 @@ function ExchangeRate() {
            <div className='slc_box'>
 
            <select value={rateValue2} onChange={handleChange2}>
-                <option value="krw">대한민국</option>
-                <option value="usd">미국</option>
-                <option value="eur">유럽연합</option>
-                <option value="cny">중국</option>
-                <option value="jpy">일본</option>
+              <option value="krw">{t`exchange.kor`}</option>
+              <option value="usd">{t`exchange.us`}</option>
+              <option value="eur">{t`exchange.eu`}</option>
+              <option value="cny">{t`exchange.cn`}</option>
+              <option value="jpy">{t`exchange.jp`}</option>
            </select>
            
 
            </div>
            <div className='num'>
               <label for='num' className='u_hc'>&nbsp;&nbsp;</label>
-              <input value={inputValue2} onChange={handleInputChange2} placeholder='숫자 입력'  type='number' id='num' className='input' />
+              <input value={inputValue2} onChange={handleInputChange2} placeholder={t`exchange.placeholder`}  type='number' id='num' className='input' />
                                
            <div className='recite'>
               <span className='nb_txt'>{Number(inputValue2).toLocaleString()} {curr[rateValue2]} </span>
