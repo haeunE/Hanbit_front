@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../css/NaverBlog.css';
+import { useTranslation } from 'react-i18next';
 
 const NaverBlog = ({ title }) => {
+  const { t } = useTranslation();
   const [results, setResults] = useState([]);
 
   const clientId = import.meta.env.VITE_NAVER_API_ID; // 네이버 Client ID
   const clientSecret = import.meta.env.VITE_NAVER_API_SECRET; // 네이버 Client Secret
 
   useEffect(() => {
+    let searchTitle = ''
+    if (localStorage.getItem("lang") != "kr"){
+      searchTitle = title.match(/[가-힣\s(),]+/g).join("").trim();
+    }else{
+      searchTitle = title.split('(')[0].trim();
+    }
     const handleSearch = async () => {
       if (!title) return; // title이 없는 경우 API 호출하지 않음
-      const searchTitle = title.split('(')[0].trim();
       console.log(searchTitle)
       const url = `/api/v1/search/blog.json`;
       try {
@@ -33,7 +40,7 @@ const NaverBlog = ({ title }) => {
     };
 
     handleSearch();
-  }, [title]); // title 변경 시 API 호출
+  }, [title,t]); // title 변경 시 API 호출
 
   return (
     <div className="blog-container">
@@ -46,10 +53,10 @@ const NaverBlog = ({ title }) => {
               rel="noopener noreferrer"
               className="result-link"
             >
-              {item.title.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&')} {/* HTML 태그 제거 */}
+              {item.title.replace(/<[^>]+>/g, ' ').replace(/&[^;]+;/g, ' ')} {/* HTML 태그 제거 */}
             </a>
             <p className="blog-description">
-              {item.description.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&')}
+              {item.description.replace(/<[^>]+>/g, ' ').replace(/&[^;]+;/g, ' ')}
             </p>
           </li>
         ))}

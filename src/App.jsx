@@ -21,6 +21,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import Cookies from 'js-cookie';
 import SeoulPageDay from './pages/jsx/SeoulPageDay'
 import SeoulPageNight from './pages/jsx/SeoulPageNight'
+import AdminPage from './admin/AdminPage'
+import UnauthorizedPage from './admin/UnauthorizedPage'
+import CsvUpload from './admin/components/CsvUpload'
+import ProtectedRoute from './utils/ProtectedRoute'
+import PlaceUpload from './admin/components/PlaceUpload'
 import Directions from './pages/jsx/Directions'
 
 
@@ -61,6 +66,22 @@ function App() {
       <Header />
       <div className='main-content'>
       <Routes>
+        {/* 관리자 페이지 */}
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminPage /> {/* 공통 레이아웃 */}
+            </ProtectedRoute>
+          }
+        >
+          {/* /admin/ 하위 경로 */}
+          <Route path="csv" element={<CsvUpload />} />
+          <Route path="place" element={<PlaceUpload />} />
+        </Route>
+        {/* 권한 없음 페이지 */}
+        <Route path="/unauthorized" element={<UnauthorizedPage />} />
+        {/* 메인 페이지 */}
         <Route path='/' element={<Intro />} />
         <Route path='/home' element={<Home />} />
         <Route path='/test' element={<Test/>} />

@@ -13,10 +13,10 @@ import DaySeoulPlace from '../../components/jsx/DaySeoulPlace';
 
 function SeoulPage() {
   const { t } = useTranslation();
-  const isLocation = useSelector((state) => state.isLocation);
   const dispatch = useDispatch();
   const city = JSON.parse(localStorage.getItem("location")).city;
-  const [category, setCategory] = useState(`${city}맛집`);
+  
+  const [category, setCategory] = useState(`${city}`);
   const [contentId, setContentId] = useState(39);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -35,8 +35,9 @@ function SeoulPage() {
     if (savedLanguage) {
       i18n.changeLanguage(savedLanguage);
     }
+
     setIsLoading(false);
-  }, [category]);
+  }, []);
 
   // 카테고리별 콘텐츠 ID 매핑
   const categoryToContentIdMap = {
@@ -48,22 +49,29 @@ function SeoulPage() {
     레포츠: i18n.language === "ko" ? 28 : 75,
   };
 
+  // 카테고리가 변경될 때 contentId 업데이트
+  useEffect(() => {
+    const categoryKey = category.replace(`${city} `, ''); // '서울맛집' → '맛집'
+    setContentId(categoryToContentIdMap[categoryKey] || 39); // 기본값 39 설정
+  }, [category]);
+
+  // 버튼 클릭 시 category만 변경
   const handleCategoryClick = (newCategory) => {
     setCategory(newCategory);
-    const categoryKey = newCategory.replace(`${city}`, '');  // '서울맛집' → '맛집'
-    setContentId(categoryToContentIdMap[categoryKey] || null);  // 카테고리에 맞는 contentId 설정
   };
 
- 
+  console.log("현재 카테고리:", category);
+  console.log("현재 contentId:", contentId);
+
   return (
     <Container>
       <div className="day-seoul">
         <div className="hashtag-list">
-          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}문화시설`)}>{t("seoulDay-page.cultural-facilities")}</button>
-          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}음식점`)}>{t("seoulDay-page.restaurants")}</button>
-          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}숙박`)}>{t("seoulDay-page.accommodation")}</button>
-          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}쇼핑`)}>{t("seoulDay-page.shopping")}</button>
-          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}레포츠`)}>{t("seoulDay-page.leisure")}</button>
+          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city} 문화시설`)}>{t("seoulDay-page.cultural-facilities")}</button>
+          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city} 음식점`)}>{t("seoulDay-page.restaurants")}</button>
+          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city} 숙박`)}>{t("seoulDay-page.accommodation")}</button>
+          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city} 쇼핑`)}>{t("seoulDay-page.shopping")}</button>
+          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city} 레포츠`)}>{t("seoulDay-page.leisure")}</button>
         </div>
 
         <div className="container mt-5">
