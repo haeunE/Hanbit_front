@@ -7,33 +7,90 @@ import { useParams } from "react-router-dom";
 import Details from "../../components/jsx/Details";
 import axios from "axios";
 import Review from "../../components/jsx/Review";
+import { useTranslation } from "react-i18next";
 import GoogleTranslate from "../../components/jsx/GoogleTranslate";
 
 function PlaceDetail() {
+  const { t } = useTranslation();
   const { id, typeid } = useParams();
   const [activeKey, setActiveKey] = useState('blog');
   const apiKey = import.meta.env.VITE_KOREA_TOURIST_DAY_API_KEY;
   const [placedata, setPlacedata] = useState(null); // API 응답 데이터를 저장
   const [loading, setLoading] = useState(true); // 로딩 상태
   const [error, setError] = useState(null); // 에러 상태
-  console.log(`${id}, ${typeid}`)
+  const [lang, setLang] = useState(localStorage.getItem("lang"));
+  const [typeId, setTypeId] = useState(typeid);
 
+  // getTypeId 함수 (lang 변경에 따라 typeId 업데이트)
+  const getTypeId = (id) => {
+    console.log(lang,id)
+    if (lang !== "ko") {
+      const toForeignLangMapping = {
+        12: 76,
+        14: 78,
+        39: 82,  
+        32: 80,  
+        38: 79,
+      };
+      return toForeignLangMapping[id] || id;  // 매핑이 없으면 원래 값 반환
+    }
+
+    // 다른 나라에서 한국으로 바뀔 때
+    const toKoreanMapping = {
+      76: 12,  
+      78: 14, 
+      82: 39,  
+      80: 32,  
+      79: 38,  
+    };
+
+    return toKoreanMapping[id] || id;  
+  };
+
+  // 언어 변경 시 typeId 업데이트
+  // useEffect(() => {
+  //   const updateTypeId = () => {
+  //     const updatedId = getTypeId(lang, typeid); // lang 변경 시 typeId 업데이트
+  //     setTypeId(updatedId);  // state에 반영
+  //   };
+
+  //   updateTypeId();  // 초기값 갱신
+  //   const handleStorageChange = (e) => {
+  //     if (e.key === "lang") {
+  //       const newLang = localStorage.getItem("lang");
+  //       setLang(newLang); // 언어 상태 갱신
+  //     }
+  //   };
+
+  //   window.addEventListener("storage", handleStorageChange);
+
+  //   return () => {
+  //     window.removeEventListener("storage", handleStorageChange); // 컴포넌트 언마운트 시 리스너 제거
+  //   };
+  // }, [lang, typeid]);
+
+  // 데이터 가져오기
   useEffect(() => {
+    const updatedId = getTypeId(typeid);
+    console.log(updatedId)
+    const serviceType = {
+      en: "EngService1",
+      ja: "JpnService1",
+      zh: "ChsService1",
+      default: "KorService1",
+    }[lang] || "KorService1";
+
     const fetchData = async () => {
       try {
-        // setLoading(true); // 로딩 시작
-        const url = `http://apis.data.go.kr/B551011/KorService1/detailCommon1?serviceKey=${apiKey}&MobileOS=ETC&MobileApp=hanbit&contentId=${id}&contentTypeId=${typeid}&_type=json`
-        console.log(url)
-
+        const url = `http://apis.data.go.kr/B551011/${serviceType}/detailCommon1?serviceKey=${apiKey}&MobileOS=ETC&MobileApp=hanbit&contentId=${id}&contentTypeId=${typeId}&_type=json`;
         const response = await axios.get(url+"&defaultYN=Y&firstImageYN=Y&areacodeYN=Y&catcodeYN=Y&addrinfoYN=Y&mapinfoYN=Y&overviewYN=Y");
-        console.log(response.data)
         const items = response.data.response.body.items.item || [];
         const placedetail = items.map((i) => ({
           title: i.title,
           tel: i.tel,
           img: i.firstimage,
           img2: i.firstimage2,
-          homepage : i.homepage,
+          homepage: i.homepage,
           cat: i.cat3,
           add: i.addr1 + i.addr2,
           addrcode: i.zipcode,
@@ -43,18 +100,20 @@ function PlaceDetail() {
         }));
         setPlacedata(...placedetail); // 데이터 저장
       } catch (err) {
-        setError(err); // 에러 저장
+        setError(err); // 에러 처리
       } finally {
         setLoading(false); // 로딩 종료
       }
     };
 
     fetchData();
-  }, [id]); // 빈 배열로 한 번만 실행
+  }, [id, typeId, lang]);  // typeId와 lang이 변경되면 데이터 다시 요청
 
+  // 로딩 중이나 에러가 발생하면 그에 대한 처리를 해준다.
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
+  // 탭 선택 처리
   const handleSelect = (key) => {
     setActiveKey(key);
   };

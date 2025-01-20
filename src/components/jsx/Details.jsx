@@ -20,9 +20,15 @@ const Details = ({ data }) => {
   console.log(data);
 
   const handleSearch = async () => {
+    let searchTitle = ''
     if (!data.title) return;
-    const searchTitle = data.title.split('(')[0].trim();
+    if (localStorage.getItem("lang") != "kr"){
+      searchTitle = data.title.match(/[가-힣\s(),]+/g).join("").trim();
+    }else{
+      searchTitle = data.title.split('(')[0].trim();
+    }
     setLoading(true);
+    console.log(searchTitle)
 
     try {
       const response = await axios.get('/api/v1/search/image.json', {
@@ -46,9 +52,15 @@ const Details = ({ data }) => {
   };
 
   useEffect(() => {
+    const serviceType = {
+      en: "EngService1",
+      ja: "JpnService1",
+      zh: "ChsService1",
+      default: "KorService1",
+    }[localStorage.getItem("lang")] || "KorService1";
     const fetchData = async () => {
       try {
-        const url = `http://apis.data.go.kr/B551011/KorService1/detailIntro1?serviceKey=${apiKey}&MobileOS=ETC&MobileApp=hanbit&contentId=${id}&contentTypeId=${typeid}&_type=json`;
+        const url = `http://apis.data.go.kr/B551011/${serviceType}/detailIntro1?serviceKey=${apiKey}&MobileOS=ETC&MobileApp=hanbit&contentId=${id}&contentTypeId=${typeid}&_type=json`;
         console.log(url);
 
         const response = await axios.get(url);

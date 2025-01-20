@@ -22,9 +22,8 @@ function Header() {
   const navigate = useNavigate();
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [password, setPassword] = useState("");
-  const {isAuth} = useSelector((state) => state.auth);
+  const {isAuth,user} = useSelector((state) => state.auth);
   const jwt = localStorage.getItem('jwt')
-
   const [showDropdown, setShowDropdown] = useState(false);
   const [showSearchModal, setShowSearchModal] = useState(false);  // 초기값 false로 설정
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
@@ -241,6 +240,9 @@ function Header() {
                   {/* 드롭다운 메뉴 */}
                   {showDropdown && isAuth && (
                     <Dropdown.Menu align="end" className="user_dropdown" show>
+                      {user.role === "ADMIN" && (
+                        <Dropdown.Item onClick={() => navigate("/admin")}>관리자 페이지</Dropdown.Item>
+                      )}
                       <Dropdown.Item onClick={handleMyReviews}>나의 리뷰</Dropdown.Item>
                       <Dropdown.Item onClick={() => setShowPasswordModal(true)}>회원정보수정</Dropdown.Item>
                       <Dropdown.Item onClick={handleLogout}>로그아웃</Dropdown.Item>

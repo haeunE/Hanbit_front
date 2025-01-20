@@ -49,7 +49,7 @@ function SeoulPage() {
 
   // 카테고리가 변경될 때 contentId 업데이트
   useEffect(() => {
-    const categoryKey = category.replace(`${city}`, ''); // '서울맛집' → '맛집'
+    const categoryKey = category.replace(`${city} `, ''); // '서울맛집' → '맛집'
     setContentId(categoryToContentIdMap[categoryKey] || 39); // 기본값 39 설정
   }, [category]);
 
@@ -58,18 +58,16 @@ function SeoulPage() {
     setCategory(newCategory);
   };
 
-  console.log("현재 카테고리:", category);
-  console.log("현재 contentId:", contentId);
 
   return (
     <Container>
       <div className="day-seoul">
         <div className="hashtag-list">
-          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}문화시설`)}>{t("seoulDay-page.cultural-facilities")}</button>
-          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}음식점`)}>{t("seoulDay-page.restaurants")}</button>
-          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}숙박`)}>{t("seoulDay-page.accommodation")}</button>
-          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}쇼핑`)}>{t("seoulDay-page.shopping")}</button>
-          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city}레포츠`)}>{t("seoulDay-page.leisure")}</button>
+          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city} 문화시설`)}>{t("seoulDay-page.cultural-facilities")}</button>
+          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city} 음식점`)}>{t("seoulDay-page.restaurants")}</button>
+          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city} 숙박`)}>{t("seoulDay-page.accommodation")}</button>
+          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city} 쇼핑`)}>{t("seoulDay-page.shopping")}</button>
+          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city} 레포츠`)}>{t("seoulDay-page.leisure")}</button>
         </div>
 
         <div className="container mt-5">
