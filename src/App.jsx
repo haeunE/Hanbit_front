@@ -11,6 +11,8 @@ import Test from './pages/jsx/Test'
 
 import {login, logout} from './redux/userState'
 import { useDispatch } from 'react-redux'
+import Information from './pages/jsx/Information'
+import ExchangeRate from './pages/jsx/ExchangeRate'
 
 
 function App() {
@@ -37,6 +39,8 @@ function App() {
         <Route path='/login' element={<Login/>} />
         <Route path='/signup' element={<Signup/>} />
         <Route path='/userprofile' element={<UserProfile/>} />
+        <Route path='/information' element={<Information/>} />
+        <Route path='/ExchangeRate' element={<ExchangeRate/>} />
       </Routes>
       
     </div>
