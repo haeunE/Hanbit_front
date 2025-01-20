@@ -23,6 +23,7 @@ import SeoulPageDay from './pages/jsx/SeoulPageDay'
 import SeoulPageNight from './pages/jsx/SeoulPageNight'
 import Directions from './pages/jsx/Directions'
 import Amenities from './pages/jsx/Amenities'
+import UnderConstruction from './components/jsx/UnderConstruction'
 
 
 
@@ -106,6 +107,11 @@ function App() {
         <Route path='/myreviews' element={<MyReviews />} />
         <Route path='/directions' element={<Directions />} />
         <Route path='/amenities' element={<Amenities/>} />
+        {/* 구현중 */}
+        <Route path='/dangerArea' element={<UnderConstruction />} />
+        <Route path='/foodMap' element={<UnderConstruction />} />
+        <Route path='/delivery' element={<UnderConstruction />} />
+        <Route path='/transport' element={<UnderConstruction />} />
       </Routes>
       </div>
 
