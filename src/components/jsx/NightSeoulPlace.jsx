@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import "../css/DaySeoulPlace.css";
 import axiosInstance from "../../axiosInstance";
+import proj4 from 'proj4';
 
 function NightSeoulPlace({ category, contentId}) {
   const { t } = useTranslation();
@@ -55,13 +56,32 @@ function NightSeoulPlace({ category, contentId}) {
 
 
     fetchSpots();
-  }, [category, category]);
+  }, [category]);
+  // KATEC 좌표계 -> WGS84 좌표계 변환 설정
+  const KATEC = "+proj=tmerc +lat_0=38 +lon_0=127.002227222222 +k=1 +x_0=200000 +y_0=600000 +datum=WGS84 +units=m +no_defs";
+  const WGS84 = "+proj=longlat +datum=WGS84 +no_defs";
+  // 좌표 변환 함수
+  const convertToLatLng = (x, y) => {
+    const [lon, lat] = proj4(KATEC, WGS84, [x, y]);
+    return { lon, lat };
+  };
+
   useEffect(() => {
     axiosInstance.get(`/places/nightlist?contentId=${contentId}`)
     .then(response => {
       // 서버 응답이 배열인지를 확인
       if (Array.isArray(response.data)) {
-        setPlaces(response.data);
+        const updatedData = response.data.map(item => {
+          const { lon, lat } = convertToLatLng(item.x, item.y); // KATEC -> WGS84 변환
+          return {
+            ...item,  // 기존의 모든 속성
+            lon: Number(lon) ,  // 변환된 lon (경도)
+            lat: Number(lat),  // 변환된 lat (위도)
+            add: item.addo,  // 기타 속성
+          };
+        });
+        console.log(updatedData)
+        setPlaces(updatedData);
       } else {
         setPlaces([]); // 배열이 아닐 경우 빈 배열로 초기화
       }
@@ -71,8 +91,7 @@ function NightSeoulPlace({ category, contentId}) {
       setPlaces([]); // 에러 발생 시 빈 배열로 설정
     });
   }, [contentId]);
-  console.log(contentId)
-
+ 
   return (
     <div className="page-with-maps">
       <div className="map-container">
@@ -81,7 +100,7 @@ function NightSeoulPlace({ category, contentId}) {
         ) : (
           <div className="map-with-top5">
             <div className="spot-map">
-            <NaverMap items={[...spots]} language={i18n.language} />
+            <NaverMap items={[...spots,...places]} language={i18n.language} zoom={13}/>
             </div>
             <div className="spot-container">
               <h4 className="top5">{t("top5")}</h4>

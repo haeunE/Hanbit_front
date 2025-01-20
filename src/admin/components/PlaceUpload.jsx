@@ -24,6 +24,11 @@ const PlaceUpload = () => {
       setFilteredPlaces([]); // 검색어가 비어 있으면 리스트를 비웁니다.
     }
   };
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
 
   const handlePlaceClick = (place) => {
     setSelectedPlace(place);
@@ -67,7 +72,8 @@ const PlaceUpload = () => {
           type="text"
           placeholder="장소 검색"
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)} // 검색어 입력 시 setSearchQuery 호출
+          onChange={(e) => setSearchQuery(e.target.value) } // 검색어 입력 시 setSearchQuery 호출
+          onKeyDown={handleKeyDown}
           style={styles.searchInput}
         />
         <button

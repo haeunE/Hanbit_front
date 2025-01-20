@@ -26,6 +26,7 @@ import UnauthorizedPage from './admin/UnauthorizedPage'
 import CsvUpload from './admin/components/CsvUpload'
 import ProtectedRoute from './utils/ProtectedRoute'
 import PlaceUpload from './admin/components/PlaceUpload'
+import Directions from './pages/jsx/Directions'
 
 
 
@@ -92,6 +93,7 @@ function App() {
         <Route path='/daySeoul' element={<SeoulPageDay />} />
         <Route path='/nightSeoul' element={<SeoulPageNight />} />
         <Route path='/myreviews' element={<MyReviews />} />
+        <Route path='/directions' element={<Directions />} />
       </Routes>
       </div>
       {!['/login', '/signup', '/userprofile'].includes(useLocation().pathname) && <Footer />}
