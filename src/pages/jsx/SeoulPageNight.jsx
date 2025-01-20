@@ -15,7 +15,7 @@ function SeoulPageNight() {
   const isLocation = useSelector((state) => state.isLocation);
   const dispatch = useDispatch();
   const city = JSON.parse(localStorage.getItem("location")).city;
-  const [category, setCategory] = useState(`${city}`);
+  const [category, setCategory] = useState(`${city}술집`);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -34,12 +34,12 @@ function SeoulPageNight() {
       i18n.changeLanguage(savedLanguage);
     }
     setIsLoading(false);
-  }, [category]);
-
+  }, []);
+  
   const handleCategoryClick = (newCategory) => {
     setCategory(newCategory);
-    const categoryKey = newCategory.replace(`${city}`, '');  // '서울맛집' → '맛집'
   };
+
 
   return (
     <Container>

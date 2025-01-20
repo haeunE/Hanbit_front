@@ -31,20 +31,22 @@ function Header() {
 
   // 페이지 로드 시 localStorage에서 모드 불러오기
   useEffect(() => {
-    const savedMode = JSON.parse(localStorage.getItem("isMode"));
-    if (savedMode !== null) dispatch(SetIsMode(savedMode));
-  
-    if (isPath.pathname === "/daySeoul" && isMode === false) {
-      navigate("/nightSeoul");
-    } else if (isPath.pathname === "/nightSeoul" && isMode === true) {
-      navigate("/daySeoul");
-    }
     const savedLanguage = localStorage.getItem("lang");
     if (savedLanguage) {
       i18n.changeLanguage(savedLanguage);
       dispatch(SetLanguage(savedLanguage));
     }
-  }, [dispatch, isMode]); // isMode와 isPath.pathname 추가
+  }, [dispatch]); // isMode와 isPath.pathname 추가
+  
+  useEffect(() => {
+    const savedMode = JSON.parse(localStorage.getItem("isMode"));
+    if (savedMode !== null) dispatch(SetIsMode(savedMode));
+    if (location.pathname === "/daySeoul" && isMode === false) {
+      navigate("/nightSeoul");
+    } else if (location.pathname === "/nightSeoul" && isMode === true) {
+      navigate("/daySeoul");
+    }
+  }, [isMode, location.pathname]); // `isPath` 대신 `location` 사용
   
   
   const changeMode = () => {

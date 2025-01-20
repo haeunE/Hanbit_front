@@ -81,24 +81,6 @@ function NightSeoulPlace({ category }) {
           </div>
         )}
       </div>
-
-      {/* <div className="lists-container">
-        <div className="spot-place-card">
-          {places.map((place) => (
-            <div
-              key={place.id}
-              className="spot-place-item"
-              onClick={() => navigate(`/places/${place.id}/${place.typeid}`)}
-              style={{ backgroundImage: `url(${place.img || "default-image.jpg"})` }}
-            >
-              <div className="spot-img-info">
-                <div className="spot-place-addr">{place.add}</div>
-                <div className="spot-place-title">{place.title}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div> */}
     </div>
   );
 }
