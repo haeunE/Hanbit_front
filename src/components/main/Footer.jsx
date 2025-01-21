@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom"; // react-router-dom을 사용하여 페이지 이동
+import { useLocation } from "react-router-dom"; 
 import "./Footer.css";
 
 function Footer() {
@@ -35,7 +35,6 @@ function Footer() {
           onMouseEnter={onStop}
           onMouseLeave={onRun}
         >
-          {/* 배열을 두 번 반복하여 무한 슬라이드 효과 구현 */}
           {footerLinks.concat(footerLinks).map((link, i) => (
             <li key={i}>
               <p className="item">

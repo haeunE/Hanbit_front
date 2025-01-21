@@ -110,4 +110,3 @@ VITE_NAVER_MAP_CLIENT_SECRET=your_client_secret
 VITE_KAKAO_REST_API_KEY=your_kakao_key
 VITE_POPULATION_API_KEY=your_api_key
 ```
-
