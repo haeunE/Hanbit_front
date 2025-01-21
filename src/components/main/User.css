@@ -104,3 +104,11 @@
   width: 40%;
   padding: 8px;
 }
+.signup-error {
+  width: 80%;
+  margin: 0 auto; /* 가로 중앙 정렬 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} 

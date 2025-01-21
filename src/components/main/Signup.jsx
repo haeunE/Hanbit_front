@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './User.css';
 import axiosInstance from '../../axiosInstance';
 import { Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import "@/locales/i18n";
+import i18n from 'i18next'; 
+
 
 const Signup = () => {
   const { t } = useTranslation();
@@ -22,14 +25,56 @@ const Signup = () => {
   const [emailVerificationPending, setEmailVerificationPending] = useState(false);
   const [passwordError, setPasswordError] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [errors, setErrors] = useState({});
 
+  // 페이지 로드 시 localStorage에서 모드 불러오기
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem("lang");
+    if (savedLanguage) {
+      i18n.changeLanguage(savedLanguage);
+    }
+  }, [i18n.language]);
+
+  // 유효성 검사 함수
+  const validate = (field, value) => {
+    const validationRules = {
+      username: /^[a-zA-Z0-9]{8,}$/,
+      password: /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).{8,}$/,
+      name: /^[a-zA-Z]+$|^[가-힣]+$/,
+      email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+      tel: /^\d{10,11}$/, // 전화번호는 10~11자리 숫자
+    };
+  
+    const messages = {
+      username: t('signup.username_error'),
+      password: t('signup.password_error'),
+      name: t('signup.name_error'),
+      email: t('signup.email_error'),
+      tel: t('signup.tel_error'),
+    };
+  
+    if (!validationRules[field].test(value)) {
+      return messages[field];
+    }
+    return '';
+  };
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setSignupForm({
-      ...userForm,
-      [name]: type === 'checkbox' ? checked : value,
-    });
+    const updatedValue = type === 'checkbox' ? checked : value;
+  
+    const errorMessage = type !== 'checkbox' ? validate(name, updatedValue) : '';
+  
+    setSignupForm((prevForm) => ({
+      ...prevForm,
+      [name]: updatedValue,
+    }));
+  
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: errorMessage,
+    }));
   };
+  
 
   const handleEmailVerification = async () => {
     try {
@@ -67,26 +112,45 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const newErrors = {};
+  
+    // 전체 유효성 검사
+    Object.keys(userForm).forEach((field) => {
+      if (field === 'foreignYN') return;
+      const errorMessage = validate(field, userForm[field]);
+      if (errorMessage) {
+        newErrors[field] = errorMessage;
+      }
+    });
+  
+    // 비밀번호 확인 검사
     if (userForm.password && userForm.password !== confirmPassword) {
-      setPasswordError(t('signup.password_mismatch'));
+      newErrors.confirmPassword = t('signup.password_mismatch');
+    }
+  
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
-    setPasswordError('');
-
+  
     if (!emailVerified) {
       alert(t('signup.email_verification_pending'));
       return;
     }
-
+  
     try {
       const response = await axiosInstance.post('/signup', userForm);
       if (response.status === 200) {
         alert(t('signup.signup_success'));
-        navigate("/login");
+        navigate('/login');
       }
     } catch (error) {
       if (error.response) {
-        alert(t('signup.server_error', { status: error.response.status, message: error.response.data.message }));
+        console.log(error.response.data)
+        alert(t('signup.server_error', {
+          status: error.response.status,
+          message: error.response.data || "알 수 없는 오류",
+        }));
       } else if (error.request) {
         alert(t('signup.network_error'));
       } else {
@@ -113,7 +177,10 @@ const Signup = () => {
                 onChange={handleChange}
                 required
               />
+
             </div>
+            {errors.username && <div className='signup-error' style={{ color: 'red', fontSize: '0.9em' }}>{errors.username}</div>}
+
             <div className="form-group">
               <label className='user_label' htmlFor="password">{t('signup.password')}:</label>
               <input
@@ -129,7 +196,10 @@ const Signup = () => {
                 spellCheck="false"
                 required
               />
+
             </div>
+            {errors.password && <div className='signup-error' style={{ color: 'red', fontSize: '0.9em' }}>{errors.password}</div>}
+
             <div className="form-group">
               <label className="user_label" htmlFor="confirmPassword">{t('signup.confirmPassword')}:</label>
               <input
@@ -140,7 +210,10 @@ const Signup = () => {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
+
             </div>
+            {errors.confirmPassword && <div className='signup-error' style={{ color: 'red', fontSize: '0.9em' }}>{errors.confirmPassword}</div>}
+
             <div className="form-group">
               <label className='user_label' htmlFor="email">{t('signup.email')}:</label>
               <input
@@ -159,8 +232,10 @@ const Signup = () => {
               onClick={handleEmailVerification}
               disabled={emailVerificationPending || emailVerified}
             >
-              {emailVerificationPending ? t('signup.email_verification_in_progress') : t('signup.email_verification_button')}
+            {emailVerificationPending ? t('signup.email_verification_in_progress') : t('signup.email_verification_button')}
+
             </button>
+
             <div className="form-group">
               <label className='user_label' htmlFor="verification">{t('signup.verification')}:</label>
               <input
@@ -191,7 +266,10 @@ const Signup = () => {
                 onChange={handleChange}
                 required
               />
+            {errors.name && <div className='signup-error' style={{ color: 'red', fontSize: '0.9em' }}>{errors.name}</div>}
+
             </div>
+
             <div className="form-group">
               <label className='user_label' htmlFor="tel">{t('signup.tel')}:</label>
               <input
@@ -203,7 +281,10 @@ const Signup = () => {
                 onChange={handleChange}
                 required
               />
+
             </div>
+            {errors.tel && <div className='signup-error' style={{ color: 'red', fontSize: '0.9em' }}>{errors.tel}</div>}
+
             <div className="form-group">
               <label className="chk-label">{t('signup.foreignYN')} </label>
               <div className='chk-box'>

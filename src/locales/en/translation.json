@@ -399,7 +399,12 @@
     "verification_error": "Invalid verification code.",
     "server_error": "Server error: {{status}} - {{message}}",
     "network_error": "Unable to connect to the server. Please check your network.",
-    "signup_error": "An error occurred during signup. Please try again."
+    "signup_error": "An error occurred during signup. Please try again.",
+    "username_error": "Username must be at least 8 characters and contain only letters and numbers.",
+    "password_error": "Password must include letters, numbers, and special characters, and be at least 8 characters long.",
+    "name_error": "Name can only contain English or Korean letters and cannot be mixed.",
+    "email_error": "Please enter a valid email format.",
+    "tel_error": "Please enter a valid phone number."
   },
   "profile": {
     "username": "Username",
