@@ -96,6 +96,24 @@ application.properties 에 아래 내용을 추가 하세요
 VITE_NAVER_MAP_CLIENT_ID = your_api_key
 ```
 
+# 카카오 지도 API
+카카오 지도 기능을 사용하시려면 아래 내용을 진행하셔야 합니다.
+
+## 1. kakao 개발자 가입
+1. [https://accounts.kakao.com/login/?continue=https%3A%2F%2Fdevelopers.kakao.com%2Flogin%3Fcontinue%3D%252Fconsole%252Fapp&lang=ko#login 로그인](https://developers.kakao.com/console/app) 내어플리케이션 들어가기
+2. 어플리케이션 추가(앱이름 : hanbit 정보 입력 후 생성 )
+3. 내 어플리케이션 >  앱설정 > 플랫폼 들어가서
+4. Web URL(최대 10개) : http://localhost:5173/, http://localhost:8888/ 넣어주기
+5. 내 애플리케이션>제품 설정> 카카오 맵
+6. 카카오 맵 on
+
+## 2. application.properties 설정하기
+1. 앱키 들어가기
+2. JavaScript 키 복사해서 넣기
+```
+VITE_KAKAO_REST_API_KEY = your_kakao_key(REST API 키)
+```
+
 # .env.local 파일 
 앱폴더에 .env.local 파일 생성 후 해당 코드 넣어주세요
 ```
@@ -108,5 +126,6 @@ VITE_KOREA_SEOUL_DATA_API_KEY = your_api_key
 VITE_NAVER_API_ID= your_api_key
 VITE_NAVER_API_SECRET= your_api_key
 VITE_NAVER_MAP_CLIENT_ID = your_api_key
+VITE_KAKAO_REST_API_KEY = your_kakao_key(REST API 키)
 ```
 

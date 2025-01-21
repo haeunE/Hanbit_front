@@ -1,0 +1,125 @@
+.custom-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+}
+.placeinfo_wrap {
+  position: absolute;
+  bottom: 28px;
+  left: -150px;
+  width: 300px;
+}
+
+.placeinfo {
+  position: relative;
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 10px;
+  background: #fff;
+}
+
+.placeinfo:nth-of-type(n) {
+  border: 0;
+  box-shadow: 0px 1px 2px #888;
+}
+
+.placeinfo_wrap .after {
+  content: '';
+  position: relative;
+  margin-left: -12px;
+  left: 50%;
+  width: 22px;
+  height: 12px;
+  background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png');
+}
+
+.placeinfo a, .placeinfo a:hover, .placeinfo a:active {
+  color: #fff;
+  text-decoration: none;
+}
+
+.placeinfo a, .placeinfo span {
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.placeinfo span {
+  margin: 5px 5px 0 5px;
+  cursor: default;
+  font-size: 13px;
+}
+
+.placeinfo .title {
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 6px 6px 0 0;
+  margin: -1px -1px 0 -1px;
+  padding: 10px;
+  color: #fff;
+  background: #d95050;
+  background: #d95050 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;
+}
+
+.placeinfo .tel {
+  color: #0f7833;
+}
+
+.placeinfo .jibun {
+  color: #999;
+  font-size: 11px;
+  margin-top: 0;
+}
+
+#category {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+  border-radius: 10px;
+  gap : 10px;
+}
+
+#category button.active {
+  background-color: #00b493; /* 선택된 버튼의 배경 색상 */
+  color: #fff; /* 선택된 버튼의 텍스트 색상 */
+}
+
+#category button {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px; /* 아이콘과 텍스트 간격 */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#category button:hover {
+  background-color: #00b493; /* hover 시 색상 변경 */
+  transform: scale(1.05); /* hover 시 크기 살짝 키우기 */
+}
+
+#category img {
+  width: 25px; /* 아이콘 크기 설정 */
+  height: 25px; /* 아이콘 크기 설정 */
+}
+
+#category button span {
+  font-size: 14px; /* 텍스트 크기 설정 */
+  color: #333; /* 텍스트 색상 */
+}
+
+#category button:active {
+  transform: scale(0.98); /* 클릭 시 크기 축소 효과 */
+}

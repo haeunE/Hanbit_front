@@ -8,7 +8,7 @@ function NaverMap({ items, zoom }) {
   const location = useSelector((state) => state.isLocation); // 현재 위치
   const dispatch = useDispatch();
   const mapContainerRef = useRef(null);
-
+  console.log(items)
   // 지도 로드 함수
   const loadMap = () => {
     const MAP_CLIENT_ID = import.meta.env.VITE_NAVER_MAP_CLIENT_ID;
@@ -33,6 +33,7 @@ function NaverMap({ items, zoom }) {
 
       // 마커 추가
       items.forEach((spot) => {
+        console.log(spot)
         const position = new window.naver.maps.LatLng(spot.lat, spot.lon);
         const marker = new window.naver.maps.Marker({
           position: position,

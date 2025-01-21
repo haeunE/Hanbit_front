@@ -5,9 +5,11 @@ import { Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchReviews } from '../../redux/myReviews';
 import ModalController from '../../components/jsx/ModalController';
+import { useTranslation } from 'react-i18next';
 
 
 const MyReviews = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.auth.user !== null ? state.auth.user.id : null);
   const reviews = useSelector((state) => state.reviews.list);
@@ -17,6 +19,7 @@ const MyReviews = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedReview, setSelectedReview] = useState(null); // 선택된 리뷰
   console.log(reviews)
+  
   useEffect(() => {
     if (userId) {
       dispatch(fetchReviews(userId)); 
@@ -27,32 +30,27 @@ const MyReviews = () => {
   const handleDelete = async (id) => {
     try {
       await axiosInstance.delete(`/reviews/delete/?reviewId=${id}`);
-      alert('리뷰가 삭제되었습니다.');
+      alert(t('myreview.reviewDeleted'));
       dispatch(fetchReviews(userId)); // 리뷰 목록 갱신
     } catch (err) {
-      alert('삭제 실패: ' + err.message);
+      alert(t('myreview.deleteFailed') + err.message);
     }
   };
 
-  
   const handleEdit = (review) => {
     setSelectedReview(review);
     setShowEditModal(true); // 모달 열기
   };
 
-  
-
-  
-
-  if (status === 'loading') return <p>Loading...</p>;
-  if (status === 'failed') return <p>Error: {error}</p>;
+  if (status === 'loading') return <p>{t('myreview.loading')}</p>;
+  if (status === 'failed') return <p>{t('myreview.error')}: {error}</p>;
 
   return (
     <Container>
       <div className="myreview-container">
-        <h1 className="myreview-title">나의 리뷰</h1>
+        <h1 className="myreview-title">{t('myreview.myReviewsTitle')}</h1>
         {reviews.length === 0 ? (
-          <p className="myreview-no-reviews">No reviews found.</p>
+          <p className="myreview-no-reviews">{t('myreview.noReviewsFound')}</p>
         ) : (
           <ul className="myreview-list">
             {reviews.map((review) => (
@@ -84,15 +82,15 @@ const MyReviews = () => {
                 <div className="myreview-dates">
                   <span>
                     {new Date(review.createDate).toLocaleDateString()}
-                    {review.createDate !== review.updateDate && ` (Updated: ${new Date(review.updateDate).toLocaleDateString()})`}
+                    {review.createDate !== review.updateDate && ` ${t('myreview.updated', { date: new Date(review.updateDate).toLocaleDateString() })}`}
                   </span>
                 </div>
                 <div className="myreview-buttons">
                   <button className="myreview-edit" onClick={() => handleEdit(review)}>
-                    수정
+                    {t('myreview.edit')}
                   </button>
                   <button className="myreview-delete" onClick={() => handleDelete(review.id)}>
-                    삭제
+                    {t('myreview.delete')}
                   </button>
                 </div>
               </li>
@@ -109,7 +107,6 @@ const MyReviews = () => {
           />
         )}
       </div>
-
     </Container>
   );
 };
