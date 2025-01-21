@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './User.css';
 import { Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +8,8 @@ import { useDispatch } from 'react-redux';
 import { setCookie } from '../../utils/cookieUtils';
 import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
+import "@/locales/i18n";
+import i18n from 'i18next'; 
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -15,6 +17,14 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { t } = useTranslation();  // 번역 함수
+
+  // 페이지 로드 시 localStorage에서 모드 불러오기
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem("lang");
+    if (savedLanguage) {
+      i18n.changeLanguage(savedLanguage);
+    }
+  }, [i18n.language]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

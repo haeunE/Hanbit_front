@@ -49,9 +49,11 @@ function SeoulPage() {
 
   // 카테고리가 변경될 때 contentId 업데이트
   useEffect(() => {
-    const categoryKey = category.replace(`${city} `, ''); // '서울맛집' → '맛집'
-    setContentId(categoryToContentIdMap[categoryKey] || i18n.language === "ko" ? 39 : 82); // 기본값 39 설정
-  }, [category]);
+    const categoryKey = category.replace(`${city} `, ''); // '서울 음식점' → '음식점'
+    const newContentId = categoryToContentIdMap[categoryKey] ?? (i18n.language === "ko" ? 39 : 82);
+    setContentId(newContentId);
+  }, [category, i18n.language]); // 언어가 바뀌어도 반영되도록 deps에 추가
+  
 
   // 버튼 클릭 시 category만 변경
   const handleCategoryClick = (newCategory) => {
