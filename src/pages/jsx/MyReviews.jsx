@@ -28,7 +28,7 @@ const MyReviews = () => {
 
   // 삭제 처리
   const handleDelete = async (id) => {
-    try {
+    try { 
       await axiosInstance.delete(`/reviews/delete/?reviewId=${id}`);
       alert(t('myreview.reviewDeleted'));
       dispatch(fetchReviews(userId)); // 리뷰 목록 갱신
