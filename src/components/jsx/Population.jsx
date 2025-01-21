@@ -27,12 +27,12 @@ function Population() {
         skipEmptyLines: true,
         complete: (result) => {
           const places = result.data.filter(place => place.Latitude && place.Longitude)
-            .map(place => ({
-              AREA_NM: place.AREA_NM,
-              ENG_NM: place.ENG_NM,
-              Latitude: parseFloat(place.Latitude),  // 위도
-              Longitude: parseFloat(place.Longitude), // 경도
-            }));
+          .map(place => ({
+            AREA_NM: place.AREA_NM,
+            ENG_NM: place.ENG_NM,
+            Latitude: parseFloat(place.Latitude),  // 위도
+            Longitude: parseFloat(place.Longitude), // 경도
+          }));
           setAllPlaces(places);  // 명소 정보 상태 업데이트
         },
         error: (error) => {
@@ -54,7 +54,7 @@ function Population() {
       script.onload = () => setNaverLoaded(true);
       document.body.appendChild(script);
     };
-
+  
     if (!naverLoaded) {
       loadNaverMapAPI(); // API 로딩
     }
@@ -97,91 +97,91 @@ function Population() {
   }, [allPlaces]);
 
 
-  // 인구 데이터 요청
-  const fetchPopulationData = async () => {
-    if (allPlaces.length === 0) return;
-
-    let userLocationData = null;  // 현재 위치 정보 가져오기
-    if (!searchQuery) {
-      userLocationData = JSON.parse(location);  // 기본 위치
-    } else {
-      // searchQuery에 있는 장소이름의 위경도를 구해와서 userLocationData에 저장
-      const place = await searchPlace(searchQuery);
-      if (place) {
-        userLocationData = {
-          latitude: parseFloat(place.Latitude) / 10000000,
-          longitude: parseFloat(place.Longitude) / 10000000,
-        };
-        console.log(userLocationData);
+    // 인구 데이터 요청
+    const fetchPopulationData = async () => {
+      if (allPlaces.length === 0) return;
+  
+      let userLocationData = null;  // 현재 위치 정보 가져오기
+      if (!searchQuery) {
+        userLocationData = JSON.parse(location);  // 기본 위치
+      } else {
+        // searchQuery에 있는 장소이름의 위경도를 구해와서 userLocationData에 저장
+        const place = await searchPlace(searchQuery);
+        if (place) {
+          userLocationData = {
+            latitude: parseFloat(place.Latitude) / 10000000,
+            longitude: parseFloat(place.Longitude) / 10000000,
+          };
+          console.log(userLocationData);
+        }
       }
-    }
-
-    if (!userLocationData) {
-      console.error('위치 정보를 찾을 수 없습니다. - userLocationData');
-      return;
-    }
-
-    // 가장 가까운 장소 찾기
-    const closestPlace = findClosestPlace(userLocationData.latitude, userLocationData.longitude);
-    if (!closestPlace) {
-      console.error("가장 가까운 장소를 찾을 수 없습니다.");
-      return;
-    }
-
-    setClosestPlace(closestPlace);  // 가장 가까운 장소 상태 업데이트
-
-    // 실시간 인구데이터 api
-    const POPULATION_MAP_API_URL = `http://openapi.seoul.go.kr:8088/${import.meta.env.VITE_POPULATION_API_KEY}/json/citydata_ppltn/1/5/${closestPlace.AREA_NM}`;
-
-    try {
-      const response = await fetch(POPULATION_MAP_API_URL);
-      if (!response.ok) {
-        throw new Error('인구 데이터 요청 실패');
+  
+      if (!userLocationData) {
+        console.error('위치 정보를 찾을 수 없습니다. - userLocationData');
+        return;
       }
-      const data = await response.json();
-      const result = await data["SeoulRtd.citydata_ppltn"][0];
-      setPopulationData(result);
-
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  
+      // 가장 가까운 장소 찾기
+      const closestPlace = findClosestPlace(userLocationData.latitude, userLocationData.longitude);
+      if (!closestPlace) {
+        console.error("가장 가까운 장소를 찾을 수 없습니다.");
+        return;
+      }
+  
+      setClosestPlace(closestPlace);  // 가장 가까운 장소 상태 업데이트
+  
+      // 실시간 인구데이터 api
+      const POPULATION_MAP_API_URL = `http://openapi.seoul.go.kr:8088/${import.meta.env.VITE_POPULATION_API_KEY}/json/citydata_ppltn/1/5/${closestPlace.AREA_NM}`;
+      
+      try {
+        const response = await fetch(POPULATION_MAP_API_URL);
+        if (!response.ok) {
+          throw new Error('인구 데이터 요청 실패');
+        }
+        const data = await response.json();
+        const result = await data["SeoulRtd.citydata_ppltn"][0];
+        setPopulationData(result);  
+        
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
   const isEnglish = () => {
     // 영어 여부 체크: 정규식으로 한글이 포함되어 있지 않으면 영어로 간주
     return !/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(searchQuery);
   };
 
-
-  // 장소 검색
-  const searchPlace = async (query) => {
-    try {
-      const response = await fetch(`http://localhost:8888/searchmap?query=${query}`);
-      if (response.ok) {
-        const data = await response.json();
-        if (data.items.length > 0) {
-          const { mapx, mapy } = data.items[0];
-          return {
-            Latitude: parseFloat(mapy), // 위도
-            Longitude: parseFloat(mapx), // 경도
-          };
-
+  
+    // 장소 검색
+    const searchPlace = async (query) => {
+      try {
+        const response = await fetch(`http://localhost:8888/searchmap?query=${query}`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.items.length > 0) {
+            const { mapx, mapy } = data.items[0];
+            return {
+              Latitude: parseFloat(mapy), // 위도
+              Longitude: parseFloat(mapx), // 경도
+            };
+            
+          } else {
+            console.error("검색된 장소가 없습니다.");
+            return null;
+          }
         } else {
-          console.error("검색된 장소가 없습니다.");
-          return null;
+          throw new Error("데이터 가져오기 실패 : " + response.statusText);
         }
-      } else {
-        throw new Error("데이터 가져오기 실패 : " + response.statusText);
+      } catch (error) {
+        console.error("장소 데이터 로딩 중 오류 : ", error);
+        return null;
       }
-    } catch (error) {
-      console.error("장소 데이터 로딩 중 오류 : ", error);
-      return null;
-    }
-  };
+    };
 
-  // 검색 버튼 클릭 시 검색
+    // 검색 버튼 클릭 시 검색
   const handleSearch = async () => {
     if (!searchQuery) return; // 검색어가 비어있으면 아무 것도 하지 않음
     setRegion(searchQuery);
@@ -226,12 +226,11 @@ function Population() {
       <MapPage closestPlace={closestPlace} />
 
       <div className="text-population">
-        <h1>{populationData[isEnglish() ? 'ENG_NM' : 'AREA_NM']}</h1><br />
+        <h1>{populationData.AREA_NM}</h1><br />
         <p>인구 : {populationData.AREA_PPLTN_MIN} ~ {populationData.AREA_PPLTN_MAX}명<br />
           혼잡도 : {populationData.AREA_CONGEST_LVL}<br /><br />
           {populationData.AREA_CONGEST_MSG}</p>
       </div>
-
     </div>
   );
 }
@@ -240,7 +239,7 @@ const MapPage = ({ closestPlace }) => {
   return (
     <NavermapsProvider ncpClientId={import.meta.env.VITE_NAVER_MAP_CLIENT_ID}>
       <MapDiv style={{ width: '100%', height: '40vh' }}>
-        <MapWithMarker closestPlace={closestPlace} />
+        <MapWithMarker closestPlace={closestPlace} /> 
       </MapDiv>
     </NavermapsProvider>
   );
