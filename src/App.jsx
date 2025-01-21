@@ -130,6 +130,13 @@ function App() {
         <Route path='/nightSeoul' element={<SeoulPageNight />} />
         <Route path='/myreviews' element={<MyReviews />} />
         <Route path='/directions' element={<Directions />} />
+        <Route path='/amenities' element={<Amenities />} />
+
+        {/* 구현중인 페이지 */}
+        <Route path='/dangerArea' element={<UnderConstruction />} />
+        <Route path='/foodMap' element={<UnderConstruction />} />
+        <Route path='/delivery' element={<UnderConstruction />} />
+        <Route path='/transport' element={<UnderConstruction />} />
       </Routes>
       </div>
 
