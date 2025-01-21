@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import "../css/DaySeoulPlace.css";
 
 function DaySeoulPlace({ category, contentTypeId }) {
+
+  console.log(category, contentTypeId)
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(true);
   const [spots, setSpots] = useState([]);
@@ -18,7 +20,7 @@ function DaySeoulPlace({ category, contentTypeId }) {
   const APIKEY = import.meta.env.VITE_KOREA_TOURIST_DAY_API_KEY;
   const location = JSON.parse(localStorage.getItem("location")) || {};
   const navigate = useNavigate();
-
+  console.log(contentTypeId)
   const getRandomItems = (arr, n) => {
     if (!Array.isArray(arr) || n <= 0) {
       return [];
@@ -77,13 +79,15 @@ function DaySeoulPlace({ category, contentTypeId }) {
         default: "KorService1",
       }[localStorage.getItem("lang")] || "KorService1";
 
-      const URL = `https://apis.data.go.kr/B551011/${serviceType}/locationBasedList1?numOfRows=10&pageNo=1&MobileOS=WIN&MobileApp=hanbit&_type=json&mapX=${lon}&mapY=${lat}&radius=10000&contentTypeId=${Number(contentTypeId)}&serviceKey=${APIKEY}`;
+      console.log(serviceType)
 
+      const URL = `http://apis.data.go.kr/B551011/${serviceType}/locationBasedList1?numOfRows=10&pageNo=1&MobileOS=WIN&MobileApp=hanbit&_type=json&mapX=${lon}&mapY=${lat}&radius=10000&contentTypeId=${Number(contentTypeId)}&serviceKey=${APIKEY}`;
+      console.log(URL)
       try {
         const response = await fetch(URL);
         const data = await response.json();
         const items = data.response?.body?.items?.item || [];
-
+        console.log(items)
         const filteredPlaces = await Promise.all(
           getRandomItems(
             items.filter((item) => item.firstimage),

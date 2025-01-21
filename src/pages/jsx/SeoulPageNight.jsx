@@ -8,15 +8,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SetIsMode } from '../../redux/modeState';
 import { SetIsLocation } from '../../redux/locationState';
 import NightSeoulPlace from '../../components/jsx/NightSeoulPlace';
+import GoogleTranslate from "../../components/jsx/GoogleTranslate";
 
 
 function SeoulPageNight() {
   const { t } = useTranslation();
-  const isLocation = useSelector((state) => state.isLocation);
   const dispatch = useDispatch();
   const city = JSON.parse(localStorage.getItem("location")).city;
-  const [category, setCategory] = useState(`${city}`);
+  const [category, setCategory] = useState(`${city} 클럽`);
   const [isLoading, setIsLoading] = useState(true);
+  const [contentId, setContentId] = useState(103);
 
   useEffect(() => {
     const savedMode = JSON.parse(localStorage.getItem("isMode"));
@@ -34,23 +35,29 @@ function SeoulPageNight() {
       i18n.changeLanguage(savedLanguage);
     }
     setIsLoading(false);
-  }, [category]);
+  }, []);
 
-  const handleCategoryClick = (newCategory) => {
+
+  const handleCategoryClick = (newCategory, contentId) => {
+    setContentId(contentId)
     setCategory(newCategory);
-    const categoryKey = newCategory.replace(`${city}`, '');  // '서울맛집' → '맛집'
   };
+
 
   return (
     <Container>
-      <div className="day-seoul">
+      <div className="google">
+        <GoogleTranslate />
+      </div>
+      <div className="night-seoul">
         <div className="hashtag-list">
-          <button className="hashtag-btn" onClick={() => handleCategoryClick(`술집`)}>{t("seoulNight-page.hotBars")}</button> 
-          <button className="hashtag-btn" onClick={() => handleCategoryClick(`조용한술집`)}>{t("seoulNight-page.quietBars")}</button>
-          <button className="hashtag-btn" onClick={() => handleCategoryClick(`메이드/집사카페`)}>{t("seoulNight-page.maidButlerCafe")}</button>
-          <button className="hashtag-btn" onClick={() => handleCategoryClick(`헌팅핫플`)}>{t("seoulNight-page.pickUpSpots")}</button>
-          <button className="hashtag-btn" onClick={() => handleCategoryClick(`헌팅포차`)}>{t("seoulNight-page.pickUpTargets")}</button>
-          <button className="hashtag-btn" onClick={() => handleCategoryClick(`이태원클럽`)}>{t("seoulNight-page.club")}</button>
+          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city} 술집`, 101)}>{t("seoulNight-page.hotBars")}</button> 
+          <button className="hashtag-btn" onClick={() => handleCategoryClick(`${city} 조용한술집`, 101)}>{t("seoulNight-page.quietBars")}</button>
+          <button className="hashtag-btn" onClick={() => handleCategoryClick(`메이드/집사카페`, 102)}>{t("seoulNight-page.maidButlerCafe")}</button>
+          <button className="hashtag-btn" onClick={() => handleCategoryClick(`클럽`, 103)}>{t("seoulNight-page.club")}</button>
+          <button className="hashtag-btn" onClick={() => handleCategoryClick(`헌팅포차`, 104)}>{t("seoulNight-page.pickUpTargets")}</button>
+          <button className="hashtag-btn" onClick={() => handleCategoryClick(`헌팅핫플`, 105)}>{t("seoulNight-page.pickUpSpots")}</button>
+          <button className="hashtag-btn" onClick={() => handleCategoryClick(`카지노`, 106)}>{t("seoulNight-page.pickUpSpots")}</button>
         </div>
 
         <div className="container mt-5">
@@ -60,7 +67,7 @@ function SeoulPageNight() {
             ) : (
               <div className='places-list'>
                 <div>
-                  <NightSeoulPlace category={category}/>
+                  <NightSeoulPlace category={category} contentId={contentId}/>
                 </div>
               </div>
             )}

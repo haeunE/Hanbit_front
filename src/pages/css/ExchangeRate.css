@@ -1,0 +1,173 @@
+#ExchangeRate {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  padding: 40px 20px;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+#ExchangeRate section {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+  margin-top: 100px;
+}
+
+#ExchangeRate h2 {
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+#ExchangeRate .inner {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#ExchangeRate .excr_box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#ExchangeRate .slc_box {
+  flex: 1;
+  margin-right: 20px;
+}
+
+#ExchangeRate .num {
+  flex: 2;
+}
+
+#ExchangeRate input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 8px;
+}
+
+#ExchangeRate input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+#ExchangeRate label {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 6px;
+  display: block;
+  text-align: left;
+}
+
+#ExchangeRate select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+#ExchangeRate select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+#ExchangeRate .recite {
+  margin-top: 10px;
+}
+
+#ExchangeRate .nb_txt {
+  font-size: 18px;
+  color: #333;
+  font-weight: 500;
+}
+
+#ExchangeRate .excr_eq {
+  text-align: center;
+  font-size: 24px;
+  color: #007bff;
+}
+
+#ExchangeRate .tt {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  margin-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+  .inner {
+    gap: 15px;
+  }
+
+  .excr_box {
+    flex-direction: column;
+  }
+
+  .slc_box, .num {
+    margin-right: 0;
+  }
+}
+
+#ExchangeRate .yy {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+#ExchangeRate .rate-item {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  background-color: #ffffff;
+  border-radius: 4px;
+  margin-left: 30px;
+  margin-top: 100px;
+  display: inline-block;
+  height: 100px;
+  width: 150px;
+}
+
+#ExchangeRate .rate-item:last-child {
+  border-bottom: none;
+}
+
+#ExchangeRate .country {
+  font-weight: bold;
+  color: #333;
+}
+
+
+#ExchangeRate .currency {
+  font-style: italic;
+  color: #555;
+}
+
+
+#ExchangeRate .rate {
+  margin-top: 20px;
+  color: #007bff;
+  font-weight: bold;
+}
+
+#ExchangeRate .item-box {
+  display: flex;
+  justify-content: center;
+}
+
