@@ -24,7 +24,8 @@ VITE_KOREA_TOURIST_DAY_API_KEY = your_api_key
 인구밀집도를 가져오는 기능을 수행하기 위해 아래 방법을 진행하셔야 합니다.
 1. https://data.seoul.go.kr/ 서울 열린데이터광장 로그인
 2. https://data.seoul.go.kr/dataList/OA-21778/F/1/datasetView.do 에서 api 키 발급
-3. .env 파일에 발급받은 api 키 입력 -> POPULATION_MAP_API_KEY=your_api_key
+3. .env 파일에 발급받은 api 키 입력
+    - POPULATION_MAP_API_KEY=your_api_key
 
 # 네이버 지도 API 생성 및 설정
 1. ncloud (https://www.ncloud.com/) 가입 후 로그인, 카드 등록
@@ -127,5 +128,6 @@ VITE_NAVER_API_ID= your_api_key
 VITE_NAVER_API_SECRET= your_api_key
 VITE_NAVER_MAP_CLIENT_ID = your_api_key
 VITE_KAKAO_REST_API_KEY = your_kakao_key(REST API 키)
+POPULATION_MAP_API_KEY=your_api_key
 ```
 

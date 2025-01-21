@@ -81,13 +81,12 @@ function Home() {
         {/* 콘텐츠 렌더링 */}
         {isMode && (
           <div>
-            <div className="population-density">
-              <Population />
-            </div>
             <div className="recommend-place">
               <TripPlacesDay contentTypeId={placeContentTypeId} pageNo={placePageNo} />
             </div>
-            <div className="population"></div>
+            <div className="population">
+              <Population />
+            </div>
             <div className="homepage-buttom">
               <div className="recommend-festival">
                 <div className="event-banner">
