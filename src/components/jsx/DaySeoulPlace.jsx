@@ -133,7 +133,7 @@ function DaySeoulPlace({ category, contentTypeId }) {
     };
 
     fetchPlaces();
-  }, [contentTypeId, i18n.language,t]);
+  }, [contentTypeId, i18n.language]);
   console.log(places)
 
   // HTML 태그 제거 함수

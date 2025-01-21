@@ -7,12 +7,14 @@ import { login } from '../../redux/userState';
 import { useDispatch } from 'react-redux';
 import { setCookie } from '../../utils/cookieUtils';
 import Cookies from 'js-cookie';
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { t } = useTranslation();  // 번역 함수
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,62 +25,61 @@ const Login = () => {
         login_username: username,
         login_password: password
       };
-      console.log(loginData)
+      console.log(loginData);
+      
       // HTTP POST 요청
-      const response = await axiosInstance.post('/login', 
-        loginData
-      );
+      const response = await axiosInstance.post('/login', loginData);
 
       if (response.status === 200) {
         const { token, id, username, name, email, tel, foreignYN, role } = response.data;
 
-        console.log('로그인 성공:', {token, id, username, name, email, tel, foreignYN, role  });
-        localStorage.setItem("jwt",token)
+        console.log('로그인 성공:', { token, id, username, name, email, tel, foreignYN, role });
+        localStorage.setItem("jwt", token);
+        
         // 사용자 정보를 클라이언트 쿠키에 저장
         setCookie('userInfo', JSON.stringify({ id, username, name, email, tel, foreignYN, role }), {
           path: '/',
           expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000), // 1일 후 만료
         });
         
-        dispatch(login({ token:token, user: { id, username, name, email, tel, foreignYN, role  }}));  
+        dispatch(login({ token: token, user: { id, username, name, email, tel, foreignYN, role } }));
         
         navigate('/home');
       } else {
         console.error('로그인 실패:', response.status);
-        alert('로그인 실패! 아이디와 비밀번호를 확인하세요.');
+        alert(t('login-page.login_fail'));  // 번역된 실패 메시지
       }
     } catch (error) {
       if (error.response) {
         // 서버가 응답을 보낸 경우
         console.error('서버 응답 오류:', error.response);
-        alert(`서버 오류: ${error.response.status} - ${error.response.data.message}`);
+        alert(t('login-page.server_error', { status: error.response.status, message: error.response.data.message }));
       } else if (error.request) {
         // 서버로 요청을 보냈지만 응답을 받지 못한 경우
         console.error('서버로 요청을 보냈지만 응답을 받지 못했습니다:', error.request);
-        alert('서버와 연결할 수 없습니다. 네트워크를 확인해주세요.');
+        alert(t('login-page.network_error'));
       } else {
         // 요청 설정 중 오류가 발생한 경우
         console.error('요청 설정 오류:', error.message);
-        alert('로그인 중 오류가 발생했습니다. 다시 시도해 주세요.');
+        alert(t('login-page.request_error'));
       }
     }
-    
-  }
+  };
+
   const handleNavigate = () => {
     navigate('/signup');
   };
-
   return (
     <Container>
       <div className="user-body">
         <div className="login-container">
-          <h2 className='user_h2'>로그인</h2>
+          <h2 className='user_h2'>{t('login-page.login')}</h2>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label className='user_label' htmlFor="username">아이디:</label>
+              <label className='user_label' htmlFor="username">{t('login-page.username')}:</label>
               <input
                 className='user_input'
-                type="username"
+                type="text"
                 id="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -86,7 +87,7 @@ const Login = () => {
               />
             </div>
             <div className="form-group">
-              <label className='user_label' htmlFor="password">비밀번호:</label>
+              <label className='user_label' htmlFor="password">{t('login-page.password')}:</label>
               <input
                 className='user_input'
                 type="password"
@@ -94,28 +95,30 @@ const Login = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                autoComplete="off"  // autocomplete 속성 추가
-                autoCapitalize="none"  // 자동 대문자화 방지
-                autoCorrect="off"  // 자동 수정 방지
-                spellCheck="false"  // 맞춤법 검사 방지
+                autoComplete="off"
+                autoCapitalize="none"
+                autoCorrect="off"
+                spellCheck="false"
               />
             </div>
-            <button className='user_button' type="submit">로그인</button>
+            <button className='user_button' type="submit">{t('login-page.login_button')}</button>
           </form>
           <div className="signup-link">
-          <button
-            type="button"
-            onClick={handleNavigate}
-            style={{
-              background: "none",
-              color: "blue",
-              textDecoration: "underline",
-              border: "none",
-              cursor: "pointer",
-              padding: 0,
-              fontSize: "inherit",
-            }}
-          >회원가입</button>
+            <button
+              type="button"
+              onClick={handleNavigate}
+              style={{
+                background: "none",
+                color: "blue",
+                textDecoration: "underline",
+                border: "none",
+                cursor: "pointer",
+                padding: 0,
+                fontSize: "inherit",
+              }}
+            >
+              {t('login-page.signup_button')}
+            </button>
           </div>
         </div>
       </div>

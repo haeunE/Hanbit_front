@@ -8,13 +8,20 @@ const Placeimg = ({ contentId , firstimage}) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [lang, setLang] = useState(localStorage.getItem("lang"));
   // API 호출
   const fetchImages = async () => {
+    const serviceType = {
+      en: "EngService1",
+      ja: "JpnService1",
+      zh: "ChsService1",
+      default: "KorService1",
+    }[lang] || "KorService1";
     setLoading(true);
     setError(""); // 에러 초기화
     try {
       const apiKey = import.meta.env.VITE_KOREA_TOURIST_DAY_API_KEY; // API 키
-      const url = `https://apis.data.go.kr/B551011/KorService1/detailImage1?MobileOS=WIN&MobileApp=hanbit&contentId=${contentId}&imageYN=Y&serviceKey=${apiKey}&_type=json&subImageYN=Y`;
+      const url = `https://apis.data.go.kr/B551011/${serviceType}/detailImage1?MobileOS=WIN&MobileApp=hanbit&contentId=${contentId}&imageYN=Y&serviceKey=${apiKey}&_type=json&subImageYN=Y`;
 
       const response = await axios.get(url);
       console.log(response.data);

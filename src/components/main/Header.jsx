@@ -62,7 +62,7 @@ function Header() {
     if (jwt) {
       setShowDropdown(!showDropdown); // 드롭다운 메뉴 토글
     } else {
-      alert("로그인이 필요합니다.");
+      alert(t('passwordCheck.login'));
       window.location.href = "/login"; // 로그인 페이지로 이동
     }
   };
@@ -75,30 +75,30 @@ function Header() {
     try {
       // 비밀번호를 객체로 전달 (JSON 형식)
       const response = await axiosInstance.post('/usercheck', {
-        password : password
+        password: password
       });
 
       if (response.status === 200) {
-        alert("비밀번호 확인 성공!");
+        alert(t('passwordCheck.success')); // 다국어 지원된 메시지
         setShowPasswordModal(false);
         navigate("/userprofile");
       } else {
         console.error('비밀번호 확인 실패:', response.status);
-        alert('인증에 실패했습니다.');
+        alert(t('passwordCheck.failure')); // 다국어 지원된 메시지
       }
     } catch (error) {
       console.error('오류 발생:', error);
-      alert('오류가 발생했습니다. 다시 시도하세요.');
+      alert(t('passwordCheck.error')); // 다국어 지원된 메시지
     }
-  }
-
+  };
+  
   const handleLogout = () => {
     dispatch(logout());
     // 로컬 스토리지 및 세션 스토리지, 쿠키 초기화
     clearAllStorage();
     setShowPasswordModal(false);
-    alert("로그아웃 되었습니다.");
-    window.location.href = "/home"; // 로그인 페이지로 리다이렉트
+    alert(t('logout.success')); // 다국어 지원된 로그아웃 메시지
+    window.location.href = "/home"; // 홈 페이지로 리디렉트
   };
 
   const navDropdownItems = (items) =>
@@ -195,7 +195,7 @@ function Header() {
                 </OverlayTrigger>
 
                 <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip((t`header.exchangeRate`))}>
-                  <Nav.Link as={Link} to="/exchageRate" onClick={(e) => e.stopPropagation()}>
+                  <Nav.Link as={Link} to="/exchangeRate" onClick={(e) => e.stopPropagation()}>
                     <i className="fa-solid fa-calculator"></i>
                   </Nav.Link>
                 </OverlayTrigger>
@@ -244,11 +244,19 @@ function Header() {
                   {showDropdown && isAuth && (
                     <Dropdown.Menu align="end" className="user_dropdown" show>
                       {user.role === "ADMIN" && (
-                        <Dropdown.Item onClick={() => navigate("/admin")}>관리자 페이지</Dropdown.Item>
+                        <Dropdown.Item onClick={() => navigate("/admin")}>
+                          {t('header.adminPage')}
+                        </Dropdown.Item>
                       )}
-                      <Dropdown.Item onClick={handleMyReviews}>나의 리뷰</Dropdown.Item>
-                      <Dropdown.Item onClick={() => setShowPasswordModal(true)}>회원정보수정</Dropdown.Item>
-                      <Dropdown.Item onClick={handleLogout}>로그아웃</Dropdown.Item>
+                      <Dropdown.Item onClick={handleMyReviews}>
+                        {t('header.myReviews')}
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={() => setShowPasswordModal(true)}>
+                        {t('header.updateProfile')}
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={handleLogout}>
+                        {t('header.logout')}
+                      </Dropdown.Item>
                     </Dropdown.Menu>
                   )}
                 </div>
@@ -258,31 +266,31 @@ function Header() {
         </Navbar>
       
 
-      {/* 비밀번호 확인 모달 */}
+      {/* 비밀번호 확인 모달 */} 
       <Modal show={showPasswordModal} onHide={() => setShowPasswordModal(false)} >
         <Modal.Header closeButton>
-          <Modal.Title>비밀번호 확인</Modal.Title>
+          <Modal.Title>{t('passwordCheck.modalTitle')}</Modal.Title> {/* 다국어 지원된 타이틀 */}
         </Modal.Header>
         <Modal.Body>
-          <p>비밀번호를 입력해주세요.</p>
+          <p>{t('passwordCheck.prompt')}</p> {/* 다국어 지원된 프롬프트 */}
           <input
             type="password"
             className="form-control"
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="비밀번호"
-            autoComplete="off"  // autocomplete 속성 추가
-            autoCapitalize="none"  // 자동 대문자화 방지
-            autoCorrect="off"  // 자동 수정 방지
-            spellCheck="false"  // 맞춤법 검사 방지
-            name="new-password-field"  // 유니크한 name 속성
+            placeholder={t('passwordCheck.placeholder')} 
+            autoComplete="off"
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck="false"
+            name="new-password-field"
           />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowPasswordModal(false)}>
-            취소
+            {t('passwordCheck.cancelButton')} {/* 다국어 지원된 취소 버튼 */}
           </Button>
           <Button variant="primary" onClick={handlePasswordSubmit}>
-            확인
+            {t('passwordCheck.confirmButton')} {/* 다국어 지원된 확인 버튼 */}
           </Button>
         </Modal.Footer>
       </Modal>

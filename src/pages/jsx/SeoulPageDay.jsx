@@ -15,7 +15,7 @@ function SeoulPage() {
   const city = JSON.parse(localStorage.getItem("location")).city;
   
   const [category, setCategory] = useState(`${city}`);
-  const [contentId, setContentId] = useState(39);
+  const [contentId, setContentId] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -50,7 +50,7 @@ function SeoulPage() {
   // 카테고리가 변경될 때 contentId 업데이트
   useEffect(() => {
     const categoryKey = category.replace(`${city} `, ''); // '서울맛집' → '맛집'
-    setContentId(categoryToContentIdMap[categoryKey] || 39); // 기본값 39 설정
+    setContentId(categoryToContentIdMap[categoryKey] || i18n.language === "ko" ? 39 : 82); // 기본값 39 설정
   }, [category]);
 
   // 버튼 클릭 시 category만 변경
