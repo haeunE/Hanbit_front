@@ -62,16 +62,13 @@ const Signup = () => {
     const { name, value, type, checked } = e.target;
     const updatedValue = type === 'checkbox' ? checked : value;
   
-    // 바로 유효성 검사 실행
-    const errorMessage = validate(name, updatedValue);
+    const errorMessage = type !== 'checkbox' ? validate(name, updatedValue) : '';
   
-    // 상태 업데이트
     setSignupForm((prevForm) => ({
       ...prevForm,
       [name]: updatedValue,
     }));
   
-    // 에러 상태 업데이트
     setErrors((prevErrors) => ({
       ...prevErrors,
       [name]: errorMessage,
@@ -149,9 +146,10 @@ const Signup = () => {
       }
     } catch (error) {
       if (error.response) {
+        console.log(error.response.data)
         alert(t('signup.server_error', {
           status: error.response.status,
-          message: error.response.data.message,
+          message: error.response.data || "알 수 없는 오류",
         }));
       } else if (error.request) {
         alert(t('signup.network_error'));
