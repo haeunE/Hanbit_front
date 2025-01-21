@@ -55,7 +55,6 @@ function SeoulPage() {
   }, [category, i18n.language]); // 언어가 바뀌어도 반영되도록 deps에 추가
   
 
-
   // 버튼 클릭 시 category만 변경
   const handleCategoryClick = (newCategory) => {
     setCategory(newCategory);

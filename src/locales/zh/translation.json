@@ -397,7 +397,12 @@
     "verification_error": "验证码无效。",
     "server_error": "服务器错误: {{status}} - {{message}}",
     "network_error": "无法连接到服务器。请检查网络。",
-    "signup_error": "注册时发生错误。请重试。"
+    "signup_error": "注册时发生错误。请重试。",
+    "username_error": "用户名需至少8个字符，仅限字母和数字。",
+    "password_error": "密码需包含字母、数字和特殊字符，且至少8个字符。",
+    "name_error": "姓名仅可输入中文或英文，不可混合使用。",
+    "email_error": "请输入有效的电子邮件格式。",
+    "tel_error": "请输入有效的电话号码。"
   },
   "profile": {
     "username": "用户名",
