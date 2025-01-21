@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import "../css/DaySeoulPlace.css";
 
 function DaySeoulPlace({ category, contentTypeId }) {
+
+  console.log(category, contentTypeId)
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(true);
   const [spots, setSpots] = useState([]);
