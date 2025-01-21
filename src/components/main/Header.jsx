@@ -223,7 +223,7 @@ function Header() {
                 )}
 
                 {/* 검색 설정 아이콘 */}
-                <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip((t`header.search`))}>
+                {/* <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip((t`header.search`))}>
                   <Nav.Link as={Link} to="/search" onClick={(e) => {
                     e.preventDefault();
                     toggleSearchModal(); // 모달 토글
@@ -232,8 +232,7 @@ function Header() {
                   </Nav.Link>
                 </OverlayTrigger>
               
-                {/* SearchModal이 화면에 보이도록 설정 */}
-                <SearchModal show={showSearchModal} handleClose={toggleSearchModal} handleSearch={handleSearch} />
+                <SearchModal show={showSearchModal} handleClose={toggleSearchModal} handleSearch={handleSearch} /> */}
 
                 {/* 사용자 아이콘 클릭 시 드롭다운 메뉴 */}
                 <div className="user-icon-dropdown-container" autoComplete="off">
