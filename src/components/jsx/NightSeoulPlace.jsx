@@ -101,6 +101,9 @@ function NightSeoulPlace({ category, contentId}) {
       setPlaces([]); // 에러 발생 시 빈 배열로 설정
     });
   }, [contentId]);
+  const handleDirectionsClick = (place) => {
+    navigate("/directions", { state: { place } }); // state로 데이터 전달
+  };
  
   return (
     <div className="page-with-maps">
@@ -147,6 +150,12 @@ function NightSeoulPlace({ category, contentId}) {
                     <h3 className="night-placeTitle">{place.title}</h3>
                     <p className="night-placeAddress">{place.addn}</p>
                     <p className="night-placePhone">tel {place.tel}</p>
+                    <button
+                      className="direction-btn"
+                      onClick={() => handleDirectionsClick(place)} // 클릭 시 데이터 전달
+                    >
+                      {t("direction")}
+                    </button>                  
                   </div>
                 </li>
               ))

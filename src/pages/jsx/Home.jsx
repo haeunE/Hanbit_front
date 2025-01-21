@@ -119,22 +119,26 @@ function Home() {
           <div className="recommend-place">
             <TripPlacesNight contentId={103} />
           </div>
-          <div className="population">
-            {/* 이곳에 isMode가 false일 때 보여줄 내용을 추가할 수 있습니다. */}
-          </div>
           <div className="homepage-buttom">
             <div className="recommend-restaurant">
-              <div className="restaurant-banner">{t("home.recommended-restaurants")}</div>
+              <div className="restaurant-banner">{t("seoulNight-page.club")}</div>
               <TripPlacesNight
                 contentId={103}
               />
             </div>
             <div className="recommend-hotel">
-              <div className="hotel-banner">{t("home.recommended-accommodation")}</div>
+              <div className="hotel-banner">{t("seoulNight-page.maidButlerCafe")}</div>
               <TripPlacesNight
-                contentId={103}
+                contentId={102}
               />
             </div>
+            <div className="recommend-hotel">
+              <div className="hotel-banner">{t("seoulNight-page.pickUpTargets")}</div>
+              <TripPlacesNight
+                contentId={104}
+              />
+            </div>
+            
           </div>
         </div>
       )}

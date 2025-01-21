@@ -227,7 +227,7 @@ function Population() {
         <MapPage closestPlace={closestPlace} />
 
         <div className="text-population">
-          <h1>{populationData.AREA_NM}</h1>
+          <h2>{populationData.AREA_NM}</h2>
           {/* <h2>{populationData.ENG_NM}</h2> */}
           <br />
           <p>
