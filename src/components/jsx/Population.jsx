@@ -10,12 +10,12 @@ function Population() {
   const [populationData, setPopulationData] = useState([]); // 실시간 인구밀집도 데이터
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searchQuery, setSearchQuery] = useState(initialRegion); // 사용자가 입력한 검색어
-  const [region, setRegion] = useState(initialRegion); // 검색 받은 지역
-  const [allPlaces, setAllPlaces] = useState([]); // 서울시 주요 116곳 명소 정보
-  const [closestPlace, setClosestPlace] = useState(null); // 가장 가까운 장소를 저장할 상태
+  const [searchQuery, setSearchQuery] = useState(); // 검색어
+  const [region, setRegion] = useState(initialRegion); // 검색 받은 지역 (기본 지역)
+  const [allPlaces, setAllPlaces] = useState([]); // 서울시 116곳 명소 정보
+  const [closestPlace, setClosestPlace] = useState(null); // 검색 지역과 가장 가까운 서울시 명소
   const [naverLoaded, setNaverLoaded] = useState(false);
-  const [modal, setModal] = useState(false); // 모달 표시 상태
+  const [modal, setModal] = useState(false);
 
 
   useEffect(() => {
@@ -203,8 +203,6 @@ function Population() {
   return (
     <div className="population">
       <div className='search-population'>
-        <p> * 서울시 116개 주요 명소의 실시간 인구 데이터를 검색하실 수 있습니다.<br />
-          * 찾으시는 지역의 데이터가 없는 경우, 해당 지역과 가장 가까운 명소의 데이터를 검색합니다.<br /></p>
 
         <div className="search-box">
           <strong>장소 검색 : </strong>
@@ -213,10 +211,13 @@ function Population() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={handleKeyDown}  // 엔터키 검색
-            placeholder="ex) 지역명 '청담' 또는 지하철 역명 '강남역' 검색"
+            placeholder="ex) '청담' 또는 '강남역'"
           />
           <button onClick={handleSearch}>검색</button>
-        </div>
+        </div><br />
+
+        <p> * 서울시 116개 주요 명소의 실시간 인구 데이터를 검색하실 수 있습니다.<br />
+          * 찾으시는 지역의 데이터가 없는 경우, 해당 지역과 가장 가까운 명소의 데이터를 검색합니다.<br /></p>
       </div>
 
       <MapPage closestPlace={closestPlace} />
