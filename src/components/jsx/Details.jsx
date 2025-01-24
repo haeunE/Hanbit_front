@@ -111,7 +111,7 @@ const Details = ({ data }) => {
           return null;
         })}
         <div style={{ width: '100%', height: '300px' }}>
-          <NaverMap items={[data]} language={i18n.language} zoom={11} />
+          <NaverMap items={[data]}  zoom={11} />
         </div>
         <button className='direction-btn' onClick={handleDirectionsClick}>{t("direction")}</button>  {/* 버튼 클릭 시 navigate */}
       </div>

@@ -4,7 +4,21 @@
   flex-direction: column;
   height: 100%;
   min-width: 5vh;
-  padding: 2%;
+  padding: 0.5rem;
+  background-color: #7ec9b2;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+}
+.population-box{
+  background-color: white;
+  border-radius: 10px;
+  padding: 2rem;
+}
+.population-box h3 {
+  font-weight: 600;
+  color: #00b493;
+  display: flex;
+  width: 100%;
 }
 .search-population {
   display: flex;
@@ -72,7 +86,7 @@
   margin-right: 10%;
 }
 
-.text-population h1 {
+.text-population h2 {
   text-align: center;
   font-weight: 600;
   color: #00b493;

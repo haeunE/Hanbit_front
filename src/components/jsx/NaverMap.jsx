@@ -8,10 +8,20 @@ function NaverMap({ items, zoom }) {
   const location = useSelector((state) => state.isLocation); // 현재 위치
   const dispatch = useDispatch();
   const mapContainerRef = useRef(null);
+  const mapInstanceRef = useRef(null); // 지도 인스턴스를 저장할 ref
+
   // 지도 로드 함수
   const loadMap = () => {
+    // 기존 스크립트가 있으면 삭제
+    const existingScript = document.getElementById("naver-map-script");
+    if (existingScript) {
+      existingScript.remove();
+    }
+
+    // 스크립트 로딩
     const MAP_CLIENT_ID = import.meta.env.VITE_NAVER_MAP_CLIENT_ID;
     const script = document.createElement("script");
+    script.id = "naver-map-script"; // 스크립트 id 지정
     script.src = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${MAP_CLIENT_ID}&language=${i18n.language}`;
     script.async = true;
 
@@ -21,6 +31,11 @@ function NaverMap({ items, zoom }) {
         return;
       }
 
+      // 기존 지도 객체가 있으면 삭제
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.destroy();
+      }
+
       // 지도 초기화
       const mapOptions = {
         center: location
@@ -28,7 +43,9 @@ function NaverMap({ items, zoom }) {
           : new window.naver.maps.LatLng(37.5665, 126.9780), // 기본 서울 위치
         zoom: zoom,
       };
+
       const map = new window.naver.maps.Map(mapContainerRef.current, mapOptions);
+      mapInstanceRef.current = map; // 지도 인스턴스를 ref에 저장
 
       // 마커 추가
       items.forEach((spot) => {
@@ -77,8 +94,8 @@ function NaverMap({ items, zoom }) {
   // 언어 변경 시 페이지 새로 고침
   useEffect(() => {
     const langChangeHandler = () => {
-      window.location.reload(); // 페이지 새로 고침
-      loadMap(); // 지도 새로 로드
+      window.location.reload();
+      loadMap();
     };
 
     i18n.on("languageChanged", langChangeHandler);
@@ -86,11 +103,11 @@ function NaverMap({ items, zoom }) {
     return () => {
       i18n.off("languageChanged", langChangeHandler);
     };
-  }, []); // 빈 배열로 한 번만 실행되도록 설정
+  }, []); // 페이지 새로고침 (지도 API 언어 적용을 위해 필요)
 
   useEffect(() => {
     loadMap();
-  }, [items, i18n.language]); // i18n.language 변경 시 지도 리로딩
+  }, [items, i18n.language]); // 마커 목록 및 언어 변경 시 지도 다시 로드
 
   return <div ref={mapContainerRef} style={{ width: "100%", height: "100%" }} />;
 }
