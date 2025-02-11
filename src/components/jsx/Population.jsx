@@ -128,7 +128,7 @@ function Population() {
     setClosestPlace(closestPlace);  // 가장 가까운 장소 상태 업데이트
 
     // 실시간 인구데이터 api
-    const POPULATION_MAP_API_URL = `http://openapi.seoul.go.kr:8088/${import.meta.env.VITE_POPULATION_API_KEY}/json/citydata_ppltn/1/5/${closestPlace.AREA_NM}`;
+    const POPULATION_MAP_API_URL = `http://openapi.seoul.go.kr:8088/${import.meta.env.VITE_KOREA_SEOUL_DATA_API_KEY}/json/citydata_ppltn/1/5/${closestPlace.AREA_NM}`;
     // const POPULATION_MAP_API_URL_ENG = `http://openapi.seoul.go.kr:8088/${import.meta.env.VITE_POPULATION_API_KEY}/json/citydata_ppltn/1/5/${closestPlace.ENG_NM}`;
 
     try {

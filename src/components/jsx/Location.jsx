@@ -17,6 +17,7 @@ function Location() {
     if (storedLocation) {
       const { latitude, longitude, region, city } = JSON.parse(storedLocation);
       dispatch(SetIsLocation({ latitude, longitude, region, city }));
+      return;
     } else {
       getLocation();
     }
