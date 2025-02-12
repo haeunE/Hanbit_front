@@ -5,7 +5,7 @@ import "@/locales/i18n";
 import i18n from "i18next";
 import { Container } from "react-bootstrap";
 import "../css/Directions.css";
-
+import axios from 'axios';
 
 const Directions = () => {
   const { t } = useTranslation();
@@ -14,6 +14,7 @@ const Directions = () => {
   const [currentLocation, setCurrentLocation] = useState(null);
   const [mapLoaded, setMapLoaded] = useState(false);
 
+  // 초기 위치와 목적지 설정
   useEffect(() => {
     const locationFromStorage = JSON.parse(localStorage.getItem("location"));
 
@@ -30,13 +31,13 @@ const Directions = () => {
     const { data } = location.state || {};
     if (data?.lat && data?.lon) {
       setDestination({
-        lat: data.lat,
-        lon: data.lon,
-        add: data.destination || t("directions.noDestination"),
+        lat: parseFloat(data.lat),
+        lon: parseFloat(data.lon),
+        add: data.addr || t("directions.noDestination"),
         title: data.title || t("directions.destination"),
       });
     }
-
+    
     loadNaverMapAPI()
       .then(() => setMapLoaded(true))
       .catch(console.error);
@@ -89,13 +90,29 @@ const Directions = () => {
     window.naver.maps.Event.addListener(destinationMarker, "click", () => {
       infoWindow.open(map, destinationMarker);
     });
+  };
 
-    new window.naver.maps.Polyline({
-      path: [currentPosition, destinationPosition],
-      strokeColor: "#FF0000",
-      strokeWeight: 4,
-      strokeOpacity: 0.8,
-      map,
+  const direction = () => {
+    if (!currentLocation || !destination) return;
+
+    const MAP_CLIENT_ID = import.meta.env.VITE_NAVER_MAP_CLIENT_ID;
+    const MAP_SECRET = import.meta.env.VITE_NAVER_MAP_SECRET;
+
+    // API URL을 동적으로 생성하여 전달
+    const URL = `/load/map-direction-15/v1/driving?goal=${destination.lat},${destination.lon}&start=${currentLocation.lat},${currentLocation.lon}&option=trafast`;
+
+    axios.get(URL, {
+      headers: {
+        "X-NCP-APIGW-API-KEY-ID": MAP_CLIENT_ID,
+        "X-NCP-APIGW-API-KEY": MAP_SECRET,
+      }
+    }).then((response) => {
+      if (response.data && response.data.route) {
+        console.log(response.data.route);
+        // 경로 데이터를 처리하거나 화면에 표시할 수 있도록 추가 코드 작성
+      }
+    }).catch((error) => {
+      console.error("Direction API 오류:", error);
     });
   };
 
@@ -115,6 +132,7 @@ const Directions = () => {
   useEffect(() => {
     if (mapLoaded && currentLocation && destination) {
       displayMap(currentLocation, destination);
+      direction(); // 방향 API 호출
     }
   }, [mapLoaded, currentLocation, destination]);
 
