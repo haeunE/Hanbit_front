@@ -1,9 +1,7 @@
 #ExchangeRate {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f9;
   padding: 40px 20px;
   display: block;
-  justify-content: center;
   align-items: center;
   width: 100%;
 }

@@ -11,7 +11,7 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api/, ''),
       },
       '/load': {
-        target: 'https://naveropenapi.apis.naver.com',
+        target: 'https://naveropenapi.apigw.ntruss.com',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/load/, ''),
       },

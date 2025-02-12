@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import "@/locales/i18n";
 import i18n from 'i18next';
 

@@ -1,11 +1,10 @@
 .directions-container {
   font-family: Arial, sans-serif;
-  padding: 20px;
+  padding: 30px;
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  margin: auto;
-  padding-top: 100px; /* header 때문 */
+  padding-top: 120px; /* header 때문 */
   text-align: center; /* 내부 요소 가운데 정렬 */
 }
 
@@ -36,7 +35,7 @@
   padding: 12px 24px;
   background-color: #00b493;
   color: white;
-  font-size: 16px;
+  font-size: 1.3rem;
   font-weight: bold;
   border: none;
   border-radius: 4px;
