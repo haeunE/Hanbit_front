@@ -21,11 +21,13 @@
 .Header.day .navbar-nav .nav-link,
 .Header.day .navbar-nav .nav-dropdown {
   color: white !important;
+  font-size: large;
 }
 
 .Header.night .navbar-nav .nav-link,
 .Header.night .navbar-nav .nav-dropdown {
   color: #ffff9f !important;
+  font-size: large;
 }
 
 

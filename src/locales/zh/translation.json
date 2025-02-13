@@ -360,7 +360,8 @@
     "subway": "地铁站",
     "coffee": "咖啡馆",
     "hospital": "医院",
-    "pharmacy": "药店"
+    "pharmacy": "药店",
+    "bank": "银行"
   },
   "underConstruction": {
     "title": "建设中",
@@ -445,7 +446,7 @@
     "edit": "编辑",
     "delete": "删除",
     "updated": "（更新于: {date}）"
-  }
-  
+  },
+  "exchange_store": "兑换店"
 
 }

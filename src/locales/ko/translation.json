@@ -366,7 +366,8 @@
     "subway" : "지하철역",
     "coffee" : "카페",
     "hospital" : "병원",
-    "pharmacy" : "약국"
+    "pharmacy" : "약국",
+    "bank": "은행"
   },
   "underConstruction": {
     "title": "구현 중입니다",
@@ -451,6 +452,7 @@
     "edit": "수정",
     "delete": "삭제",
     "updated": "(수정됨: {date})"
-  }
+  },
+  "exchange_store": "환전소"
   
 }

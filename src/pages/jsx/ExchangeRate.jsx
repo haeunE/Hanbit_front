@@ -3,6 +3,8 @@ import '../css/ExchangeRate.css'
 import { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import NaverMap from '../../components/jsx/NaverMap';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
 function ExchangeRate() {
@@ -15,6 +17,7 @@ function ExchangeRate() {
   const [rateCheck, setRateCheck] = useState([]);
   const [spots, setSpots] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   const curr = {
     'krw' : t`exchange.kor-curr`,
@@ -88,7 +91,7 @@ function ExchangeRate() {
         try {
           const { data } = await axios.get("/api/v1/search/local.json", {
             params: {
-              query: "환전소",
+              query: "강동구환전",
               display: 5,
               sort: "comment",
             },
@@ -116,6 +119,9 @@ function ExchangeRate() {
   
       fetchSpots();
     }, []);
+
+  // HTML 태그 제거 함수
+  const removeHTMLTags = (text) => text.replace(/<[^>]*>/g, '');
 
   return(
     <Container>      
@@ -182,8 +188,26 @@ function ExchangeRate() {
             })
           }
         </div>
-        <div>
-          <NaverMap items={[spots]}  zoom={13}/>
+        <div className="exchange-map">
+          <h4 className="exchange-store-title">{t("exchange_store")}</h4>
+          <div className="exchange-content">
+            <div className="exchange-map-container">
+              <NaverMap items={[...spots]} zoom={12} />
+            </div>
+            <div className="exchange-store-info">
+              {spots.map((spot, index) => (
+                <div key={index} className="exchange-store">
+                  <a href={spot.link} target="_blank" rel="noopener noreferrer">
+                    <h3>{removeHTMLTags(spot.title)}</h3>
+                    <p className="exchange-store-address">{removeHTMLTags(spot.addr)}</p>
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className='exchange-movePage-btn'>
+            <button onClick={() => navigate("/amenities", { state: 'BK9' })}>더보기</button>
+          </div>
         </div>
       </div>
     </Container>

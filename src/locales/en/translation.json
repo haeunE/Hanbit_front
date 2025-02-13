@@ -362,7 +362,8 @@
     "subway": "Subway Station",
     "coffee": "Cafe",
     "hospital": "Hospital",
-    "pharmacy": "Pharmacy"
+    "pharmacy": "Pharmacy",
+    "bank": "Bank"
   },
   "underConstruction": {
     "title": "Under Construction",
@@ -447,6 +448,7 @@
     "edit": "Edit",
     "delete": "Delete",
     "updated": "(Updated: {date})"
-  }
+  },
+  "exchange_store": "Exchange store"
   
 }

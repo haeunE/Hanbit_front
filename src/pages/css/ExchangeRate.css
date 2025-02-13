@@ -11,8 +11,7 @@
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  width: 100%;
-  max-width: 500px;
+  width: 80%;
   margin: auto;
   margin-top: 100px;
 }
@@ -133,10 +132,11 @@
 #ExchangeRate .rate-item {
   padding: 12px;
   border-bottom: 1px solid #ddd;
-  background-color: #ffffff;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   margin-left: 30px;
-  margin-top: 100px;
+  margin-top: 20px;
   display: inline-block;
   height: 100px;
   width: 150px;
@@ -167,5 +167,166 @@
 #ExchangeRate .item-box {
   display: flex;
   justify-content: center;
+  margin-bottom: 20px;
+}
+
+.exchage-map{
+  padding-top: 30px;
+  width: 65%;
+  height: 400px;
+  margin: auto;
+}
+
+.exchange-map {
+  width: 80%;
+  background-color: #fafdfc;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin: auto;
+}
+
+.exchange-store-title {
+  font-display: middle;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #00b493;
+  margin-bottom: 1rem;
+}
+
+.exchange-content {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+}
+
+.exchange-map-container {
+  flex: 2;
+  height: 52vh;
+  margin: auto;
+  position: relative;
+}
+
+.exchange-store-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.exchange-store {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.exchange-store:hover {
+  transform: scale(1.05);
+}
+
+.exchange-store a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.exchange-store h3 {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.exchange-store-address {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.exchange-movePage-btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.exchange-movePage-btn button {
+  background-color: #00b493; /* 사용자가 선호하는 청자색 */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.exchange-movePage-btn button:hover {
+  background-color: #5d9d8a; /* 조금 어두운 청자색 */
+  
+}
+
+.exchange-movePage-btn button:active {
+  background-color: #008a74; /* 클릭 시 더 어두운 색 */
+}
+@media screen and (max-width: 1024px) {
+  .exchange-content {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .exchange-map-container {
+    height: 40vh;
+  }
+
+  .exchange-store-info {
+    width: 100%;
+  }
+
+  .exchange-movePage-btn button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .exchange-content {
+    flex-direction: column; /* 세로 배치 */
+    height: auto;
+    align-items: center;
+    text-align: center;
+  }
+
+  .exchange-map-container {
+    width: 100%; /* 화면에 맞게 크기 조정 */
+  }
+
+  .exchange-store-info {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .exchange-store {
+    width: 100%;
+    max-width: 300px; /* 너무 커지지 않도록 제한 */
+  }
+
+  .exchange-store-title {
+    font-size: 1.8rem; /* 작은 화면에서 적절한 크기로 조정 */
+  }
+
+  .exchange-store h3 {
+    font-size: 1rem;
+  }
+
+  .exchange-store-address {
+    font-size: 0.9rem;
+  }
+
+  .exchange-movePage-btn {
+    width: 100%;
+  }
+
+  .exchange-movePage-btn button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px 16px;
+  }
 }
 

@@ -362,7 +362,8 @@
     "subway": "地下鉄駅",
     "coffee": "カフェ",
     "hospital": "病院",
-    "pharmacy": "薬局"
+    "pharmacy": "薬局",
+    "bank": "銀行"
   },
   "underConstruction": {
     "title": "工事中です",
@@ -447,6 +448,7 @@
     "edit": "編集",
     "delete": "削除",
     "updated": "（更新日: {date}）"
-  }
+  },
+  "exchange_store": "両替所"
   
 }

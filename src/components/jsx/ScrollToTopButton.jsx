@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import "../css/ScrollToTopButton.css"
 
 function ScrollToTopButton () {
   const [isVisible, setIsVisible] = useState(false);
@@ -31,23 +32,8 @@ function ScrollToTopButton () {
       <div>
         {/* 스크롤을 클릭 시 위로 가는 버튼 */}
         {isVisible && (
-          <button
-            onClick={scrollToTop}
-            style={{
-              position: 'fixed',
-              bottom: '30px',
-              right: '200px',
-              fontSize: '30px',
-              backgroundColor: '#00b493',
-              color: 'white',
-              border: 'none',
-              borderRadius: '50%',
-              cursor: 'pointer',
-              width: '60px',   
-              height: '60px'
-            }}
-          >
-            ↑
+          <button className="scroll-to-top"onClick={scrollToTop}>
+            <i className = "fas fa-arrow-up"></i>
           </button>
         )}
       </div>
