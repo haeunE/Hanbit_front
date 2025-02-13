@@ -165,16 +165,9 @@ function Header() {
                   { icon: "fa-ban", label: t("header.danger-area"), href: "/dangerArea" },
                 ])}
               </NavDropdown>
-              <NavDropdown title={t("header.food-map")} id="navbarScrollingDropdown">
-                {navDropdownItems([
-                  { icon: "fa-bowl-food", label: t("header.food-map"), href: "/foodMap" },
-                  { icon: "fa-motorcycle", label: t("header.delivery"), href: "/delivery" },
-                ])}
-              </NavDropdown>
               <NavDropdown title={t("header.traffic")} id="navbarScrollingDropdown">
                 {navDropdownItems([
                   { icon: "fa-map-pin", label: t("header.directions"), href: "/directions" },
-                  { icon: "fa-bus", label: t("header.public-transportation"), href: "/transport" },
                   { icon: "fa-person-biking", label: t("header.Ddareungi"), href: "/bicycle" },
                 ])}
               </NavDropdown>

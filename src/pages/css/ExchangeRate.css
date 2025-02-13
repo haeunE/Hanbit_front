@@ -170,15 +170,9 @@
   margin-bottom: 20px;
 }
 
-.exchage-map{
-  padding-top: 30px;
-  width: 65%;
-  height: 400px;
-  margin: auto;
-}
 
 .exchange-map {
-  width: 80%;
+  width: 90%;
   background-color: #fafdfc;
   border-radius: 10px;
   padding: 1.5rem;
@@ -194,20 +188,15 @@
 }
 
 .exchange-content {
-  display: flex;
   flex-direction: row;
   gap: 1.5rem;
 }
 
 .exchange-map-container {
-  flex: 2;
   height: 52vh;
-  margin: auto;
-  position: relative;
 }
 
 .exchange-store-info {
-  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
@@ -259,12 +248,9 @@
 
 .exchange-movePage-btn button:hover {
   background-color: #5d9d8a; /* 조금 어두운 청자색 */
-  
+  transform: scale(1.05);
 }
 
-.exchange-movePage-btn button:active {
-  background-color: #008a74; /* 클릭 시 더 어두운 색 */
-}
 @media screen and (max-width: 1024px) {
   .exchange-content {
     flex-direction: column;
