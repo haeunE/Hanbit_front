@@ -13,6 +13,7 @@ import i18n from "i18next";
 import { useTranslation } from "react-i18next";
 import TripPlacesNight from "../../components/jsx/TripPlacesNight";
 import GoogleTranslate from "../../components/jsx/GoogleTranslate";
+import { Link } from "react-router-dom";
 
 function Home() {
   const { t } = useTranslation();
@@ -46,7 +47,7 @@ function Home() {
     dispatch(SetIsMode(newMode));
     localStorage.setItem("isMode", JSON.stringify(newMode));
   };
-c
+
 
   return (
     <Container>
@@ -54,8 +55,16 @@ c
 
         {/* 위치 및 날씨 */}
         <div className="location-weather">
-          <Location />
-          <Weather />
+          <div className="location-weather-today">
+            <Location />
+            <Weather />
+          </div>
+          <div className="location-weather-link">
+          <Link to="/weathers">
+            <span>날씨 바로가기</span>
+            <i className="fa-solid fa-angles-right"></i>
+          </Link>
+          </div>
         </div>
 
         {/* 모드 변경 버튼 */}

@@ -1,0 +1,34 @@
+.weather-container {
+  padding: 20px;
+  border-radius: 15px;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  transition: background 0.3s ease-in-out;
+}
+
+/* AQI 색상 기준 적용 (우상단 진하게 → 아래쪽 투명) */
+.aqi-good {
+  background: linear-gradient(to bottom left, rgba(76, 175, 80, 0.8) 20%, rgba(76, 175, 80, 0) 50%);
+}
+.aqi-moderate {
+  background: linear-gradient(to bottom left, rgba(255, 235, 59, 0.8) 20%, rgba(255, 235, 59, 0) 50%);
+}
+.aqi-sensitive {
+  background: linear-gradient(to bottom left, rgba(255, 152, 0, 0.8) 20%, rgba(255, 152, 0, 0) 50%);
+}
+.aqi-unhealthy {
+  background: linear-gradient(to bottom left, rgba(244, 67, 54, 0.8) 20%, rgba(244, 67, 54, 0) 50%);
+}
+.aqi-very-unhealthy {
+  background: linear-gradient(to bottom left, rgba(156, 39, 176, 0.8) 20%, rgba(156, 39, 176, 0) 50%);
+}
+.aqi-hazardous {
+  background: linear-gradient(to bottom left, rgba(121, 85, 72, 0.8) 20%, rgba(121, 85, 72, 0) 50%);
+}
+
+
+
+.weather-container button{
+  margin-top: 100px;
+}
