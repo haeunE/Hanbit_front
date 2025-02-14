@@ -46,7 +46,7 @@ function Home() {
     dispatch(SetIsMode(newMode));
     localStorage.setItem("isMode", JSON.stringify(newMode));
   };
-
+c
 
   return (
     <Container>
