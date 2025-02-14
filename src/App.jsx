@@ -51,7 +51,6 @@ function App() {
       dispatch(logout())
       clearAllStorage()
       alert('로그인정보가 만료되어 재로그인 해야합니다.')
-      navigate('/login')
     } else {
       dispatch(logout())
     }

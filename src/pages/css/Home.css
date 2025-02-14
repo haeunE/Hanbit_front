@@ -10,6 +10,7 @@
   text-align: center;
   width: 100%;
   justify-content: center;
+  margin-top: 1rem;
 }
 
 .home-change-mode-day,
@@ -78,9 +79,8 @@ button:disabled {
   background-color: #dddb96;
   border-radius: 15px;
   width: auto;
-  height: 5rem;
-  margin-top: 1rem;
-  max-width:20rem;
+  height: 3rem;
+  /* max-width:20rem; */
 }
 
 .homepage-buttom {

@@ -51,6 +51,13 @@ function Home() {
   return (
     <Container>
       <div className="home">
+
+        {/* 위치 및 날씨 */}
+        <div className="location-weather">
+          <Location />
+          <Weather />
+        </div>
+
         {/* 모드 변경 버튼 */}
         <div className={`change-mode ${isMode ? "day" : "night"}`}>
           <button
@@ -67,12 +74,6 @@ function Home() {
           >
             {t("home.night")}
           </button>
-        </div>
-
-        {/* 위치 및 날씨 */}
-        <div className="location-weather">
-          <Location />
-          <Weather />
         </div>
 
         {/* 케러셀 */}

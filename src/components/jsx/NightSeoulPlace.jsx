@@ -21,20 +21,16 @@ function NightSeoulPlace({ category, contentId}) {
   const navigate = useNavigate();
   const defaultImage = "/public/img/non_img.png"
 
-  //UTM-K 좌표계
-  const proj4_5174 = '+proj=tmerc +lat_0=38 +lon_0=127 +k=1 +x_0=200000 +y_0=500000 +datum=WGS84 +units=m +no_defs';
-  //GRS80(중부원점) 좌표계
-  var grs80 = "+proj=tmerc +lat_0=38 +lon_0=127.5 +k=0.9996 +x_0=1000000 +y_0=2000000 +ellps=GRS80 +units=m +no_defs";
-  //wgs84(위경도)좌표계
-  const proj4_4326 = '+proj=longlat +datum=WGS84 +no_defs';
+  const EPSG5186 = '+proj=tmerc +lat_0=38.00275 +lon_0=127.0008 +k=1 +x_0=200000 +y_0=500000 +datum=WGS84 +units=m +no_defs';
+  const WGS84 = '+proj=longlat +datum=WGS84 +no_defs';
+// 좌표 변환 함수 (중부원점 기준)
+const convertCoordinates = (x, y) => {
+    // 좌표 변환 (EPSG:5181 -> EPSG:4326)
+    const [lon, lat] = proj4(EPSG5186, WGS84, [x, y]);
 
-  const convertCoordinates = (x, y) => {
-      // 좌표 변환
-      const [lon, lat] = proj4(proj4_5174, proj4_4326, [x, y]);
-
-      // 변환된 경도(lon)와 위도(lat)를 반환
-      return { lon, lat };
-  };
+    // 변환된 경도(lon)와 위도(lat)를 반환
+    return { lon, lat };
+};
   console.log(category)
   // 서울 TOP5 검색
   useEffect(() => {
@@ -102,7 +98,9 @@ function NightSeoulPlace({ category, contentId}) {
     });
   }, [contentId]);
   const handleDirectionsClick = (place) => {
-    navigate("/directions", { state: { place } }); // state로 데이터 전달
+    console.log(place)
+    let data = place
+    navigate("/directions", { state: { data } }); // state로 데이터 전달
   };
  
   return (
@@ -149,7 +147,7 @@ function NightSeoulPlace({ category, contentId}) {
                     {/* 장소 제목, 주소, 전화번호 */}
                     <h3 className="night-placeTitle">{place.title}</h3>
                     <p className="night-placeAddress">{place.addn}</p>
-                    <p className="night-placePhone">tel {place.tel}</p>
+                    {place.tel !== '-' && <p className="night-placePhone">tel {place.tel}</p>}
                     <button
                       className="direction-btn"
                       onClick={() => handleDirectionsClick(place)} // 클릭 시 데이터 전달
