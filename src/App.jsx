@@ -37,7 +37,6 @@ const Directions = lazy(() => import('./pages/jsx/Directions'));
 const Amenities = lazy(() => import('./pages/jsx/Amenities'));
 const UnderConstruction = lazy(() => import('./components/jsx/UnderConstruction'));
 const Weathers = lazy(() => import('./pages/jsx/Weathers'));
-const Weather = lazy(() => import ('./pages/jsx/Weather'))
 
 
 function App() {
@@ -139,7 +138,6 @@ function App() {
             <Route path='/directions' element={<Directions />} />
             <Route path='/amenities' element={<Amenities />} />
             <Route path='/weathers' element={<Weathers/>}/>
-            <Route path='/weather' element={<Weather />} />
 
             {/* 구현중인 페이지 */}
             <Route path='/dangerArea' element={<UnderConstruction />} />
