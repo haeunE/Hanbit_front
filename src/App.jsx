@@ -29,8 +29,10 @@ import CsvUpload from './admin/components/CsvUpload'
 import ProtectedRoute from './utils/ProtectedRoute'
 import PlaceUpload from './admin/components/PlaceUpload'
 import Directions from './pages/jsx/Directions'
+import Weather from './pages/jsx/Weather'
 import Amenities from './pages/jsx/Amenities'
 import UnderConstruction from './components/jsx/UnderConstruction'
+
 
 
 function App() {
@@ -130,6 +132,7 @@ function App() {
         <Route path='/nightSeoul' element={<SeoulPageNight />} />
         <Route path='/myreviews' element={<MyReviews />} />
         <Route path='/directions' element={<Directions />} />
+        <Route path='/weather' element={<Weather />} />
         <Route path='/amenities' element={<Amenities />} />
 
         {/* 구현중인 페이지 */}
@@ -137,6 +140,7 @@ function App() {
         <Route path='/foodMap' element={<UnderConstruction />} />
         <Route path='/delivery' element={<UnderConstruction />} />
         <Route path='/transport' element={<UnderConstruction />} />
+
       </Routes>
       </div>
 
