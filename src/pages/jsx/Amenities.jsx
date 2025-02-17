@@ -64,19 +64,26 @@ const Amenities = () => {
 
     setMap(mapInstance);
     setPlaceOverlay(new window.kakao.maps.CustomOverlay({ zIndex: 1 }));
-
-    // ✅ stateId가 있을 경우 카테고리 자동 선택
-    if (stateId) {
-      const category = categories.find(cat => cat.id === stateId);
-      if (category) handleCategoryClick(category, mapInstance);
-    }
   };
+
+  useEffect(() => {
+    // map과 placeOverlay가 모두 초기화된 이후에 stateId가 있을 때만 실행
+    if (map && placeOverlay && stateId) {
+      const category = categories.find(cat => cat.id === stateId);
+      if (category) {
+        handleCategoryClick(category, map);
+      }
+    }
+  }, [map, placeOverlay, stateId]);
 
   const handleCategoryClick = (category, mapInstance = map) => {
     setCurrCategory(category.id);
     markers.forEach(marker => marker.setMap(null));
     setMarkers([]);
-    placeOverlay?.setMap(null);
+    
+    if (placeOverlay) {
+      placeOverlay.setMap(null);
+    }
 
     if (!window.kakao?.maps?.services) {
       console.error("❌ 카카오맵 서비스 로드 실패");
@@ -94,16 +101,18 @@ const Amenities = () => {
           });
 
           window.kakao.maps.event.addListener(marker, 'click', () => {
-            placeOverlay.setMap(null);
-            placeOverlay.setContent(`
-              <div class="placeinfo">
-                <a class="title" href="${place.place_url}" target="_blank">${place.place_name}</a>
-                <span>${place.road_address_name || place.address_name}</span>
-                <span class="tel">${place.phone}</span>
-              </div>
-            `);
-            placeOverlay.setPosition(new window.kakao.maps.LatLng(place.y, place.x));
-            placeOverlay.setMap(mapInstance);
+            if (placeOverlay) {
+              placeOverlay.setMap(null);
+              placeOverlay.setContent(`
+                <div class="placeinfo">
+                  <a class="title" href="${place.place_url}" target="_blank">${place.place_name}</a>
+                  <span>${place.road_address_name || place.address_name}</span>
+                  <span class="tel">${place.phone}</span>
+                </div>
+              `);
+              placeOverlay.setPosition(new window.kakao.maps.LatLng(place.y, place.x));
+              placeOverlay.setMap(mapInstance);
+            }
           });
 
           setMarkers(prev => [...prev, marker]);
