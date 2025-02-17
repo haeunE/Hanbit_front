@@ -95,6 +95,15 @@ VITE_POPULATION_API_KEY=your_api_key
 ```env
 VITE_KOREA_SEOUL_DATA_API_KEY=your_api_key
 ```
+## 5. 서울 날씨 API 설정(외국사이트)
+### Weather api 사이트에서 API 생성
+1. [회원가입 및 로그인](https://www.weatherapi.com/)
+2. [인증키 복사](https://www.weatherapi.com/my/fields.aspx)
+
+### .env.local 파일에 API 정보 추가
+```env
+VITE_CITY_WEATHER_API_KEY=your_api_key
+```
 
 ---
 # 최종 .env.local 파일 예시
@@ -109,4 +118,5 @@ VITE_NAVER_MAP_CLIENT_ID=your_client_id
 VITE_NAVER_MAP_CLIENT_SECRET=your_client_secret
 VITE_KAKAO_REST_API_KEY=your_kakao_key
 VITE_POPULATION_API_KEY=your_api_key
+VITE_CITY_WEATHER_API_KEY=your_api_key
 ```
