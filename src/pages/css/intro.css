@@ -15,7 +15,7 @@
   left: 50%; /* 화면의 가로 중앙으로 이동 */
   transform: translate(-50%, -50%); /* 실제로는 중앙에 맞추기 위해 이동 */
   width: 80%; /* 원하는 너비 설정 */
-  height: 80%;
+  height: 90%;
   display: flex;
   flex-direction: column; /* 내부 요소들을 세로로 배치 */
   align-items: center; /* 내부 요소들을 가로로 중앙 정렬 */
@@ -34,7 +34,7 @@
 }
 
 .logo-top {
-  margin-top: 3%;
+  margin-top: 2%;
   max-width: 10vw;
   height: 30px;
   display: flex;
@@ -66,10 +66,10 @@
 .image-overlay {
   display: flex;
   justify-content: space-between;
-  width: 80%;
+  align-items: center;
+  width: 90%;
   min-block-size: 40%;
   margin-bottom: 3vh;
-  align-items: center;
 }
 
 .image-wrapper {
@@ -134,4 +134,19 @@
 @keyframes clickAnimation {
   0% { color: #2f4858; }
   100% { color: #d7d7d7; }
+}
+
+.intro-message {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap:2%;
+  color: #d7d7d7;
+  font-size: 1.2rem;
+}
+
+.intro-places{
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #ffffff;
 }

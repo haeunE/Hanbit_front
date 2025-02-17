@@ -61,7 +61,7 @@ const MyReviews = () => {
                       className="placetitle-button"
                       onClick={() => window.open(`http://localhost:5173/places/${review.placeid}/${review.typeid}`, '_blank')}
                     >
-                      {review.placetitle}
+                      &#187;&nbsp;{review.placetitle}
                     </button>
                   </div>
                 </div>

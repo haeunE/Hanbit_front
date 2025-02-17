@@ -2,8 +2,19 @@ import React, { useEffect } from "react";
 import "../css/GoogleTranslate.css"; // CSS 파일 적용
 import "@/locales/i18n";
 import i18n from 'i18next';  // i18n을 import
+import { useLocation } from "react-router-dom";
 
 const GoogleTranslate = () => {
+
+  const location = useLocation();
+
+  useEffect(() => {
+    const element = document.getElementById("google_translate_element");
+    if (element) {
+      element.style.paddingTop = location.pathname === "/home" ? "1rem" : "80px";
+    }
+  }, [location.pathname]);
+
   useEffect(() => {
     // 구글 번역 스크립트 로드
     const script = document.createElement("script");

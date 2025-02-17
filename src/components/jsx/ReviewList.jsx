@@ -11,7 +11,6 @@ const ReviewList = ({ reviews }) => (
           <li key={review.id} className="review-item">
             <h4>{review.title}</h4>
             <p>{review.content}</p>
-            <p>작성자: {review.user.username}</p>
             {review.photos?.length > 0 && (
               <div className="review-images">
                 {review.photos.map((photo, index) => (
@@ -24,6 +23,7 @@ const ReviewList = ({ reviews }) => (
                 ))}
               </div>
             )}
+            <p>작성자: {review.user.username}</p>
           </li>
         ))}
       </ul>
