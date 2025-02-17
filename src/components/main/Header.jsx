@@ -128,7 +128,7 @@ function Header() {
     ));
 
   const renderTooltip = (message) => (props) => (
-    <Tooltip id="button-tooltip" {...props}>
+    <Tooltip id="button-tooltip" {...props} >
       {message}
     </Tooltip>
   );
