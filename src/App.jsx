@@ -11,12 +11,13 @@ import { clearAllStorage } from './utils/clearAllStorage'
 import Test from './pages/jsx/Test'
 import Header from './components/main/Header'
 import Footer from './components/main/Footer'
-import Intro from './pages/jsx/intro'
+// import Intro from './pages/jsx/intro'
 
 import { lazy } from 'react';
 import LoadingSpinner from './utils/LoadingSpinner'
 
 // 페이지 컴포넌트 Lazy Loading
+const Intro = lazy(()=> import ('./pages/jsx/intro'))
 const Login = lazy(() => import('./components/main/Login'));
 const Signup = lazy(() => import('./components/main/Signup'));
 const UserProfile = lazy(() => import('./components/main/UserProfile'));
@@ -97,7 +98,7 @@ function App() {
           transform: (isPlaceOrAmenityPage && isTranslated) ? "translateY(50px)" : "translateY(0)",
           transition: "transform 0.3s ease-in-out",
           position: 'relative',  /* or 'absolute' */
-          zIndex: 9999  /* 헤더가 최상위 */
+          zIndex: 8888  /* 헤더가 최상위 */
         }}
       >
         <Header />

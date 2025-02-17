@@ -4,9 +4,9 @@ import Pollutant from "./Pollutant";
 
 function Weather() {
 
-  const [Hour, setHour] = useState(null);
+  const [hour, setHour] = useState(null);
 
-  const [Day, setDay] = useState(null);
+  const [day, setDay] = useState(null);
 
   
   useEffect(() => {
@@ -15,6 +15,7 @@ function Weather() {
     .then((data) => {
       const up = (data['forecast']['forecastday'][0]['hour'])
       setHour(up);
+      console.log(up)
       const down = (data['forecast']['forecastday'])
       setDay(down);
      })
@@ -30,7 +31,7 @@ function Weather() {
   }
   
 
-  if(!Hour)
+  if(!hour)
     return <div>로딩중</div>
 
   return (
@@ -39,15 +40,15 @@ function Weather() {
         <b className="title1">시간대별 일기 예보</b>
         <p className="subtitle">서울시 공기질 지수(AQI*) 예보</p>
       {
-        Hour.map((data) => {
-          return(
-            <div className="one">
-            <p>{data.time.slice(11, 16)}</p>
-            <p>200</p>
-            <img className="image1" src={data['condition']['icon']}></img>
-            <p className="">{data['temp_c']}˚</p>
-           </div>
-          )
+        hour.slice(0, 12).map((data, index) => {
+          return (
+            <div key={index} className="one">
+              <p>{data.time.slice(11, 16)}</p>
+              <p>200</p>
+              <img className="image1" src={data['condition']['icon']} alt="날씨 아이콘" />
+              <p>{data['temp_c']}˚</p>
+            </div>
+          );
         }) 
             
       }
@@ -57,9 +58,9 @@ function Weather() {
         <b className="title2">오늘의 기상예보</b>
         <p className="subtitle">서울시 공기질 지수(AQI*) 예보</p>
       {
-        Day.map((data) => {
+        day.map((data, index) => {
           return(
-            <div className="two">
+            <div key={index} className="two">
               <p>{ transWeek(data.date) }</p>
               <p>200</p>
               <img className="image2" src={data['day']['condition']['icon']}></img>

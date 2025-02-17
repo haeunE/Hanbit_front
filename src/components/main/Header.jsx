@@ -128,7 +128,7 @@ function Header() {
     ));
 
   const renderTooltip = (message) => (props) => (
-    <Tooltip id="button-tooltip" {...props} >
+    <Tooltip id="button-tooltip" style={{ zIndex: 9999 }} {...props} >
       {message}
     </Tooltip>
   );
@@ -285,7 +285,7 @@ function Header() {
       
 
       {/* 비밀번호 확인 모달 */} 
-      <Modal show={showPasswordModal} onHide={() => setShowPasswordModal(false)} style={{ zIndex: 1060 }}>
+      <Modal show={showPasswordModal} onHide={() => setShowPasswordModal(false)} style={{ zIndex: 9999 }}>
         <Modal.Header closeButton>
           <Modal.Title>{t('passwordCheck.modalTitle')}</Modal.Title> {/* 다국어 지원된 타이틀 */}
         </Modal.Header>
