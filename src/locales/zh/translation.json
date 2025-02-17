@@ -1,5 +1,7 @@
 {
   "header" : {
+    "mode-day" :"旅游景点/文化设施/餐厅/住宿/购物/休闲运动",
+    "mode-night" : "酒吧/特色咖啡馆/俱乐部/相亲酒吧/相亲热点",
     "day-seoul" : "首尔的白天",
     "night-seoul" : "首尔的夜晚",
     "amenities" : "便利设施",

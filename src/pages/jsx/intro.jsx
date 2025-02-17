@@ -39,12 +39,10 @@ function Intro() {
               원하시는 여정을 클릭하세요.</p>
           </div>
         </div>
-        <div className="intro-message">
-          <div>한국적인 여행지를 원하시나요?</div>
-          <div>색다른 한국의 모습을 원하시나요?</div>
-        </div>
+
         <div className="image-overlay">
           <div className="image-wrapper" onClick={DayMode}>
+            <div className="intro-message">한국적인 여행지를 원하시나요?</div>
             <img src="/img/intro/introday.jpg" alt="Day Image" className="image" />
             <div className="overlay"><LuSun /> DAY</div>
             <div className='intro-places'>관광지/숙소/카페</div>
@@ -56,6 +54,7 @@ function Intro() {
           </div>
 
           <div className="image-wrapper" onClick={NightMode}>
+            <div className="intro-message">색다른 한국의 모습을 원하시나요?</div>
             <img src="/img/intro/intronight.jpg" alt="Night Image" className="image" />
             <div className="overlay">NIGHT <WiMoonWaxingCrescent4 /></div>
             <div className="intro-places">술집/핫플/포차</div>

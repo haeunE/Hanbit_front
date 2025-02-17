@@ -1,5 +1,7 @@
 {
   "header" : {
+    "mode-day" :"관광지/문화시설/음식점/숙박/쇼핑/레포츠",
+    "mode-night" : " 술집/특이카페/클럽/헌팅포차/헌팅스팟",
     "day-seoul" : "서울의 낮",
     "night-seoul" : "서울의 밤",
     "amenities" : "편의시설",

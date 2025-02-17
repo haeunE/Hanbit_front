@@ -1,5 +1,7 @@
 {
   "header" : {
+    "mode-day" :"Tourist attractions/Cultural facilities/Restaurants/Accommodations/Shopping /Leisure sports",
+    "mode-night" : "Pubs/UniqueCafes/Clubs/HuntingPocha/HuntingSpots",
     "day-seoul" : "DAY IN SEOUL",
     "night-seoul" : "NIGHT IN SEOUL",
     "amenities" : "Amenities",

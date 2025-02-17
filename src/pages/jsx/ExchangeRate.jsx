@@ -27,19 +27,6 @@ function ExchangeRate() {
     'jpy' : t`exchange.jp-curr`
   }
 
-  const [rateValue, setRateValue] = useState('usd');
-
-  const [rateValue2, setRateValue2] = useState('krw');
-
-  const [century, setCentury] = useState('');
-  
-  const [inputValue, setInputValue] = useState(1);
-  
-  const [inputValue2, setInputValue2] = useState();
-  
-  const [rateCheck, setRateCheck] = useState([]);
-
-
   
 
   const handleInputChange = (event) => {
