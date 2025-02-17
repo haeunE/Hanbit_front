@@ -2,6 +2,7 @@ import { Container } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import "../css/Weathers.css"; // CSS 파일 불러오기
 import Pollutant from "./Pollutant";
+import FineDustGraph from "../../components/jsx/FineDustGraph";
 
 function Weathers() {
   // AQI 상태 변수
@@ -94,6 +95,9 @@ function Weathers() {
             </div>
           </section>
           <Pollutant/>
+          <div>
+            <FineDustGraph />
+          </div>
         </div>
       </Container>
     </div>

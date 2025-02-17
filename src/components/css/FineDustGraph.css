@@ -1,0 +1,12 @@
+.fineDustGraph{
+  height: 100px;
+  width: 100px;
+}
+.parameter-select {
+  margin-bottom: 20px;
+}
+
+.graph-container {
+  width: 80%;
+  margin: 0 auto;
+}

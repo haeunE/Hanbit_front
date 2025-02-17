@@ -76,7 +76,7 @@ function Location() {
       // JSON 응답에서 필요한 부분 추출
       const district = response.data.results[0].region.area2.name; // 강동구
       const neighborhood = response.data.results[0].region.area3.name; // 둔촌동
-      const city = district.split('구')[0];
+      const city = district;
       const region = `${district} ${neighborhood}`;
 
       dispatch(SetIsLocation({ latitude, longitude, region }));
