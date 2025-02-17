@@ -29,6 +29,7 @@ import CsvUpload from './admin/components/CsvUpload'
 import ProtectedRoute from './utils/ProtectedRoute'
 import PlaceUpload from './admin/components/PlaceUpload'
 import Directions from './pages/jsx/Directions'
+import Weather from './pages/jsx/Weather'
 
 
 
@@ -98,6 +99,7 @@ function App() {
         <Route path='/nightSeoul' element={<SeoulPageNight />} />
         <Route path='/myreviews' element={<MyReviews />} />
         <Route path='/directions' element={<Directions />} />
+        <Route path='/weather' element={<Weather />} />
       </Routes>
       </div>
       {!['/login', '/signup', '/userprofile'].includes(useLocation().pathname) && <Footer />}
