@@ -229,9 +229,11 @@ function Header() {
 
                 {/* 사용자 아이콘 클릭 시 드롭다운 메뉴 */}
                 <div className="user-icon-dropdown-container" autoComplete="off">
-                  <Nav.Link as={Link} to="#" onClick={handleUserIconClick}>
-                    <i className="fa-solid fa-user me-2"></i>
-                  </Nav.Link>
+                  <OverlayTrigger placement="bottom" delay={{show:250, hide:400}} overlay={renderTooltip((t`header.user`))}>
+                    <Nav.Link as={Link} to="#" onClick={handleUserIconClick}>
+                      <i className="fa-solid fa-user me-2"></i>
+                    </Nav.Link>
+                  </OverlayTrigger>
 
                   {/* 드롭다운 메뉴 */}
                   {showDropdown && isAuth && (

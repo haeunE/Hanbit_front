@@ -134,3 +134,14 @@
   position: relative; /* 드롭다운의 부모 요소에 relative 설정 */
 }
 
+.tooltip-inner {
+  background-color: #333; /* Tooltip 배경색 */
+  color: white; /* Tooltip 텍스트 색 */
+}
+
+.tooltip.bs-tooltip-bottom .arrow::before {
+  border-bottom-color: #333; /* Tooltip 화살표 색 */
+}
+.tooltip {
+  z-index: 9999 !important;
+}

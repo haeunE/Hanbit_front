@@ -3,7 +3,6 @@ import { Container } from 'react-bootstrap';
 import "../css/Amenities.css";
 import GoogleTranslate from '../../components/jsx/GoogleTranslate';
 import { useTranslation } from "react-i18next";
-import "@/locales/i18n";
 import { useLocation } from 'react-router-dom';
 
 const Amenities = () => {
@@ -14,6 +13,7 @@ const Amenities = () => {
   const [currCategory, setCurrCategory] = useState('');
   const kakaoApiKey = import.meta.env.VITE_KAKAO_REST_API_KEY;
   const location = useLocation();
+  const nowLocation = JSON.parse(localStorage.getItem("location"));
   const stateId = location.state;
 
   const categories = [
@@ -26,131 +26,94 @@ const Amenities = () => {
   ];
 
   useEffect(() => {
-    if (stateId) {
-      const category = categories.find(cat => cat.id === stateId);
-      if (category) onCategoryClick(category);
+    if (!window.kakao || !window.kakao.maps) {
+      const script = document.createElement('script');
+      script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${kakaoApiKey}&libraries=services&autoload=false`;
+      script.onload = () => {
+        window.kakao.maps.load(() => {
+          console.log("✅ 카카오맵 API 로드 완료");
+          initMap();
+        });
+      };
+      script.onerror = () => console.error("❌ 카카오맵 스크립트 로드 실패");
+      document.head.appendChild(script);
+    } else {
+      console.log("✅ 카카오맵 API 이미 로드됨");
+      initMap();
     }
-  }, [stateId]);
 
-  useEffect(() => {
-    loadKakaoMapScript();
-    return cleanUp;
+    return () => markers.forEach(marker => marker.setMap(null));
   }, []);
 
-  const loadKakaoMapScript = () => {
-    const existingScript = document.getElementById('kakao-map-script');
-    if (existingScript) existingScript.remove();
-
-    
-    const script = document.createElement('script');
-    script.id = 'kakao-map-script';
-    script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${kakaoApiKey}&libraries=services&autoload=false`;
-    script.onload = () => {
-      if (window.kakao?.maps) {
-        window.kakao.maps.load(initMap);  // 카카오맵 로드 후 맵 초기화
-      } else {
-        console.error('카카오맵 API 로드 실패');
-      }
-    };
-    document.head.appendChild(script);
-  };
-
   const initMap = () => {
-    const mapContainer = document.getElementById('map');
-    const storedLocation = JSON.parse(localStorage.getItem('location')) || { latitude: 37.566826, longitude: 126.9786567 };
-    const mapOption = {
-      center: new window.kakao.maps.LatLng(storedLocation.latitude, storedLocation.longitude),
-      level: 5,
-    };
-    const mapInstance = new window.kakao.maps.Map(mapContainer, mapOption);
-    setMap(mapInstance);
+    if (!window.kakao?.maps?.services) {
+      console.error("❌ 카카오맵 서비스 로드 실패");
+      return;
+    }
 
-    const overlay = new window.kakao.maps.CustomOverlay({ zIndex: 1 });
-    setPlaceOverlay(overlay);
+    const mapContainer = document.getElementById('map');
+    if (!mapContainer) {
+      console.error("❌ 맵 컨테이너 없음");
+      return;
+    }
+
+    const mapInstance = new window.kakao.maps.Map(mapContainer, {
+      center: new window.kakao.maps.LatLng(nowLocation.latitude, nowLocation.longitude),
+      level: 5,
+    });
+
+    setMap(mapInstance);
+    setPlaceOverlay(new window.kakao.maps.CustomOverlay({ zIndex: 1 }));
+
+    // ✅ stateId가 있을 경우 카테고리 자동 선택
+    if (stateId) {
+      const category = categories.find(cat => cat.id === stateId);
+      if (category) handleCategoryClick(category, mapInstance);
+    }
   };
 
-  const searchPlaces = (categoryId) => {
-    if (!categoryId || !window.kakao?.maps) {
-      console.error('카카오맵 서비스 로드 실패');
+  const handleCategoryClick = (category, mapInstance = map) => {
+    setCurrCategory(category.id);
+    markers.forEach(marker => marker.setMap(null));
+    setMarkers([]);
+    placeOverlay?.setMap(null);
+
+    if (!window.kakao?.maps?.services) {
+      console.error("❌ 카카오맵 서비스 로드 실패");
       return;
     }
 
     const ps = new window.kakao.maps.services.Places();
-    const storedLocation = JSON.parse(localStorage.getItem('location')) || { latitude: 37.566826, longitude: 126.9786567 };
+    
+    ps.categorySearch(category.id, (data, status) => {
+      if (status === window.kakao.maps.services.Status.OK) {
+        data.forEach(place => {
+          const marker = new window.kakao.maps.Marker({
+            position: new window.kakao.maps.LatLng(place.y, place.x),
+            map: mapInstance,
+          });
 
-    ps.categorySearch(categoryId, placesSearchCB, {
+          window.kakao.maps.event.addListener(marker, 'click', () => {
+            placeOverlay.setMap(null);
+            placeOverlay.setContent(`
+              <div class="placeinfo">
+                <a class="title" href="${place.place_url}" target="_blank">${place.place_name}</a>
+                <span>${place.road_address_name || place.address_name}</span>
+                <span class="tel">${place.phone}</span>
+              </div>
+            `);
+            placeOverlay.setPosition(new window.kakao.maps.LatLng(place.y, place.x));
+            placeOverlay.setMap(mapInstance);
+          });
+
+          setMarkers(prev => [...prev, marker]);
+        });
+      }
+    }, {
       useMapBounds: true,
       radius: 4000,
-      location: new window.kakao.maps.LatLng(storedLocation.latitude, storedLocation.longitude),
+      location: new window.kakao.maps.LatLng(nowLocation.latitude, nowLocation.longitude),
     });
-  };
-
-  const placesSearchCB = (data, status) => {
-    if (status === window.kakao.maps.services.Status.OK) displayPlaces(data);
-  };
-
-  const displayPlaces = (places) => {
-    removeMarkers();
-    places.forEach(place => {
-      const marker = addMarker(new window.kakao.maps.LatLng(place.y, place.x));
-      window.kakao.maps.event.addListener(marker, 'click', () => displayPlaceInfo(place));
-    });
-  };
-
-  const addMarker = (position) => {
-    const marker = new window.kakao.maps.Marker({
-      position,
-      content: getCategoryIcon(currCategory),
-    });
-    marker.setMap(map);
-    setMarkers(prev => [...prev, marker]);
-    return marker;
-  };
-
-  const getCategoryIcon = (categoryId) => {
-    const categoryIcon = categories.find(category => category.id === categoryId)?.icon;
-    return `<div class="custom-marker"><img src="${categoryIcon}" alt="${categoryId}" style="width: 50px; height: 50px;" /></div>`;
-  };
-
-  const removeMarkers = () => {
-    markers.forEach(marker => marker.setMap(null));
-    setMarkers([]);
-  };
-
-  const displayPlaceInfo = (place) => {
-    placeOverlay.setMap(null);
-    const content = `
-      <div class="placeinfo">
-        <a class="title" href="${place.place_url}" target="_blank" title="${place.place_name}">
-          ${place.place_name}
-        </a>
-        ${place.road_address_name ? `
-          <span title="${place.road_address_name}">${place.road_address_name}</span>
-          <span class="jibun" title="${place.address_name}">(지번 : ${place.address_name})</span>` :
-          `<span title="${place.address_name}">${place.address_name}</span>`
-        }
-        <span class="tel">${place.phone}</span>
-      </div>
-      <div class="after"></div>
-    `;
-    const contentNode = document.createElement('div');
-    contentNode.className = 'placeinfo_wrap';
-    contentNode.innerHTML = content;
-    placeOverlay.setContent(contentNode);
-    placeOverlay.setPosition(new window.kakao.maps.LatLng(place.y, place.x));
-    placeOverlay.setMap(map);
-  };
-
-  const onCategoryClick = (category) => {
-    setCurrCategory(category.id);
-    removeMarkers();
-    if (placeOverlay) placeOverlay.setMap(null);
-    searchPlaces(category.id);
-  };
-
-  const cleanUp = () => {
-    removeMarkers();
-    if (placeOverlay) placeOverlay.setMap(null);
   };
 
   return (
@@ -163,9 +126,8 @@ const Amenities = () => {
           {categories.map((category) => (
             <button
               key={category.id}
-              id={category.id}
               className={currCategory === category.id ? 'active' : ''}
-              onClick={() => onCategoryClick(category)}
+              onClick={() => handleCategoryClick(category)}
             >
               <img src={category.icon} alt={category.name} /> {category.name}
             </button>

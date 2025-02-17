@@ -100,9 +100,6 @@ function ExchangeRate() {
               "X-Naver-Client-Secret": clientSecret,
             },
           });
-
-          console.log(data.items)
-          
           setSpots(data.items.map(item => ({
             addr: item.address,
             link: item.link,

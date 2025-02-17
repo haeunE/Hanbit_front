@@ -56,7 +56,7 @@ function SeoulPageNight() {
           <button className="hashtag-btn" onClick={() => handleCategoryClick(`메이드/집사카페`, 102)}>{t("seoulNight-page.maidButlerCafe")}</button>
           <button className="hashtag-btn" onClick={() => handleCategoryClick(`이태원힙합클럽`, 103)}>{t("seoulNight-page.club")}</button>
           <button className="hashtag-btn" onClick={() => handleCategoryClick(`헌팅포차`, 104)}>{t("seoulNight-page.pickUpTargets")}</button>
-          <button className="hashtag-btn" onClick={() => handleCategoryClick(`헌팅핫플`, 105)}>{t("seoulNight-page.pickUpSpots")}</button>
+          <button className="hashtag-btn" onClick={() => handleCategoryClick(`서울헌팅`, 105)}>{t("seoulNight-page.pickUpSpots")}</button>
         </div>
 
         <div className="container mt-5">
