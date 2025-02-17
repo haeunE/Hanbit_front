@@ -11,6 +11,7 @@ import { clearAllStorage } from './utils/clearAllStorage'
 import Test from './pages/jsx/Test'
 import Header from './components/main/Header'
 import Footer from './components/main/Footer'
+import Intro from './pages/jsx/intro'
 
 import { lazy } from 'react';
 import LoadingSpinner from './utils/LoadingSpinner'
@@ -19,7 +20,6 @@ import LoadingSpinner from './utils/LoadingSpinner'
 const Login = lazy(() => import('./components/main/Login'));
 const Signup = lazy(() => import('./components/main/Signup'));
 const UserProfile = lazy(() => import('./components/main/UserProfile'));
-const Intro = lazy(() => import('./pages/jsx/Intro'));
 const Home = lazy(() => import('./pages/jsx/Home'));
 const Bicycle = lazy(() => import('./pages/jsx/Bicycle'));
 const PlaceDetail = lazy(() => import('./pages/jsx/PlaceDetail'));
@@ -36,6 +36,7 @@ const Directions = lazy(() => import('./pages/jsx/Directions'));
 const Amenities = lazy(() => import('./pages/jsx/Amenities'));
 const UnderConstruction = lazy(() => import('./components/jsx/UnderConstruction'));
 const Weathers = lazy(() => import('./pages/jsx/Weathers'));
+const Weather = lazy(() => import ('./pages/jsx/Weather'))
 
 
 function App() {
@@ -137,6 +138,7 @@ function App() {
             <Route path='/directions' element={<Directions />} />
             <Route path='/amenities' element={<Amenities />} />
             <Route path='/weathers' element={<Weathers/>}/>
+            <Route path='/weather' element={<Weather />} />
 
             {/* 구현중인 페이지 */}
             <Route path='/dangerArea' element={<UnderConstruction />} />

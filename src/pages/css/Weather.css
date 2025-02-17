@@ -1,0 +1,87 @@
+#Weather {
+  margin-top: 100px;
+  margin-left: 52px;
+}
+
+#Weather .one {
+  border-right:  2px dotted rgb(207, 191, 191);
+  height: 190px;
+  display: inline-block;
+  text-align: center;
+  margin-left: 5px;
+  font-size: 17px;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#Weather .two {
+  display: flex;
+  margin-left: 10px;
+  width: 650px;
+  margin-top: 10px;
+  padding-top: 10px;
+  line-height: 2  ;
+  font-size: 17px;
+  height: 50px;
+  margin-bottom: 10px;
+}
+
+.two > p {
+  margin-right: 50px;
+}
+
+#Weather .image1 {
+  height: 60px;
+  width:  60px;
+  transform: translateY(-10px)
+}
+
+#Weather .image2 {
+  transform: translateY(-10px);
+  margin-right: 50px;
+  height: 60px;
+  width:  60px;
+}
+
+#Weather .bundle1 {
+  display: inline-block;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#Weather .bundle2 {
+  background-color: white;
+  width: 600px;
+  border-radius: 8px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  margin-top: 20px;
+  margin-bottom: 10px;
+  padding-top: 10px;
+}
+
+#Weather .title1 {
+  display: block;
+  font-size: 22px;
+  margin-left: 20px;
+}
+
+#Weather .title2 {
+  display: block; 
+  font-size: 22px;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+#Weather .subtitle {
+  color: gray;
+  margin-left: 20px;
+}
+
+#Weather .grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  left: 50px;
+}
