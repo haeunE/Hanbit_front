@@ -116,9 +116,11 @@ const handleAddImages = (event) => {
       formData.append("typeid", form.typeid);
       formData.append("placetitle", form.placetitle);
       
-      form.photos.forEach((photo) => {
-        formData.append("photos", photo); // 'photos'로 전달
-      });
+      if (form.photos && form.photos.length > 0) {
+        form.photos.forEach((photo) => {
+          formData.append("photos", photo);
+        });
+      }
       formData.forEach((value, key) => {
         console.log(`${key}:`, value);
       });

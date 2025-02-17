@@ -1,5 +1,6 @@
 #Pollutant {
-display: inline-block;
+  width: 48%;
+  display: inline-block;
 }
 
 #Pollutant .bundle {

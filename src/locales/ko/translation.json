@@ -442,7 +442,7 @@
     "success": "로그아웃 되었습니다."
   },
   "myreview":{
-    "myReviewsTitle": "나의 리뷰",
+    "myReviewsTitle": "My Reviews",
     "noReviewsFound": "리뷰가 없습니다.",
     "reviewDeleted": "리뷰가 삭제되었습니다.",
     "deleteFailed": "삭제 실패: ",

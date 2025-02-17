@@ -32,7 +32,7 @@ const Directions = () => {
       setDestination({
         lat: data.lat,
         lon: data.lon,
-        add: data.destination || t("directions.noDestination"),
+        add: data.destination || data.addr || data.addn || t("directions.noDestination"),
         title: data.title || t("directions.destination"),
       });
     }
