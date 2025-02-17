@@ -111,7 +111,7 @@ const convertCoordinates = (x, y) => {
         ) : (
           <div className="map-with-top5">
             <div className="spot-map">
-            <NaverMap items={[...spots,...places]} language={i18n.language} zoom={13}/>
+            <NaverMap items={[...spots,...places]} language={i18n.language} zoom={10}/>
             </div>
             <div className="spot-container">
               <h4 className="top5">{t("top5")}</h4>

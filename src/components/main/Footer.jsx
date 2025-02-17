@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom"; 
 import "./Footer.css";
+import ScrollToTopButton from "../jsx/ScrollToTopButton";
 
 function Footer() {
   const removeFooter = useLocation();
@@ -66,6 +67,7 @@ function Footer() {
           COPYRIGHT © Trip Hanbit, Inc. All rights reserved
         </p>
       </div>
+      <ScrollToTopButton />
     </div>
   );
 }

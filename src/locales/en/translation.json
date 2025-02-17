@@ -1,18 +1,18 @@
 {
   "header" : {
+    "mode-day" :"Tourist attractions/Cultural facilities/Restaurants/Accommodations/Shopping /Leisure sports",
+    "mode-night" : "Pubs/UniqueCafes/Clubs/HuntingPocha/HuntingSpots",
     "day-seoul" : "DAY IN SEOUL",
     "night-seoul" : "NIGHT IN SEOUL",
     "amenities" : "Amenities",
     "danger-area" : "Danger Area",
-    "food-map" : "Food Map",
-    "delivery" : "Delivery",
     "traffic" : "Traffic",
     "directions" : "Directions",
-    "public-transportation" : "Public Transportation",
     "Ddareungi" : "Ddareungi(Bicycle Rental)",
     "help": "HELP",
     "exchangeRate": "Exchange Rate",
     "language-settings": "LANGUAGE SETTINGS",
+    "user" : "User",
     "search": "SEARCH",
     "adminPage": "Admin Page",
     "myReviews": "My Reviews",
@@ -362,7 +362,8 @@
     "subway": "Subway Station",
     "coffee": "Cafe",
     "hospital": "Hospital",
-    "pharmacy": "Pharmacy"
+    "pharmacy": "Pharmacy",
+    "bank": "Bank"
   },
   "underConstruction": {
     "title": "Under Construction",
@@ -447,6 +448,7 @@
     "edit": "Edit",
     "delete": "Delete",
     "updated": "(Updated: {date})"
-  }
+  },
+  "exchange_store": "Exchange store"
   
 }

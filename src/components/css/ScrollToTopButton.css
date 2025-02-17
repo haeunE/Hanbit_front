@@ -1,0 +1,29 @@
+/* 기본 스타일 */
+.scroll-to-top {
+  position: fixed;
+  bottom: 2rem; /* 30px을 rem으로 변환 */
+  right: 7rem;  /* 7rem 사용 */
+  font-size: 1.875rem; /* 30px을 rem으로 변환 */
+  background-color: #00b493;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  width: 3.75rem;   /* 60px을 rem으로 변환 */
+  height: 3.75rem;   /* 60px을 rem으로 변환 */
+}
+
+
+/* 화면이 768px 이하일 때 */
+@media (max-width: 48rem) { /* 768px을 rem으로 설정 */
+  .scroll-to-top {
+    right: 1.5rem; /* 15px을 rem으로 설정 */
+  }
+}
+
+/* 화면이 480px 이하일 때 */
+@media (max-width: 30rem) { /* 480px을 rem으로 설정 */
+  .scroll-to-top {
+    right: 1rem; /* 10px을 rem으로 설정 */
+  }
+}
