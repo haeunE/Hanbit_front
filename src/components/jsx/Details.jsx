@@ -97,19 +97,22 @@ const Details = ({ data }) => {
     <div className="naver-img-container">
       {loading && <p className="naver-img-loading">{t("loading")}</p>}
       <div className="details-content details-item">
-        {Object.keys(details).map((key) => {
-          const label = placeDic[key];
-          const value = details[key];
-          if (label && value && value !== 0 && value !== "없음") {
-            const formattedValue = value.replace(/<br\s*\/?>/g, '. ');
-            return (
-              <div key={key}>
-                <strong>{label}:</strong> {formattedValue}
-              </div>
-            );
-          }
-          return null;
-        })}
+        <div className='details_contents'>
+          <h4>✔ TIPS</h4>
+          {Object.keys(details).map((key) => {
+            const label = placeDic[key];
+            const value = details[key];
+            if (label && value && value !== 0 && value !== "없음") {
+              const formattedValue = value.replace(/<br\s*\/?>/g, '. ');
+              return (
+                <div key={key}>
+                  <strong>{label}:</strong> {formattedValue}
+                </div>
+              );
+            }
+            return null;
+          })}
+        </div>
         <div style={{ width: '100%', height: '300px' }}>
           <NaverMap items={[data]}  zoom={11} />
         </div>

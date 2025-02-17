@@ -1,0 +1,231 @@
+.weather-container {
+  border-radius: 15px;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* AQI 색상 기준 적용 (우상단 진하게 → 아래쪽 투명, 부드럽게 전환) */
+.aqi-good {
+  background: linear-gradient(to bottom left, rgba(76, 175, 80, 0.9) 0%, rgba(76, 175, 80, 0) 60%);
+}
+
+.aqi-moderate {
+  background: linear-gradient(to bottom left, rgba(255, 235, 59, 0.9) 0%, rgba(255, 235, 59, 0) 60%);
+}
+
+.aqi-sensitive {
+  background: linear-gradient(to bottom left, rgba(255, 152, 0, 0.9) 0%, rgba(255, 152, 0, 0) 60%);
+}
+
+.aqi-unhealthy {
+  background: linear-gradient(to bottom left, rgba(244, 67, 54, 0.9) 0%, rgba(244, 67, 54, 0) 60%);
+}
+
+.aqi-very-unhealthy {
+  background: linear-gradient(to bottom left, rgba(156, 39, 176, 0.9) 0%, rgba(156, 39, 176, 0) 60%);
+}
+
+.aqi-hazardous {
+  background: linear-gradient(to bottom left, rgba(121, 85, 72, 0.9) 0%, rgba(121, 85, 72, 0) 60%);
+}
+
+
+
+.weather-container button{
+  margin-top: 100px;
+}
+
+/* 시간별 날씨 스타일 */
+.hour-weathers {
+  background-color: white;
+  display: flex;
+  flex-direction: column;  /* 자식 요소들을 세로 정렬 */
+  padding: 1.5rem;
+  border-radius: 15px;  /* 모서리 둥글게 */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  /* 섀도우 추가 */
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.hour-title {
+  font-size: 1.5rem;
+  text-align: left;
+  color: #333; /* 글씨 색상 어두운 색으로 수정 */
+}
+.hour-subtitle {
+  text-align: left;
+  color: #333; /* 글씨 색상 어두운 색으로 수정 */
+}
+
+.hour-datas {
+  border-radius: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* padding: 10px; */
+}
+
+.hour-datas > div {
+  margin: 5px 0px;  /* 간격을 위해 여백 추가 */
+  border-right: 2px solid #2928282d; /* 오른쪽 구분선 */
+}
+
+.hour-datas > div:last-child {
+  border-right: none; /* 마지막 항목의 오른쪽 구분선 제거 */
+}
+
+.hour-data {
+  /* background: rgba(255, 255, 255, 0.8);  배경색 밝게 */
+  backdrop-filter: blur(10px);
+  /* padding: 10px; */
+  /* border-radius: 10px; */
+
+  min-width: 90px;  /* 최소 너비 설정 */
+  text-align: center;
+  transition: 0.3s;
+  color: #333; /* 텍스트 색상 어두운 색으로 수정 */
+}
+
+.hour-i {
+  width: 40px;
+  height: 40px;
+  margin: 5px auto;
+}
+
+.hour-d {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #333; /* 텍스트 색상 어두운 색으로 수정 */
+}
+
+.weather-2rows{
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: row;
+}
+
+
+/* 일별 날씨 스타일 */
+.day-weathers {
+  width: 50%;
+  height: auto;
+  background-color: white;
+  display: flex;
+  flex-direction: column;  /* 세로로 정렬 */
+  gap: 1rem;
+  padding: 1.5rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+}
+
+.day-title {
+  font-size: 1.5rem;
+  text-align: left;
+  color: #333; /* 글씨 색상 어두운 색으로 수정 */
+}
+.day-subtitle{
+  text-align: left;
+  color: #333;
+}
+
+.day-datas {
+  display: flex;
+  flex-wrap: wrap;  /* 화면 크기에 따라 줄 바꿈 */
+  justify-content: flex;  /* 왼쪽 정렬 */
+  gap: 20px;
+  width: 100%;
+  height: auto;
+}
+
+.day-data {
+  width: 90%;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  padding: 10px 0px;
+  border-radius: 10px;
+  min-width: 120px;  /* 각 요소 최소 너비 설정 */
+  text-align: center;
+  transition: 0.3s;
+  color: #333; /* 텍스트 색상 */
+  display: flex;
+  flex-direction: row;  /* 가로로 배치 */
+  justify-content: space-between;  /* 항목 간 간격 균등 */
+  align-items: center;  /* 세로 중앙 정렬 */
+}
+
+
+.image2 {
+  width: 50px;
+  height: 50px;
+  margin: 0 10px;
+}
+
+.day-data p {
+  margin: 0 5px;
+}
+
+/* 반응형 디자인 */
+@media screen and (max-width: 845px) {
+  .hour-weathers {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px; /* 요소 간 간격 좁히기 */
+    width: 100%;  /* 부모 컨테이너 너비에 맞게 */
+    box-sizing: border-box;  /* padding을 포함한 크기 계산 */
+  }
+
+  .hour-data {
+    min-width: 120px;  /* 더 작은 화면에서 요소 크기 조정 */
+    width: calc(33.33% - 10px);  /* 화면에 맞게 3개씩 배치 */
+    box-sizing: border-box;
+    margin-bottom: 10px;  /* 각 항목 간의 세로 간격 */
+  }
+
+  .day-weathers{
+    width: 100%;
+  }
+
+  .day-data {
+    padding: 1rem;
+    align-items: center;
+    width: 100%; /* 각 요소가 부모에 맞게 100% 너비를 차지 */
+    box-sizing: border-box;
+    margin-bottom: 10px;  /* 각 항목 간의 세로 간격 */
+  }
+
+  .day-weather {
+    width: 90%; /* 작은 화면에서 더 많은 날씨 카드가 한 줄에 보이도록 */
+  }
+  .weather-2rows{
+    display: flex;
+    gap: 0.5rem;
+    flex-direction: column;
+    margin: 0 auto; /* 중앙 정렬 */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .hour-weathers {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+    width: 100%;  /* 부모 컨테이너 너비에 맞게 */
+  }
+
+  .day-data {
+    flex-direction: column;
+    align-items: center;
+    width: 100%; /* 각 요소가 부모에 맞게 100% 너비를 차지 */
+    box-sizing: border-box;
+    margin-bottom: 10px;  /* 각 항목 간의 세로 간격 */
+  }
+
+  .day-weather {
+    width: 100%; /* 더 작은 화면에서는 요소를 전체 너비로 */
+    margin: 0 auto; /* 중앙 정렬 */
+  }
+}
+

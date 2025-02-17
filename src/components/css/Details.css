@@ -141,3 +141,12 @@
 .details-item .label {
   color: #ff6600; /* 라벨 색상 */
 }
+
+.details_contents {
+  padding: 1rem;
+}
+
+
+.details_contents > h4{
+  color: #00b493;
+}
