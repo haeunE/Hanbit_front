@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import "../css/DaySeoulPlace.css";
 
 function DaySeoulPlace({ category, contentTypeId }) {
+
+  console.log(category, contentTypeId)
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(true);
   const [spots, setSpots] = useState([]);
@@ -133,7 +135,7 @@ function DaySeoulPlace({ category, contentTypeId }) {
     };
 
     fetchPlaces();
-  }, [contentTypeId, i18n.language,t]);
+  }, [contentTypeId, i18n.language]);
   console.log(places)
 
   // HTML 태그 제거 함수

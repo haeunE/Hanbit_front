@@ -227,6 +227,7 @@
   display: flex;
   flex-direction: column;
   margin-left: 1rem;
+  justify-content: space-between; /* 요소 간의 공간을 분배 */
 }
 
 /* night-placeTitle */
@@ -251,4 +252,8 @@
 .night-noPlace {
   font-size: 1.2rem;
   color: #aaa;
+}
+
+.night-placeDetails .direction-btn{
+  width: 40%;
 }

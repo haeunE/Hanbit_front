@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "@/locales/i18n";
-import i18n from 'i18next';
+import i18n from "i18next";
 import { Container } from "react-bootstrap";
 import "../css/Directions.css";
 
+
 const Directions = () => {
+  const { t } = useTranslation();
   const location = useLocation();
   const [destination, setDestination] = useState(null);
   const [currentLocation, setCurrentLocation] = useState(null);
@@ -29,15 +32,15 @@ const Directions = () => {
       setDestination({
         lat: data.lat,
         lon: data.lon,
-        add: data.destination || "주소 없음",
-        title: data.title || "목적지",
+        add: data.destination || t("directions.noDestination"),
+        title: data.title || t("directions.destination"),
       });
     }
 
     loadNaverMapAPI()
       .then(() => setMapLoaded(true))
       .catch(console.error);
-  }, [location.state]);
+  }, [location.state, t]);
 
   const loadNaverMapAPI = () => {
     return new Promise((resolve, reject) => {
@@ -118,30 +121,38 @@ const Directions = () => {
   return (
     <Container>
       <div className="directions-container">
-        <h2 className="directions-title">경로 안내</h2>
+        <h2 className="directions-title">{t("directions.title")}</h2>
         {currentLocation ? (
           <div className="current-location">
-            <p>현재 위치: {currentLocation.city} {currentLocation.region}</p>
+            <p>
+              {t("directions.currentLocation")}: {currentLocation.city} {currentLocation.region}
+            </p>
           </div>
         ) : (
-          <p className="error-message">현재 위치 정보를 가져올 수 없습니다.</p>
+          <p className="error-message">{t("directions.noCurrentLocation")}</p>
         )}
 
         {destination ? (
           <>
             <div className="directions-address">
-              <p>목적지: {destination.title} ({destination.add})</p>
+              <p>
+                {t("directions.destination")}: {destination.title} ({destination.add})
+              </p>
             </div>
             <div id="map" className="map"></div>
             <div className="button-container">
-              <button className="open-naver-map-btn" onClick={openNaverMapApp}>네이버 지도 앱 열기</button>
+              <button className="open-naver-map-btn" onClick={openNaverMapApp}>
+                {t("directions.openNaverMap")}
+              </button>
             </div>
           </>
         ) : (
           <>
-           <p className="error-message">목적지 정보가 없습니다.</p>
-           <div className="button-container">
-              <button className="open-naver-map-btn" onClick={openNaverMapApp}>네이버 지도 앱 열기</button>
+            <p className="error-message">{t("directions.noDestination")}</p>
+            <div className="button-container">
+              <button className="open-naver-map-btn" onClick={openNaverMapApp}>
+                {t("directions.openNaverMap")}
+              </button>
             </div>
           </>
         )}

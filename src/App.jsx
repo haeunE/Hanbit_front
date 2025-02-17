@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import './App.css'
 
@@ -30,6 +30,8 @@ import ProtectedRoute from './utils/ProtectedRoute'
 import PlaceUpload from './admin/components/PlaceUpload'
 import Directions from './pages/jsx/Directions'
 import Weather from './pages/jsx/Weather'
+import Amenities from './pages/jsx/Amenities'
+import UnderConstruction from './components/jsx/UnderConstruction'
 
 
 
@@ -37,24 +39,24 @@ function App() {
   const isMode = useSelector(state => state.isMode);
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
-  const naviagte = useNavigate();
-
+  const navigate = useNavigate();
+  const location = useLocation();  // 현재 경로 가져오기
+  const [isTranslated, setIsTranslated] = useState(false); // 번역 여부 상태 추가
 
   useEffect(() => {
     const jwt = localStorage.getItem("jwt")
     const userinfo = Cookies.get('userInfo')
     console.log(jwt)
-    if (jwt&&userinfo) {
+    if (jwt && userinfo) {
       dispatch(login({ token: jwt, user: JSON.parse(userinfo) }));
-    }else if(jwt&&!userinfo){
+    } else if (jwt && !userinfo) {
       dispatch(logout())
       clearAllStorage()
       alert('로그인정보가 만료되어 재로그인 해야합니다.')
-      naviagte('/login')
-    }
-    else (
+      navigate('/login')
+    } else {
       dispatch(logout())
-    )
+    }
   }, [dispatch]);  // dispatch가 변경될 때마다 실행되도록 설정
 
   useEffect(() => {
@@ -64,9 +66,40 @@ function App() {
     }
   }, [dispatch]);
 
+  // 🔹 Google Translate 번역 감지 (MutationObserver)
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      const googleWidget = document.querySelector(".goog-te-combo");
+      if (googleWidget) {
+        setIsTranslated(true);  // 번역이 활성화됨
+      } else {
+        setIsTranslated(false); // 번역이 비활성화됨
+      }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => observer.disconnect();
+  }, []);
+
+  // 🔹 현재 페이지가 `/places/:id/:typeid` 또는 `/amenities`인지 확인
+  const isPlaceOrAmenityPage = location.pathname.startsWith("/places/") || location.pathname.startsWith("/amenities") || location.pathname.startsWith("/nightSeoul/") || location.pathname.startsWith("/Home/");
+
   return (
     <div className={`app ${isMode ? 'day' : 'night'}`}>
-      <Header />
+      {/* 특정 페이지에서 Header 위치 조정 */}
+      <div
+        className="header-container"
+        style={{
+          transform: (isPlaceOrAmenityPage && isTranslated) ? "translateY(50px)" : "translateY(0)",
+          transition: "transform 0.3s ease-in-out",
+          position: 'relative',  /* or 'absolute' */
+          zIndex: 9999  /* 헤더가 최상위 */
+        }}
+      >
+        <Header />
+      </div>
+
       <div className='main-content'>
       <Routes>
         {/* 관리자 페이지 */}
@@ -100,9 +133,18 @@ function App() {
         <Route path='/myreviews' element={<MyReviews />} />
         <Route path='/directions' element={<Directions />} />
         <Route path='/weather' element={<Weather />} />
+        <Route path='/amenities' element={<Amenities />} />
+
+        {/* 구현중인 페이지 */}
+        <Route path='/dangerArea' element={<UnderConstruction />} />
+        <Route path='/foodMap' element={<UnderConstruction />} />
+        <Route path='/delivery' element={<UnderConstruction />} />
+        <Route path='/transport' element={<UnderConstruction />} />
+
       </Routes>
       </div>
-      {!['/login', '/signup', '/userprofile'].includes(useLocation().pathname) && <Footer />}
+
+      {!['/login', '/signup', '/userprofile'].includes(location.pathname) && <Footer />}
     </div>
   )
 }

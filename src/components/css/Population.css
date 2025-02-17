@@ -1,0 +1,93 @@
+.population {
+  font-family: 'Arial', sans-serif;
+  font-size: 15px;
+  flex-direction: column;
+  height: 100%;
+  min-width: 5vh;
+  padding: 0.5rem;
+  background-color: #7ec9b2;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+}
+.population-box{
+  background-color: white;
+  border-radius: 10px;
+  padding: 2rem;
+}
+.population-box h3 {
+  font-weight: 600;
+  color: #00b493;
+  display: flex;
+  width: 100%;
+}
+.search-population {
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+}
+
+.search-population p {
+  display: flex;
+  align-items: flex-start;
+  margin-left: 0;
+  font-size: 13px;
+  margin: 1%;
+  color: #4c4c4c;
+}
+
+.search-box {
+  position: relative;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 1%;
+  margin-left: auto; /* 왼쪽 여백을 자동으로 설정하여 우측 정렬 */
+}
+
+.search-box strong {
+  min-width: 10vh;
+  font-size: 16px;
+  font-weight: 600;
+  color: #4c4c4c;
+}
+
+.search-population input {
+  align-items: flex-end;
+  height: 80%;
+  min-width: 30vw;
+  padding: 10px 40px 10px 10px;  /* 오른쪽에 여백 추가 */
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.search-population button {
+  position: absolute;
+  right: 0;
+  background-color: #00b493;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  height: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.search-population button:hover {
+  background-color: #05f096;
+}
+
+.text-population {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.text-population h2 {
+  text-align: center;
+  font-weight: 600;
+  color: #00b493;
+  margin-top: 3%;
+}

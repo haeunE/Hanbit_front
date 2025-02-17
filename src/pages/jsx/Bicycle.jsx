@@ -38,7 +38,8 @@ function Bicycle() {
       document.head.appendChild(script);
     });
   };
-
+  
+  // 모드, 언어, 위치, 따릉이 정보들 가져오는 useEffect
   useEffect(() => {
     const savedMode = JSON.parse(localStorage.getItem("isMode"));
     if (savedMode !== null) {

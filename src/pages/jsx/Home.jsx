@@ -5,11 +5,14 @@ import { SetIsMode } from "../../redux/modeState";
 import Weather from "../../components/jsx/Weather";
 import Location from "../../components/jsx/Location";
 import { Container } from "react-bootstrap";
+import Population from "../../components/jsx/Population";
 import TripPlacesDay from "../../components/jsx/TripPlacesDay";
 import Festival from "../../components/jsx/Festival";
 import "@/locales/i18n";
 import i18n from "i18next";
 import { useTranslation } from "react-i18next";
+import TripPlacesNight from "../../components/jsx/TripPlacesNight";
+import GoogleTranslate from "../../components/jsx/GoogleTranslate";
 
 function Home() {
   const { t } = useTranslation();
@@ -22,8 +25,8 @@ function Home() {
   const hotelContentTypeId = i18n.language === "ko" ? 32 : 80;
 
   // 랜덤 페이지 번호 계산
-  const placePageNo = Math.floor(Math.random() * 8) + 1;
-  const restaurantPageNo = Math.floor(Math.random() * 20) + 1;
+  const placePageNo = Math.floor(Math.random() * 5) + 1;
+  const restaurantPageNo = Math.floor(Math.random() * 10) + 1;
   const hotelPageNo = Math.floor(Math.random() * 2) + 1;
 
   useEffect(() => {
@@ -36,13 +39,14 @@ function Home() {
     if (savedLanguage) {
       i18n.changeLanguage(savedLanguage);
     }
-  }, [i18n.language]); 
+  }, [i18n.language]);
 
   const changeMode = () => {
     const newMode = !isMode;
     dispatch(SetIsMode(newMode));
     localStorage.setItem("isMode", JSON.stringify(newMode));
   };
+
 
   return (
     <Container>
@@ -80,7 +84,9 @@ function Home() {
             <div className="recommend-place">
               <TripPlacesDay contentTypeId={placeContentTypeId} pageNo={placePageNo} />
             </div>
-            <div className="population"></div>
+            <div className="population">
+              <Population />
+            </div>
             <div className="homepage-buttom">
               <div className="recommend-festival">
                 <div className="event-banner">
@@ -105,6 +111,37 @@ function Home() {
             </div>
           </div>
         )}
+        {!isMode && (
+        <div>
+          <div className="google">
+            <GoogleTranslate />
+          </div>
+          <div className="recommend-place">
+            <TripPlacesNight contentId={103} />
+          </div>
+          <div className="homepage-buttom">
+            <div className="recommend-restaurant">
+              <div className="restaurant-banner">{t("seoulNight-page.club")}</div>
+              <TripPlacesNight
+                contentId={103}
+              />
+            </div>
+            <div className="recommend-hotel">
+              <div className="hotel-banner">{t("seoulNight-page.maidButlerCafe")}</div>
+              <TripPlacesNight
+                contentId={102}
+              />
+            </div>
+            <div className="recommend-hotel">
+              <div className="hotel-banner">{t("seoulNight-page.pickUpTargets")}</div>
+              <TripPlacesNight
+                contentId={104}
+              />
+            </div>
+            
+          </div>
+        </div>
+      )}
       </div>
     </Container>
   );

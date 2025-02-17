@@ -26,7 +26,6 @@ function Intro() {
     navigate('/home');
   };
 
-
   return (
     <div className='Intro'>
       <div className='imageframe'>
