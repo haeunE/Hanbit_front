@@ -1,12 +1,12 @@
-import  { useState } from 'react';
 import '../css/Information.css'
 import { Accordion } from 'react-bootstrap';
 import Plus from '../../components/jsx/Plus';
-import ScrollToTopButton from '../../components/jsx/ScrollToTopButton';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 function Information () {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   
   
   
@@ -17,9 +17,11 @@ function Information () {
     <div id='Information'>
       <div className='Bmargin'>
       {
-        trip.map((n, index) => {
-          return(     
-            <span key={index}><a className='button' href={`#${n.link}`}>{n.title}</a></span>
+        trip.map((n) => {
+          return(
+            <div>
+              <button className='button' onClick={()=>navigate(`#${n.link}`)}>{n.title}</button>
+            </div>     
           )
         })
       }
@@ -287,7 +289,7 @@ function Information () {
         <Accordion.Header><h5>{t`information.title-5-1`}</h5></Accordion.Header>
         <Accordion.Body>
         <b>{t`information.title-text-5-1-1`}</b><br />
-        {t`information.title-text-5-1-2`})<br /><br />
+        {t`information.title-text-5-1-2`}<br /><br />
         {t`information.title-text-5-1-3`}<br /><br />
         {t`information.title-text-5-1-4`}<br /><br />
         {t`information.title-text-5-1-5`}
@@ -434,7 +436,6 @@ function Information () {
           
         </p>
       </div>
-      <ScrollToTopButton />
     </div>
   )
 }

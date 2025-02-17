@@ -183,16 +183,9 @@ function Header() {
                   { icon: "fa-ban", label: t("header.danger-area"), href: "/dangerArea" },
                 ])}
               </NavDropdown>
-              <NavDropdown title={t("header.food-map")} id="navbarScrollingDropdown">
-                {navDropdownItems([
-                  { icon: "fa-bowl-food", label: t("header.food-map"), href: "/foodMap" },
-                  { icon: "fa-motorcycle", label: t("header.delivery"), href: "/delivery" },
-                ])}
-              </NavDropdown>
               <NavDropdown title={t("header.traffic")} id="navbarScrollingDropdown">
                 {navDropdownItems([
                   { icon: "fa-map-pin", label: t("header.directions"), href: "/directions" },
-                  { icon: "fa-bus", label: t("header.public-transportation"), href: "/transport" },
                   { icon: "fa-person-biking", label: t("header.Ddareungi"), href: "/bicycle" },
                 ])}
               </NavDropdown>
@@ -253,10 +246,12 @@ function Header() {
                 <SearchModal show={showSearchModal} handleClose={toggleSearchModal} handleSearch={handleSearch} /> */}
 
                 {/* 사용자 아이콘 클릭 시 드롭다운 메뉴 */}
-                <div ref={dropdownRef} className="user-icon-dropdown-container" autoComplete="off">
-                  <Nav.Link as={Link} to="#" onClick={handleUserIconClick}>
-                    <i className="fa-solid fa-user me-2"></i>
-                  </Nav.Link>
+                <div className="user-icon-dropdown-container" autoComplete="off">
+                  <OverlayTrigger placement="bottom" delay={{show:250, hide:400}} overlay={renderTooltip((t`header.user`))}>
+                    <Nav.Link as={Link} to="#" onClick={handleUserIconClick}>
+                      <i className="fa-solid fa-user me-2"></i>
+                    </Nav.Link>
+                  </OverlayTrigger>
 
                   {/* 드롭다운 메뉴 */}
                   {showDropdown && isAuth && (

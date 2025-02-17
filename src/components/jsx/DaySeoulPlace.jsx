@@ -8,8 +8,6 @@ import { useNavigate } from "react-router-dom";
 import "../css/DaySeoulPlace.css";
 
 function DaySeoulPlace({ category, contentTypeId }) {
-
-  console.log(category, contentTypeId)
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(true);
   const [spots, setSpots] = useState([]);
@@ -20,7 +18,6 @@ function DaySeoulPlace({ category, contentTypeId }) {
   const APIKEY = import.meta.env.VITE_KOREA_TOURIST_DAY_API_KEY;
   const location = JSON.parse(localStorage.getItem("location")) || {};
   const navigate = useNavigate();
-  console.log(contentTypeId)
   const getRandomItems = (arr, n) => {
     if (!Array.isArray(arr) || n <= 0) {
       return [];
@@ -50,7 +47,7 @@ function DaySeoulPlace({ category, contentTypeId }) {
 
         // 검색된 장소 정보를 spots 상태에 저장
         setSpots(data.items.map(item => ({
-          add: item.address,
+          addr: item.address,
           link: item.link,
           lon: item.mapx / 10000000, // 경도
           lat: item.mapy / 10000000, // 위도
@@ -82,7 +79,6 @@ function DaySeoulPlace({ category, contentTypeId }) {
       console.log(serviceType)
 
       const URL = `http://apis.data.go.kr/B551011/${serviceType}/locationBasedList1?numOfRows=10&pageNo=1&MobileOS=WIN&MobileApp=hanbit&_type=json&mapX=${lon}&mapY=${lat}&radius=10000&contentTypeId=${Number(contentTypeId)}&serviceKey=${APIKEY}`;
-      console.log(URL)
       try {
         const response = await fetch(URL);
         const data = await response.json();
@@ -102,13 +98,13 @@ function DaySeoulPlace({ category, contentTypeId }) {
 
               return {
                 id: item.contentid,
-                add: item.addr1,
+                addr: item.addr1,
                 img: item.firstimage,
                 lon: item.mapx,
                 lat: item.mapy,
                 title: item.title,
                 typeid: item.contenttypeid,
-                overview, // 설명 추가
+                overview,
               };
             } catch (detailError) {
               console.error("상세 정보 API 호출 오류:", detailError);
@@ -150,7 +146,7 @@ function DaySeoulPlace({ category, contentTypeId }) {
           <div className="map-container">
             <div className="map-with-top5">
               <div className="spot-map">
-                <NaverMap items={[...spots, ...places]} language={i18n.language} zoom={13} />
+                <NaverMap items={[...spots, ...places]}  zoom={13} />
               </div>
               <div className="spot-container">
                 <h4 className="top5">{t("top5")}</h4>
@@ -158,7 +154,7 @@ function DaySeoulPlace({ category, contentTypeId }) {
                   <div key={index} className="spot-item">
                     <a href={spot.link} target="_blank" rel="noopener noreferrer">
                       <h3>{removeHTMLTags(spot.title)}</h3>
-                      <p className="spot-address">{removeHTMLTags(spot.add)}</p>
+                      <p className="spot-address">{removeHTMLTags(spot.addr)}</p>
                     </a>
                   </div>
                 ))}
