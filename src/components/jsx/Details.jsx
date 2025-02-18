@@ -19,8 +19,6 @@ const Details = ({ data }) => {
   const [details, setDetails] = useState([]);
   const navigate = useNavigate();  // useNavigate 훅으로 navigate 정의
 
-  console.log(data);
-
   const handleSearch = async () => {
     let searchTitle = '';
     if (!data.title) return;
@@ -33,8 +31,7 @@ const Details = ({ data }) => {
     }
   
     setLoading(true);
-    console.log(searchTitle);
-  
+
     try {
       const response = await axios.get('/api/v1/search/image.json', {
         params: {
@@ -66,7 +63,6 @@ const Details = ({ data }) => {
     const fetchData = async () => {
       try {
         const url = `http://apis.data.go.kr/B551011/${serviceType}/detailIntro1?serviceKey=${apiKey}&MobileOS=ETC&MobileApp=hanbit&contentId=${id}&contentTypeId=${typeid}&_type=json`;
-        console.log(url);
 
         const response = await axios.get(url);
         const item = response.data.response.body.items.item || [];
@@ -114,6 +110,21 @@ const Details = ({ data }) => {
           })}
         </div>
         <div style={{ width: '100%', height: '300px' }}>
+        {Object.keys(details).map((key) => {
+          const label = placeDic[key];
+          const value = details[key];
+          if (label && value && value !== 0 && value !== "없음") {
+            const formattedValue = value.replace(/<br\s*\/?>/g, '. ');
+            return (
+              <div key={key}>
+                <strong>{label}:</strong> {formattedValue}
+              </div>
+            );
+          }
+          return null;
+        })}
+        </div>
+        <div className='detail-map' style={{ width: '100%', height: '300px' }}>
           <NaverMap items={[data]}  zoom={11} />
         </div>
         <button className='direction-btn' onClick={handleDirectionsClick}>{t("direction")}</button>  {/* 버튼 클릭 시 navigate */}

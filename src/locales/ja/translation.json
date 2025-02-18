@@ -1,18 +1,18 @@
 {
   "header" : {
+    "mode-day" :"観光地/文化施設/飲食店/宿泊/ショッピング/レジャースポーツ",
+    "mode-night" : "居酒屋/ユニークカフェ/クラブ/出会い居酒屋/出会いスポット",
     "day-seoul" : "ソウルの昼間",
     "night-seoul" : "ソウルの夜",
     "amenities" : "設備",
     "danger-area" : "危険地域",
-    "food-map" : "グルメマップ",
-    "delivery" : "デリバリー",
     "traffic" : "交通",
     "directions" : "道案内",
-    "public-transportation" : "公共交通機関",
     "Ddareungi" : "ソウルシェアサイクル(自転車レンタル)",
     "help": "ヘルプ",
     "exchangeRate": "為替レート",
     "language-settings": "言語設定",
+    "user" :  "メンバー",
     "search": "検索",
     "adminPage": "管理者ページ",
     "myReviews": "私のレビュー",
@@ -362,7 +362,8 @@
     "subway": "地下鉄駅",
     "coffee": "カフェ",
     "hospital": "病院",
-    "pharmacy": "薬局"
+    "pharmacy": "薬局",
+    "bank": "銀行"
   },
   "underConstruction": {
     "title": "工事中です",
@@ -447,6 +448,7 @@
     "edit": "編集",
     "delete": "削除",
     "updated": "（更新日: {date}）"
-  }
+  },
+  "exchange_store": "両替所"
   
 }

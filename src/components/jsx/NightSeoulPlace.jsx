@@ -83,7 +83,7 @@ const convertCoordinates = (x, y) => {
             ...item,  // 기존의 모든 속성
             lon: lon,  // 변환된 lon (경도)
             lat: lat,  // 변환된 lat (위도)
-            add: item.addo,  // 기타 속성
+            addr: item.addo,  // 기타 속성
           };
         });
         console.log(updatedData)
@@ -111,7 +111,7 @@ const convertCoordinates = (x, y) => {
         ) : (
           <div className="map-with-top5">
             <div className="spot-map">
-            <NaverMap items={[...spots,...places]} language={i18n.language} zoom={13}/>
+            <NaverMap items={[...spots,...places]} language={i18n.language} zoom={10}/>
             </div>
             <div className="spot-container">
               <h4 className="top5">{t("top5")}</h4>

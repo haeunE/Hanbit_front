@@ -1,19 +1,19 @@
 {
   "header" : {
+    "mode-day" :"관광지/문화시설/음식점/숙박/쇼핑/레포츠",
+    "mode-night" : " 술집/특이카페/클럽/헌팅포차/헌팅스팟",
     "day-seoul" : "서울의 낮",
     "night-seoul" : "서울의 밤",
     "amenities" : "편의시설",
     "danger-area" : "위험지역",
-    "food-map" : "음식지도",
-    "delivery" : "배달",
     "traffic" : "교통",
     "directions" : "길찾기",
-    "public-transportation" : "대중교통",
     "Ddareungi" : "따릉이",
     "help": "도움말",
     "exchangeRate" : "환율",
     "language-settings": "언어 설정",
     "search": "검색",
+    "user" : "회원",
     "adminPage": "관리자 페이지",
     "myReviews": "나의 리뷰",
     "updateProfile": "회원정보수정",
@@ -366,7 +366,8 @@
     "subway" : "지하철역",
     "coffee" : "카페",
     "hospital" : "병원",
-    "pharmacy" : "약국"
+    "pharmacy" : "약국",
+    "bank": "은행"
   },
   "underConstruction": {
     "title": "구현 중입니다",
@@ -451,6 +452,7 @@
     "edit": "수정",
     "delete": "삭제",
     "updated": "(수정됨: {date})"
-  }
+  },
+  "exchange_store": "환전소"
   
 }
