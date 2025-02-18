@@ -122,6 +122,7 @@ const Directions = () => {
   const fetchDirections = async () => {
     const MAP_CLIENT_ID = import.meta.env.VITE_NAVER_MAP_CLIENT_ID;
     const MAP_SECRET = import.meta.env.VITE_NAVER_MAP_SECRET;
+    console.log(currentLocation, destination)
     const url = `/load/map-direction-15/v1/driving?start=${currentLocation.lon},${currentLocation.lat}&goal=${destination.lon},${destination.lat}`;
 
     try {
