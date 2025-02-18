@@ -229,3 +229,27 @@
   }
 }
 
+.weather-fineDustGraph {
+  padding: 1rem; /* 내부 여백 추가 */
+  border-radius: 15px; /* 둥근 모서리 */
+  width: 100%; /* 전체 너비 */
+  height: auto; /* 자동 높이 */
+  display: flex;
+  justify-content: center; /* 수평 중앙 정렬 */
+  align-items: center; /* 수직 중앙 정렬 */
+}
+
+/* 작은 화면에서 미세먼지 그래프 크기 조정 */
+@media screen and (max-width: 845px) {
+  .weather-fineDustGraph {
+    margin-top: 1rem; /* 여백 줄이기 */
+    padding: 0.5rem; /* 내부 여백 줄이기 */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .weather-fineDustGraph {
+    margin-top: 1rem; /* 여백 줄이기 */
+    padding: 0.5rem; /* 내부 여백 줄이기 */
+  }
+}

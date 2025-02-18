@@ -4,7 +4,11 @@ import "../css/Weathers.css"; // CSS 파일 불러오기
 import Pollutant from "./Pollutant";
 import HourWeather from "../../components/jsx/HourWeather";
 import DayWeather from "../../components/jsx/DayWeather";
+<<<<<<< HEAD
 import fetchPrediction from "../../utils/model";
+=======
+import FineDustGraph from "../../components/jsx/FineDustGraph";
+>>>>>>> e43fd445344d80c77ff2e7e608d3d427c36a51e1
 
 function Weathers() {
   // AQI 상태 변수
@@ -151,6 +155,9 @@ function Weathers() {
         <div className="weather-2rows">
           <DayWeather dayweather={dayweather}/>
           <Pollutant cityAir={cityAir}/>
+        </div>
+        <div className="weather-fineDustGraph">
+          <FineDustGraph />
         </div>
       </Container>
     </div>
