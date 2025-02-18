@@ -4,6 +4,7 @@ import "../css/Weathers.css"; // CSS 파일 불러오기
 import Pollutant from "./Pollutant";
 import HourWeather from "../../components/jsx/HourWeather";
 import DayWeather from "../../components/jsx/DayWeather";
+import PmNotice from "../../components/jsx/PmNotice";
 
 function Weathers() {
   // AQI 상태 변수
@@ -149,6 +150,8 @@ function Weathers() {
         <div className="weather-2rows">
           <DayWeather dayweather={dayweather}/>
           <Pollutant cityAir={cityAir}/>
+          <PmNotice hourweather={cityAir} /> 
+          
         </div>
       </Container>
     </div>
