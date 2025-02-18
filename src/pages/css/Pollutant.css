@@ -1,92 +1,74 @@
-#Pollutant {
-  width: 48%;
-  display: inline-block;
+.pollutant {
+  width: 50%; /* 너비를 48%로 설정 */
+  height: auto;
+  background-color: white;
+  display: flex;
+  flex-direction: column;  /* 세로로 정렬 */
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  box-sizing: border-box;
 }
 
-#Pollutant .bundle {
-  background-color: white;
-  border-radius: 8px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding-top: 30px;
-  width: 750px;
+.pollutant .bundle {
+  width: 100%;
+  max-width: 750px; /* 최대 너비 설정 */
   position: relative;
   top: 20px;
   padding-bottom: 20px;
 }
 
-#Pollutant .title {
+.pollutant .title {
   display: block;
-  font-size: 22px;
+  color: #444;
+  font-size: 1.5rem;
   margin-left: 20px;
 }
 
-#Pollutant .title1 {
+.pollutant .title1 {
+  padding: 0.5rem;
+  color: #444;
   display: block;
-  font-size: 22px;
+  font-size: 1.2rem;
 }
 
-#Pollutant .subtitle {
+.pollutant .subtitle {
   color: gray;
 }
 
-#Pollutant .box1 {
 
+.pollutant .box1,
+.pollutant .box2,
+.pollutant .box3,
+.pollutant .box4,
+.pollutant .box5,
+.pollutant .box6 {
   background-color: rgb(248, 245, 245);
   border-radius: 8px;
-  width: 340px;
-  height: 110px;
+  width: 100%;
+  height: 100px;
+  box-sizing: border-box; /* 패딩을 포함한 크기 계산 */
 }
 
-#Pollutant .box2 {
-  
-  background-color: rgb(248, 245, 245);
-  border-radius: 8px;
-  width: 340px;
-  height: 110px;
-}
-
-#Pollutant .box3 {
-  
-  background-color: rgb(248, 245, 245);
-  border-radius: 8px;
-  width: 340px;
-  height: 110px;
-}
-
-#Pollutant .box4 {
- 
-  background-color: rgb(248, 245, 245);
-  border-radius: 8px;
-  width: 340px;
-  height: 110px;
-}
-
-#Pollutant .box5 {
-  
-  background-color: rgb(248, 245, 245);
-  border-radius: 8px;
-  width: 340px;
-  height: 110px;
-}
-
-#Pollutant .box6 {
-  
-  background-color: rgb(248, 245, 245);
-  border-radius: 8px;
-  width: 340px;
-  height: 110px;
-}
-
-#Pollutant .grid-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+.pollutant .grid-container {
+  display: flex;
+  flex-direction: column; /* 세로로 배치 */
+  gap: 1rem;
   margin-left: 20px;
   margin-right: 20px;
-  padding-bottom: 30px;
 }
 
-#Pollutant .value {
-  margin-left: 25px;
+.pollutant .value {
+  font-size: 0.9rem;
+  color: #444;
+}
+
+@media screen and (max-width: 845px) {
+
+  .pollutant{
+    width: 100%;
+  }
+
 }
