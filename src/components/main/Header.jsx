@@ -2,7 +2,7 @@ import { Button, Container, Dropdown, Form, Modal, Nav, Navbar, NavDropdown, Ove
 import "./Header.css";
 import { useDispatch, useSelector } from "react-redux";
 import { SetIsMode } from "../../redux/modeState";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axiosInstance from "../../axiosInstance";
 import { logout } from "../../redux/userState";
@@ -27,6 +27,7 @@ function Header() {
   const [showSearchModal, setShowSearchModal] = useState(false);  // 초기값 false로 설정
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
 
+  
   // 페이지 로드 시 localStorage에서 모드 불러오기
   useEffect(() => {
     const savedLanguage = localStorage.getItem("lang");
@@ -45,6 +46,23 @@ function Header() {
       navigate("/daySeoul");
     }
   }, [isMode, isPath.pathname]);
+
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    if (showDropdown) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showDropdown]);
 
   const changeMode = () => {
     const newMode = !isMode;
@@ -110,7 +128,7 @@ function Header() {
     ));
 
   const renderTooltip = (message) => (props) => (
-    <Tooltip id="button-tooltip" {...props}>
+    <Tooltip id="button-tooltip" style={{ zIndex: 9999 }} {...props} >
       {message}
     </Tooltip>
   );
@@ -165,16 +183,9 @@ function Header() {
                   { icon: "fa-ban", label: t("header.danger-area"), href: "/dangerArea" },
                 ])}
               </NavDropdown>
-              <NavDropdown title={t("header.food-map")} id="navbarScrollingDropdown">
-                {navDropdownItems([
-                  { icon: "fa-bowl-food", label: t("header.food-map"), href: "/foodMap" },
-                  { icon: "fa-motorcycle", label: t("header.delivery"), href: "/delivery" },
-                ])}
-              </NavDropdown>
               <NavDropdown title={t("header.traffic")} id="navbarScrollingDropdown">
                 {navDropdownItems([
                   { icon: "fa-map-pin", label: t("header.directions"), href: "/directions" },
-                  { icon: "fa-bus", label: t("header.public-transportation"), href: "/transport" },
                   { icon: "fa-person-biking", label: t("header.Ddareungi"), href: "/bicycle" },
                 ])}
               </NavDropdown>
@@ -236,9 +247,11 @@ function Header() {
 
                 {/* 사용자 아이콘 클릭 시 드롭다운 메뉴 */}
                 <div className="user-icon-dropdown-container" autoComplete="off">
-                  <Nav.Link as={Link} to="#" onClick={handleUserIconClick}>
-                    <i className="fa-solid fa-user me-2"></i>
-                  </Nav.Link>
+                  <OverlayTrigger placement="bottom" delay={{show:250, hide:400}} overlay={renderTooltip((t`header.user`))}>
+                    <Nav.Link as={Link} to="#" onClick={handleUserIconClick}>
+                      <i className="fa-solid fa-user me-2"></i>
+                    </Nav.Link>
+                  </OverlayTrigger>
 
                   {/* 드롭다운 메뉴 */}
                   {showDropdown && isAuth && (
@@ -267,7 +280,7 @@ function Header() {
       
 
       {/* 비밀번호 확인 모달 */} 
-      <Modal show={showPasswordModal} onHide={() => setShowPasswordModal(false)} >
+      <Modal show={showPasswordModal} onHide={() => setShowPasswordModal(false)} style={{ zIndex: 9999 }}>
         <Modal.Header closeButton>
           <Modal.Title>{t('passwordCheck.modalTitle')}</Modal.Title> {/* 다국어 지원된 타이틀 */}
         </Modal.Header>

@@ -1,18 +1,18 @@
 {
   "header" : {
+    "mode-day" :"旅游景点/文化设施/餐厅/住宿/购物/休闲运动",
+    "mode-night" : "酒吧/特色咖啡馆/俱乐部/相亲酒吧/相亲热点",
     "day-seoul" : "首尔的白天",
     "night-seoul" : "首尔的夜晚",
     "amenities" : "便利设施",
     "danger-area" : "危险区域",
-    "food-map" : "美食地图",
-    "delivery" : "配送",
     "traffic" : "交通",
     "directions" : "路线指引",
-    "public-transportation" : "公共交通",
     "Ddareungi" : "首尔公共自行车(自行车租赁)",
     "help": "帮助",
     "exchangeRate": "汇率",
     "language-settings": "语言设置",
+    "user" : "会员",
     "search": "搜索",
     "adminPage": "管理员页面",
     "myReviews": "我的评论",
@@ -360,7 +360,8 @@
     "subway": "地铁站",
     "coffee": "咖啡馆",
     "hospital": "医院",
-    "pharmacy": "药店"
+    "pharmacy": "药店",
+    "bank": "银行"
   },
   "underConstruction": {
     "title": "建设中",
@@ -445,7 +446,7 @@
     "edit": "编辑",
     "delete": "删除",
     "updated": "（更新于: {date}）"
-  }
-  
+  },
+  "exchange_store": "兑换店"
 
 }

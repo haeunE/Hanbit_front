@@ -2,6 +2,7 @@
   min-height: 900px;
   margin: auto;
   padding-top: 100px; /* 모든 페이지에 적용 해야함 header 때문 */
+  padding-bottom: 3rem;
 }
 
 .change-mode {
@@ -10,6 +11,7 @@
   text-align: center;
   width: 100%;
   justify-content: center;
+  margin-top: 1rem;
 }
 
 .home-change-mode-day,
@@ -73,15 +75,51 @@ button:disabled {
 .location-weather{
   display: flex;
   margin-left: auto;
-  justify-content: center; /*가로*/
+  justify-content: space-between;
   align-items: center;  /*세로*/
   background-color: #dddb96;
   border-radius: 15px;
   width: auto;
-  height: 5rem;
-  margin-top: 1rem;
-  max-width:20rem;
+  height: 3rem;
+  /* max-width:20rem; */
 }
+.location-weather-today{
+  margin-left: 4rem;
+  display: flex;
+  justify-content: center; /*가로*/
+  align-items: center;  /*세로*/
+}
+.location-weather-link{
+  margin-right: 4rem;
+}
+.location-weather-link a {
+  color: #222; /* 기본 텍스트 색상 (어두운 네이비) */
+  font-weight: bold;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 15px;
+  border-radius: 10px;
+}
+
+.location-weather-link a:hover {
+  color: #444; /* 글씨 흰색 */
+  transform: translateX(5px);
+}
+
+.location-weather-link a:active {
+  transform: scale(0.95);
+}
+
+.location-weather-link i {
+  transition: transform 0.3s ease-in-out;
+}
+
+.location-weather-link a:hover i {
+  transform: translateX(3px); /* 아이콘도 자연스럽게 이동 */
+}
+
 
 .homepage-buttom {
   border-radius: 8px;
@@ -143,5 +181,15 @@ button:disabled {
     padding: 0.8rem 1.5rem;
     font-size: 1.1rem;
     min-width: 120px;
+  }
+}
+/* 미디어 쿼리로 화면 크기 조정 */
+@media (max-width: 768px) {
+  .location-weather-today {
+    margin-left: 1rem; /* 화면이 768px 이하일 때 margin-left를 1rem으로 변경 */
+  }
+
+  .location-weather-link {
+    margin-right: 1rem; /* 화면이 768px 이하일 때 margin-right를 1rem으로 변경 */
   }
 }

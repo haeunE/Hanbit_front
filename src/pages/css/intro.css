@@ -5,20 +5,20 @@
   align-items: center;
   justify-content: center;
   width: 100vw;
-  height: 100vh; /* 화면 전체 높이를 사용 */
+  height: 100vh;
   background: linear-gradient(to right, #f9fece, #f4c6c6 , #fad7a9, #704786, #170e44);
 }
 
 .imageframe {
-  position: absolute; /* 절대 위치 지정 */
-  top: 50%; /* 화면의 세로 중앙으로 이동 */
-  left: 50%; /* 화면의 가로 중앙으로 이동 */
-  transform: translate(-50%, -50%); /* 실제로는 중앙에 맞추기 위해 이동 */
-  width: 80%; /* 원하는 너비 설정 */
-  height: 80%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  height: 90%;
   display: flex;
-  flex-direction: column; /* 내부 요소들을 세로로 배치 */
-  align-items: center; /* 내부 요소들을 가로로 중앙 정렬 */
+  flex-direction: column;
+  align-items: center;
   background-color: #2f4858;
   opacity: 90%;
   justify-content: center;
@@ -27,14 +27,14 @@
 
 .top {
   display: flex;
-  justify-content: center; /* 로고와 텍스트를 좌우로 정렬 */
-  align-items: center; /* 세로 중앙 정렬 */
-  width: 75%; /* 너비 설정 */
+  justify-content: center;
+  align-items: center;
+  width: 75%;
   flex-direction: column;
 }
 
 .logo-top {
-  margin-top: 3%;
+  margin-top: 2%;
   max-width: 10vw;
   height: 30px;
   display: flex;
@@ -45,7 +45,7 @@
 
 .text-top {
   font-size: clamp(1rem, 2vw, 1.7rem);
-  width: 100%; /* 텍스트 너비 설정 */
+  width: 100%;
   display: flex;
   text-align: center;
   justify-content: center;
@@ -54,7 +54,6 @@
   text-shadow: 1px 1px 2px rgb(0, 0, 0);
 }
 
-/* 색상 애니메이션 정의 */
 @keyframes colorAnimation {
   0% { color: #b4fff4; }
   25% { color: #ffc1f7; }
@@ -66,26 +65,36 @@
 .image-overlay {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 80%;
   min-block-size: 40%;
   margin-bottom: 3vh;
-  align-items: center;
 }
 
 .image-wrapper {
   position: relative;
-  width: 50%; /* 화면을 반으로 나눔 */
-  height: 100%;
+  width: 48%;
+  height: auto;
   cursor: pointer;
   margin-top: 3%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.image-wrapper img {
+.image-container {
+  position: relative;
   width: 100%;
-  height: 100%;
+  height: auto;
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
   object-fit: cover;
   box-shadow: 5px 10px 15px rgba(251, 255, 150, 0.531);
   border: 1px solid #f3eada;
+  display: block;
 }
 
 .overlay {
@@ -94,34 +103,35 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.3); /* 반투명 검은색 */
   display: flex;
   justify-content: center;
   align-items: center;
   color: white;
   font-size: 24px;
   font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.3);
   opacity: 0;
   transition: opacity 0.3s ease;
+  pointer-events: none;
 }
 
-.image-wrapper:hover .overlay {
-  opacity: 1; /* 마우스 오버 시 오버레이 보이기 */
+.image-container:hover .overlay {
+  opacity: 1;
 }
 
 .middlebox {
-  width: 8%; 
-  height: 100%; 
-  margin: 0 1%; 
+  width: 10%;
+  height: 100%;
+  margin: 0 1%;
   font-size: clamp(0.8rem, 1vw, 1.4rem);
-  display: flex; /* flexbox로 설정 */
-  justify-content: center; /* 수평 중앙 정렬 */
+  display: flex;
+  justify-content: center;
   flex-direction: column;
   animation: clickAnimation 1.5s infinite;
 }
 
 .dayclick {
-  margin-bottom: 80%; /* 상하 간격 띄우기 */
+  margin-bottom: 80%;
   text-align: start;
 }
 
@@ -130,8 +140,103 @@
   text-align: end;
 }
 
-/* 클릭 애니메이션 */
 @keyframes clickAnimation {
   0% { color: #2f4858; }
   100% { color: #d7d7d7; }
+}
+
+.intro-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.4rem;
+  color: #d7d7d7;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  gap: 10px;
+}
+
+.intro-places {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .imageframe {
+    width: 95%;
+    height: 85%;
+  }
+
+  .logo-top {
+    max-width: 20vw;
+  }
+
+  .text-top {
+    font-size: 1.2rem;
+  }
+
+  .image-wrapper {
+    width: 100%;
+    margin: 2% 0;
+  }
+
+  .image-overlay {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .overlay {
+    font-size: 20px;
+  }
+
+  .middlebox {
+    display: none;
+  }
+
+  .intro-message {
+    font-size: 1.1rem;
+    top: 20%;
+  }
+
+  .dayclick, .nigntclick {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .imageframe {
+    width: 90%;
+    height: 80%;
+  }
+
+  .logo-top {
+    max-width: 30vw;
+  }
+
+  .text-top {
+    font-size: 1rem;
+  }
+
+  .image-wrapper {
+    width: 100%;
+    margin-top: 3%;
+  }
+
+  .intro-message {
+    font-size: 1rem;
+    top: 25%;
+  }
+
+  .overlay {
+    font-size: 18px;
+  }
+
+  .intro-places {
+    font-size: 1.2rem;
+  }
+
+  .dayclick, .nigntclick {
+    font-size: 1rem;
+  }
 }

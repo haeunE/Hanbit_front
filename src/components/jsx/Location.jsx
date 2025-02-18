@@ -17,6 +17,7 @@ function Location() {
     if (storedLocation) {
       const { latitude, longitude, region, city } = JSON.parse(storedLocation);
       dispatch(SetIsLocation({ latitude, longitude, region, city }));
+      return;
     } else {
       getLocation();
     }
@@ -78,7 +79,7 @@ function Location() {
       const city = district.split('구')[0];
       const region = `${district} ${neighborhood}`;
 
-      dispatch(SetIsLocation({ latitude, longitude, region }));
+      dispatch(SetIsLocation({ latitude, longitude, region}));
       localStorage.setItem('location', JSON.stringify({ latitude, longitude, region, city }));
     } catch (error) {
       console.error(error);

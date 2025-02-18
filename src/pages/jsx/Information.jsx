@@ -19,7 +19,7 @@ function Information () {
       {
         trip.map((n, index) => {
           return(     
-            <span key={index}><a className='button' href={`#${n.link}`}>{n.title}</a></span>
+            <a className='button' href={`#${n.link}`}>{n.title}</a>
           )
         })
       }

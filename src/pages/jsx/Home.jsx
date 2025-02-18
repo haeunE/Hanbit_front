@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { SetIsMode } from "../../redux/modeState";
 import Weather from "../../components/jsx/Weather";
 import Location from "../../components/jsx/Location";
-import { Container } from "react-bootstrap";
+import { Container, OverlayTrigger, Tooltip } from "react-bootstrap";
 import Population from "../../components/jsx/Population";
 import TripPlacesDay from "../../components/jsx/TripPlacesDay";
 import Festival from "../../components/jsx/Festival";
@@ -13,6 +13,7 @@ import i18n from "i18next";
 import { useTranslation } from "react-i18next";
 import TripPlacesNight from "../../components/jsx/TripPlacesNight";
 import GoogleTranslate from "../../components/jsx/GoogleTranslate";
+import { Link } from "react-router-dom";
 
 function Home() {
   const { t } = useTranslation();
@@ -47,32 +48,50 @@ function Home() {
     localStorage.setItem("isMode", JSON.stringify(newMode));
   };
 
+  const renderTooltip = (message) => (props) => (
+    <Tooltip id="button-tooltip" style={{ zIndex: 9999 }} {...props} >
+      {message}
+    </Tooltip>
+  );
 
   return (
     <Container>
       <div className="home">
-        {/* 모드 변경 버튼 */}
-        <div className={`change-mode ${isMode ? "day" : "night"}`}>
-          <button
-            className="home-change-mode-day"
-            onClick={changeMode}
-            disabled={isMode}
-          >
-            {t("home.day")}
-          </button>
-          <button
-            className="home-change-mode-night"
-            onClick={changeMode}
-            disabled={!isMode}
-          >
-            {t("home.night")}
-          </button>
-        </div>
 
         {/* 위치 및 날씨 */}
         <div className="location-weather">
-          <Location />
-          <Weather />
+          <div className="location-weather-today">
+            <Location />
+            <Weather />
+          </div>
+          <div className="location-weather-link">
+          <Link to="/weathers">
+            <span>날씨 바로가기</span>
+            <i className="fa-solid fa-angles-right"></i>
+          </Link>
+          </div>
+        </div>
+
+        {/* 모드 변경 버튼 */}
+        <div className={`change-mode ${isMode ? "day" : "night"}`}>
+          <OverlayTrigger placement="bottom" delay={{show:250, hide:400}} overlay={renderTooltip((t`header.mode-day`))}>
+            <button
+              className="home-change-mode-day"
+              onClick={changeMode}
+              disabled={isMode}
+            >
+              {t("home.day")}
+            </button>
+          </OverlayTrigger>
+          <OverlayTrigger placement="bottom" delay={{show:250, hide:400}} overlay={renderTooltip((t`header.mode-night`))}>
+            <button
+              className="home-change-mode-night"
+              onClick={changeMode}
+              disabled={!isMode}
+            >
+              {t("home.night")}
+            </button>
+          </OverlayTrigger>
         </div>
 
         {/* 케러셀 */}

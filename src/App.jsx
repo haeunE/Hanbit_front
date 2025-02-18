@@ -1,36 +1,42 @@
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import './App.css'
+import {login, logout} from './redux/userState'
+import { SetIsMode } from './redux/modeState'
+import ProtectedRoute from './utils/ProtectedRoute'
+import Cookies from 'js-cookie';
+import { useDispatch, useSelector } from 'react-redux'
+import { clearAllStorage } from './utils/clearAllStorage'
 
 import Test from './pages/jsx/Test'
 import Header from './components/main/Header'
 import Footer from './components/main/Footer'
-import Login from './components/main/Login'
-import Signup from "./components/main/Signup";
-import UserProfile from './components/main/UserProfile'
-import Intro from './pages/jsx/intro'
-import Home from './pages/jsx/Home'
-import Bicycle from './pages/jsx/Bicycle'
-import PlaceDetail from './pages/jsx/PlaceDetail'
-import MyReviews from './pages/jsx/MyReviews'
+// import Intro from './pages/jsx/intro'
 
-import {login, logout} from './redux/userState'
-import Information from './pages/jsx/Information'
-import ExchangeRate from './pages/jsx/ExchangeRate'
-import { SetIsMode } from './redux/modeState'
-import { clearAllStorage } from './utils/clearAllStorage'
-import { useDispatch, useSelector } from 'react-redux'
-import Cookies from 'js-cookie';
-import SeoulPageDay from './pages/jsx/SeoulPageDay'
-import SeoulPageNight from './pages/jsx/SeoulPageNight'
-import AdminPage from './admin/AdminPage'
-import UnauthorizedPage from './admin/UnauthorizedPage'
-import CsvUpload from './admin/components/CsvUpload'
-import ProtectedRoute from './utils/ProtectedRoute'
-import PlaceUpload from './admin/components/PlaceUpload'
-import Directions from './pages/jsx/Directions'
-import Amenities from './pages/jsx/Amenities'
-import UnderConstruction from './components/jsx/UnderConstruction'
+import { lazy } from 'react';
+import LoadingSpinner from './utils/LoadingSpinner'
+
+// 페이지 컴포넌트 Lazy Loading
+const Intro = lazy(()=> import ('./pages/jsx/intro'))
+const Login = lazy(() => import('./components/main/Login'));
+const Signup = lazy(() => import('./components/main/Signup'));
+const UserProfile = lazy(() => import('./components/main/UserProfile'));
+const Home = lazy(() => import('./pages/jsx/Home'));
+const Bicycle = lazy(() => import('./pages/jsx/Bicycle'));
+const PlaceDetail = lazy(() => import('./pages/jsx/PlaceDetail'));
+const MyReviews = lazy(() => import('./pages/jsx/MyReviews'));
+const Information = lazy(() => import('./pages/jsx/Information'));
+const ExchangeRate = lazy(() => import('./pages/jsx/ExchangeRate'));
+const SeoulPageDay = lazy(() => import('./pages/jsx/SeoulPageDay'));
+const SeoulPageNight = lazy(() => import('./pages/jsx/SeoulPageNight'));
+const AdminPage = lazy(() => import('./admin/AdminPage'));
+const UnauthorizedPage = lazy(() => import('./admin/UnauthorizedPage'));
+const CsvUpload = lazy(() => import('./admin/components/CsvUpload'));
+const PlaceUpload = lazy(() => import('./admin/components/PlaceUpload'));
+const Directions = lazy(() => import('./pages/jsx/Directions'));
+const Amenities = lazy(() => import('./pages/jsx/Amenities'));
+const UnderConstruction = lazy(() => import('./components/jsx/UnderConstruction'));
+const Weathers = lazy(() => import('./pages/jsx/Weathers'));
 
 
 function App() {
@@ -51,7 +57,6 @@ function App() {
       dispatch(logout())
       clearAllStorage()
       alert('로그인정보가 만료되어 재로그인 해야합니다.')
-      navigate('/login')
     } else {
       dispatch(logout())
     }
@@ -92,52 +97,55 @@ function App() {
           transform: (isPlaceOrAmenityPage && isTranslated) ? "translateY(50px)" : "translateY(0)",
           transition: "transform 0.3s ease-in-out",
           position: 'relative',  /* or 'absolute' */
-          zIndex: 9999  /* 헤더가 최상위 */
+          zIndex: 8888  /* 헤더가 최상위 */
         }}
       >
         <Header />
       </div>
 
       <div className='main-content'>
-      <Routes>
-        {/* 관리자 페이지 */}
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute>
-              <AdminPage /> {/* 공통 레이아웃 */}
-            </ProtectedRoute>
-          }
-        >
-          {/* /admin/ 하위 경로 */}
-          <Route path="csv" element={<CsvUpload />} />
-          <Route path="place" element={<PlaceUpload />} />
-        </Route>
-        {/* 권한 없음 페이지 */}
-        <Route path="/unauthorized" element={<UnauthorizedPage />} />
-        {/* 메인 페이지 */}
-        <Route path='/' element={<Intro />} />
-        <Route path='/home' element={<Home />} />
-        <Route path='/test' element={<Test/>} />
-        <Route path='/login' element={<Login/>} />
-        <Route path='/signup' element={<Signup/>} />
-        <Route path='/userprofile' element={<UserProfile/>} />
-        <Route path='/tip' element={<Information/>} />
-        <Route path='/exchangeRate' element={<ExchangeRate/>} />
-        <Route path='/bicycle' element={<Bicycle />} />
-        <Route path='/places/:id/:typeid' element={<PlaceDetail/>} />
-        <Route path='/daySeoul' element={<SeoulPageDay />} />
-        <Route path='/nightSeoul' element={<SeoulPageNight />} />
-        <Route path='/myreviews' element={<MyReviews />} />
-        <Route path='/directions' element={<Directions />} />
-        <Route path='/amenities' element={<Amenities />} />
+        <Suspense fallback={<LoadingSpinner />}>
+          <Routes>  
+            {/* 관리자 페이지 */}
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute>
+                  <AdminPage /> {/* 공통 레이아웃 */}
+                </ProtectedRoute>
+              }
+            >
+              {/* /admin/ 하위 경로 */}
+              <Route path="csv" element={<CsvUpload />} />
+              <Route path="place" element={<PlaceUpload />} />
+            </Route>
+            {/* 권한 없음 페이지 */}
+            <Route path="/unauthorized" element={<UnauthorizedPage />} />
+            {/* 메인 페이지 */}
+            <Route path='/' element={<Intro />} />
+            <Route path='/home' element={<Home />} />
+            <Route path='/test' element={<Test/>} />
+            <Route path='/login' element={<Login/>} />
+            <Route path='/signup' element={<Signup/>} />
+            <Route path='/userprofile' element={<UserProfile/>} />
+            <Route path='/tip' element={<Information/>} />
+            <Route path='/exchangeRate' element={<ExchangeRate/>} />
+            <Route path='/bicycle' element={<Bicycle />} />
+            <Route path='/places/:id/:typeid' element={<PlaceDetail/>} />
+            <Route path='/daySeoul' element={<SeoulPageDay />} />
+            <Route path='/nightSeoul' element={<SeoulPageNight />} />
+            <Route path='/myreviews' element={<MyReviews />} />
+            <Route path='/directions' element={<Directions />} />
+            <Route path='/amenities' element={<Amenities />} />
+            <Route path='/weathers' element={<Weathers/>}/>
 
-        {/* 구현중인 페이지 */}
-        <Route path='/dangerArea' element={<UnderConstruction />} />
-        <Route path='/foodMap' element={<UnderConstruction />} />
-        <Route path='/delivery' element={<UnderConstruction />} />
-        <Route path='/transport' element={<UnderConstruction />} />
-      </Routes>
+            {/* 구현중인 페이지 */}
+            <Route path='/dangerArea' element={<UnderConstruction />} />
+            <Route path='/foodMap' element={<UnderConstruction />} />
+            <Route path='/delivery' element={<UnderConstruction />} />
+            <Route path='/transport' element={<UnderConstruction />} />
+          </Routes>
+        </Suspense>
       </div>
 
       {!['/login', '/signup', '/userprofile'].includes(location.pathname) && <Footer />}

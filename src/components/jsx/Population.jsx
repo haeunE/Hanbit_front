@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import "../css/Population.css";
 import Papa from 'papaparse';
 import { NavermapsProvider, Container as MapDiv, NaverMap, Marker, useNavermaps } from 'react-naver-maps';
-import "@/locales/i18n";
-import i18n from 'i18next';
 
 function Population() {
   const location = localStorage.getItem('location');
@@ -12,10 +10,10 @@ function Population() {
   const [populationData, setPopulationData] = useState([]); // 실시간 인구밀집도 데이터
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searchQuery, setSearchQuery] = useState(); // 사용자가 입력한 검색어
-  const [region, setRegion] = useState(initialRegion); // 검색 받은 지역
-  const [allPlaces, setAllPlaces] = useState([]); // 서울시 주요 116곳 명소 정보
-  const [closestPlace, setClosestPlace] = useState(null); // 가장 가까운 장소를 저장할 상태
+  const [searchQuery, setSearchQuery] = useState(); // 검색어
+  const [region, setRegion] = useState(initialRegion); // 검색 받은 지역 (기본 지역)
+  const [allPlaces, setAllPlaces] = useState([]); // 서울시 116곳 명소 정보
+  const [closestPlace, setClosestPlace] = useState(null); // 검색 지역과 가장 가까운 서울시 명소
   const [naverLoaded, setNaverLoaded] = useState(false);
   const [modal, setModal] = useState(false);
 
@@ -50,8 +48,7 @@ function Population() {
   useEffect(() => {
     const loadNaverMapAPI = () => {
       const script = document.createElement('script');
-      script.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${import.meta.env.VITE_NAVER_MAP_CLIENT_ID}&submodules=geocoder&language=${i18n.language}`
-      console.log(i18n.language)
+      script.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${import.meta.env.VITE_NAVER_MAP_CLIENT_ID}&submodules=geocoder`
       script.onload = () => setNaverLoaded(true);
       document.body.appendChild(script);
     };
@@ -128,7 +125,7 @@ function Population() {
     setClosestPlace(closestPlace);  // 가장 가까운 장소 상태 업데이트
 
     // 실시간 인구데이터 api
-    const POPULATION_MAP_API_URL = `http://openapi.seoul.go.kr:8088/${import.meta.env.VITE_POPULATION_API_KEY}/json/citydata_ppltn/1/5/${closestPlace.AREA_NM}`;
+    const POPULATION_MAP_API_URL = `http://openapi.seoul.go.kr:8088/${import.meta.env.VITE_KOREA_SEOUL_DATA_API_KEY}/json/citydata_ppltn/1/5/${closestPlace.AREA_NM}`;
     // const POPULATION_MAP_API_URL_ENG = `http://openapi.seoul.go.kr:8088/${import.meta.env.VITE_POPULATION_API_KEY}/json/citydata_ppltn/1/5/${closestPlace.ENG_NM}`;
 
     try {
@@ -205,37 +202,35 @@ function Population() {
 
   return (
     <div className="population">
-      <div className='population-box'>
-        <h3>👥 밀집도 검색</h3>
-        <div className='search-population'>
-          <p> * 서울시 116개 주요 명소의 실시간 인구 데이터를 검색하실 수 있습니다.<br />
-            * 찾으시는 지역의 데이터가 없는 경우, 해당 지역과 가장 가까운 명소의 데이터를 검색합니다.<br /></p>
+      <div className='search-population'>
 
-          <div className="search-box">
-            <strong>장소 검색 : </strong>
-            <input
-              type="search"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyDown={handleKeyDown}  // 엔터키 검색
-              placeholder="ex) 지역명 '청담' 또는 지하철 역명 '강남역' 검색"
-            />
-            <button onClick={handleSearch}>검색</button>
-          </div>
-        </div>
+        <div className="search-box">
+          <strong>장소 검색 : </strong>
+          <input
+            type="search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleKeyDown}  // 엔터키 검색
+            placeholder="ex) '청담' 또는 '강남역'"
+          />
+          <button onClick={handleSearch}>검색</button>
+        </div><br />
 
-        <MapPage closestPlace={closestPlace} />
+        <p> * 서울시 116개 주요 명소의 실시간 인구 데이터를 검색하실 수 있습니다.<br />
+          * 찾으시는 지역의 데이터가 없는 경우, 해당 지역과 가장 가까운 명소의 데이터를 검색합니다.<br /></p>
+      </div>
 
-        <div className="text-population">
-          <h2>{populationData.AREA_NM}</h2>
-          {/* <h2>{populationData.ENG_NM}</h2> */}
-          <br />
-          <p>
-            인구 수 (population) : {populationData.AREA_PPLTN_MIN} ~ {populationData.AREA_PPLTN_MAX}<br />
-            혼잡도 (Population Density) : {populationData.AREA_CONGEST_LVL}<br /><br />
-            {populationData.AREA_CONGEST_MSG}
-          </p>
-        </div>
+      <MapPage closestPlace={closestPlace} />
+
+      <div className="text-population">
+        <h1>{populationData.AREA_NM}</h1>
+        {/* <h2>{populationData.ENG_NM}</h2> */}
+        <br />
+        <p>
+          인구 수 (population) : {populationData.AREA_PPLTN_MIN} ~ {populationData.AREA_PPLTN_MAX}<br />
+          혼잡도 (Population Density) : {populationData.AREA_CONGEST_LVL}<br /><br />
+          {populationData.AREA_CONGEST_MSG}
+        </p>
       </div>
     </div>
   );
@@ -257,7 +252,7 @@ const MapWithMarker = ({ closestPlace }) => {
   const userLocation = new navermaps.LatLng(Latitude, Longitude);
 
   return (
-    <NaverMap defaultCenter={userLocation} defaultZoom={14} >
+    <NaverMap defaultCenter={userLocation} defaultZoom={11} >
       <Marker position={userLocation} />
     </NaverMap>
 
