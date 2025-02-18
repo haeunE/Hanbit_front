@@ -4,6 +4,7 @@ import "../css/Weathers.css"; // CSS 파일 불러오기
 import Pollutant from "./Pollutant";
 import HourWeather from "../../components/jsx/HourWeather";
 import DayWeather from "../../components/jsx/DayWeather";
+import fetchPrediction from "../../utils/model";
 
 function Weathers() {
   // AQI 상태 변수
@@ -78,6 +79,7 @@ function Weathers() {
       console.error("Error fetching air quality data:", err);
     }
   };
+  
 
   // 특정 구의 공기질 데이터 찾기
   const getCityAirData = (airData, city) => {
@@ -109,8 +111,8 @@ function Weathers() {
   useEffect(() => {
     fetchWeatherData();
     fetchAirQualityData();
+    fetchPrediction(cityAir)
     updateDataEveryTenMinutes();
-
     return () => {
       if (updateIntervalRef.current) {
         clearInterval(updateIntervalRef.current);
