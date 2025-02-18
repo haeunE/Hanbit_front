@@ -13,6 +13,8 @@ const Directions = () => {
   const [currentLocation, setCurrentLocation] = useState(null);
   const [mapLoaded, setMapLoaded] = useState(false);
   const [path, setPath] = useState([]);
+  const [distance, setDistance] = useState(null);  // 거리 상태 추가
+  const [duration, setDuration] = useState(null);  // 소요 시간 상태 추가
 
   // 초기 위치 설정
   useEffect(() => {
@@ -137,7 +139,9 @@ const Directions = () => {
       }
 
       const data = await response.json();
-      setPath(data.route.traoptimal[0].path); // 상태 업데이트 (useEffect 트리거)
+      setPath(data.route.traoptimal[0].path); // 경로 설정
+      setDistance(data.route.traoptimal[0].summary.distance); // 거리 설정
+      setDuration(data.route.traoptimal[0].summary.duration); // 소요 시간 설정
     } catch (error) {
       console.error(error);
     }
@@ -158,44 +162,50 @@ const Directions = () => {
 
   return (
     <Container>
-    <div className="directions-container">
-      <h2 className="directions-title">{t("directions.title")}</h2>
-      {currentLocation ? (
-        <div className="current-location">
-          <p>
-            {t("directions.currentLocation")}: {currentLocation.city} {currentLocation.region}
-          </p>
-        </div>
-      ) : (
-        <p className="error-message">{t("directions.noCurrentLocation")}</p>
-      )}
-
-      {destination ? (
-        <>
-          <div className="directions-address">
+      <div className="directions-container">
+        <h2 className="directions-title">{t("directions.title")}</h2>
+        {currentLocation ? (
+          <div className="current-location">
             <p>
-              {t("directions.destination")}: {destination.title} ({destination.add})
+              {t("directions.currentLocation")}: {currentLocation.city} {currentLocation.region}
             </p>
           </div>
-          <div id="map" className="map"></div>
-          <div className="button-container">
-            <button className="open-naver-map-btn" onClick={openNaverMapApp}>
-              {t("directions.openNaverMap")}
-            </button>
-          </div>
-        </>
-      ) : (
-        <>
-          <p className="error-message">{t("directions.noDestination")}</p>
-          <div className="button-container">
-            <button className="open-naver-map-btn" onClick={openNaverMapApp}>
-              {t("directions.openNaverMap")}
-            </button>
-          </div>
-        </>
-      )}
-    </div>
-  </Container>
+        ) : (
+          <p className="error-message">{t("directions.noCurrentLocation")}</p>
+        )}
+
+        {destination ? (
+          <>
+            <div className="directions-address">
+              <p>
+                {t("directions.destination")}: {destination.title} ({destination.add})
+              </p>
+            </div>
+            {distance && duration && (
+              <div className="directions-summary">
+                <p><strong>{t("directions.distance")}: </strong>{distance}m</p>
+                <p><strong>{t("directions.duration")}: </strong>{(duration / 60000).toFixed(2)} {t("directions.minutes")}</p>
+              </div>
+            )}
+            <div id="map" className="map"></div>
+            <div className="button-container">
+              <button className="open-naver-map-btn" onClick={openNaverMapApp}>
+                {t("directions.openNaverMap")}
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            <p className="error-message">{t("directions.noDestination")}</p>
+            <div className="button-container">
+              <button className="open-naver-map-btn" onClick={openNaverMapApp}>
+                {t("directions.openNaverMap")}
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+    </Container>
   );
 };
 

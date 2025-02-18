@@ -5,6 +5,7 @@ import Pollutant from "./Pollutant";
 import HourWeather from "../../components/jsx/HourWeather";
 import DayWeather from "../../components/jsx/DayWeather";
 import PmNotice from "../../components/jsx/PmNotice";
+import FineDustGraph from "../../components/jsx/FineDustGraph";
 
 function Weathers() {
   // AQI 상태 변수
@@ -152,6 +153,9 @@ function Weathers() {
           <Pollutant cityAir={cityAir}/>
           <PmNotice hourweather={cityAir} /> 
           
+        </div>
+        <div className="weather-fineDustGraph">
+          <FineDustGraph />
         </div>
       </Container>
     </div>
