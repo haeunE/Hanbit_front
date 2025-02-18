@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 import "../css/FineDustGraph.css";
+import dayjs from "dayjs"; // dayjs 라이브러리 임포트
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -13,33 +14,47 @@ function FineDustGraph() {
   useEffect(() => {
     const KEY = import.meta.env.VITE_KOREA_SEOUL_DATA_API_KEY;
     const dates = generateDates();
-    const fetchedData = [];
+    let fetchedData = [];
 
-    dates.forEach((date) => {
-      const URL = `http://openAPI.seoul.go.kr:8088/${KEY}/json/TimeAverageAirQuality/1/1000/${date}/${location.city}`;
-
-      fetch(URL)
-        .then((response) => response.json())
-        .then((data) => {
-          if (data && data.TimeAverageAirQuality.row) {
-            console.log(data)
-            const rows = data.TimeAverageAirQuality.row;
-            rows.forEach((entry) => {
-              fetchedData.push({
-                CO: entry.CO,
-                SO2: entry.SO2,
-                NO2: entry.NO2,
-                O3: entry.O3,
-                PM10: entry.PM10,
-                PM25: entry.PM25,
-                time: entry.MSRDT,
-                region: entry.MSRSTE_NM,
+    // 비동기적으로 데이터를 가져오고 저장
+    Promise.all(
+      dates.map((date) => {
+        const URL = `http://openAPI.seoul.go.kr:8088/${KEY}/json/TimeAverageAirQuality/1/1000/${date}/${location.city}`;
+        return fetch(URL)
+          .then((response) => response.json())
+          .then((data) => {
+            if (data && data.TimeAverageAirQuality.row) {
+              const rows = data.TimeAverageAirQuality.row;
+              rows.forEach((entry) => {
+                fetchedData.push({
+                  CO: entry.CO,
+                  SO2: entry.SO2,
+                  NO2: entry.NO2,
+                  O3: entry.O3,
+                  PM10: entry.PM10,
+                  PM25: entry.PM25,
+                  time: entry.MSRDT,
+                  region: entry.MSRSTE_NM,
+                });
               });
-            });
-            setData(fetchedData);
-          }
-        })
-        .catch((error) => console.log(error));
+            }
+          })
+          .catch((error) => console.log(error));
+      })
+    ).then(() => {
+      // 데이터를 중복 없이 시간순으로 정렬한 후 한번만 setData 호출
+      const sortedData = fetchedData
+        .sort((a, b) => {
+          const dateA = new Date(
+            `${a.time.slice(0, 4)}-${a.time.slice(4, 6)}-${a.time.slice(6, 8)}T${a.time.slice(8, 10)}:${a.time.slice(10, 12)}:00`
+          );
+          const dateB = new Date(
+            `${b.time.slice(0, 4)}-${b.time.slice(4, 6)}-${b.time.slice(6, 8)}T${b.time.slice(8, 10)}:${b.time.slice(10, 12)}:00`
+          );
+          return dateA - dateB;
+        });
+
+      setData(sortedData); // 정렬된 데이터로 상태 설정
     });
   }, []);
 
@@ -61,11 +76,13 @@ function FineDustGraph() {
   }
 
   const graphData = {
-    labels: data.map((entry) => entry.time).filter((_, index) => index % 3 === 0), // 3시간 간격
+    labels: data
+      .map((entry) => dayjs(entry.time, "YYYYMMDDHHmm").format("HH:mm")), // 시간만 추출
     datasets: [
       {
         label: selectedParameter,
-        data: data.map((entry) => entry[selectedParameter]).filter((_, index) => index % 3 === 0),
+        data: data
+          .map((entry) => entry[selectedParameter]), // 선택된 파라미터 데이터
         backgroundColor: "rgba(75, 192, 192, 0.6)",
         borderColor: "rgba(75, 192, 192, 1)",
         borderWidth: 1,
@@ -78,8 +95,7 @@ function FineDustGraph() {
     scales: {
       x: {
         ticks: {
-          autoSkip: false,
-          maxTicksLimit: 8,
+          autoSkip: false, // x축의 레이블이 중복되지 않도록 설정
         },
       },
     },
@@ -108,7 +124,7 @@ function FineDustGraph() {
         </select>
       </div>
 
-      <div className="graph-container">
+      <div className="graph-container" style={{ width: '90%', height: '500px' }}>
         {data.length > 0 ? <Bar data={graphData} options={options} /> : <p>데이터를 불러오는 중...</p>}
       </div>
     </div>
