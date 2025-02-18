@@ -126,8 +126,8 @@ function Weathers() {
       if (data && JSON.stringify(cityAir) !== JSON.stringify(data)) {
         setCityAir(data);
 
-        if (data.MAXINDEX && aqi !== data.MAXINDEX) {
-          setAqi(data.MAXINDEX);
+        if (data.aqi && aqi !== data.aqi) {
+          setAqi(data.aqi);
         }
       }
     }
