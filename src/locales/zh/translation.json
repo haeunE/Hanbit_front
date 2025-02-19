@@ -354,7 +354,10 @@
     "noCurrentLocation": "无法获取当前位置信息。",
     "destination": "目的地",
     "noDestination": "没有目的地信息。",
-    "openNaverMap": "打开Naver地图应用"
+    "openNaverMap": "打开Naver地图应用",
+    "distance": "距离",
+    "duration": "持续时间",
+    "minutes": "分钟"
   },
   "amenities": {
     "convenience-store": "便利店",

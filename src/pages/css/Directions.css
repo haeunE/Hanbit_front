@@ -15,7 +15,7 @@
   margin-bottom: 20px;
 }
 
-.directions-address, .current-location {
+.directions-address, .current-location, .directions-summary {
   font-size: 16px;
   color: #777;
   margin-top: 20px;

@@ -356,7 +356,10 @@
     "noCurrentLocation": "Unable to retrieve current location.",
     "destination": "Destination",
     "noDestination": "No destination information available.",
-    "openNaverMap": "Open Naver Map App"
+    "openNaverMap": "Open Naver Map App",
+    "distance": "distance",
+    "duration": "duration",
+    "minutes": "minutes"
   },
   "amenities": {
     "convenience-store": "Convenience Store",

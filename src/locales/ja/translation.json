@@ -356,7 +356,10 @@
     "noCurrentLocation": "現在地情報を取得できません。",
     "destination": "目的地",
     "noDestination": "目的地の情報がありません。",
-    "openNaverMap": "ネイバー地図アプリを開く"
+    "openNaverMap": "ネイバー地図アプリを開く",
+    "distance": "距離",
+    "duration": "所要時間",
+    "minutes": "分"
   },
   "amenities": {
     "convenience-store": "コンビニ",
