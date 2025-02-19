@@ -4,9 +4,9 @@ import "../css/Weathers.css"; // CSS 파일 불러오기
 import Pollutant from "./Pollutant";
 import HourWeather from "../../components/jsx/HourWeather";
 import DayWeather from "../../components/jsx/DayWeather";
+import FineDustGraph from "../../components/jsx/FineDustGraph";
 import PmNotice from "../../components/jsx/PmNotice";
 import PmModel from "../../components/jsx/PmModel";
-import FineDustGraph from "../../components/jsx/FineDustGraph";
 
 function Weathers() {
   // AQI 상태 변수
@@ -15,6 +15,7 @@ function Weathers() {
   const [dayweather, setDayWeather] = useState([]);
   const [airData, setAirData] = useState([]);
   const [cityAir, setCityAir] = useState(null);
+  const [pmData, setPmData] = useState({ pm10: '', pm25: '', no2: '', o3: '', co: '', so2: '' }) 
   const city = JSON.parse(localStorage.getItem("location"))?.region?.split(" ")[0] || "서울";
 
   // API 키 및 URL
@@ -73,7 +74,7 @@ function Weathers() {
           pm10: item.PM10,              // 미세먼지 (PM10)
           pm25: item.PM25,              // 초미세먼지 (PM2.5)
         }));
-  
+
         setAirData(formattedData);
         console.log("Formatted Air Quality Data:", formattedData);
       }
@@ -148,18 +149,17 @@ function Weathers() {
         <button onClick={() => setAqi(aqi + 20)}>AQI 증가</button>
         <button onClick={() => setAqi(aqi - 20)}>AQI 감소</button>
         {/* <Weather/> */}
-        <HourWeather hourweather={hourweather}/>
+        <HourWeather hourweather={hourweather} />
         <div className="weather-2rows">
-          <DayWeather dayweather={dayweather}/>
-          <Pollutant cityAir={cityAir}/>
+          <DayWeather dayweather={dayweather} />
+          <Pollutant cityAir={cityAir} />
         </div>
         <div className="weather-fineDustGraph">
           <FineDustGraph />
-        </div>
-        <div className="pmmodel">
-          <PmNotice cityAir={cityAir} /> 
-          <PMModel cityAir={cityAir} />
+          <div className="pmmodel">
+
           </div>
+        </div>
       </Container>
     </div>
   );
