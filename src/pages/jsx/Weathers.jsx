@@ -5,6 +5,8 @@ import Pollutant from "./Pollutant";
 import HourWeather from "../../components/jsx/HourWeather";
 import DayWeather from "../../components/jsx/DayWeather";
 import FineDustGraph from "../../components/jsx/FineDustGraph";
+import Notice from "../../components/jsx/Notice";
+import AirQualityList from "../../components/jsx/AirQualityList";
 
 function Weathers() {
   // AQI 상태 변수
@@ -14,7 +16,6 @@ function Weathers() {
   const [airData, setAirData] = useState([]);
   const [cityAir, setCityAir] = useState(null);
   const city = JSON.parse(localStorage.getItem("location"))?.region?.split(" ")[0] || "서울";
-  const mode = JSON.parse(localStorage.getItem("mode"))
 
   // API 키 및 URL
   const seoul_apiKey = import.meta.env.VITE_KOREA_SEOUL_DATA_API_KEY;
@@ -150,8 +151,14 @@ function Weathers() {
           <DayWeather dayweather={dayweather}/>
           <Pollutant cityAir={cityAir}/>
         </div>
+        <div className="weather-notice">
+          <Notice aqi={aqi}/>
+        </div>
         <div className="weather-fineDustGraph">
           <FineDustGraph />
+        </div>
+        <div>
+         <AirQualityList airData={airData} />
         </div>
       </Container>
     </div>

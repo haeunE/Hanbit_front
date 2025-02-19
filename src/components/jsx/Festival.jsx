@@ -32,7 +32,6 @@ function Festival() {
     fetch(URL)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
         const items = data.culturalEventInfo?.row || [];
         // 오늘 날짜 이후의 END_DATE 필터링
         const currentDate = new Date();
