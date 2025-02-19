@@ -32,12 +32,13 @@ function Festival() {
     fetch(URL)
       .then((response) => response.json())
       .then((data) => {
+        console.log(data)
         const items = data.culturalEventInfo?.row || [];
-      // 오늘 날짜 이후의 END_DATE 필터링
-      const currentDate = new Date();
-      const filteredItems = items.filter((item) => {
-        const eventEndDate = new Date(item.END_DATE); // 이벤트 종료 날짜
-        return eventEndDate > currentDate; // 현재 날짜 이후만 남김
+        // 오늘 날짜 이후의 END_DATE 필터링
+        const currentDate = new Date();
+        const filteredItems = items.filter((item) => {
+          const eventEndDate = new Date(item.END_DATE); // 이벤트 종료 날짜
+          return eventEndDate > currentDate; // 현재 날짜 이후만 남김
       });
 
         // 랜덤으로 3개 이벤트만 선택

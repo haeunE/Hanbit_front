@@ -33,7 +33,6 @@
   display: block; /* 블록 요소로 설정 */
   margin: 20px auto; /* 자동 가운데 정렬 */
   padding: 12px 24px;
-  background-color: #00b493;
   color: white;
   font-size: 1.2rem;
   font-weight: bold;
@@ -43,7 +42,20 @@
   transition: background-color 0.3s, transform 0.2s;
 }
 
-.open-naver-map-btn:hover {
+.open-naver-map-btn.day{
+  background-color: #00b493;
+}
+
+.open-naver-map-btn.day:hover {
   background-color: #008f72;
+  transform: scale(1.05); /* 마우스 오버 시 확대 */
+}
+
+.open-naver-map-btn.night{
+  background-color: rgb(248, 73, 108);
+}
+
+.open-naver-map-btn.night:hover {
+  background-color: rgb(167, 51, 74);
   transform: scale(1.05); /* 마우스 오버 시 확대 */
 }

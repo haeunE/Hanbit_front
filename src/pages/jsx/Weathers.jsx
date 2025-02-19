@@ -14,6 +14,7 @@ function Weathers() {
   const [airData, setAirData] = useState([]);
   const [cityAir, setCityAir] = useState(null);
   const city = JSON.parse(localStorage.getItem("location"))?.region?.split(" ")[0] || "서울";
+  const mode = JSON.parse(localStorage.getItem("mode"))
 
   // API 키 및 URL
   const seoul_apiKey = import.meta.env.VITE_KOREA_SEOUL_DATA_API_KEY;
@@ -134,8 +135,6 @@ function Weathers() {
     }
   }, [airData, city]);
 
-  console.log("AQI:", aqi);
-  console.log("City Data:", cityAir);
   return (
     <div className={`weather-container ${bgClass}`}>
       <Container>

@@ -15,6 +15,7 @@ import Footer from './components/main/Footer'
 
 import { lazy } from 'react';
 import LoadingSpinner from './utils/LoadingSpinner'
+import SafeArea from './pages/jsx/SafeArea'
 
 // 페이지 컴포넌트 Lazy Loading
 const Intro = lazy(()=> import ('./pages/jsx/intro'))
@@ -37,7 +38,6 @@ const Directions = lazy(() => import('./pages/jsx/Directions'));
 const Amenities = lazy(() => import('./pages/jsx/Amenities'));
 const UnderConstruction = lazy(() => import('./components/jsx/UnderConstruction'));
 const Weathers = lazy(() => import('./pages/jsx/Weathers'));
-
 
 function App() {
   const isMode = useSelector(state => state.isMode);
@@ -138,12 +138,7 @@ function App() {
             <Route path='/directions' element={<Directions />} />
             <Route path='/amenities' element={<Amenities />} />
             <Route path='/weathers' element={<Weathers/>}/>
-
-            {/* 구현중인 페이지 */}
-            <Route path='/dangerArea' element={<UnderConstruction />} />
-            <Route path='/foodMap' element={<UnderConstruction />} />
-            <Route path='/delivery' element={<UnderConstruction />} />
-            <Route path='/transport' element={<UnderConstruction />} />
+            <Route path='/safeArea' element={<SafeArea />} />
           </Routes>
         </Suspense>
       </div>

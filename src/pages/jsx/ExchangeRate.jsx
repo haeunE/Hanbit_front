@@ -5,6 +5,8 @@ import { Container } from 'react-bootstrap';
 import NaverMap from '../../components/jsx/NaverMap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { SetIsMode } from '../../redux/modeState';
 
 
 function ExchangeRate() {
@@ -18,6 +20,8 @@ function ExchangeRate() {
   const [spots, setSpots] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+  const isMode = useSelector((state)=>state.isMode);
+  const dispatch = useDispatch();
 
   const curr = {
     'krw' : t`exchange.kor-curr`,
@@ -45,7 +49,7 @@ function ExchangeRate() {
   };
 
   useEffect(() => {
-    fetch(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/${rateValue}.json`)
+   fetch(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/${rateValue}.json`)
     .then((response) => response.json())
     .then((data) => {
       const up = (data[rateValue][rateValue2])
@@ -85,6 +89,10 @@ function ExchangeRate() {
 
     // 서울 TOP5 검색
     useEffect(() => {
+      const savedMode = JSON.parse(localStorage.getItem("isMode"));
+      if (savedMode !== null) {
+        dispatch(SetIsMode(savedMode));
+      }
       const clientId = import.meta.env.VITE_NAVER_API_ID;
       const clientSecret = import.meta.env.VITE_NAVER_API_SECRET;
       
@@ -117,7 +125,7 @@ function ExchangeRate() {
       };
   
       fetchSpots();
-    }, []);
+    }, [isMode]);
 
   // HTML 태그 제거 함수
   const removeHTMLTags = (text) => text.replace(/<[^>]*>/g, '');
@@ -205,7 +213,8 @@ function ExchangeRate() {
             </div>
           </div>
           <div className='exchange-movePage-btn'>
-            <button onClick={() => navigate("/amenities", { state: 'BK9' })}>더보기</button>
+            <button className={`exchange-movePage ${isMode ? "day" : "night"}`}
+            onClick={() => navigate("/amenities", { state: 'BK9' })}>{t`exchange.View-more`}</button>
           </div>
         </div>
       </div>

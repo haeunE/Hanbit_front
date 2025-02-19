@@ -5,7 +5,7 @@
     "day-seoul" : "ソウルの昼間",
     "night-seoul" : "ソウルの夜",
     "amenities" : "設備",
-    "danger-area" : "危険地域",
+    "safe-area" : "セーフエリア",
     "traffic" : "交通",
     "directions" : "道案内",
     "Ddareungi" : "ソウルシェアサイクル(自転車レンタル)",
@@ -74,7 +74,8 @@
     "eu-curr": "ユーロ",
     "cn-curr": "元",
     "jp-curr": "円",
-    "placeholder": "数字を入力してください"
+    "placeholder": "数字を入力してください",
+    "View-more" : "もっと見る"
   },
   "plus": {
     "title": "ビザ申請に必要なもの",
@@ -449,6 +450,7 @@
     "delete": "削除",
     "updated": "（更新日: {date}）"
   },
-  "exchange_store": "両替所"
-  
+  "exchange_store": "両替所",
+  "safety_Area" : "安全地域(あんぜんちいき)",
+  "notification" : "性犯罪者お知らせe 直通リンク"
 }
