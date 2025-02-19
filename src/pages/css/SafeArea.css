@@ -1,0 +1,55 @@
+.safeArea {
+  padding-top: 100px;
+  width: 90%;
+  margin: auto;
+}
+
+.safeArea-h2{
+  font-weight: bold;
+  color: #00b493;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-bottom: 10px;
+}
+
+.safeArea-map {
+  height: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.safeArea-btn {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.7%;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* 낮 모드 버튼 */
+.safeArea-btn.day {
+  background-color: #00b493;
+}
+
+.safeArea-btn.day:hover {
+  background-color: #008a73;
+  transform: scale(1.05);
+}
+
+/* 밤 모드 버튼 */
+.safeArea-btn.night {
+  background-color: rgb(248, 73, 108);
+}
+
+.safeArea-btn.night:hover {
+  background-color: rgb(167, 51, 74);
+  transform: scale(1.05);
+}

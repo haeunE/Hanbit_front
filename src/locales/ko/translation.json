@@ -5,7 +5,7 @@
     "day-seoul" : "서울의 낮",
     "night-seoul" : "서울의 밤",
     "amenities" : "편의시설",
-    "danger-area" : "위험지역",
+    "safe-area" : "안전지역",
     "traffic" : "교통",
     "directions" : "길찾기",
     "Ddareungi" : "따릉이",
@@ -79,7 +79,8 @@
     "eu-curr" : "유로",
     "cn-curr" : "위안",
     "jp-curr" : "엔",
-    "placeholder" : "숫자를 입력하세요"
+    "placeholder" : "숫자를 입력하세요",
+    "View-more" : "더보기"
   },
   "plus" : {
     "title" : "비자 신청을 위한 필요한 것들",
@@ -359,7 +360,10 @@
     "noCurrentLocation": "현재 위치 정보를 가져올 수 없습니다.",
     "destination": "목적지",
     "noDestination": "목적지 정보가 없습니다.",
-    "openNaverMap": "네이버 지도 앱 열기"
+    "openNaverMap": "네이버 지도 앱 열기",
+    "distance" : "거리",
+    "duration" : "소요시간",
+    "minutes" : "분"
   },
   "amenities" :{
     "convenience-store" :"편의점",
@@ -453,6 +457,8 @@
     "delete": "삭제",
     "updated": "(수정됨: {date})"
   },
-  "exchange_store": "환전소"
+  "exchange_store": "환전소",
+  "safety_Area" : "안전지역",
+  "notification" : "성범죄자 알림e 바로가기"
   
 }

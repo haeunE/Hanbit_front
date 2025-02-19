@@ -3,6 +3,8 @@ import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 import "../css/FineDustGraph.css";
 import dayjs from "dayjs"; // dayjs 라이브러리 임포트
+import { useDispatch, useSelector } from "react-redux";
+import { SetIsMode } from "../../redux/modeState";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -10,11 +12,19 @@ function FineDustGraph() {
   const [data, setData] = useState([]);
   const [selectedParameter, setSelectedParameter] = useState("CO");
   const location = JSON.parse(localStorage.getItem("location"));
+  const isMode = useSelector((state) => state.isMode);
+  const dispatch = useDispatch();
+
 
   useEffect(() => {
     const KEY = import.meta.env.VITE_KOREA_SEOUL_DATA_API_KEY;
     const dates = generateDates();
     let fetchedData = [];
+
+    const savedMode = JSON.parse(localStorage.getItem("isMode"));
+    if (savedMode !== null) {
+      dispatch(SetIsMode(savedMode));
+    }
 
     // 비동기적으로 데이터를 가져오고 저장
     Promise.all(
@@ -83,20 +93,32 @@ function FineDustGraph() {
         label: selectedParameter,
         data: data
           .map((entry) => entry[selectedParameter]), // 선택된 파라미터 데이터
-        backgroundColor: "rgba(75, 192, 192, 0.6)",
-        borderColor: "rgba(75, 192, 192, 1)",
+        backgroundColor: isMode
+          ? "rgba(75, 192, 192, 0.6)" // mode가 true일 경우
+          : "#2f4858", // mode가 false일 경우
+        borderColor: isMode
+          ? "rgba(75, 192, 192, 1)" // mode가 true일 경우
+          : "#2f4858", // mode가 false일 경우
         borderWidth: 1,
       },
     ],
   };
+  
 
   const options = {
     responsive: true,
     scales: {
       x: {
         ticks: {
-          autoSkip: false, // x축의 레이블이 중복되지 않도록 설정
+          autoSkip: false // x축의 레이블이 중복되지 않도록 설정
         },
+        grid : {
+          display : false
+        }
+      },y: {
+        grid : {
+          display : false
+        }
       },
     },
     plugins: {

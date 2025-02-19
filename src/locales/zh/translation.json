@@ -5,7 +5,7 @@
     "day-seoul" : "首尔的白天",
     "night-seoul" : "首尔的夜晚",
     "amenities" : "便利设施",
-    "danger-area" : "危险区域",
+    "safe-area" : "安全区域",
     "traffic" : "交通",
     "directions" : "路线指引",
     "Ddareungi" : "首尔公共自行车(自行车租赁)",
@@ -74,7 +74,8 @@
     "eu-curr": "欧元",
     "cn-curr": "人民币",
     "jp-curr": "日元",
-    "placeholder": "请输入数字"
+    "placeholder": "请输入数字",
+    "View-more" : "更多"
   },
   "plus": {
     "title": "签证申请所需材料",
@@ -353,7 +354,10 @@
     "noCurrentLocation": "无法获取当前位置信息。",
     "destination": "目的地",
     "noDestination": "没有目的地信息。",
-    "openNaverMap": "打开Naver地图应用"
+    "openNaverMap": "打开Naver地图应用",
+    "distance": "距离",
+    "duration": "持续时间",
+    "minutes": "分钟"
   },
   "amenities": {
     "convenience-store": "便利店",
@@ -447,6 +451,8 @@
     "delete": "删除",
     "updated": "（更新于: {date}）"
   },
-  "exchange_store": "兑换店"
+  "exchange_store": "兑换店",
+  "safety_Area" : "安全区域",
+  "notification" : "性犯罪者通知e 直接链接"
 
 }

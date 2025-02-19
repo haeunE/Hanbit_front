@@ -5,7 +5,7 @@
     "day-seoul" : "DAY IN SEOUL",
     "night-seoul" : "NIGHT IN SEOUL",
     "amenities" : "Amenities",
-    "danger-area" : "Danger Area",
+    "safe-area" : "Safe Area",
     "traffic" : "Traffic",
     "directions" : "Directions",
     "Ddareungi" : "Ddareungi(Bicycle Rental)",
@@ -74,7 +74,8 @@
     "eu-curr": "Euro",
     "cn-curr": "Yuan",
     "jp-curr": "Yen",
-    "placeholder": "Enter a number"
+    "placeholder": "Enter a number",
+    "View-more" : "View more"
   },
   "plus": {
     "title": "Things Needed for Visa Application",
@@ -355,7 +356,10 @@
     "noCurrentLocation": "Unable to retrieve current location.",
     "destination": "Destination",
     "noDestination": "No destination information available.",
-    "openNaverMap": "Open Naver Map App"
+    "openNaverMap": "Open Naver Map App",
+    "distance": "distance",
+    "duration": "duration",
+    "minutes": "minutes"
   },
   "amenities": {
     "convenience-store": "Convenience Store",
@@ -449,6 +453,8 @@
     "delete": "Delete",
     "updated": "(Updated: {date})"
   },
-  "exchange_store": "Exchange store"
+  "exchange_store": "Exchange store",
+  "safety_Area" : "Safety Area",
+  "notification" : "Direct Link to Sex Offender Notification e"
   
 }
