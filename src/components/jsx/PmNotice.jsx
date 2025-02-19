@@ -41,3 +41,10 @@ function PmNotice({ cityAir }) {
 }
 
 export default PmNotice;
+
+
+
+// airData : 모든 구 대기정보
+// hourWeather: 오늘의 시간별 날씨정보
+// dayWeather: 일주일 날씨정보
+// cityAir: 현재위치의 구에 해당되는 대기정보

@@ -5,6 +5,7 @@ import Pollutant from "./Pollutant";
 import HourWeather from "../../components/jsx/HourWeather";
 import DayWeather from "../../components/jsx/DayWeather";
 import PmNotice from "../../components/jsx/PmNotice";
+import PmModel from "../../components/jsx/PmModel";
 import FineDustGraph from "../../components/jsx/FineDustGraph";
 
 function Weathers() {
@@ -151,12 +152,14 @@ function Weathers() {
         <div className="weather-2rows">
           <DayWeather dayweather={dayweather}/>
           <Pollutant cityAir={cityAir}/>
-          <PmNotice hourweather={cityAir} /> 
-          
         </div>
         <div className="weather-fineDustGraph">
           <FineDustGraph />
         </div>
+        <div className="pmmodel">
+          <PmNotice cityAir={cityAir} /> 
+          <PMModel cityAir={cityAir} />
+          </div>
       </Container>
     </div>
   );
