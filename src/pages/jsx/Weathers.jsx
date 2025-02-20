@@ -4,11 +4,11 @@ import "../css/Weathers.css"; // CSS 파일 불러오기
 import Pollutant from "./Pollutant";
 import HourWeather from "../../components/jsx/HourWeather";
 import DayWeather from "../../components/jsx/DayWeather";
-import fetchPrediction from "../../utils/model";
 import FineDustGraph from "../../components/jsx/FineDustGraph";
 import Notice from "../../components/jsx/Notice";
 import AirQualityList from "../../components/jsx/AirQualityList";
 import weatherModel from "../../utils/model";
+import WeathersItro from "../../components/jsx/WeatherItro";
 
 function Weathers() {
   // AQI 상태 변수
@@ -86,7 +86,7 @@ function Weathers() {
         const formattedData = data.ListAirQualityByDistrictService.row.map((item) => ({
           date: item.MSRDATE,           // 측정 날짜 및 시간
           guno: item.MSRADMCODE,        // 행정 코드
-          goname: item.MSRSTENAME,      // 지역명
+          guname: item.MSRSTENAME,      // 지역명
           aqi: item.MAXINDEX,           // 대기질지수 (AQI)
           grade: item.GRADE,            // 등급 (좋음, 보통, 나쁨 등)
           pollutant: item.POLLUTANT,    // 주요 오염 물질
@@ -109,7 +109,7 @@ function Weathers() {
 
   // 특정 구의 공기질 데이터 찾기
   const getCityAirData = (airData, city) => {
-    return airData?.find((item) => item.goname === city) || null;
+    return airData?.find((item) => item.guname === city) || null;
   };
 
   const updateDataEveryTenMinutes = async () => {
@@ -175,13 +175,16 @@ function Weathers() {
   console.log("City Data:", cityAir);
   console.log("pm10: ",predictHour)
   console.log("hour: ", hourweather)
+  console.log("day:",dayweather)
   return (
     <div className={`weather-container ${bgClass}`}>
       <Container>
-        <h1>공기질 지수 (AQI)</h1>
-        <p>현재 AQI: {aqi}</p>
-        {/* <Weather/> */}
-        <HourWeather hourweather={hourweather} predictHour={predictHour}/>
+        {cityAir ? (
+          <WeathersItro cityAir={cityAir} dayweather={dayweather[0]}/>
+        ) : (
+          <div>도시 공기 데이터 로딩 중...</div>
+        )}
+        <HourWeather hourweather={hourweather} predictHour={predictHour} city={city}/>
         <div className="weather-2rows">
           <DayWeather dayweather={dayweather}/>
           <Pollutant cityAir={cityAir}/>

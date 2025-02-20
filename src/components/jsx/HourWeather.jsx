@@ -1,6 +1,6 @@
 import React from "react";
 
-const HourWeather = ({ hourweather, predictHour }) => {
+const HourWeather = ({ hourweather, predictHour, city}) => {
   if (!hourweather || hourweather.length === 0) {
     return <p>데이터를 불러오는 중...</p>;
   }
@@ -46,7 +46,7 @@ const HourWeather = ({ hourweather, predictHour }) => {
     <section className="hour-weathers">
       <b className="hour-title">시간대별 일기 예보</b>
       <br />
-      <p className="hour-subtitle">서울시 공기질 지수(AQI*) 예보</p>
+      <p className="hour-subtitle">{city} 공기질 지수(AQI*) 예보</p>
       <br />
       <div className="hour-datas">
         {hourweather.slice(0, 12).map((data, index) => (
