@@ -21,6 +21,11 @@ export default defineConfig({
         secure: false,
         rewrite: (path) => path.replace(/^\/kakao/, ''),
       },
+      "/danger-api": {
+        target: "https://www.safe182.go.kr",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/danger-api/, ""),
+      },
     },
   },
   resolve: {

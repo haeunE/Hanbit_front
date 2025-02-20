@@ -95,7 +95,15 @@ function Bicycle() {
         });
 
         const infoWindow = new window.naver.maps.InfoWindow({
-          content: `<div>${RENT_NM}, 대여 가능 수: ${HOLD_NUM}</div>`,
+          content: `
+            <div style="padding: 15px; font-family: 'Arial', sans-serif; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); width: 200px; font-size: 14px;">
+              <h3 style="margin: 0; color: #333; font-size: 16px; font-weight: bold;">${RENT_NM}</h3>
+              <p style="color: #555; margin: 5px 0; font-size: 14px;">대여 가능 수: ${HOLD_NUM}</p>
+              <div style="border-top: 1px solid #ddd; padding-top: 8px; text-align: right; font-size: 12px; color: #888;">
+                <span>위치</span>
+              </div>
+            </div>
+          `,
         });
 
         window.naver.maps.Event.addListener(marker, "click", () => {

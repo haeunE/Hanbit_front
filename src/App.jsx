@@ -16,6 +16,7 @@ import Footer from './components/main/Footer'
 import { lazy } from 'react';
 import LoadingSpinner from './utils/LoadingSpinner'
 
+
 // 페이지 컴포넌트 Lazy Loading
 const Intro = lazy(()=> import ('./pages/jsx/intro'))
 const Login = lazy(() => import('./components/main/Login'));
@@ -35,9 +36,8 @@ const CsvUpload = lazy(() => import('./admin/components/CsvUpload'));
 const PlaceUpload = lazy(() => import('./admin/components/PlaceUpload'));
 const Directions = lazy(() => import('./pages/jsx/Directions'));
 const Amenities = lazy(() => import('./pages/jsx/Amenities'));
-const UnderConstruction = lazy(() => import('./components/jsx/UnderConstruction'));
 const Weathers = lazy(() => import('./pages/jsx/Weathers'));
-
+const SafeArea = lazy(() => import('./pages/jsx/SafeArea'));
 
 function App() {
   const isMode = useSelector(state => state.isMode);
@@ -138,12 +138,7 @@ function App() {
             <Route path='/directions' element={<Directions />} />
             <Route path='/amenities' element={<Amenities />} />
             <Route path='/weathers' element={<Weathers/>}/>
-
-            {/* 구현중인 페이지 */}
-            <Route path='/dangerArea' element={<UnderConstruction />} />
-            <Route path='/foodMap' element={<UnderConstruction />} />
-            <Route path='/delivery' element={<UnderConstruction />} />
-            <Route path='/transport' element={<UnderConstruction />} />
+            <Route path='/safeArea' element={<SafeArea />} />
           </Routes>
         </Suspense>
       </div>

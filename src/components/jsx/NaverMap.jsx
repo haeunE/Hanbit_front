@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import "@/locales/i18n";
 import i18n from 'i18next';
+import "../css/NaverMap.css"
 
 function NaverMap({ items, zoom }) {
   const location = JSON.parse(localStorage.getItem("location")); // 현재 위치
@@ -54,13 +55,17 @@ function NaverMap({ items, zoom }) {
         position: position,
         map: map,
       });
-
+      
       const infoWindowContent = `
-        <div>
-          <h3>${spot.title}</h3>
-          <p>${spot.addr}</p>
+      <div style="padding: 15px; font-family: 'Arial', sans-serif; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); width: 200px; font-size: 14px;">
+        <h3 style="margin: 0; color: #333; font-size: 16px; font-weight: bold;">${spot.title}</h3>
+        <p style="color: #555; margin: 5px 0; font-size: 14px;">${spot.addr}</p>
+        <div style="border-top: 1px solid #ddd; padding-top: 8px; text-align: right; font-size: 12px; color: #888;">
+          <span>위치</span>
         </div>
-      `;
+      </div>
+    `;
+    
 
       const infoWindow = new window.naver.maps.InfoWindow({
         content: infoWindowContent,

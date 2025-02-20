@@ -6,6 +6,8 @@ import HourWeather from "../../components/jsx/HourWeather";
 import DayWeather from "../../components/jsx/DayWeather";
 import fetchPrediction from "../../utils/model";
 import FineDustGraph from "../../components/jsx/FineDustGraph";
+import Notice from "../../components/jsx/Notice";
+import AirQualityList from "../../components/jsx/AirQualityList";
 import weatherModel from "../../utils/model";
 
 function Weathers() {
@@ -178,18 +180,20 @@ function Weathers() {
       <Container>
         <h1>공기질 지수 (AQI)</h1>
         <p>현재 AQI: {aqi}</p>
-
-        {/* AQI 값 변경 버튼 (테스트용) */}
-        <button onClick={() => setAqi(aqi + 20)}>AQI 증가</button>
-        <button onClick={() => setAqi(aqi - 20)}>AQI 감소</button>
         {/* <Weather/> */}
         <HourWeather hourweather={hourweather} predictHour={predictHour}/>
         <div className="weather-2rows">
           <DayWeather dayweather={dayweather}/>
           <Pollutant cityAir={cityAir}/>
         </div>
+        <div className="weather-notice">
+          <Notice aqi={aqi}/>
+        </div>
         <div className="weather-fineDustGraph">
           <FineDustGraph />
+        </div>
+        <div>
+         <AirQualityList airData={airData} />
         </div>
       </Container>
     </div>

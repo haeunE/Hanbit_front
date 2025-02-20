@@ -236,7 +236,6 @@
 }
 
 .exchange-movePage-btn button {
-  background-color: #00b493; /* 사용자가 선호하는 청자색 */
   color: white;
   border: none;
   padding: 10px 20px;
@@ -247,11 +246,22 @@
   transition: background-color 0.3s ease;
 }
 
-.exchange-movePage-btn button:hover {
+.exchange-movePage.day{
+  background-color: #00b493; 
+}
+
+.exchange-movePage.day:hover {
   background-color: #5d9d8a; /* 조금 어두운 청자색 */
   transform: scale(1.05);
 }
+.exchange-movePage.night{
+  background-color: rgb(248, 73, 108); 
+}
 
+.exchange-movePage.night:hover {
+  background-color: rgb(167, 51, 74); /* 조금 어두운 청자색 */
+  transform: scale(1.05);
+}
 @media screen and (max-width: 1024px) {
   .exchange-content {
     flex-direction: column;

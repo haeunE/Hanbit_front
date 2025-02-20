@@ -1,0 +1,39 @@
+.air-quality-container {
+  color: black;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.air-quality-header, .air-quality-row {
+  display: grid;
+  grid-template-columns: 50px 1fr 80px 120px 120px 150px; /* 열 크기 조정 */
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+}
+
+.air-quality-header {
+  background-color: #00b493;
+  color: white;
+  font-weight: bold;
+}
+
+.air-quality-row {
+  border-top: 1px solid #ddd;
+  background-color: white;
+}
+
+.air-quality-row:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+
+.toggle-button{
+  background-color: gray;
+  font-size: 1.2rem;
+}

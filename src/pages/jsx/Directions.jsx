@@ -5,6 +5,8 @@ import "@/locales/i18n";
 import i18n from "i18next";
 import { Container } from "react-bootstrap";
 import "../css/Directions.css";
+import { useDispatch, useSelector } from "react-redux";
+import { SetIsMode } from "../../redux/modeState";
 
 const Directions = () => {
   const { t } = useTranslation();
@@ -15,6 +17,8 @@ const Directions = () => {
   const [path, setPath] = useState([]);
   const [distance, setDistance] = useState(null);  // 거리 상태 추가
   const [duration, setDuration] = useState(null);  // 소요 시간 상태 추가
+  const isMode = useSelector((state)=>state.isMode);
+  const dispatch = useDispatch();
 
   // 초기 위치 설정
   useEffect(() => {
@@ -44,7 +48,11 @@ const Directions = () => {
     if (mapLoaded && currentLocation && destination) {
       fetchDirections();
     }
-  }, [mapLoaded, currentLocation, destination]);
+    const savedMode = JSON.parse(localStorage.getItem("isMode"));
+    if (savedMode !== null) {
+      dispatch(SetIsMode(savedMode));
+    }
+  }, [mapLoaded, currentLocation, destination, isMode]);
 
   // 경로가 설정되면 지도 업데이트
   useEffect(() => {
@@ -189,7 +197,8 @@ const Directions = () => {
             )}
             <div id="map" className="map"></div>
             <div className="button-container">
-              <button className="open-naver-map-btn" onClick={openNaverMapApp}>
+              <button className={`open-naver-map-btn ${isMode ? "day" : "night"}`}
+                onClick={openNaverMapApp}>
                 {t("directions.openNaverMap")}
               </button>
             </div>
@@ -198,7 +207,8 @@ const Directions = () => {
           <>
             <p className="error-message">{t("directions.noDestination")}</p>
             <div className="button-container">
-              <button className="open-naver-map-btn" onClick={openNaverMapApp}>
+              <button className={`open-naver-map-btn ${isMode ? "day" : "night"}`}
+                onClick={openNaverMapApp}>
                 {t("directions.openNaverMap")}
               </button>
             </div>
