@@ -3,6 +3,8 @@ import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 import "../css/FineDustGraph.css";
 import dayjs from "dayjs"; // dayjs 라이브러리 임포트
+import { useDispatch } from "react-redux";
+import { uploadAir } from "../../redux/weatherFuture";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -10,6 +12,7 @@ function FineDustGraph() {
   const [data, setData] = useState([]);
   const [selectedParameter, setSelectedParameter] = useState("CO");
   const location = JSON.parse(localStorage.getItem("location"));
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const KEY = import.meta.env.VITE_KOREA_SEOUL_DATA_API_KEY;
@@ -55,6 +58,8 @@ function FineDustGraph() {
         });
 
       setData(sortedData); // 정렬된 데이터로 상태 설정
+      dispatch(uploadAir(sortedData.slice(0, sortedData.length - 6)));
+
     });
   }, []);
 

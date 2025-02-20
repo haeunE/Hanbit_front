@@ -4,11 +4,9 @@ import "../css/Weathers.css"; // CSS 파일 불러오기
 import Pollutant from "./Pollutant";
 import HourWeather from "../../components/jsx/HourWeather";
 import DayWeather from "../../components/jsx/DayWeather";
-<<<<<<< HEAD
 import fetchPrediction from "../../utils/model";
-=======
 import FineDustGraph from "../../components/jsx/FineDustGraph";
->>>>>>> e43fd445344d80c77ff2e7e608d3d427c36a51e1
+import weatherModel from "../../utils/model";
 
 function Weathers() {
   // AQI 상태 변수
@@ -17,6 +15,7 @@ function Weathers() {
   const [dayweather, setDayWeather] = useState([]);
   const [airData, setAirData] = useState([]);
   const [cityAir, setCityAir] = useState(null);
+  const [predictHour, setPredictHour] = useState([]);
   const city = JSON.parse(localStorage.getItem("location"))?.region?.split(" ")[0] || "서울";
 
   // API 키 및 URL
@@ -45,7 +44,28 @@ function Weathers() {
       const data = await response.json();
 
       if (data.forecast?.forecastday) {
-        setHourWeather(data.forecast.forecastday[0].hour);
+        // 현재 시간 가져오기
+        const now = new Date();
+        const currentHour = now.getHours();
+        const currentDate = now.getDate(); // 현재 날짜
+  
+        // 오늘과 내일의 hour 데이터를 합침
+        const combinedData = [
+          ...data.forecast.forecastday[0].hour, // 오늘의 시간대
+          ...data.forecast.forecastday[1].hour, // 내일의 시간대
+        ];
+  
+        // 현재 시각부터 12시간 이후의 데이터를 필터링
+        const filteredHourData = combinedData.filter((item) => {
+          const itemDate = new Date(item.time);
+          const itemHour = itemDate.getHours();
+          const itemDay = itemDate.getDate();
+  
+          // 현재 날짜와 다음날을 고려하여, 12시간 이후의 시간대만 선택
+          return (itemDay === currentDate && itemHour >= currentHour) || (itemDay === currentDate + 1 && itemHour < currentHour + 12);
+        });
+  
+        setHourWeather(filteredHourData);
         setDayWeather(data.forecast.forecastday);
       }
     } catch (error) {
@@ -90,8 +110,7 @@ function Weathers() {
     return airData?.find((item) => item.goname === city) || null;
   };
 
-  // 매시 10분(오늘 xx:10)마다 데이터 업데이트
-  const updateDataEveryTenMinutes = () => {
+  const updateDataEveryTenMinutes = async () => {
     if (updateIntervalRef.current) {
       clearInterval(updateIntervalRef.current);
     }
@@ -101,22 +120,33 @@ function Weathers() {
     const seconds = now.getSeconds();
     const delay = ((10 - (minutes % 10)) * 60 - seconds) * 1000; // 다음 10분 정각까지 남은 시간(ms)
 
-    setTimeout(() => {
-      fetchWeatherData();
-      fetchAirQualityData();
-      updateIntervalRef.current = setInterval(() => {
-        fetchWeatherData();
-        fetchAirQualityData();
+    setTimeout(async () => {
+      await fetchWeatherData();
+      await fetchAirQualityData();
+      const weatherPrediction = await weatherModel(); // 비동기 결과 기다리기
+      setPredictHour(weatherPrediction); // 예측 시간 데이터 설정
+
+      updateIntervalRef.current = setInterval(async () => {
+        await fetchWeatherData();
+        await fetchAirQualityData();
+        const weatherPrediction = await weatherModel(); // 10분마다 예측 업데이트
+        setPredictHour(weatherPrediction);
+        
       }, 600000); // 10분마다 실행
     }, delay);
-  };
+  }
 
   // 최초 실행 (한 번만 실행)
   useEffect(() => {
-    fetchWeatherData();
-    fetchAirQualityData();
-    fetchPrediction(cityAir)
-    updateDataEveryTenMinutes();
+    const intro = async () => {
+      fetchWeatherData();
+      fetchAirQualityData();
+      const weatherPrediction = await weatherModel(); // 10분마다 예측 업데이트
+      setPredictHour(weatherPrediction);
+      updateDataEveryTenMinutes();
+    }
+    intro();
+    
     return () => {
       if (updateIntervalRef.current) {
         clearInterval(updateIntervalRef.current);
@@ -141,6 +171,8 @@ function Weathers() {
 
   console.log("AQI:", aqi);
   console.log("City Data:", cityAir);
+  console.log("pm10: ",predictHour)
+  console.log("hour: ", hourweather)
   return (
     <div className={`weather-container ${bgClass}`}>
       <Container>
@@ -151,7 +183,7 @@ function Weathers() {
         <button onClick={() => setAqi(aqi + 20)}>AQI 증가</button>
         <button onClick={() => setAqi(aqi - 20)}>AQI 감소</button>
         {/* <Weather/> */}
-        <HourWeather hourweather={hourweather}/>
+        <HourWeather hourweather={hourweather} predictHour={predictHour}/>
         <div className="weather-2rows">
           <DayWeather dayweather={dayweather}/>
           <Pollutant cityAir={cityAir}/>

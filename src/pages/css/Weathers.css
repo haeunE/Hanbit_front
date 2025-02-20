@@ -166,6 +166,40 @@
   margin: 0 5px;
 }
 
+.pre-hour-aqi {
+  color: white;
+  width: fit-content;
+  padding: 0 10px;
+  margin: auto;
+  border-radius: 3px;
+}
+
+.pre-hour-aqi.good {
+  background-color: rgba(6, 189, 0, 0.7);
+}
+
+.pre-hour-aqi.moderate {
+  background-color: rgba(255, 255, 0, 0.8);
+  color: #333;
+}
+
+.pre-hour-aqi.unhealthy-sens {
+  background-color: rgba(255, 165, 0, 0.8);
+}
+
+.pre-hour-aqi.unhealthy {
+  background-color: rgba(255, 0, 0, 0.8);
+}
+
+.pre-hour-aqi.very-unhealthy {
+  background-color: rgba(139, 0, 0, 0.8);
+}
+
+.pre-hour-aqi.hazardous {
+  background-color: rgba(128, 0, 128, 0.8);
+}
+
+
 /* 반응형 디자인 */
 @media screen and (max-width: 845px) {
   .hour-weathers {

@@ -4,6 +4,7 @@ import languageSlice from './languageState';
 import modeSlice from './modeState';
 import locationSlice from './locationState';
 import reviewsSlice from './myReviews';
+import weatherFutureSlice from './weatherFuture';
 
 export default configureStore({
   reducer:{
@@ -12,5 +13,6 @@ export default configureStore({
     isLocation : locationSlice.reducer,
     isLanguage : languageSlice.reducer,
     reviews: reviewsSlice.reducer,
+    weatherFuture : weatherFutureSlice.reducer,
   }
 })
