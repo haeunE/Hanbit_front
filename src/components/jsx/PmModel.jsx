@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 
 function PmModel() {
+  const [feature, setFeature] = useState({
+    lat, lon, year, month, day, hour
+  })
   const [predictPM, setPredictPM] = useState(null);
   const [loading, setLoading] = useState(false);
 
