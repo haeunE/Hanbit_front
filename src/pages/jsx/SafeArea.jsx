@@ -17,39 +17,38 @@ function SafeArea(){
 
   // 안전지역 약 300건 다저장해서 map에 보이게 하기
   useEffect(() => {
-    const fetchSafeZones = async () => {
-      try {
-        const pageIndexes = [1, 2, 3, 4, 5, 6, 7]; // 여러 페이지
-        const requests = pageIndexes.map((page) => {
-          const URL = `/danger-api/api/lcm/safeMap.do?esntlId=${ID}&authKey=${KEY}&pageIndex=${page}&pageUnit=100&minX=126.0&minY=37.4&maxX=127.5&maxY=37.7`;
-          return fetch(URL).then((response) => response.json());
-        });
-  
-        const responses = await Promise.all(requests);
-        console.log(responses)
-        const allPlaces = responses.flatMap((data) =>
-          data.list.map((i) => ({
-            title: i.bsshNm,
-            addr: i.adres,
-            lon: i.lcinfoLo,
-            lat: i.lcinfoLa,
-          }))
-        );
-  
-        setItems(allPlaces);
-      } catch (error) {
-        console.error("Fetch error:", error);
-      }
-    };
-  
-    fetchSafeZones();
-  
-    const savedMode = JSON.parse(localStorage.getItem("isMode"));
-    if (savedMode !== null) {
-      dispatch(SetIsMode(savedMode));
+  const fetchSafeZones = async () => {
+    try {
+      const pageIndexes = [1, 2, 3, 4, 5, 6, 7]; // 여러 페이지
+      const requests = pageIndexes.map((page) => {
+        const URL = `/danger-api/api/lcm/safeMap.do?esntlId=${ID}&authKey=${KEY}&pageIndex=${page}&pageUnit=100&minX=126.0&minY=37.4&maxX=127.5&maxY=37.7`;
+        return fetch(URL).then((response) => response.json());
+      });
+
+      const responses = await Promise.all(requests);
+      const allPlaces = responses.flatMap((data) =>
+        data.list.map((i) => ({
+          title: i.bsshNm,
+          addr: i.adres,
+          lon: i.lcinfoLo,
+          lat: i.lcinfoLa,
+        }))
+      );
+
+      setItems(allPlaces);
+    } catch (error) {
+      console.error("Fetch error:", error);
     }
-  }, []);
-  
+  };
+
+  fetchSafeZones();
+
+  const savedMode = JSON.parse(localStorage.getItem("isMode"));
+  if (savedMode !== null) {
+    dispatch(SetIsMode(savedMode));
+  }
+}, []);
+
    
 
     const handleClick = () => {
