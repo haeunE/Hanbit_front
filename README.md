@@ -104,7 +104,14 @@ VITE_KOREA_SEOUL_DATA_API_KEY=your_api_key
 ```env
 VITE_CITY_WEATHER_API_KEY=your_api_key
 ```
-
+## 6. 안전dream 아동,여성,장애인 경찰지원센터
+### open api 생성
+1. [휴대폰본인인증&인증키 생성](https://www.safe182.go.kr/home/api/authKey1Create.do)
+2. [인증키 복사](https://www.safe182.go.kr/home/api/authKey1Create.do)
+### .env.local 파일에 API 정보 추가
+```env
+VITE_DANGERAREA_API_KEY=your_api_key
+```
 ---
 # 최종 .env.local 파일 예시
 ```env

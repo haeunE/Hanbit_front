@@ -5,7 +5,7 @@
     "day-seoul" : "ソウルの昼間",
     "night-seoul" : "ソウルの夜",
     "amenities" : "設備",
-    "danger-area" : "危険地域",
+    "safe-area" : "セーフエリア",
     "traffic" : "交通",
     "directions" : "道案内",
     "Ddareungi" : "ソウルシェアサイクル(自転車レンタル)",
@@ -25,7 +25,8 @@
     "event" : "イベント",
     "performance" : "パフォーマンス", 
     "recommended-restaurants" : "おすすめレストラン",
-    "recommended-accommodation": "おすすめ宿泊施設"
+    "recommended-accommodation": "おすすめ宿泊施設",
+    "weather-page" :"天気ページ"
   },
   "Ddareungi-page" : {
     "bicycle-rental-location" : "自転車レンタルステーション",
@@ -74,7 +75,8 @@
     "eu-curr": "ユーロ",
     "cn-curr": "元",
     "jp-curr": "円",
-    "placeholder": "数字を入力してください"
+    "placeholder": "数字を入力してください",
+    "View-more" : "もっと見る"
   },
   "plus": {
     "title": "ビザ申請に必要なもの",
@@ -355,7 +357,10 @@
     "noCurrentLocation": "現在地情報を取得できません。",
     "destination": "目的地",
     "noDestination": "目的地の情報がありません。",
-    "openNaverMap": "ネイバー地図アプリを開く"
+    "openNaverMap": "ネイバー地図アプリを開く",
+    "distance": "距離",
+    "duration": "所要時間",
+    "minutes": "分"
   },
   "amenities": {
     "convenience-store": "コンビニ",
@@ -449,6 +454,10 @@
     "delete": "削除",
     "updated": "（更新日: {date}）"
   },
-  "exchange_store": "両替所"
-  
+  "exchange_store": "両替所",
+  "notification" : "性犯罪者お知らせe 直通リンク",
+  "safety": {
+    "title": "子ども見守りの家",
+    "info": "「子ども見守りの家」は、韓国警察庁が指定した安全な保護場所です。子ども、女性、または障がいのある方が危険な状況に陥ったり迷子になった場合、ここで助けを求めることができます。これらの場所は主にコンビニ、薬局、または地元の店舗で運営されており、警察が認定した公式マークが掲示され、安全な避難所の役割を果たしています。"
+  }
 }

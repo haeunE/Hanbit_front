@@ -5,7 +5,7 @@
     "day-seoul" : "DAY IN SEOUL",
     "night-seoul" : "NIGHT IN SEOUL",
     "amenities" : "Amenities",
-    "danger-area" : "Danger Area",
+    "safe-area" : "Safe Area",
     "traffic" : "Traffic",
     "directions" : "Directions",
     "Ddareungi" : "Ddareungi(Bicycle Rental)",
@@ -25,7 +25,8 @@
     "event" : "Event",
     "performance" : "Performance", 
     "recommended-restaurants" : "Recommended Restaurants",
-    "recommended-accommodation": "Recommended Accommodation"
+    "recommended-accommodation": "Recommended Accommodation",
+    "weather-page" : "Weather Page"
   },
   "Ddareungi-page" : {
     "bicycle-rental-location" :"Bicycle Rental Location",
@@ -74,7 +75,8 @@
     "eu-curr": "Euro",
     "cn-curr": "Yuan",
     "jp-curr": "Yen",
-    "placeholder": "Enter a number"
+    "placeholder": "Enter a number",
+    "View-more" : "View more"
   },
   "plus": {
     "title": "Things Needed for Visa Application",
@@ -355,7 +357,10 @@
     "noCurrentLocation": "Unable to retrieve current location.",
     "destination": "Destination",
     "noDestination": "No destination information available.",
-    "openNaverMap": "Open Naver Map App"
+    "openNaverMap": "Open Naver Map App",
+    "distance": "distance",
+    "duration": "duration",
+    "minutes": "minutes"
   },
   "amenities": {
     "convenience-store": "Convenience Store",
@@ -449,6 +454,10 @@
     "delete": "Delete",
     "updated": "(Updated: {date})"
   },
-  "exchange_store": "Exchange store"
-  
+  "exchange_store": "Exchange store",
+  "notification" : "Direct Link to Sex Offender Notification e",
+  "safety": {
+    "title": "Children Protection House",
+    "info": "Children Protection House is a safe place designated by the Korean National Police Agency. If a child, woman, or person with a disability is in danger or lost, they can go to these locations for help. These places are usually convenience stores, pharmacies, or local businesses that have an official police sign indicating their role as a safety shelter."
+  }
 }

@@ -1,0 +1,77 @@
+/* 기본 스타일 */
+.weather-notice {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: bold;
+  font-family: "Noto Sans KR", sans-serif;
+  transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.weather-notice:hover {
+  transform: scale(1.02);
+}
+
+/* AQI별 배경색 */
+.weather-notice.aqi-good {
+  background-color: #a5d6a7; /* 연한 초록 */
+  color: #2e7d32;
+}
+
+.weather-notice.aqi-moderate {
+  background-color: #fff59d; /* 연한 노랑 */
+  color: #f9a825;
+}
+
+.weather-notice.aqi-sensitive {
+  background-color: #ffcc80; /* 연한 주황 */
+  color: #ef6c00;
+}
+
+.weather-notice.aqi-unhealthy {
+  background-color: #ef9a9a; /* 연한 빨강 */
+  color: #c62828;
+}
+
+.weather-notice.aqi-very-unhealthy {
+  background-color: #e1bee7; /* 연한 보라 */
+  color: #6a1b9a;
+}
+
+.weather-notice.aqi-hazardous {
+  background-color: #d7ccc8; /* 연한 갈색 */
+  color: #4e342e;
+}
+
+/* AQI 아이콘 */
+.aqi-icon {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+/* 메시지 스타일 */
+.aqi-message-container {
+  margin-top: 10px;
+}
+
+.aqi-message {
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 5px 0;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 480px) {
+  .weather-notice {
+    padding: 15px;
+  }
+
+  .aqi-icon {
+    font-size: 2rem;
+  }
+
+  .aqi-message {
+    font-size: 0.9rem;
+  }
+}

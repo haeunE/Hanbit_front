@@ -3,6 +3,9 @@ import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 import "../css/FineDustGraph.css";
 import dayjs from "dayjs"; // dayjs 라이브러리 임포트
+import { uploadAir } from "../../redux/weatherFuture";
+import { useDispatch, useSelector } from "react-redux";
+import { SetIsMode } from "../../redux/modeState";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -10,11 +13,19 @@ function FineDustGraph() {
   const [data, setData] = useState([]);
   const [selectedParameter, setSelectedParameter] = useState("CO");
   const location = JSON.parse(localStorage.getItem("location"));
+  const dispatch = useDispatch();
+  const isMode = useSelector((state) => state.isMode);
+
 
   useEffect(() => {
     const KEY = import.meta.env.VITE_KOREA_SEOUL_DATA_API_KEY;
     const dates = generateDates();
     let fetchedData = [];
+
+    const savedMode = JSON.parse(localStorage.getItem("isMode"));
+    if (savedMode !== null) {
+      dispatch(SetIsMode(savedMode));
+    }
 
     // 비동기적으로 데이터를 가져오고 저장
     Promise.all(
@@ -55,6 +66,8 @@ function FineDustGraph() {
         });
 
       setData(sortedData); // 정렬된 데이터로 상태 설정
+      dispatch(uploadAir(sortedData.slice(0, sortedData.length - 6)));
+
     });
   }, []);
 
@@ -83,20 +96,32 @@ function FineDustGraph() {
         label: selectedParameter,
         data: data
           .map((entry) => entry[selectedParameter]), // 선택된 파라미터 데이터
-        backgroundColor: "rgba(75, 192, 192, 0.6)",
-        borderColor: "rgba(75, 192, 192, 1)",
+        backgroundColor: isMode
+          ? "rgba(75, 192, 192, 0.6)" // mode가 true일 경우
+          : "#2f4858", // mode가 false일 경우
+        borderColor: isMode
+          ? "rgba(75, 192, 192, 1)" // mode가 true일 경우
+          : "#2f4858", // mode가 false일 경우
         borderWidth: 1,
       },
     ],
   };
+  
 
   const options = {
     responsive: true,
     scales: {
       x: {
         ticks: {
-          autoSkip: false, // x축의 레이블이 중복되지 않도록 설정
+          autoSkip: false // x축의 레이블이 중복되지 않도록 설정
         },
+        grid : {
+          display : false
+        }
+      },y: {
+        grid : {
+          display : false
+        }
       },
     },
     plugins: {
@@ -113,15 +138,18 @@ function FineDustGraph() {
   return (
     <div className="fineDustGraph">
       <div className="parameter-select">
-        <label htmlFor="parameter">그래프 선택 : </label>
-        <select id="parameter" value={selectedParameter} onChange={(e) => setSelectedParameter(e.target.value)}>
-          <option value="CO">CO</option>
-          <option value="SO2">SO2</option>
-          <option value="PM10">PM10</option>
-          <option value="PM25">PM2.5</option>
-          <option value="NO2">NO2</option>
-          <option value="O3">O3</option>
-        </select>
+        <h2>공기질 내역</h2>
+        <div>
+          <label htmlFor="parameter">그래프 선택 : </label>
+          <select id="parameter" value={selectedParameter} onChange={(e) => setSelectedParameter(e.target.value)}>
+            <option value="CO">CO</option>
+            <option value="SO2">SO2</option>
+            <option value="PM10">PM10</option>
+            <option value="PM25">PM2.5</option>
+            <option value="NO2">NO2</option>
+            <option value="O3">O3</option>
+          </select>
+        </div>
       </div>
 
       <div className="graph-container" style={{ width: '90%', height: '500px' }}>
