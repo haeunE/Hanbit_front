@@ -7,6 +7,8 @@ import DayWeather from "../../components/jsx/DayWeather";
 import FineDustGraph from "../../components/jsx/FineDustGraph";
 import Notice from "../../components/jsx/Notice";
 import AirQualityList from "../../components/jsx/AirQualityList";
+import weatherModel from "../../utils/model";
+import WeathersItro from "../../components/jsx/WeatherItro";
 
 function Weathers() {
   // AQI 상태 변수
@@ -15,6 +17,7 @@ function Weathers() {
   const [dayweather, setDayWeather] = useState([]);
   const [airData, setAirData] = useState([]);
   const [cityAir, setCityAir] = useState(null);
+  const [predictHour, setPredictHour] = useState([]);
   const city = JSON.parse(localStorage.getItem("location"))?.region?.split(" ")[0] || "서울";
 
   // API 키 및 URL
@@ -43,7 +46,28 @@ function Weathers() {
       const data = await response.json();
 
       if (data.forecast?.forecastday) {
-        setHourWeather(data.forecast.forecastday[0].hour);
+        // 현재 시간 가져오기
+        const now = new Date();
+        const currentHour = now.getHours();
+        const currentDate = now.getDate(); // 현재 날짜
+  
+        // 오늘과 내일의 hour 데이터를 합침
+        const combinedData = [
+          ...data.forecast.forecastday[0].hour, // 오늘의 시간대
+          ...data.forecast.forecastday[1].hour, // 내일의 시간대
+        ];
+  
+        // 현재 시각부터 12시간 이후의 데이터를 필터링
+        const filteredHourData = combinedData.filter((item) => {
+          const itemDate = new Date(item.time);
+          const itemHour = itemDate.getHours();
+          const itemDay = itemDate.getDate();
+  
+          // 현재 날짜와 다음날을 고려하여, 12시간 이후의 시간대만 선택
+          return (itemDay === currentDate && itemHour >= currentHour) || (itemDay === currentDate + 1 && itemHour < currentHour + 12);
+        });
+  
+        setHourWeather(filteredHourData);
         setDayWeather(data.forecast.forecastday);
       }
     } catch (error) {
@@ -62,7 +86,7 @@ function Weathers() {
         const formattedData = data.ListAirQualityByDistrictService.row.map((item) => ({
           date: item.MSRDATE,           // 측정 날짜 및 시간
           guno: item.MSRADMCODE,        // 행정 코드
-          goname: item.MSRSTENAME,      // 지역명
+          guname: item.MSRSTENAME,      // 지역명
           aqi: item.MAXINDEX,           // 대기질지수 (AQI)
           grade: item.GRADE,            // 등급 (좋음, 보통, 나쁨 등)
           pollutant: item.POLLUTANT,    // 주요 오염 물질
@@ -81,14 +105,14 @@ function Weathers() {
       console.error("Error fetching air quality data:", err);
     }
   };
+  
 
   // 특정 구의 공기질 데이터 찾기
   const getCityAirData = (airData, city) => {
-    return airData?.find((item) => item.goname === city) || null;
+    return airData?.find((item) => item.guname === city) || null;
   };
 
-  // 매시 10분(오늘 xx:10)마다 데이터 업데이트
-  const updateDataEveryTenMinutes = () => {
+  const updateDataEveryTenMinutes = async () => {
     if (updateIntervalRef.current) {
       clearInterval(updateIntervalRef.current);
     }
@@ -98,22 +122,33 @@ function Weathers() {
     const seconds = now.getSeconds();
     const delay = ((10 - (minutes % 10)) * 60 - seconds) * 1000; // 다음 10분 정각까지 남은 시간(ms)
 
-    setTimeout(() => {
-      fetchWeatherData();
-      fetchAirQualityData();
-      updateIntervalRef.current = setInterval(() => {
-        fetchWeatherData();
-        fetchAirQualityData();
+    setTimeout(async () => {
+      await fetchWeatherData();
+      await fetchAirQualityData();
+      const weatherPrediction = await weatherModel(); // 비동기 결과 기다리기
+      setPredictHour(weatherPrediction); // 예측 시간 데이터 설정
+
+      updateIntervalRef.current = setInterval(async () => {
+        await fetchWeatherData();
+        await fetchAirQualityData();
+        const weatherPrediction = await weatherModel(); // 10분마다 예측 업데이트
+        setPredictHour(weatherPrediction);
+        
       }, 600000); // 10분마다 실행
     }, delay);
-  };
+  }
 
   // 최초 실행 (한 번만 실행)
   useEffect(() => {
-    fetchWeatherData();
-    fetchAirQualityData();
-    updateDataEveryTenMinutes();
-
+    const intro = async () => {
+      fetchWeatherData();
+      fetchAirQualityData();
+      const weatherPrediction = await weatherModel(); // 10분마다 예측 업데이트
+      setPredictHour(weatherPrediction);
+      updateDataEveryTenMinutes();
+    }
+    intro();
+    
     return () => {
       if (updateIntervalRef.current) {
         clearInterval(updateIntervalRef.current);
@@ -136,13 +171,20 @@ function Weathers() {
     }
   }, [airData, city]);
 
+  console.log("AQI:", aqi);
+  console.log("City Data:", cityAir);
+  console.log("pm10: ",predictHour)
+  console.log("hour: ", hourweather)
+  console.log("day:",dayweather)
   return (
     <div className={`weather-container ${bgClass}`}>
       <Container>
-        <h1>공기질 지수 (AQI)</h1>
-        <p>현재 AQI: {aqi}</p>
-        {/* <Weather/> */}
-        <HourWeather hourweather={hourweather}/>
+        {cityAir ? (
+          <WeathersItro cityAir={cityAir} dayweather={dayweather[0]}/>
+        ) : (
+          <div>도시 공기 데이터 로딩 중...</div>
+        )}
+        <HourWeather hourweather={hourweather} predictHour={predictHour} city={city}/>
         <div className="weather-2rows">
           <DayWeather dayweather={dayweather}/>
           <Pollutant cityAir={cityAir}/>

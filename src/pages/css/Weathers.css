@@ -1,4 +1,5 @@
 .weather-container {
+  padding-top: 100px;
   border-radius: 15px;
   color: white;
   text-align: center;
@@ -109,6 +110,7 @@
   background-color: white;
   display: flex;
   flex-direction: column;  /* 세로로 정렬 */
+  justify-content: center;
   gap: 1rem;
   padding: 1.5rem;
   border-radius: 15px;
@@ -130,7 +132,7 @@
   display: flex;
   flex-wrap: wrap;  /* 화면 크기에 따라 줄 바꿈 */
   justify-content: flex;  /* 왼쪽 정렬 */
-  gap: 20px;
+  gap: 1rem;
   width: 100%;
   height: auto;
 }
@@ -139,7 +141,7 @@
   width: 100%;
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
-  padding: 10px 0px;
+
   border-radius: 10px;
   min-width: 120px;  /* 각 요소 최소 너비 설정 */
   text-align: center;
@@ -161,6 +163,40 @@
 .day-data p {
   margin: 0 5px;
 }
+
+.pre-hour-aqi {
+  color: white;
+  width: fit-content;
+  padding: 0 10px;
+  margin: auto;
+  border-radius: 3px;
+}
+
+.pre-hour-aqi.good {
+  background-color: rgba(6, 189, 0, 0.7);
+}
+
+.pre-hour-aqi.moderate {
+  background-color: rgba(255, 255, 0, 0.8);
+  color: #333;
+}
+
+.pre-hour-aqi.unhealthy-sens {
+  background-color: rgba(255, 165, 0, 0.8);
+}
+
+.pre-hour-aqi.unhealthy {
+  background-color: rgba(255, 0, 0, 0.8);
+}
+
+.pre-hour-aqi.very-unhealthy {
+  background-color: rgba(139, 0, 0, 0.8);
+}
+
+.pre-hour-aqi.hazardous {
+  background-color: rgba(128, 0, 128, 0.8);
+}
+
 
 /* 반응형 디자인 */
 @media screen and (max-width: 845px) {
@@ -185,7 +221,6 @@
   }
 
   .day-data {
-    padding: 1rem;
     align-items: center;
     width: 100%; /* 각 요소가 부모에 맞게 100% 너비를 차지 */
     box-sizing: border-box;

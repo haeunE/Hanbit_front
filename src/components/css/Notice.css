@@ -1,13 +1,11 @@
 /* 기본 스타일 */
 .weather-notice {
   width: 100%;
-  padding: 20px;
+  padding: 1rem;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
   font-weight: bold;
   font-family: "Noto Sans KR", sans-serif;
-  color: #333;
   transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
