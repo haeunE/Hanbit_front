@@ -25,7 +25,8 @@
     "event" : "행사",
     "performance" : "공연", 
     "recommended-restaurants" : "추천맛집",
-    "recommended-accommodation": "추천숙소"
+    "recommended-accommodation": "추천숙소",
+    "weather-page" : "날씨 바로가기"
   },
   "Ddareungi-page" : {
     "bicycle-rental-location" :"자전거 대여소",
@@ -458,7 +459,10 @@
     "updated": "(수정됨: {date})"
   },
   "exchange_store": "환전소",
-  "safety_Area" : "안전지역",
-  "notification" : "성범죄자 알림e 바로가기"
+  "notification" : "성범죄자 알림e 바로가기",
+  "safety":{
+    "title" : "아동지키미집",
+    "info" : "아동지키미집은 한국 경찰청에서 지정한 안전한 보호 장소입니다. 어린이, 여성, 또는 장애인이 위험에 처하거나 길을 잃었을 때, 이곳에서 도움을 받을 수 있습니다. 이러한 장소는 보통 편의점, 약국, 또는 지역 상점으로 운영되며, 경찰이 인증한 공식 표식이 부착되어 있어 안전한 대피소 역할을 합니다."
+  }
   
 }

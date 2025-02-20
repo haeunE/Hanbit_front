@@ -25,7 +25,8 @@
     "event" : "Event",
     "performance" : "Performance", 
     "recommended-restaurants" : "Recommended Restaurants",
-    "recommended-accommodation": "Recommended Accommodation"
+    "recommended-accommodation": "Recommended Accommodation",
+    "weather-page" : "Weather Page"
   },
   "Ddareungi-page" : {
     "bicycle-rental-location" :"Bicycle Rental Location",
@@ -454,7 +455,9 @@
     "updated": "(Updated: {date})"
   },
   "exchange_store": "Exchange store",
-  "safety_Area" : "Safety Area",
-  "notification" : "Direct Link to Sex Offender Notification e"
-  
+  "notification" : "Direct Link to Sex Offender Notification e",
+  "safety": {
+    "title": "Children Protection House",
+    "info": "Children Protection House is a safe place designated by the Korean National Police Agency. If a child, woman, or person with a disability is in danger or lost, they can go to these locations for help. These places are usually convenience stores, pharmacies, or local businesses that have an official police sign indicating their role as a safety shelter."
+  }
 }

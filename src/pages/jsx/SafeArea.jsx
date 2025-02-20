@@ -57,12 +57,23 @@ function SafeArea(){
   return(
     <Container>
       <div className="safeArea">
-        <h2 className="safeArea-h2" style={{ color: isMode ? "black" : "white" }}>{t('safety_Area')}</h2>
-        <div className="safeArea-map">
-          <NaverMap items={[...items]} zoom={13}/>
-          <button 
-          className={`safeArea-btn ${isMode ? "day" : "night"}`}
-          onClick={handleClick}>{t('notification')}</button>
+      <h2 
+        className="safeArea-h2" 
+        style={{ 
+          color: isMode ? "black" : "white", 
+          borderBottom: isMode ? "2px solid #00b493" : "2px solid rgb(248, 73, 108)" 
+        }}
+      >
+        {t('safety.title')}
+      </h2>
+        <div className="safe-info" style={{ backgroundColor: isMode ? "#5ed1bc" : "white" }}>{t('safety.info')}</div>
+        <div className="safe-bg">
+          <div className="safeArea-map">
+            <NaverMap items={[...items]} zoom={13}/>
+            <button 
+            className={`safeArea-btn ${isMode ? "day" : "night"}`}
+            onClick={handleClick}>{t('notification')}</button>
+          </div>
         </div>
       </div>
     </Container>

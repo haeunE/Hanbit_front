@@ -66,7 +66,7 @@ function Home() {
           </div>
           <div className="location-weather-link">
           <Link to="/weathers">
-            <span>날씨 바로가기</span>
+            <span>{t("home.weather-page")}</span>
             <i className="fa-solid fa-angles-right"></i>
           </Link>
           </div>
