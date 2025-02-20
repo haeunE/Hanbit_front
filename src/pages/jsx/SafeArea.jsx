@@ -19,13 +19,14 @@ function SafeArea(){
   useEffect(() => {
     const fetchSafeZones = async () => {
       try {
-        const pageIndexes = [1, 2, 3]; // 여러 페이지
+        const pageIndexes = [1, 2, 3, 4, 5, 6, 7]; // 여러 페이지
         const requests = pageIndexes.map((page) => {
-          const URL = `/danger-api/api/lcm/safeMap.do?esntlId=${ID}&authKey=${KEY}&pageIndex=${page}&pageUnit=100&minX=126.8017&minY=37.5302&maxX=127.1831&maxY=37.6050`;
+          const URL = `/danger-api/api/lcm/safeMap.do?esntlId=${ID}&authKey=${KEY}&pageIndex=${page}&pageUnit=100&minX=126.0&minY=37.4&maxX=127.5&maxY=37.7`;
           return fetch(URL).then((response) => response.json());
         });
   
         const responses = await Promise.all(requests);
+        console.log(responses)
         const allPlaces = responses.flatMap((data) =>
           data.list.map((i) => ({
             title: i.bsshNm,
@@ -48,6 +49,7 @@ function SafeArea(){
       dispatch(SetIsMode(savedMode));
     }
   }, []);
+  
    
 
     const handleClick = () => {
@@ -57,12 +59,23 @@ function SafeArea(){
   return(
     <Container>
       <div className="safeArea">
-        <h2 className="safeArea-h2" style={{ color: isMode ? "black" : "white" }}>{t('safety_Area')}</h2>
-        <div className="safeArea-map">
-          <NaverMap items={[...items]} zoom={13}/>
-          <button 
-          className={`safeArea-btn ${isMode ? "day" : "night"}`}
-          onClick={handleClick}>{t('notification')}</button>
+      <h2 
+        className="safeArea-h2" 
+        style={{ 
+          color: isMode ? "black" : "white", 
+          borderBottom: isMode ? "2px solid #00b493" : "2px solid rgb(248, 73, 108)" 
+        }}
+      >
+        {t('safety.title')}
+      </h2>
+        <div className="safe-info" style={{ backgroundColor: isMode ? "#5ed1bc" : "white" }}>{t('safety.info')}</div>
+        <div className="safe-bg">
+          <div className="safeArea-map">
+            <NaverMap items={[...items]} zoom={13}/>
+            <button 
+            className={`safeArea-btn ${isMode ? "day" : "night"}`}
+            onClick={handleClick}>{t('notification')}</button>
+          </div>
         </div>
       </div>
     </Container>

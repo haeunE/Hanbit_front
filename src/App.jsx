@@ -15,7 +15,7 @@ import Footer from './components/main/Footer'
 
 import { lazy } from 'react';
 import LoadingSpinner from './utils/LoadingSpinner'
-import SafeArea from './pages/jsx/SafeArea'
+
 
 // 페이지 컴포넌트 Lazy Loading
 const Intro = lazy(()=> import ('./pages/jsx/intro'))
@@ -36,8 +36,8 @@ const CsvUpload = lazy(() => import('./admin/components/CsvUpload'));
 const PlaceUpload = lazy(() => import('./admin/components/PlaceUpload'));
 const Directions = lazy(() => import('./pages/jsx/Directions'));
 const Amenities = lazy(() => import('./pages/jsx/Amenities'));
-const UnderConstruction = lazy(() => import('./components/jsx/UnderConstruction'));
 const Weathers = lazy(() => import('./pages/jsx/Weathers'));
+const SafeArea = lazy(() => import('./pages/jsx/SafeArea'));
 
 function App() {
   const isMode = useSelector(state => state.isMode);

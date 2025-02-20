@@ -141,10 +141,6 @@ function Weathers() {
       <Container>
         <h1>공기질 지수 (AQI)</h1>
         <p>현재 AQI: {aqi}</p>
-
-        {/* AQI 값 변경 버튼 (테스트용) */}
-        <button onClick={() => setAqi(aqi + 20)}>AQI 증가</button>
-        <button onClick={() => setAqi(aqi - 20)}>AQI 감소</button>
         {/* <Weather/> */}
         <HourWeather hourweather={hourweather}/>
         <div className="weather-2rows">

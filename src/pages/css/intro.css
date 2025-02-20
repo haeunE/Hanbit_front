@@ -162,6 +162,12 @@
   color: #ffffff;
 }
 
+@media (max-width: 1400px) {
+  .intro-message {
+    font-size: 1.2rem;
+  }
+}
+
 @media (max-width: 768px) {
   .imageframe {
     width: 95%;
@@ -224,7 +230,7 @@
   }
 
   .intro-message {
-    font-size: 1rem;
+    font-size: 0.9rem;
     top: 25%;
   }
 

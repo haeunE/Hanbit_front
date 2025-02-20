@@ -25,7 +25,8 @@
     "event" : "活动",
     "performance" : "表演", 
     "recommended-restaurants" : "推荐餐厅",
-    "recommended-accommodation": "推荐住宿"
+    "recommended-accommodation": "推荐住宿",
+    "weather-page" :"天气页面"
   },
   "Ddareungi-page" : {
     "bicycle-rental-location" : "自行车租赁地点",
@@ -452,7 +453,9 @@
     "updated": "（更新于: {date}）"
   },
   "exchange_store": "兑换店",
-  "safety_Area" : "安全区域",
-  "notification" : "性犯罪者通知e 直接链接"
-
+  "notification" : "性犯罪者通知e 直接链接",
+  "safety": {
+    "title": "儿童守护之家",
+    "info": "儿童守护之家是由韩国警察厅指定的安全避难场所。如果儿童、女性或残障人士遇到危险或迷路，他们可以前往这些地点寻求帮助。这些地点通常是便利店、药店或当地商铺，并贴有警方认证的标志，表示其作为安全避难所的作用。"
+  }
 }

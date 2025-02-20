@@ -180,7 +180,7 @@ function Header() {
               <NavDropdown title={t("header.amenities")} id="navbarScrollingDropdown">
                 {navDropdownItems([
                   { icon: "fa-store", label: t("header.amenities"), href: "/amenities" },
-                  { icon: "fa-ban", label: t("header.safe-area"), href: "/safeArea" },
+                  { icon: "fa-shield-heart", label: t("header.safe-area"), href: "/safeArea" },
                 ])}
               </NavDropdown>
               <NavDropdown title={t("header.traffic")} id="navbarScrollingDropdown">
