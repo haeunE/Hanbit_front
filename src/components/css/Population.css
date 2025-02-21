@@ -4,21 +4,7 @@
   flex-direction: column;
   height: 100%;
   min-width: 5vh;
-  padding: 0.5rem;
-  background-color: #7ec9b2;
-  margin-bottom: 1rem;
-  border-radius: 10px;
-}
-.population-box{
-  background-color: white;
-  border-radius: 10px;
-  padding: 2rem;
-}
-.population-box h3 {
-  font-weight: 600;
-  color: #00b493;
-  display: flex;
-  width: 100%;
+  padding: 2%;
 }
 .search-population {
   display: flex;
@@ -28,7 +14,7 @@
 
 .search-population p {
   display: flex;
-  align-items: flex-start;
+  /* align-items: flex-start; */
   margin-left: 0;
   font-size: 13px;
   margin: 1%;
@@ -53,9 +39,10 @@
 }
 
 .search-population input {
-  align-items: flex-end;
+  /* align-items: flex-end; */
   height: 80%;
-  min-width: 30vw;
+  width: 19vw;
+  /* min-width: 20vw; */
   padding: 10px 40px 10px 10px;  /* 오른쪽에 여백 추가 */
   font-size: 15px;
   border: 1px solid #ccc;
@@ -85,7 +72,7 @@
   margin-right: 10%;
 }
 
-.text-population h2 {
+.text-population h1 {
   text-align: center;
   font-weight: 600;
   color: #00b493;

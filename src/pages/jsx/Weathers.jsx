@@ -5,6 +5,8 @@ import Pollutant from "./Pollutant";
 import HourWeather from "../../components/jsx/HourWeather";
 import DayWeather from "../../components/jsx/DayWeather";
 import FineDustGraph from "../../components/jsx/FineDustGraph";
+import PmNotice from "../../components/jsx/PmNotice";
+import PmModel from "../../components/jsx/PmModel";
 import Notice from "../../components/jsx/Notice";
 import AirQualityList from "../../components/jsx/AirQualityList";
 import weatherModel from "../../utils/model";
@@ -17,8 +19,12 @@ function Weathers() {
   const [dayweather, setDayWeather] = useState([]);
   const [airData, setAirData] = useState([]);
   const [cityAir, setCityAir] = useState(null);
+  // const [pmData, setPmData] = useState({ pm10: '', pm25: '', no2: '', o3: '', co: '', so2: '' }) 
   const [predictHour, setPredictHour] = useState([]);
   const city = JSON.parse(localStorage.getItem("location"))?.region?.split(" ")[0] || "서울";
+
+  const [predictPM, setPredictPM] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   // API 키 및 URL
   const seoul_apiKey = import.meta.env.VITE_KOREA_SEOUL_DATA_API_KEY;
@@ -44,6 +50,7 @@ function Weathers() {
     try {
       const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${weather_apiKey}&q=Seoul&days=7&lang=ko`);
       const data = await response.json();
+      console.log("--------------",data)
 
       if (data.forecast?.forecastday) {
         // 현재 시간 가져오기
@@ -97,7 +104,7 @@ function Weathers() {
           pm10: item.PM10,              // 미세먼지 (PM10)
           pm25: item.PM25,              // 초미세먼지 (PM2.5)
         }));
-  
+
         setAirData(formattedData);
         console.log("Formatted Air Quality Data:", formattedData);
       }
@@ -171,11 +178,38 @@ function Weathers() {
     }
   }, [airData, city]);
 
+  useEffect(() => {
+    // 예측 요청 처리 함수
+    const handlePredict = async () => {
+      setLoading(true);
+      try {
+        // Spring Boot 서버의 예측 API로 데이터 전송
+        const response = await fetch('http://localhost:5000//dust/model_sw', {
+          method: 'POST',
+        });
+
+        // 예측 결과 받기
+        const data = await response.json();
+        setPredictPM(data);  // 예측 결과 저장
+      } catch (error) {
+        console.error('예측 요청 중 오류 발생:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    handlePredict();
+  }, [])
+
   console.log("AQI:", aqi);
   console.log("City Data:", cityAir);
   console.log("pm10: ",predictHour)
   console.log("hour: ", hourweather)
   console.log("day:",dayweather)
+
+  if(loading)
+    return <div>로딩중</div>
+
   return (
     <div className={`weather-container ${bgClass}`}>
       <Container>
@@ -184,16 +218,19 @@ function Weathers() {
         ) : (
           <div>도시 공기 데이터 로딩 중...</div>
         )}
-        <HourWeather hourweather={hourweather} predictHour={predictHour} city={city}/>
+        {/* <HourWeather hourweather={hourweather} predictHour={predictHour} city={city}/> */}
         <div className="weather-2rows">
-          <DayWeather dayweather={dayweather}/>
-          <Pollutant cityAir={cityAir}/>
+          <DayWeather dayweather={dayweather} predictPM={predictPM} />
+          <Pollutant cityAir={cityAir} predictPM={predictPM} />
         </div>
         <div className="weather-notice">
           <Notice aqi={aqi}/>
         </div>
         <div className="weather-fineDustGraph">
           <FineDustGraph />
+          <div className="pmmodel">
+
+          </div>
         </div>
         <div>
          <AirQualityList airData={airData} />
