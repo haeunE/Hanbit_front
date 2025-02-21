@@ -218,7 +218,7 @@ function Weathers() {
         ) : (
           <div>도시 공기 데이터 로딩 중...</div>
         )}
-        {/* <HourWeather hourweather={hourweather} predictHour={predictHour} city={city}/> */}
+        <HourWeather hourweather={hourweather} predictHour={predictHour} city={city}/>
         <div className="weather-2rows">
           <DayWeather dayweather={dayweather} predictPM={predictPM} />
           <Pollutant cityAir={cityAir} predictPM={predictPM} />
