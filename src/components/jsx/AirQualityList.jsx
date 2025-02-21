@@ -34,7 +34,7 @@ function AirQualityList({ airData }) {
       {displayData.map((item, index) => (
         <div className="air-quality-row" key={item.guno}>
           <div>{index + 1}</div>
-          <div>{item.goname}</div>
+          <div>{item.guname}</div>
           <div>{item.aqi}</div>
           <div>{item.pm10} ㎍/㎥</div>
           <div>{item.pm25 !== null ? `${item.pm25} ㎍/㎥` : "-"}</div>

@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 
 function PmModel() {
-  const [feature, setFeature] = useState({
-    lat, lon, year, month, day, hour
-  })
   const [predictPM, setPredictPM] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -12,14 +9,10 @@ function PmModel() {
     setLoading(true);
     try {
       // Spring Boot 서버의 예측 API로 데이터 전송
-      const response = await fetch('http://localhost:8888/pmmodel', {
+      const response = await fetch('http://localhost:5000//dust/model_sw', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ features: feature }),
       });
-      
+
       // 예측 결과 받기
       const data = await response.json();
       setPredictPM(data);  // 예측 결과 저장
@@ -40,17 +33,12 @@ function PmModel() {
         <div>
           <h3>예측 결과</h3>
           <div>
-            {predictPM.map((hourData, index) => (
-              <div key={index}>
-                <p>시간: {hourData.hour}</p>
-                <p>PM-10: {hourData.pm10} µg/m³</p>
-                <p>PM-2.5: {hourData.pm25} µg/m³</p>
-                <p>NO2: {hourData.no2} µg/m³</p>
-                <p>O3: {hourData.o3} µg/m³</p>
-                <p>CO: {hourData.co} µg/m³</p>
-                <p>SO2: {hourData.so2} µg/m³</p>
-              </div>
-            ))}
+            <p>PM 10: {predictPM.pm10} µg/m³</p>
+            <p>PM 2.5: {predictPM.pm25} µg/m³</p>
+            <p>CO: {predictPM.co} µg/m³</p>
+            <p>NO2: {predictPM.no2} µg/m³</p>
+            <p>O3: {predictPM.o3} µg/m³</p>
+            <p>SO2: {predictPM.so2} µg/m³</p>
           </div>
         </div>
       )}

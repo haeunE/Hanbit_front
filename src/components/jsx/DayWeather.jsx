@@ -1,4 +1,4 @@
-function DayWeather({dayweather}){
+function DayWeather({dayweather, predictPM}){
   if (!dayweather || dayweather.length === 0) {
     return <p>데이터를 불러오는 중...</p>;
   }
@@ -15,14 +15,14 @@ function DayWeather({dayweather}){
   return(
     <section className="day-weathers">
       <b className="day-title">오늘의 기상예보</b>
-      <p className="day-subtitle">서울시 공기질 지수(AQI*) 예보</p>
+      <p className="day-subtitle">서울시 날씨 및 공기질 지수(AQI*) 예보</p>
       <div className="day-datas">
         {
           dayweather.map((data, index) => {
             return(
               <div key={index} className="day-data">
                 <p>{ transWeek(data.date) }</p>
-                <p>200</p>
+                <p>{predictPM.pm10}</p>
                 <img className="image2" src={data['day']['condition']['icon']}></img>
                 <p>{data['day']['maxtemp_c']}˚</p>
                 <p>{data['day']['mintemp_c']}˚</p>

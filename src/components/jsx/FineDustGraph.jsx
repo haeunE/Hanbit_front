@@ -138,7 +138,7 @@ function FineDustGraph() {
   return (
     <div className="fineDustGraph">
       <div className="parameter-select">
-        <h2>공기질 내역</h2>
+        <h2>공기질 이전 내역</h2>
         <div>
           <label htmlFor="parameter">그래프 선택 : </label>
           <select id="parameter" value={selectedParameter} onChange={(e) => setSelectedParameter(e.target.value)}>

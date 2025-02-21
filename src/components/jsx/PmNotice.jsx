@@ -4,8 +4,8 @@ function PmNotice({ cityAir }) {
     let message = "미세먼지 예측 데이터를 불러오는 중입니다.";  // 기본 메시지
 
     if (cityAir) {
-        const pm10 = cityAir.pm10;  // 미세먼지 (PM-10)
-        const pm25 = cityAir.pm25;  // 초미세먼지 (PM-2.5)
+        const pm10 = cityAir.pm10; 
+        const pm25 = cityAir.pm25; 
 
         // 미세먼지(PM-10) 등급 설정
         if (pm10 <= 30) {
